@@ -1,7 +1,7 @@
 /*
  * Generated file models/lifecycle/v4/common/common_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-Available version types.
+Classification of an available version indicating its release status and priority.
 */
 type AvailableVersionStatus int
 
@@ -131,7 +131,7 @@ func (e AvailableVersionStatus) Ref() *AvailableVersionStatus {
 }
 
 /*
-Checksum type for a third party image.
+The checksum algorithm used for third-party image file verification.
 */
 type CheckSumType int
 
@@ -210,7 +210,7 @@ func (e CheckSumType) Ref() *CheckSumType {
 }
 
 /*
-This field indicates LCM is running on a Prism Element or Prism Central cluster.
+Indicates whether the cluster is a Prism Central or a Prism Element cluster.
 */
 type ClusterType int
 
@@ -289,7 +289,82 @@ func (e ClusterType) Ref() *ClusterType {
 }
 
 /*
-Details of credential used for performing an LCM operations.
+The type of software component for which version information is tracked.
+*/
+type ComponentType int
+
+const (
+	COMPONENTTYPE_UNKNOWN        ComponentType = 0
+	COMPONENTTYPE_REDACTED       ComponentType = 1
+	COMPONENTTYPE_AHV_HYPERVISOR ComponentType = 2
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ComponentType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"AHV_HYPERVISOR",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ComponentType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"AHV_HYPERVISOR",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ComponentType) index(name string) ComponentType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"AHV_HYPERVISOR",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ComponentType(idx)
+		}
+	}
+	return COMPONENTTYPE_UNKNOWN
+}
+
+func (e *ComponentType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ComponentType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ComponentType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ComponentType) Ref() *ComponentType {
+	return &e
+}
+
+/*
+A credential used for performing LCM operations that require authentication with external systems. Can be either a reference to a pre-created credential in the credential store or raw vendor management credentials.
 */
 type Credential struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -302,7 +377,7 @@ type Credential struct {
 	 */
 	CredentialDetailItemDiscriminator_ *string `json:"$credentialDetailItemDiscriminator,omitempty"`
 	/*
-	  Reference of pre-created credential in credential-store or raw details of credential
+	  The credential details, provided as either a reference to a pre-created credential in the credential store (CredentialReference) or raw vendor management credentials (VendorManagementCredential).
 	*/
 	CredentialDetail *OneOfCredentialCredentialDetail `json:"credentialDetail"`
 }
@@ -392,7 +467,7 @@ func NewCredential() *Credential {
 	p := new(Credential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.Credential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -420,7 +495,7 @@ func (p *Credential) SetCredentialDetail(v interface{}) error {
 }
 
 /*
-Credential Reference from the Credential Store.
+A reference to a pre-created credential in the Nutanix credential store, identified by its UUID.
 */
 type CredentialReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -429,7 +504,7 @@ type CredentialReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID of the credential.
+	  The UUID of the credential stored in the credential store.
 	*/
 	CredentialExtId *string `json:"credentialExtId"`
 }
@@ -515,14 +590,14 @@ func NewCredentialReference() *CredentialReference {
 	p := new(CredentialReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.CredentialReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Specification for deployment of entities.
+Specification for deploying (pre-staging) upgrade artifacts on a cluster. Contains a list of entity deploy specifications and optional flags for controlling image deployment behavior (e.g. copying to Objects Lite, downloading only sub-entity images).
 */
 type DeploySpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -531,7 +606,19 @@ type DeploySpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of deploy specifications for use in the recommendations API.
+	  When true, deployed images are also copied to Objects Lite storage. The default value is false.
+	*/
+	CopyToObjectsLite *bool `json:"copyToObjectsLite,omitempty"`
+	/*
+	  When true, only the base (parent) entity images are downloaded, skipping sub-entity images. The default value is false.
+	*/
+	DownloadBaseImagesOnly *bool `json:"downloadBaseImagesOnly,omitempty"`
+	/*
+	  When true, only sub-entity images are downloaded to the catalog, skipping the parent entity image. The default value is false.
+	*/
+	DownloadSubEntityImagesOnly *bool `json:"downloadSubEntityImagesOnly,omitempty"`
+	/*
+	  List of entity deploy specifications identifying which entities' images should be deployed to the cluster.
 	*/
 	EntityDeploySpecs []EntityDeploySpec `json:"entityDeploySpecs"`
 }
@@ -595,6 +682,15 @@ func (p *DeploySpec) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
+	if known.CopyToObjectsLite != nil {
+		p.CopyToObjectsLite = known.CopyToObjectsLite
+	}
+	if known.DownloadBaseImagesOnly != nil {
+		p.DownloadBaseImagesOnly = known.DownloadBaseImagesOnly
+	}
+	if known.DownloadSubEntityImagesOnly != nil {
+		p.DownloadSubEntityImagesOnly = known.DownloadSubEntityImagesOnly
+	}
 	if known.EntityDeploySpecs != nil {
 		p.EntityDeploySpecs = known.EntityDeploySpecs
 	}
@@ -603,6 +699,9 @@ func (p *DeploySpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "copyToObjectsLite")
+	delete(allFields, "downloadBaseImagesOnly")
+	delete(allFields, "downloadSubEntityImagesOnly")
 	delete(allFields, "entityDeploySpecs")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -617,14 +716,21 @@ func NewDeploySpec() *DeploySpec {
 	p := new(DeploySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.DeploySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.CopyToObjectsLite = new(bool)
+	*p.CopyToObjectsLite = false
+	p.DownloadBaseImagesOnly = new(bool)
+	*p.DownloadBaseImagesOnly = false
+	p.DownloadSubEntityImagesOnly = new(bool)
+	*p.DownloadSubEntityImagesOnly = false
 
 	return p
 }
 
 /*
-The list of properties that can be expanded on the LCM entity.
+Base model for LCM entities, containing the common properties shared across all entity types: entity class, model, type, current version, and hardware family. This model is extended by the full Entity model and is used as a building block in recommendations, notifications, history, and other contexts.
 */
 type EntityBaseModel struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -633,17 +739,17 @@ type EntityBaseModel struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  LCM entity class.
+	  The class or category of the entity (e.g. "Core Cluster", "Foundation", "Firmware"). The class groups related entity models together.
 	*/
 	EntityClass *string `json:"entityClass,omitempty"`
 	/*
-	  LCM entity model.
+	  The model or product name of the entity (e.g. "AOS", "NCC", "BMC", "AHV"). Uniquely identifies the specific component within its entity class.
 	*/
 	EntityModel *string `json:"entityModel,omitempty"`
 
 	EntityType *EntityType `json:"entityType,omitempty"`
 	/*
-	  Current version of an LCM entity.
+	  The currently installed version of the entity on the cluster or node.
 	*/
 	EntityVersion *string `json:"entityVersion,omitempty"`
 	/*
@@ -651,7 +757,7 @@ type EntityBaseModel struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A hardware family for a LCM entity.
+	  The hardware family designation for an entity (e.g. "dell_gen_12"), identifying the hardware generation and vendor platform the entity is compatible with.
 	*/
 	HardwareFamily *string `json:"hardwareFamily,omitempty"`
 	/*
@@ -766,14 +872,14 @@ func NewEntityBaseModel() *EntityBaseModel {
 	p := new(EntityBaseModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityBaseModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-A specification defining the entity being deployed and its version.
+Specifies an entity to deploy (pre-stage) on the cluster, identified by its base model properties (class, model, type, version, hardware family).
 */
 type EntityDeploySpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -866,14 +972,14 @@ func NewEntityDeploySpec() *EntityDeploySpec {
 	p := new(EntityDeploySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityDeploySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Type of an LCM entity.
+Classifies whether the entity is a software component or a firmware component.
 */
 type EntityType int
 
@@ -952,7 +1058,7 @@ func (e EntityType) Ref() *EntityType {
 }
 
 /*
-Specification for running an update operation.
+Specifies a single entity to upgrade and its target version. Used as the primary input element for prechecks (POST /$actions/prechecks), upgrades (POST /$actions/upgrade), recommendations (POST /$actions/compute-recommendations), and notifications (POST /$actions/compute-notifications).
 */
 type EntityUpdateSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -965,7 +1071,7 @@ type EntityUpdateSpec struct {
 	*/
 	EntityUuid *string `json:"entityUuid"`
 	/*
-	  Version to upgrade to.
+	  The target version that the entity will be upgraded to.
 	*/
 	ToVersion *string `json:"toVersion"`
 }
@@ -1057,14 +1163,14 @@ func NewEntityUpdateSpec() *EntityUpdateSpec {
 	p := new(EntityUpdateSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityUpdateSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-File format of the exported data.
+The file format for exported data.
 */
 type FileFormat int
 
@@ -1139,7 +1245,7 @@ func (e FileFormat) Ref() *FileFormat {
 }
 
 /*
-Type of Hypervisor present in the cluster.
+The type of hypervisor running on the cluster nodes.
 */
 type HypervisorType int
 
@@ -1222,7 +1328,7 @@ func (e HypervisorType) Ref() *HypervisorType {
 }
 
 /*
-Details of the in progress LCM operation.
+Details of an LCM operation currently in progress on a cluster, including the operation type and the task identifier.
 */
 type InProgressOpDetails struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1233,7 +1339,7 @@ type InProgressOpDetails struct {
 
 	OperationType *OperationType `json:"operationType,omitempty"`
 	/*
-	  Task ext id of the in progress LCM operation.
+	  The task UUID of the in-progress LCM operation. Use this UUID to monitor progress via the Prism tasks API.
 	*/
 	TaskExtId *string `json:"taskExtId,omitempty"`
 }
@@ -1316,14 +1422,14 @@ func NewInProgressOpDetails() *InProgressOpDetails {
 	p := new(InProgressOpDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.InProgressOpDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-MD5Sum of the bundle.
+An MD5 checksum value used to verify the integrity of a bundle or image file.
 */
 type LcmMd5Sum struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1332,7 +1438,7 @@ type LcmMd5Sum struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Hex digest of the MD5 sum.
+	  The hex-encoded digest of the MD5 checksum.
 	*/
 	HexDigest *string `json:"hexDigest"`
 }
@@ -1418,14 +1524,14 @@ func NewLcmMd5Sum() *LcmMd5Sum {
 	p := new(LcmMd5Sum)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LcmMd5Sum"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Sha256sum of the bundle.
+A SHA-256 checksum value used to verify the integrity of a bundle or image file.
 */
 type LcmSha256Sum struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1434,7 +1540,7 @@ type LcmSha256Sum struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Hex digest of the SHA256 sum.
+	  The hex-encoded digest of the SHA-256 checksum.
 	*/
 	HexDigest *string `json:"hexDigest"`
 }
@@ -1520,14 +1626,14 @@ func NewLcmSha256Sum() *LcmSha256Sum {
 	p := new(LcmSha256Sum)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LcmSha256Sum"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Location info corresponds to a tuple of location type (either node/cluster) and ExtID
+Describes the location of an entity as a tuple of location type (NODE, CLUSTER, or PC) and the corresponding UUID.
 */
 type LocationInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1536,13 +1642,13 @@ type LocationInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Name of the location.
+	  The display name of the location (e.g. the hostname of a node).
 	*/
 	LocationName *string `json:"locationName,omitempty"`
 
 	LocationType *LocationType `json:"locationType,omitempty"`
 	/*
-	  Location UUID of the resource.
+	  The UUID of the location (node, cluster, or Prism Central) where the resource resides.
 	*/
 	Uuid *string `json:"uuid,omitempty"`
 }
@@ -1629,14 +1735,14 @@ func NewLocationInfo() *LocationInfo {
 	p := new(LocationInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LocationInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Scope of entity represented in LCM. This could be either Node or cluster type.
+The scope level of an entity in the LCM hierarchy, indicating whether the entity belongs to a node, a cluster, or Prism Central.
 */
 type LocationType int
 
@@ -1719,7 +1825,7 @@ func (e LocationType) Ref() *LocationType {
 }
 
 /*
-Cluster management server configuration used while updating clusters with ESX or Hyper-V.
+Configuration for the cluster management server, required when performing upgrades on clusters running ESX or Hyper-V hypervisors. Provides the credentials LCM needs to interact with vCenter or SCVMM during the upgrade process.
 */
 type ManagementServer struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1730,15 +1836,15 @@ type ManagementServer struct {
 
 	HypervisorType *HypervisorType `json:"hypervisorType"`
 	/*
-	  IP address of the management server.
+	  The IP address of the management server (vCenter for ESX, SCVMM for Hyper-V).
 	*/
 	Ip *string `json:"ip"`
 	/*
-	  Password to login to the management server.
+	  The password for authenticating with the management server.
 	*/
 	Password *string `json:"password"`
 	/*
-	  Username to login to the management server.
+	  The username for authenticating with the management server.
 	*/
 	Username *string `json:"username"`
 }
@@ -1842,14 +1948,14 @@ func NewManagementServer() *ManagementServer {
 	p := new(ManagementServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.ManagementServer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Type of LCM upgrade notification generated. It can be any one of the values like Entity, Location, Generic or Workflow. The only types supported today are Entity and Location.
+The type of the notification, indicating whether it pertains to a specific entity or a location (node/cluster). Supported values are ENTITY and LOCATION.
 */
 type NotificationType int
 
@@ -1928,7 +2034,7 @@ func (e NotificationType) Ref() *NotificationType {
 }
 
 /*
-Details about credential required for running list of operations on a cluster.
+Describes a credential configured for a cluster, including its reference in the credential store, the vendor management platform it authenticates with, and which operation types it supports.
 */
 type OperationCredential struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1937,7 +2043,7 @@ type OperationCredential struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID of the credential.
+	  The UUID of the credential stored in the credential store.
 	*/
 	CredentialExtId *string `json:"credentialExtId,omitempty"`
 
@@ -2022,14 +2128,14 @@ func NewOperationCredential() *OperationCredential {
 	p := new(OperationCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.OperationCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Current status of the operation.
+The current execution status of an LCM operation.
 */
 type OperationStatus int
 
@@ -2128,18 +2234,20 @@ func (e OperationStatus) Ref() *OperationStatus {
 }
 
 /*
-Type of the operation tracked by the task.
+The type of the operation currently in progress.
 */
 type OperationType int
 
 const (
-	OPERATIONTYPE_UNKNOWN   OperationType = 0
-	OPERATIONTYPE_REDACTED  OperationType = 1
-	OPERATIONTYPE_INVENTORY OperationType = 2
-	OPERATIONTYPE_PRECHECKS OperationType = 3
-	OPERATIONTYPE_UPGRADE   OperationType = 4
-	OPERATIONTYPE_NONE      OperationType = 5
-	OPERATIONTYPE_UPLOAD    OperationType = 6
+	OPERATIONTYPE_UNKNOWN            OperationType = 0
+	OPERATIONTYPE_REDACTED           OperationType = 1
+	OPERATIONTYPE_INVENTORY          OperationType = 2
+	OPERATIONTYPE_PRECHECKS          OperationType = 3
+	OPERATIONTYPE_UPGRADE            OperationType = 4
+	OPERATIONTYPE_NONE               OperationType = 5
+	OPERATIONTYPE_UPLOAD             OperationType = 6
+	OPERATIONTYPE_TARGETED_INVENTORY OperationType = 7
+	OPERATIONTYPE_CENTRALIZED_UPLOAD OperationType = 8
 )
 
 // Returns the name of the enum given an ordinal number
@@ -2154,6 +2262,8 @@ func (e *OperationType) name(index int) string {
 		"UPGRADE",
 		"NONE",
 		"UPLOAD",
+		"TARGETED_INVENTORY",
+		"CENTRALIZED_UPLOAD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2172,6 +2282,8 @@ func (e OperationType) GetName() string {
 		"UPGRADE",
 		"NONE",
 		"UPLOAD",
+		"TARGETED_INVENTORY",
+		"CENTRALIZED_UPLOAD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2189,6 +2301,8 @@ func (e *OperationType) index(name string) OperationType {
 		"UPGRADE",
 		"NONE",
 		"UPLOAD",
+		"TARGETED_INVENTORY",
+		"CENTRALIZED_UPLOAD",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -2219,7 +2333,7 @@ func (e OperationType) Ref() *OperationType {
 }
 
 /*
-Specification for running a Precheck operation.
+Specification for running a prechecks operation. Contains the list of entityUpdateSpecs (entity UUID and target version pairs) describing the intended upgrade, optional management server credentials for ESX/Hyper-V clusters, optional flags to skip specific prechecks (e.g. pinned-VM check), and optional vendor management credentials for third-party hardware.
 */
 type PrechecksSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2230,13 +2344,13 @@ type PrechecksSpec struct {
 
 	Credentials []Credential `json:"credentials,omitempty"`
 	/*
-	  List of entity update objects for getting recommendations.
+	  List of entity update specifications (entity UUID and target version pairs) for which to compute recommendations.
 	*/
 	EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs"`
 
 	ManagementServer *ManagementServer `json:"managementServer,omitempty"`
 	/*
-	  List of prechecks to skip. The allowed value is 'powerOffUvms' that skips the pinned VM prechecks.
+	  List of precheck flags to skip during the prechecks operation. The allowed value is 'POWER_OFF_UVMS' which skips the pinned-VM precheck that verifies all VMs can be migrated off a host before it enters maintenance mode.
 	*/
 	SkippedPrecheckFlags []SystemAutoMgmtFlag `json:"skippedPrecheckFlags,omitempty"`
 }
@@ -2334,14 +2448,14 @@ func NewPrechecksSpec() *PrechecksSpec {
 	p := new(PrechecksSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.PrechecksSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-A specification defining the entity being preloaded and its version.
+Specification for preloading upgrade artifacts. Contains a list of entity update specifications identifying which entities' images to download to the cluster ahead of an upgrade.
 */
 type PreloadSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2350,7 +2464,7 @@ type PreloadSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of entity update objects for getting recommendations.
+	  List of entity update specifications (entity UUID and target version pairs) for which to compute recommendations.
 	*/
 	EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs"`
 }
@@ -2436,14 +2550,14 @@ func NewPreloadSpec() *PreloadSpec {
 	p := new(PreloadSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.PreloadSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-System auto-management flag to handle system operation during upgrade.
+A flag that controls automatic system operations during an upgrade, such as powering off or migrating VMs that would otherwise block host maintenance mode.
 */
 type SystemAutoMgmtFlag int
 
@@ -2522,7 +2636,7 @@ func (e SystemAutoMgmtFlag) Ref() *SystemAutoMgmtFlag {
 }
 
 /*
-Specification for an upgrade operation of an entity to a particular target version.
+Specification for performing an upgrade operation. Extends PrechecksSpec with additional fields for automatic VM management during host maintenance mode. Contains the entityUpdateSpecs (entity UUID and target version pairs), optional management server credentials for ESX/Hyper-V clusters, optional autoHandleFlags for automatic VM power management, and maxWaitTimeInSecs for post-upgrade VM startup.
 */
 type UpgradeSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2531,23 +2645,23 @@ type UpgradeSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of automated system operations to perform, to avoid precheck failure and let the system restore state after an update is complete. The allowed flag is: - 'powerOffUvms': This allows the system to automatically power off user VMs which cannot be migrated to other hosts and power them on when the update is done. This option can avoid pinned VM precheck failure on the host which needs to enter maintenance mode during the update and allow the update to go through.
+	  List of automated system operations that LCM should perform during the upgrade to avoid precheck failures and restore state after the update completes. Allowed flags: - POWER_OFF_UVMS: Allows LCM to automatically power off user VMs that cannot be live-migrated to other hosts when a node enters maintenance mode, and power them back on when the update is done. - MIGRATE_POWERED_OFF_UVMS: Allows LCM to migrate powered-off VMs to other hosts in the cluster while entering maintenance mode during the upgrade.
 	*/
 	AutoHandleFlags []SystemAutoMgmtFlag `json:"autoHandleFlags,omitempty"`
 
 	Credentials []Credential `json:"credentials,omitempty"`
 	/*
-	  List of entity update objects for getting recommendations.
+	  List of entity update specifications (entity UUID and target version pairs) for which to compute recommendations.
 	*/
 	EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs"`
 
 	ManagementServer *ManagementServer `json:"managementServer,omitempty"`
 	/*
-	  Number of seconds LCM waits for the VMs to come up after exiting host maintenance mode.
+	  Maximum number of seconds LCM waits for VMs to come up after a host exits maintenance mode following an upgrade. Must be between 60 and 86400 seconds (1 minute to 24 hours).
 	*/
 	MaxWaitTimeInSecs *int `json:"maxWaitTimeInSecs,omitempty"`
 	/*
-	  List of prechecks to skip. The allowed value is 'powerOffUvms' that skips the pinned VM prechecks.
+	  List of precheck flags to skip during the prechecks operation. The allowed value is 'POWER_OFF_UVMS' which skips the pinned-VM precheck that verifies all VMs can be migrated off a host before it enters maintenance mode.
 	*/
 	SkippedPrecheckFlags []SystemAutoMgmtFlag `json:"skippedPrecheckFlags,omitempty"`
 }
@@ -2653,14 +2767,14 @@ func NewUpgradeSpec() *UpgradeSpec {
 	p := new(UpgradeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.UpgradeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-vendor management credentials for inventory operation
+Credentials for third-party vendor management platforms (e.g. vCenter, Intersight, UCS) required during inventory to discover firmware entities managed by those platforms.
 */
 type VendorManagementCredential struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2673,7 +2787,7 @@ type VendorManagementCredential struct {
 	 */
 	CredentialSpecItemDiscriminator_ *string `json:"$credentialSpecItemDiscriminator,omitempty"`
 	/*
-	  Specification of credentials to be provided by the user to perform LCM operations.
+	  Credentials to be provided by the user for LCM operations that require authentication with external systems such as vCenter or Intersight.
 	*/
 	CredentialSpec *OneOfVendorManagementCredentialCredentialSpec `json:"credentialSpec"`
 }
@@ -2763,7 +2877,7 @@ func NewVendorManagementCredential() *VendorManagementCredential {
 	p := new(VendorManagementCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.VendorManagementCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2791,7 +2905,7 @@ func (p *VendorManagementCredential) SetCredentialSpec(v interface{}) error {
 }
 
 /*
-Name of the vendor management software that manages fleet of servers. This could be one of Intersight or Vcenter or UCS.
+The name of the third-party vendor management software that manages the server fleet. Identifies which credential type is required.
 */
 type VendorManagementName int
 
@@ -2878,6 +2992,8 @@ type OneOfVendorManagementCredentialCredentialSpec struct {
 	ObjectType_   *string                       `json:"-"`
 	oneOfType2002 *import2.VcenterCredential    `json:"-"`
 	oneOfType2001 *import2.IntersightCredential `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfVendorManagementCredentialCredentialSpec() *OneOfVendorManagementCredentialCredentialSpec {
@@ -2925,6 +3041,9 @@ func (p *OneOfVendorManagementCredentialCredentialSpec) SetValue(v interface{}) 
 }
 
 func (p *OneOfVendorManagementCredentialCredentialSpec) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2002
 	}
@@ -2935,9 +3054,79 @@ func (p *OneOfVendorManagementCredentialCredentialSpec) GetValue() interface{} {
 }
 
 func (p *OneOfVendorManagementCredentialCredentialSpec) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2002 := new(import2.VcenterCredential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2002)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2002.ObjectType_ != nil && "security.v4.config.VcenterCredential" == *vOneOfType2002.ObjectType_ {
+							if nil == p.oneOfType2002 {
+								p.oneOfType2002 = new(import2.VcenterCredential)
+							}
+							*p.oneOfType2002 = *vOneOfType2002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2002.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import2.IntersightCredential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "security.v4.config.IntersightCredential" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import2.IntersightCredential)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2002 := new(import2.VcenterCredential)
 	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if "security.v4.config.VcenterCredential" == *vOneOfType2002.ObjectType_ {
+		if vOneOfType2002.ObjectType_ != nil && "security.v4.config.VcenterCredential" == *vOneOfType2002.ObjectType_ {
 			if nil == p.oneOfType2002 {
 				p.oneOfType2002 = new(import2.VcenterCredential)
 			}
@@ -2955,7 +3144,7 @@ func (p *OneOfVendorManagementCredentialCredentialSpec) UnmarshalJSON(b []byte) 
 	}
 	vOneOfType2001 := new(import2.IntersightCredential)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "security.v4.config.IntersightCredential" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "security.v4.config.IntersightCredential" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(import2.IntersightCredential)
 			}
@@ -2971,10 +3160,31 @@ func (p *OneOfVendorManagementCredentialCredentialSpec) UnmarshalJSON(b []byte) 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVendorManagementCredentialCredentialSpec"))
 }
 
 func (p *OneOfVendorManagementCredentialCredentialSpec) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2002)
 	}
@@ -2989,6 +3199,8 @@ type OneOfCredentialCredentialDetail struct {
 	ObjectType_   *string                     `json:"-"`
 	oneOfType2001 *CredentialReference        `json:"-"`
 	oneOfType2002 *VendorManagementCredential `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfCredentialCredentialDetail() *OneOfCredentialCredentialDetail {
@@ -3036,6 +3248,9 @@ func (p *OneOfCredentialCredentialDetail) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCredentialCredentialDetail) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -3046,9 +3261,79 @@ func (p *OneOfCredentialCredentialDetail) GetValue() interface{} {
 }
 
 func (p *OneOfCredentialCredentialDetail) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(CredentialReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "lifecycle.v4.common.CredentialReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(CredentialReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2002 := new(VendorManagementCredential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2002)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2002.ObjectType_ != nil && "lifecycle.v4.common.VendorManagementCredential" == *vOneOfType2002.ObjectType_ {
+							if nil == p.oneOfType2002 {
+								p.oneOfType2002 = new(VendorManagementCredential)
+							}
+							*p.oneOfType2002 = *vOneOfType2002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2002.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(CredentialReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "lifecycle.v4.common.CredentialReference" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "lifecycle.v4.common.CredentialReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(CredentialReference)
 			}
@@ -3066,7 +3351,7 @@ func (p *OneOfCredentialCredentialDetail) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2002 := new(VendorManagementCredential)
 	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if "lifecycle.v4.common.VendorManagementCredential" == *vOneOfType2002.ObjectType_ {
+		if vOneOfType2002.ObjectType_ != nil && "lifecycle.v4.common.VendorManagementCredential" == *vOneOfType2002.ObjectType_ {
 			if nil == p.oneOfType2002 {
 				p.oneOfType2002 = new(VendorManagementCredential)
 			}
@@ -3082,10 +3367,31 @@ func (p *OneOfCredentialCredentialDetail) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCredentialCredentialDetail"))
 }
 
 func (p *OneOfCredentialCredentialDetail) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}

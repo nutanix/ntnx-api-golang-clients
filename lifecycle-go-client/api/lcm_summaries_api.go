@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import10 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/lcmsummaries"
+	import16 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/lcmsummaries"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -60,24 +60,24 @@ func NewLcmSummariesServiceApi(apiClient *client.ApiClient) *LcmSummariesService
 	return a
 }
 
-// Get the LCM summary.
+// Retrieve the LCM summary for a specific cluster by its external identifier. The summary includes the installed framework version, available updates, hardware vendor, connectivity type, cluster capabilities, and indicators for URL accessibility and upgrade availability. The extId corresponds to the cluster UUID.
 func (api *LcmSummariesApi) GetLcmSummaryById(extId *string, args ...map[string]interface{}) (*import1.GetLcmSummaryByIdApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewLcmSummariesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetLcmSummaryById(context.Background(), &import10.GetLcmSummaryByIdRequest{
+	return api.ServiceClient.GetLcmSummaryById(context.Background(), &import16.GetLcmSummaryByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Get the LCM summary.
-func (api *LcmSummariesServiceApi) GetLcmSummaryById(ctx context.Context, request *import10.GetLcmSummaryByIdRequest, args ...map[string]interface{}) (*import1.GetLcmSummaryByIdApiResponse, error) {
+// Retrieve the LCM summary for a specific cluster by its external identifier. The summary includes the installed framework version, available updates, hardware vendor, connectivity type, cluster capabilities, and indicators for URL accessibility and upgrade availability. The extId corresponds to the cluster UUID.
+func (api *LcmSummariesServiceApi) GetLcmSummaryById(ctx context.Context, request *import16.GetLcmSummaryByIdRequest, args ...map[string]interface{}) (*import1.GetLcmSummaryByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/lcm-summaries/{extId}"
+	uri := "/api/lifecycle/v4.3/resources/lcm-summaries/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,18 +114,24 @@ func (api *LcmSummariesServiceApi) GetLcmSummaryById(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetLcmSummaryByIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Get the LCM summaries.
+// Retrieve a paginated list of LCM summaries for all clusters in a Prism Central environment. Each summary provides a high-level overview of the LCM state on a cluster, including the installed framework version, available framework version, hardware vendor, connectivity type, cluster capabilities, URL accessibility, and compatibility bundle version. Supports standard query parameters for pagination ($page, $limit), filtering ($filter), sorting ($orderby), and field projection ($select). Summaries are updated after each inventory or upgrade operation.
 func (api *LcmSummariesApi) ListLcmSummaries(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListLcmSummariesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewLcmSummariesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListLcmSummaries(context.Background(), &import10.ListLcmSummariesRequest{
+	return api.ServiceClient.ListLcmSummaries(context.Background(), &import16.ListLcmSummariesRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -134,14 +140,14 @@ func (api *LcmSummariesApi) ListLcmSummaries(page_ *int, limit_ *int, filter_ *s
 	}, args...)
 }
 
-// Get the LCM summaries.
-func (api *LcmSummariesServiceApi) ListLcmSummaries(ctx context.Context, request *import10.ListLcmSummariesRequest, args ...map[string]interface{}) (*import1.ListLcmSummariesApiResponse, error) {
+// Retrieve a paginated list of LCM summaries for all clusters in a Prism Central environment. Each summary provides a high-level overview of the LCM state on a cluster, including the installed framework version, available framework version, hardware vendor, connectivity type, cluster capabilities, URL accessibility, and compatibility bundle version. Supports standard query parameters for pagination ($page, $limit), filtering ($filter), sorting ($orderby), and field projection ($select). Summaries are updated after each inventory or upgrade operation.
+func (api *LcmSummariesServiceApi) ListLcmSummaries(ctx context.Context, request *import16.ListLcmSummariesRequest, args ...map[string]interface{}) (*import1.ListLcmSummariesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/lcm-summaries"
+	uri := "/api/lifecycle/v4.3/resources/lcm-summaries"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -187,8 +193,14 @@ func (api *LcmSummariesServiceApi) ListLcmSummaries(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListLcmSummariesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import7 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/images"
+	import12 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/images"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -60,12 +60,12 @@ func NewImagesServiceApi(apiClient *client.ApiClient) *ImagesServiceApi {
 	return a
 }
 
-// Get the list of downloaded LCM images.
+// Retrieve a paginated list of all LCM images that have been downloaded to the cluster. Images are the binary files (ISOs, tarballs, firmware payloads) used to perform entity upgrades. Each image is associated with a specific entity class, model, and version. Images are downloaded automatically during an upgrade, or can be pre-staged using POST /$actions/preload-artifacts. Supports standard query parameters for pagination ($page, $limit), filtering ($filter), sorting ($orderby), and field projection ($select). For dark-site deployments, images are delivered through bundle uploads (POST /bundles).
 func (api *ImagesApi) ListImages(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListImagesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewImagesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListImages(context.Background(), &import7.ListImagesRequest{
+	return api.ServiceClient.ListImages(context.Background(), &import12.ListImagesRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -74,14 +74,14 @@ func (api *ImagesApi) ListImages(page_ *int, limit_ *int, filter_ *string, order
 	}, args...)
 }
 
-// Get the list of downloaded LCM images.
-func (api *ImagesServiceApi) ListImages(ctx context.Context, request *import7.ListImagesRequest, args ...map[string]interface{}) (*import1.ListImagesApiResponse, error) {
+// Retrieve a paginated list of all LCM images that have been downloaded to the cluster. Images are the binary files (ISOs, tarballs, firmware payloads) used to perform entity upgrades. Each image is associated with a specific entity class, model, and version. Images are downloaded automatically during an upgrade, or can be pre-staged using POST /$actions/preload-artifacts. Supports standard query parameters for pagination ($page, $limit), filtering ($filter), sorting ($orderby), and field projection ($select). For dark-site deployments, images are delivered through bundle uploads (POST /bundles).
+func (api *ImagesServiceApi) ListImages(ctx context.Context, request *import12.ListImagesRequest, args ...map[string]interface{}) (*import1.ListImagesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/images"
+	uri := "/api/lifecycle/v4.3/resources/images"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -127,8 +127,14 @@ func (api *ImagesServiceApi) ListImages(ctx context.Context, request *import7.Li
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListImagesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

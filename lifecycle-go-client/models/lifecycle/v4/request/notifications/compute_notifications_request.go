@@ -10,6 +10,6 @@ type ComputeNotificationsRequest struct {
 	// (required)
 	Body *import1.NotificationsSpec
 
-	// Cluster uuid on which the resource is present or operation is being performed.
+	// The cluster UUID on which the resource is present or the operation is being performed.
 	XClusterId *string
 }

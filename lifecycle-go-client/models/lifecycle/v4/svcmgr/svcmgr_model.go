@@ -1,7 +1,7 @@
 /*
  * Generated file models/lifecycle/v4/svcmgr/svcmgr_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
@@ -149,7 +149,7 @@ func NewAPICallDetails() *APICallDetails {
 	p := new(APICallDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.APICallDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -296,7 +296,7 @@ func NewAhvClientConfig() *AhvClientConfig {
 	p := new(AhvClientConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AhvClientConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -318,7 +318,7 @@ type AhvNetworkResourceConfig struct {
 	/*
 	  Network id to be used for this vm config.
 	*/
-	Network *string `json:"network"`
+	Network *string `json:"network,omitempty"`
 
 	NicType *NicType `json:"nicType,omitempty"`
 	/*
@@ -328,18 +328,11 @@ type AhvNetworkResourceConfig struct {
 }
 
 func (p *AhvNetworkResourceConfig) MarshalJSON() ([]byte, error) {
-	type AhvNetworkResourceConfigProxy AhvNetworkResourceConfig
+	// Create Alias to avoid infinite recursion
+	type Alias AhvNetworkResourceConfig
 
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*AhvNetworkResourceConfigProxy
-		Network *string `json:"network,omitempty"`
-	}{
-		AhvNetworkResourceConfigProxy: (*AhvNetworkResourceConfigProxy)(p),
-		Network:                       p.Network,
-	}
-
-	known, err := json.Marshal(baseStruct)
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
 	if err != nil {
 		return nil, err
 	}
@@ -420,7 +413,7 @@ func NewAhvNetworkResourceConfig() *AhvNetworkResourceConfig {
 	p := new(AhvNetworkResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AhvNetworkResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -440,6 +433,8 @@ type AhvNic struct {
 	NicUsage []NicUsage `json:"nicUsage,omitempty"`
 
 	NumQueues *int64 `json:"numQueues,omitempty"`
+
+	Routes []Route `json:"routes,omitempty"`
 }
 
 func (p *AhvNic) MarshalJSON() ([]byte, error) {
@@ -506,6 +501,9 @@ func (p *AhvNic) UnmarshalJSON(b []byte) error {
 	if known.NumQueues != nil {
 		p.NumQueues = known.NumQueues
 	}
+	if known.Routes != nil {
+		p.Routes = known.Routes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -515,6 +513,7 @@ func (p *AhvNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nicType")
 	delete(allFields, "nicUsage")
 	delete(allFields, "numQueues")
+	delete(allFields, "routes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -528,7 +527,7 @@ func NewAhvNic() *AhvNic {
 	p := new(AhvNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AhvNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -634,7 +633,7 @@ func NewAhvResourceConfig() *AhvResourceConfig {
 	p := new(AhvResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AhvResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -661,12 +660,18 @@ type AppProtectionPolicy struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-
-	HelmApplicationInfo *HelmApplicationInfo `json:"helmApplicationInfo,omitempty"`
+	/*
+	  Information about the Helm-managed applications being protected.
+	*/
+	HelmApplications []HelmApplicationInfo `json:"helmApplications,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Point-in-time capture of metadata.
+	*/
+	Metadata []import1.KVStringPair `json:"metadata,omitempty"`
 	/*
 	  Name of the app protection policy.
 	*/
@@ -765,11 +770,14 @@ func (p *AppProtectionPolicy) UnmarshalJSON(b []byte) error {
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
-	if known.HelmApplicationInfo != nil {
-		p.HelmApplicationInfo = known.HelmApplicationInfo
+	if known.HelmApplications != nil {
+		p.HelmApplications = known.HelmApplications
 	}
 	if known.Links != nil {
 		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
 	}
 	if known.Name != nil {
 		p.Name = known.Name
@@ -800,8 +808,9 @@ func (p *AppProtectionPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterExtId")
 	delete(allFields, "createdTime")
 	delete(allFields, "extId")
-	delete(allFields, "helmApplicationInfo")
+	delete(allFields, "helmApplications")
 	delete(allFields, "links")
+	delete(allFields, "metadata")
 	delete(allFields, "name")
 	delete(allFields, "protectionTargets")
 	delete(allFields, "replicationTargets")
@@ -822,7 +831,202 @@ func NewAppProtectionPolicy() *AppProtectionPolicy {
 	p := new(AppProtectionPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AppProtectionPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type AppProtectionPolicyProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External identifier of the SMSP cluster to which the app protection policy is bound.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Object creation timestamp.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Information about the Helm-managed applications being protected.
+	*/
+	HelmApplications []HelmApplicationInfo `json:"helmApplications,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Point-in-time capture of metadata.
+	*/
+	Metadata []import1.KVStringPair `json:"metadata,omitempty"`
+	/*
+	  Name of the app protection policy.
+	*/
+	Name *string `json:"name"`
+	/*
+	  Protection targets that extend coverage across multiple namespaces.
+	*/
+	ProtectionTargets []ProtectionTarget `json:"protectionTargets,omitempty"`
+	/*
+	  List of replication target configurations.
+	*/
+	ReplicationTargets []ReplicationTarget `json:"replicationTargets"`
+
+	SourceCluster *ClusterTarget `json:"sourceCluster"`
+
+	State *AppProtectionPolicyState `json:"state,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Last update timestamp.
+	*/
+	UpdatedTime *time.Time `json:"updatedTime,omitempty"`
+}
+
+func (p *AppProtectionPolicyProjection) MarshalJSON() ([]byte, error) {
+	type AppProtectionPolicyProjectionProxy AppProtectionPolicyProjection
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*AppProtectionPolicyProjectionProxy
+		Name               *string             `json:"name,omitempty"`
+		ReplicationTargets []ReplicationTarget `json:"replicationTargets,omitempty"`
+		SourceCluster      *ClusterTarget      `json:"sourceCluster,omitempty"`
+	}{
+		AppProtectionPolicyProjectionProxy: (*AppProtectionPolicyProjectionProxy)(p),
+		Name:                               p.Name,
+		ReplicationTargets:                 p.ReplicationTargets,
+		SourceCluster:                      p.SourceCluster,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AppProtectionPolicyProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AppProtectionPolicyProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAppProtectionPolicyProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HelmApplications != nil {
+		p.HelmApplications = known.HelmApplications
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ProtectionTargets != nil {
+		p.ProtectionTargets = known.ProtectionTargets
+	}
+	if known.ReplicationTargets != nil {
+		p.ReplicationTargets = known.ReplicationTargets
+	}
+	if known.SourceCluster != nil {
+		p.SourceCluster = known.SourceCluster
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdatedTime != nil {
+		p.UpdatedTime = known.UpdatedTime
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "createdTime")
+	delete(allFields, "extId")
+	delete(allFields, "helmApplications")
+	delete(allFields, "links")
+	delete(allFields, "metadata")
+	delete(allFields, "name")
+	delete(allFields, "protectionTargets")
+	delete(allFields, "replicationTargets")
+	delete(allFields, "sourceCluster")
+	delete(allFields, "state")
+	delete(allFields, "tenantId")
+	delete(allFields, "updatedTime")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAppProtectionPolicyProjection() *AppProtectionPolicyProjection {
+	p := new(AppProtectionPolicyProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.AppProtectionPolicyProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -917,7 +1121,7 @@ func NewAppProtectionPolicyStart() *AppProtectionPolicyStart {
 	p := new(AppProtectionPolicyStart)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AppProtectionPolicyStart"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -929,11 +1133,11 @@ State of the app protection policy.
 type AppProtectionPolicyState int
 
 const (
-	APPPROTECTIONPOLICYSTATE_UNKNOWN           AppProtectionPolicyState = 0
-	APPPROTECTIONPOLICYSTATE_REDACTED          AppProtectionPolicyState = 1
-	APPPROTECTIONPOLICYSTATE_RUNNING           AppProtectionPolicyState = 2
-	APPPROTECTIONPOLICYSTATE_STOPPED           AppProtectionPolicyState = 3
-	APPPROTECTIONPOLICYSTATE_LOCALLY_PROTECTED AppProtectionPolicyState = 4
+	APPPROTECTIONPOLICYSTATE_UNKNOWN                 AppProtectionPolicyState = 0
+	APPPROTECTIONPOLICYSTATE_REDACTED                AppProtectionPolicyState = 1
+	APPPROTECTIONPOLICYSTATE_RUNNING_REPLICATING     AppProtectionPolicyState = 2
+	APPPROTECTIONPOLICYSTATE_STOPPED                 AppProtectionPolicyState = 3
+	APPPROTECTIONPOLICYSTATE_RUNNING_NOT_REPLICATING AppProtectionPolicyState = 4
 )
 
 // Returns the name of the enum given an ordinal number
@@ -943,9 +1147,9 @@ func (e *AppProtectionPolicyState) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"RUNNING",
+		"RUNNING_REPLICATING",
 		"STOPPED",
-		"LOCALLY_PROTECTED",
+		"RUNNING_NOT_REPLICATING",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -959,9 +1163,9 @@ func (e AppProtectionPolicyState) GetName() string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"RUNNING",
+		"RUNNING_REPLICATING",
 		"STOPPED",
-		"LOCALLY_PROTECTED",
+		"RUNNING_NOT_REPLICATING",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -974,9 +1178,9 @@ func (e *AppProtectionPolicyState) index(name string) AppProtectionPolicyState {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"RUNNING",
+		"RUNNING_REPLICATING",
 		"STOPPED",
-		"LOCALLY_PROTECTED",
+		"RUNNING_NOT_REPLICATING",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1021,6 +1225,10 @@ type Application struct {
 
 	CreatedTimestamp *time.Time `json:"createdTimestamp,omitempty"`
 
+	CustomValues []CustomValue `json:"customValues,omitempty"`
+
+	ExtId *string `json:"extId,omitempty"`
+
 	IsInactive *bool `json:"isInactive,omitempty"`
 
 	LastUpdatedTimestamp *time.Time `json:"lastUpdatedTimestamp,omitempty"`
@@ -1030,8 +1238,6 @@ type Application struct {
 	Status *string `json:"status,omitempty"`
 
 	SubServices []Service `json:"subServices,omitempty"`
-
-	Uuid *string `json:"uuid,omitempty"`
 
 	Version *string `json:"version,omitempty"`
 }
@@ -1100,6 +1306,12 @@ func (p *Application) UnmarshalJSON(b []byte) error {
 	if known.CreatedTimestamp != nil {
 		p.CreatedTimestamp = known.CreatedTimestamp
 	}
+	if known.CustomValues != nil {
+		p.CustomValues = known.CustomValues
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 	if known.IsInactive != nil {
 		p.IsInactive = known.IsInactive
 	}
@@ -1115,9 +1327,6 @@ func (p *Application) UnmarshalJSON(b []byte) error {
 	if known.SubServices != nil {
 		p.SubServices = known.SubServices
 	}
-	if known.Uuid != nil {
-		p.Uuid = known.Uuid
-	}
 	if known.Version != nil {
 		p.Version = known.Version
 	}
@@ -1130,12 +1339,13 @@ func (p *Application) UnmarshalJSON(b []byte) error {
 	delete(allFields, "apptype")
 	delete(allFields, "clusterUuid")
 	delete(allFields, "createdTimestamp")
+	delete(allFields, "customValues")
+	delete(allFields, "extId")
 	delete(allFields, "isInactive")
 	delete(allFields, "lastUpdatedTimestamp")
 	delete(allFields, "name")
 	delete(allFields, "status")
 	delete(allFields, "subServices")
-	delete(allFields, "uuid")
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -1150,7 +1360,7 @@ func NewApplication() *Application {
 	p := new(Application)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Application"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1171,6 +1381,10 @@ type ApplicationProjection struct {
 
 	CreatedTimestamp *time.Time `json:"createdTimestamp,omitempty"`
 
+	CustomValues []CustomValue `json:"customValues,omitempty"`
+
+	ExtId *string `json:"extId,omitempty"`
+
 	IsInactive *bool `json:"isInactive,omitempty"`
 
 	LastUpdatedTimestamp *time.Time `json:"lastUpdatedTimestamp,omitempty"`
@@ -1180,8 +1394,6 @@ type ApplicationProjection struct {
 	Status *string `json:"status,omitempty"`
 
 	SubServices []Service `json:"subServices,omitempty"`
-
-	Uuid *string `json:"uuid,omitempty"`
 
 	Version *string `json:"version,omitempty"`
 }
@@ -1250,6 +1462,12 @@ func (p *ApplicationProjection) UnmarshalJSON(b []byte) error {
 	if known.CreatedTimestamp != nil {
 		p.CreatedTimestamp = known.CreatedTimestamp
 	}
+	if known.CustomValues != nil {
+		p.CustomValues = known.CustomValues
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 	if known.IsInactive != nil {
 		p.IsInactive = known.IsInactive
 	}
@@ -1265,9 +1483,6 @@ func (p *ApplicationProjection) UnmarshalJSON(b []byte) error {
 	if known.SubServices != nil {
 		p.SubServices = known.SubServices
 	}
-	if known.Uuid != nil {
-		p.Uuid = known.Uuid
-	}
 	if known.Version != nil {
 		p.Version = known.Version
 	}
@@ -1280,12 +1495,13 @@ func (p *ApplicationProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "apptype")
 	delete(allFields, "clusterUuid")
 	delete(allFields, "createdTimestamp")
+	delete(allFields, "customValues")
+	delete(allFields, "extId")
 	delete(allFields, "isInactive")
 	delete(allFields, "lastUpdatedTimestamp")
 	delete(allFields, "name")
 	delete(allFields, "status")
 	delete(allFields, "subServices")
-	delete(allFields, "uuid")
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -1300,7 +1516,7 @@ func NewApplicationProjection() *ApplicationProjection {
 	p := new(ApplicationProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ApplicationProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1403,7 +1619,7 @@ type AsyncReplicationTargetConfig struct {
 	*/
 	DomainManagerExtId *string `json:"domainManagerExtId"`
 
-	Schedule *CronSchedule `json:"schedule"`
+	Schedule *Schedule `json:"schedule"`
 	/*
 	  Number of most-recent snapshots to retain for asynchronous replication.
 	*/
@@ -1416,9 +1632,9 @@ func (p *AsyncReplicationTargetConfig) MarshalJSON() ([]byte, error) {
 	// Step 1: Marshal known fields via proxy to enforce required fields
 	baseStruct := struct {
 		*AsyncReplicationTargetConfigProxy
-		ClusterExtId       *string       `json:"clusterExtId,omitempty"`
-		DomainManagerExtId *string       `json:"domainManagerExtId,omitempty"`
-		Schedule           *CronSchedule `json:"schedule,omitempty"`
+		ClusterExtId       *string   `json:"clusterExtId,omitempty"`
+		DomainManagerExtId *string   `json:"domainManagerExtId,omitempty"`
+		Schedule           *Schedule `json:"schedule,omitempty"`
 	}{
 		AsyncReplicationTargetConfigProxy: (*AsyncReplicationTargetConfigProxy)(p),
 		ClusterExtId:                      p.ClusterExtId,
@@ -1507,7 +1723,7 @@ func NewAsyncReplicationTargetConfig() *AsyncReplicationTargetConfig {
 	p := new(AsyncReplicationTargetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.AsyncReplicationTargetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1623,7 +1839,7 @@ func NewBaseClientConfig() *BaseClientConfig {
 	p := new(BaseClientConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.BaseClientConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1735,10 +1951,877 @@ func NewBaseReplicationTargetConfig() *BaseReplicationTargetConfig {
 	p := new(BaseReplicationTargetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.BaseReplicationTargetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Base schedule configuration shared by all snapshot schedules.
+*/
+type BaseSchedule struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  First time at which the scheduler should trigger.
+	*/
+	StartTime *time.Time `json:"startTime,omitempty"`
+	/*
+	  Time zone used to evaluate the schedule.
+	*/
+	Timezone *string `json:"timezone"`
+}
+
+func (p *BaseSchedule) MarshalJSON() ([]byte, error) {
+	type BaseScheduleProxy BaseSchedule
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BaseScheduleProxy
+		Timezone *string `json:"timezone,omitempty"`
+	}{
+		BaseScheduleProxy: (*BaseScheduleProxy)(p),
+		Timezone:          p.Timezone,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BaseSchedule) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BaseSchedule
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBaseSchedule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "startTime")
+	delete(allFields, "timezone")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBaseSchedule() *BaseSchedule {
+	p := new(BaseSchedule)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BaseSchedule"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Details of an application contained in an application bundle.
+*/
+type BundleApplication struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the application. Must conform to the application name pattern.
+	*/
+	Name *string `json:"name"`
+	/*
+	  Version of the application. Must conform to the version pattern (e.g., x.x.x).
+	*/
+	Version *string `json:"version"`
+}
+
+func (p *BundleApplication) MarshalJSON() ([]byte, error) {
+	type BundleApplicationProxy BundleApplication
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BundleApplicationProxy
+		Name    *string `json:"name,omitempty"`
+		Version *string `json:"version,omitempty"`
+	}{
+		BundleApplicationProxy: (*BundleApplicationProxy)(p),
+		Name:                   p.Name,
+		Version:                p.Version,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BundleApplication) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BundleApplication
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBundleApplication()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+	delete(allFields, "version")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBundleApplication() *BundleApplication {
+	p := new(BundleApplication)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BundleApplication"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Metadata describing the artifact reference. Required when publishing APPLICATION bundles; on cluster create requests, used to select the platform bundle to deploy.
+*/
+type BundleArtifactRef struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Class of the artifact (e.g., PC Core Cluster).
+	*/
+	ArtifactClass *string `json:"artifactClass"`
+	/*
+	  Model of the artifact (e.g., Nutanix Cloud Manager).
+	*/
+	ArtifactModel *string `json:"artifactModel"`
+	/*
+	  Version of the artifact (e.g., 1.0.0).
+	*/
+	ArtifactVersion *string `json:"artifactVersion"`
+}
+
+func (p *BundleArtifactRef) MarshalJSON() ([]byte, error) {
+	type BundleArtifactRefProxy BundleArtifactRef
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BundleArtifactRefProxy
+		ArtifactClass   *string `json:"artifactClass,omitempty"`
+		ArtifactModel   *string `json:"artifactModel,omitempty"`
+		ArtifactVersion *string `json:"artifactVersion,omitempty"`
+	}{
+		BundleArtifactRefProxy: (*BundleArtifactRefProxy)(p),
+		ArtifactClass:          p.ArtifactClass,
+		ArtifactModel:          p.ArtifactModel,
+		ArtifactVersion:        p.ArtifactVersion,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BundleArtifactRef) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BundleArtifactRef
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBundleArtifactRef()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ArtifactClass != nil {
+		p.ArtifactClass = known.ArtifactClass
+	}
+	if known.ArtifactModel != nil {
+		p.ArtifactModel = known.ArtifactModel
+	}
+	if known.ArtifactVersion != nil {
+		p.ArtifactVersion = known.ArtifactVersion
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "artifactClass")
+	delete(allFields, "artifactModel")
+	delete(allFields, "artifactVersion")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBundleArtifactRef() *BundleArtifactRef {
+	p := new(BundleArtifactRef)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BundleArtifactRef"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Metadata about bundle files including location and integrity information.
+*/
+type BundleItem struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  SHA-256 checksum of the bundle file for integrity verification. Required to ensure bundle integrity.
+	*/
+	Sha256Sum *string `json:"sha256Sum"`
+	/*
+	  URI pointing to the bundle file location. Supports file:// protocol for local file access.
+	*/
+	Uri *string `json:"uri"`
+}
+
+func (p *BundleItem) MarshalJSON() ([]byte, error) {
+	type BundleItemProxy BundleItem
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BundleItemProxy
+		Sha256Sum *string `json:"sha256Sum,omitempty"`
+		Uri       *string `json:"uri,omitempty"`
+	}{
+		BundleItemProxy: (*BundleItemProxy)(p),
+		Sha256Sum:       p.Sha256Sum,
+		Uri:             p.Uri,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BundleItem) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BundleItem
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBundleItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Sha256Sum != nil {
+		p.Sha256Sum = known.Sha256Sum
+	}
+	if known.Uri != nil {
+		p.Uri = known.Uri
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "sha256Sum")
+	delete(allFields, "uri")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBundleItem() *BundleItem {
+	p := new(BundleItem)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BundleItem"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Container for bundle metadata including applications (required) and artifact references (required).
+*/
+type BundleMetadata struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of applications contained in the application bundle. Required for APPLICATION bundles.
+	*/
+	Applications []BundleApplication `json:"applications,omitempty"`
+
+	ArtifactRef *BundleArtifactRef `json:"artifactRef"`
+}
+
+func (p *BundleMetadata) MarshalJSON() ([]byte, error) {
+	type BundleMetadataProxy BundleMetadata
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BundleMetadataProxy
+		ArtifactRef *BundleArtifactRef `json:"artifactRef,omitempty"`
+	}{
+		BundleMetadataProxy: (*BundleMetadataProxy)(p),
+		ArtifactRef:         p.ArtifactRef,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BundleMetadata) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BundleMetadata
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBundleMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Applications != nil {
+		p.Applications = known.Applications
+	}
+	if known.ArtifactRef != nil {
+		p.ArtifactRef = known.ArtifactRef
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "applications")
+	delete(allFields, "artifactRef")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBundleMetadata() *BundleMetadata {
+	p := new(BundleMetadata)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BundleMetadata"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+A model that represents a bundle spec (PLATFORM or APPLICATION type) to be published to MSP. The bundleType field determines which other fields are required.
+*/
+type BundleSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BundleMetadata *BundleMetadata `json:"bundleMetadata,omitempty"`
+
+	BundleType *BundleType `json:"bundleType"`
+	/*
+	  Array of bundle items, each containing URI and checksum information. Required for PLATFORM bundles, optional for APPLICATION bundles.
+	*/
+	Bundles []BundleItem `json:"bundles,omitempty"`
+
+	Target *BundleTarget `json:"target"`
+}
+
+func (p *BundleSpec) MarshalJSON() ([]byte, error) {
+	type BundleSpecProxy BundleSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BundleSpecProxy
+		BundleType *BundleType   `json:"bundleType,omitempty"`
+		Target     *BundleTarget `json:"target,omitempty"`
+	}{
+		BundleSpecProxy: (*BundleSpecProxy)(p),
+		BundleType:      p.BundleType,
+		Target:          p.Target,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BundleSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BundleSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBundleSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BundleMetadata != nil {
+		p.BundleMetadata = known.BundleMetadata
+	}
+	if known.BundleType != nil {
+		p.BundleType = known.BundleType
+	}
+	if known.Bundles != nil {
+		p.Bundles = known.Bundles
+	}
+	if known.Target != nil {
+		p.Target = known.Target
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "bundleMetadata")
+	delete(allFields, "bundleType")
+	delete(allFields, "bundles")
+	delete(allFields, "target")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBundleSpec() *BundleSpec {
+	p := new(BundleSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BundleSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Configuration specifying the target cluster for bundle publishing.
+*/
+type BundleTarget struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  UUID of the target cluster where the bundle should be published.
+	*/
+	ClusterUuid *string `json:"clusterUuid"`
+}
+
+func (p *BundleTarget) MarshalJSON() ([]byte, error) {
+	type BundleTargetProxy BundleTarget
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BundleTargetProxy
+		ClusterUuid *string `json:"clusterUuid,omitempty"`
+	}{
+		BundleTargetProxy: (*BundleTargetProxy)(p),
+		ClusterUuid:       p.ClusterUuid,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BundleTarget) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BundleTarget
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBundleTarget()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterUuid != nil {
+		p.ClusterUuid = known.ClusterUuid
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterUuid")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBundleTarget() *BundleTarget {
+	p := new(BundleTarget)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.BundleTarget"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Type of the bundle.
+*/
+type BundleType int
+
+const (
+	BUNDLETYPE_UNKNOWN     BundleType = 0
+	BUNDLETYPE_REDACTED    BundleType = 1
+	BUNDLETYPE_PLATFORM    BundleType = 2
+	BUNDLETYPE_APPLICATION BundleType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *BundleType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PLATFORM",
+		"APPLICATION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e BundleType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PLATFORM",
+		"APPLICATION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *BundleType) index(name string) BundleType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PLATFORM",
+		"APPLICATION",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return BundleType(idx)
+		}
+	}
+	return BUNDLETYPE_UNKNOWN
+}
+
+func (e *BundleType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for BundleType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *BundleType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e BundleType) Ref() *BundleType {
+	return &e
 }
 
 /*
@@ -1863,7 +2946,7 @@ func NewClientConfig() *ClientConfig {
 	p := new(ClientConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClientConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1900,7 +2983,7 @@ type Cluster struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	ControlPlaneConfig *Config `json:"ControlPlaneConfig"`
+	ControlPlaneConfig *Config `json:"ControlPlaneConfig,omitempty"`
 	/*
 	  Key Value pairs that can be used to customize cluster deployment configuration.
 	Supported annotations are -
@@ -1917,12 +3000,18 @@ type Cluster struct {
 	    Value: "true"
 	*/
 	Annotations []import1.KVStringPair `json:"annotations,omitempty"`
+
+	ArtifactRef *BundleArtifactRef `json:"artifactRef,omitempty"`
 	/*
 	  Client spec needed for VM/Network CRUD operations.
 	*/
 	ClientConfigs []ClientConfig `json:"clientConfigs,omitempty"`
 
 	ClusterType *ClusterType `json:"clusterType,omitempty"`
+	/*
+	  Configuration for the control plane nodes of the cluster.
+	*/
+	ControlPlaneConfigs []Config `json:"controlPlaneConfigs,omitempty"`
 	/*
 	  The controller version with which the cluster was deployed.
 	*/
@@ -1933,6 +3022,8 @@ type Cluster struct {
 	  Brief description about the cluster.
 	*/
 	Description *string `json:"description,omitempty"`
+
+	DnsConfig *DNSConfig `json:"dnsConfig,omitempty"`
 
 	Domain *import1.FQDN `json:"domain,omitempty"`
 	/*
@@ -2013,12 +3104,10 @@ func (p *Cluster) MarshalJSON() ([]byte, error) {
 	// Step 1: Marshal known fields via proxy to enforce required fields
 	baseStruct := struct {
 		*ClusterProxy
-		ControlPlaneConfig *Config `json:"ControlPlaneConfig,omitempty"`
-		Name               *string `json:"name,omitempty"`
+		Name *string `json:"name,omitempty"`
 	}{
-		ClusterProxy:       (*ClusterProxy)(p),
-		ControlPlaneConfig: p.ControlPlaneConfig,
-		Name:               p.Name,
+		ClusterProxy: (*ClusterProxy)(p),
+		Name:         p.Name,
 	}
 
 	known, err := json.Marshal(baseStruct)
@@ -2074,11 +3163,17 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	if known.Annotations != nil {
 		p.Annotations = known.Annotations
 	}
+	if known.ArtifactRef != nil {
+		p.ArtifactRef = known.ArtifactRef
+	}
 	if known.ClientConfigs != nil {
 		p.ClientConfigs = known.ClientConfigs
 	}
 	if known.ClusterType != nil {
 		p.ClusterType = known.ClusterType
+	}
+	if known.ControlPlaneConfigs != nil {
+		p.ControlPlaneConfigs = known.ControlPlaneConfigs
 	}
 	if known.ControllerVersion != nil {
 		p.ControllerVersion = known.ControllerVersion
@@ -2088,6 +3183,9 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	}
 	if known.Description != nil {
 		p.Description = known.Description
+	}
+	if known.DnsConfig != nil {
+		p.DnsConfig = known.DnsConfig
 	}
 	if known.Domain != nil {
 		p.Domain = known.Domain
@@ -2156,11 +3254,14 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "ControlPlaneConfig")
 	delete(allFields, "annotations")
+	delete(allFields, "artifactRef")
 	delete(allFields, "clientConfigs")
 	delete(allFields, "clusterType")
+	delete(allFields, "controlPlaneConfigs")
 	delete(allFields, "controllerVersion")
 	delete(allFields, "deploymentType")
 	delete(allFields, "description")
+	delete(allFields, "dnsConfig")
 	delete(allFields, "domain")
 	delete(allFields, "envoyIps")
 	delete(allFields, "etcdIps")
@@ -2194,7 +3295,7 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2380,7 +3481,7 @@ func NewClusterManagementIps() *ClusterManagementIps {
 	p := new(ClusterManagementIps)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClusterManagementIps"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2524,7 +3625,7 @@ func NewClusterNetworkConfig() *ClusterNetworkConfig {
 	p := new(ClusterNetworkConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClusterNetworkConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2651,7 +3752,7 @@ func NewClusterResourceConfig() *ClusterResourceConfig {
 	p := new(ClusterResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClusterResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2818,7 +3919,7 @@ func NewClusterStorageClass() *ClusterStorageClass {
 	p := new(ClusterStorageClass)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClusterStorageClass"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2930,7 +4031,7 @@ func NewClusterTarget() *ClusterTarget {
 	p := new(ClusterTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClusterTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3131,7 +4232,7 @@ func NewClusterUpgradeInfo() *ClusterUpgradeInfo {
 	p := new(ClusterUpgradeInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ClusterUpgradeInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3255,7 +4356,7 @@ func NewComponentDetails() *ComponentDetails {
 	p := new(ComponentDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ComponentDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3363,7 +4464,7 @@ func NewConfig() *Config {
 	p := new(Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3387,7 +4488,7 @@ type CronSchedule struct {
 	*/
 	StartTime *time.Time `json:"startTime,omitempty"`
 	/*
-	  Time zone used to evaluate the cron expression.
+	  Time zone used to evaluate the schedule.
 	*/
 	Timezone *string `json:"timezone"`
 }
@@ -3483,7 +4584,7 @@ func NewCronSchedule() *CronSchedule {
 	p := new(CronSchedule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.CronSchedule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3579,7 +4680,7 @@ func NewCustomValue() *CustomValue {
 	p := new(CustomValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.CustomValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3681,7 +4782,7 @@ func NewCustomValueItem() *CustomValueItem {
 	p := new(CustomValueItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.CustomValueItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3706,6 +4807,118 @@ func (p *CustomValueItem) SetValue(v interface{}) error {
 		*p.ValueItemDiscriminator_ = *p.Value.Discriminator
 	}
 	return e
+}
+
+type DNSConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of alias domains for cluster (must be valid FQDN format) Possible use cases:
+	  - DR purposes (failover)
+	  - General aliasing
+	*/
+	AliasDomains []import1.FQDN `json:"aliasDomains"`
+	/*
+	  Boolean value, if set to true, cluster will be in offline mode.
+	*/
+	OfflineMode *bool `json:"offlineMode,omitempty"`
+}
+
+func (p *DNSConfig) MarshalJSON() ([]byte, error) {
+	type DNSConfigProxy DNSConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*DNSConfigProxy
+		AliasDomains []import1.FQDN `json:"aliasDomains,omitempty"`
+	}{
+		DNSConfigProxy: (*DNSConfigProxy)(p),
+		AliasDomains:   p.AliasDomains,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DNSConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DNSConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDNSConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AliasDomains != nil {
+		p.AliasDomains = known.AliasDomains
+	}
+	if known.OfflineMode != nil {
+		p.OfflineMode = known.OfflineMode
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "aliasDomains")
+	delete(allFields, "offlineMode")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDNSConfig() *DNSConfig {
+	p := new(DNSConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.DNSConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.OfflineMode = new(bool)
+	*p.OfflineMode = false
+
+	return p
 }
 
 type Deployment int
@@ -3885,7 +5098,7 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3897,7 +5110,8 @@ const (
 	ENVIRONMENT_DEV     Environment = 0
 	ENVIRONMENT_STAGING Environment = 1
 	ENVIRONMENT_RELEASE Environment = 2
-	ENVIRONMENT_UNKNOWN Environment = 3
+	ENVIRONMENT_PTEST   Environment = 3
+	ENVIRONMENT_UNKNOWN Environment = 4
 )
 
 // Returns the name of the enum given an ordinal number
@@ -3908,6 +5122,7 @@ func (e *Environment) name(index int) string {
 		"DEV",
 		"STAGING",
 		"RELEASE",
+		"PTEST",
 		"$UNKNOWN",
 	}
 	if index < 0 || index >= len(names) {
@@ -3923,6 +5138,7 @@ func (e Environment) GetName() string {
 		"DEV",
 		"STAGING",
 		"RELEASE",
+		"PTEST",
 		"$UNKNOWN",
 	}
 	if index < 0 || index >= len(names) {
@@ -3937,6 +5153,7 @@ func (e *Environment) index(name string) Environment {
 		"DEV",
 		"STAGING",
 		"RELEASE",
+		"PTEST",
 		"$UNKNOWN",
 	}
 	for idx := range names {
@@ -4118,7 +5335,7 @@ func NewEsxClientConfig() *EsxClientConfig {
 	p := new(EsxClientConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.EsxClientConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4142,7 +5359,7 @@ type EsxNetworkResourceConfig struct {
 	/*
 	  Network id to be used for this vm config.
 	*/
-	Network *string `json:"network"`
+	Network *string `json:"network,omitempty"`
 	/*
 	  Define multiple NICs for ESX Platform.
 	*/
@@ -4150,18 +5367,11 @@ type EsxNetworkResourceConfig struct {
 }
 
 func (p *EsxNetworkResourceConfig) MarshalJSON() ([]byte, error) {
-	type EsxNetworkResourceConfigProxy EsxNetworkResourceConfig
+	// Create Alias to avoid infinite recursion
+	type Alias EsxNetworkResourceConfig
 
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*EsxNetworkResourceConfigProxy
-		Network *string `json:"network,omitempty"`
-	}{
-		EsxNetworkResourceConfigProxy: (*EsxNetworkResourceConfigProxy)(p),
-		Network:                       p.Network,
-	}
-
-	known, err := json.Marshal(baseStruct)
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
 	if err != nil {
 		return nil, err
 	}
@@ -4242,7 +5452,7 @@ func NewEsxNetworkResourceConfig() *EsxNetworkResourceConfig {
 	p := new(EsxNetworkResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.EsxNetworkResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4338,7 +5548,7 @@ func NewEsxNic() *EsxNic {
 	p := new(EsxNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.EsxNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4444,7 +5654,7 @@ func NewEsxResourceConfig() *EsxResourceConfig {
 	p := new(EsxResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.EsxResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4576,7 +5786,7 @@ func NewFailoverRequest() *FailoverRequest {
 	p := new(FailoverRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.FailoverRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4588,11 +5798,11 @@ Type of failover operation.
 type FailoverType int
 
 const (
-	FAILOVERTYPE_UNKNOWN            FailoverType = 0
-	FAILOVERTYPE_REDACTED           FailoverType = 1
-	FAILOVERTYPE_UNPLANNED_FAILOVER FailoverType = 2
-	FAILOVERTYPE_PLANNED_FAILOVER   FailoverType = 3
-	FAILOVERTYPE_ROLLBACK           FailoverType = 4
+	FAILOVERTYPE_UNKNOWN   FailoverType = 0
+	FAILOVERTYPE_REDACTED  FailoverType = 1
+	FAILOVERTYPE_UNPLANNED FailoverType = 2
+	FAILOVERTYPE_PLANNED   FailoverType = 3
+	FAILOVERTYPE_ROLLBACK  FailoverType = 4
 )
 
 // Returns the name of the enum given an ordinal number
@@ -4602,8 +5812,8 @@ func (e *FailoverType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"UNPLANNED_FAILOVER",
-		"PLANNED_FAILOVER",
+		"UNPLANNED",
+		"PLANNED",
 		"ROLLBACK",
 	}
 	if index < 0 || index >= len(names) {
@@ -4618,8 +5828,8 @@ func (e FailoverType) GetName() string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"UNPLANNED_FAILOVER",
-		"PLANNED_FAILOVER",
+		"UNPLANNED",
+		"PLANNED",
 		"ROLLBACK",
 	}
 	if index < 0 || index >= len(names) {
@@ -4633,8 +5843,8 @@ func (e *FailoverType) index(name string) FailoverType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"UNPLANNED_FAILOVER",
-		"PLANNED_FAILOVER",
+		"UNPLANNED",
+		"PLANNED",
 		"ROLLBACK",
 	}
 	for idx := range names {
@@ -4771,7 +5981,7 @@ func NewGroupKind() *GroupKind {
 	p := new(GroupKind)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.GroupKind"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4867,7 +6077,7 @@ func NewHealth() *Health {
 	p := new(Health)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Health"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4974,14 +6184,14 @@ func NewHealthComponent() *HealthComponent {
 	p := new(HealthComponent)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.HealthComponent"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information about the Helm-managed application being protected.
+Information about the Helm-managed applications being protected.
 */
 type HelmApplicationInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4989,12 +6199,16 @@ type HelmApplicationInfo struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	AppType *ApplicationType `json:"appType"`
 	/*
 	  Identifier of the application registered in Service Manager.
 	*/
-	AppId *string `json:"appId"`
-
-	AppType *ApplicationType `json:"appType"`
+	Name *string `json:"name"`
+	/*
+	  Version of the application.
+	*/
+	Version *string `json:"version"`
 }
 
 func (p *HelmApplicationInfo) MarshalJSON() ([]byte, error) {
@@ -5003,12 +6217,14 @@ func (p *HelmApplicationInfo) MarshalJSON() ([]byte, error) {
 	// Step 1: Marshal known fields via proxy to enforce required fields
 	baseStruct := struct {
 		*HelmApplicationInfoProxy
-		AppId   *string          `json:"appId,omitempty"`
 		AppType *ApplicationType `json:"appType,omitempty"`
+		Name    *string          `json:"name,omitempty"`
+		Version *string          `json:"version,omitempty"`
 	}{
 		HelmApplicationInfoProxy: (*HelmApplicationInfoProxy)(p),
-		AppId:                    p.AppId,
 		AppType:                  p.AppType,
+		Name:                     p.Name,
+		Version:                  p.Version,
 	}
 
 	known, err := json.Marshal(baseStruct)
@@ -5058,19 +6274,23 @@ func (p *HelmApplicationInfo) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.AppId != nil {
-		p.AppId = known.AppId
-	}
 	if known.AppType != nil {
 		p.AppType = known.AppType
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Version != nil {
+		p.Version = known.Version
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "appId")
 	delete(allFields, "appType")
+	delete(allFields, "name")
+	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -5084,7 +6304,7 @@ func NewHelmApplicationInfo() *HelmApplicationInfo {
 	p := new(HelmApplicationInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.HelmApplicationInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5204,7 +6424,7 @@ func NewHelmJobDetails() *HelmJobDetails {
 	p := new(HelmJobDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.HelmJobDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5225,6 +6445,8 @@ type History struct {
 
 	CreatedTimestamp *time.Time `json:"createdTimestamp,omitempty"`
 
+	ExtId *string `json:"extId,omitempty"`
+
 	Message *string `json:"message,omitempty"`
 
 	Name *string `json:"name,omitempty"`
@@ -5234,8 +6456,6 @@ type History struct {
 	Status *string `json:"status,omitempty"`
 
 	TaskUuid *string `json:"taskUuid,omitempty"`
-
-	Uuid *string `json:"uuid,omitempty"`
 
 	Version *string `json:"version,omitempty"`
 }
@@ -5304,6 +6524,9 @@ func (p *History) UnmarshalJSON(b []byte) error {
 	if known.CreatedTimestamp != nil {
 		p.CreatedTimestamp = known.CreatedTimestamp
 	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 	if known.Message != nil {
 		p.Message = known.Message
 	}
@@ -5319,9 +6542,6 @@ func (p *History) UnmarshalJSON(b []byte) error {
 	if known.TaskUuid != nil {
 		p.TaskUuid = known.TaskUuid
 	}
-	if known.Uuid != nil {
-		p.Uuid = known.Uuid
-	}
 	if known.Version != nil {
 		p.Version = known.Version
 	}
@@ -5334,12 +6554,12 @@ func (p *History) UnmarshalJSON(b []byte) error {
 	delete(allFields, "apptype")
 	delete(allFields, "clusterUuid")
 	delete(allFields, "createdTimestamp")
+	delete(allFields, "extId")
 	delete(allFields, "message")
 	delete(allFields, "name")
 	delete(allFields, "parentAppUuid")
 	delete(allFields, "status")
 	delete(allFields, "taskUuid")
-	delete(allFields, "uuid")
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -5354,7 +6574,7 @@ func NewHistory() *History {
 	p := new(History)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.History"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5375,6 +6595,8 @@ type HistoryProjection struct {
 
 	CreatedTimestamp *time.Time `json:"createdTimestamp,omitempty"`
 
+	ExtId *string `json:"extId,omitempty"`
+
 	Message *string `json:"message,omitempty"`
 
 	Name *string `json:"name,omitempty"`
@@ -5384,8 +6606,6 @@ type HistoryProjection struct {
 	Status *string `json:"status,omitempty"`
 
 	TaskUuid *string `json:"taskUuid,omitempty"`
-
-	Uuid *string `json:"uuid,omitempty"`
 
 	Version *string `json:"version,omitempty"`
 }
@@ -5454,6 +6674,9 @@ func (p *HistoryProjection) UnmarshalJSON(b []byte) error {
 	if known.CreatedTimestamp != nil {
 		p.CreatedTimestamp = known.CreatedTimestamp
 	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 	if known.Message != nil {
 		p.Message = known.Message
 	}
@@ -5469,9 +6692,6 @@ func (p *HistoryProjection) UnmarshalJSON(b []byte) error {
 	if known.TaskUuid != nil {
 		p.TaskUuid = known.TaskUuid
 	}
-	if known.Uuid != nil {
-		p.Uuid = known.Uuid
-	}
 	if known.Version != nil {
 		p.Version = known.Version
 	}
@@ -5484,12 +6704,12 @@ func (p *HistoryProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "apptype")
 	delete(allFields, "clusterUuid")
 	delete(allFields, "createdTimestamp")
+	delete(allFields, "extId")
 	delete(allFields, "message")
 	delete(allFields, "name")
 	delete(allFields, "parentAppUuid")
 	delete(allFields, "status")
 	delete(allFields, "taskUuid")
-	delete(allFields, "uuid")
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -5504,7 +6724,7 @@ func NewHistoryProjection() *HistoryProjection {
 	p := new(HistoryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.HistoryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5624,7 +6844,7 @@ func NewInfo() *Info {
 	p := new(Info)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Info"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5743,7 +6963,127 @@ func NewInstall() *Install {
 	p := new(Install)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Install"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Interval schedule configuration.
+*/
+type IntervalSchedule struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Interval in minutes at which snapshots are taken.
+	*/
+	Minutes *int `json:"minutes"`
+	/*
+	  First time at which the scheduler should trigger.
+	*/
+	StartTime *time.Time `json:"startTime,omitempty"`
+	/*
+	  Time zone used to evaluate the schedule.
+	*/
+	Timezone *string `json:"timezone"`
+}
+
+func (p *IntervalSchedule) MarshalJSON() ([]byte, error) {
+	type IntervalScheduleProxy IntervalSchedule
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*IntervalScheduleProxy
+		Minutes  *int    `json:"minutes,omitempty"`
+		Timezone *string `json:"timezone,omitempty"`
+	}{
+		IntervalScheduleProxy: (*IntervalScheduleProxy)(p),
+		Minutes:               p.Minutes,
+		Timezone:              p.Timezone,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IntervalSchedule) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IntervalSchedule
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewIntervalSchedule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Minutes != nil {
+		p.Minutes = known.Minutes
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "minutes")
+	delete(allFields, "startTime")
+	delete(allFields, "timezone")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewIntervalSchedule() *IntervalSchedule {
+	p := new(IntervalSchedule)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.IntervalSchedule"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5851,7 +7191,7 @@ func NewIpRange() *IpRange {
 	p := new(IpRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.IpRange"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5960,7 +7300,7 @@ func NewLabelMatchExpression() *LabelMatchExpression {
 	p := new(LabelMatchExpression)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LabelMatchExpression"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6148,7 +7488,7 @@ func NewLabelSelector() *LabelSelector {
 	p := new(LabelSelector)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LabelSelector"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6249,7 +7589,7 @@ func NewLoadBalancer() *LoadBalancer {
 	p := new(LoadBalancer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoadBalancer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6383,7 +7723,7 @@ func NewLoadBalancerAccessInterface() *LoadBalancerAccessInterface {
 	p := new(LoadBalancerAccessInterface)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoadBalancerAccessInterface"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6489,7 +7829,7 @@ func NewLoadBalancerConfig() *LoadBalancerConfig {
 	p := new(LoadBalancerConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoadBalancerConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6641,7 +7981,7 @@ func NewLoadBalancerConfigObject() *LoadBalancerConfigObject {
 	p := new(LoadBalancerConfigObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoadBalancerConfigObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6842,7 +8182,7 @@ func NewLoadBalancerNetworkConfig() *LoadBalancerNetworkConfig {
 	p := new(LoadBalancerNetworkConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoadBalancerNetworkConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6998,7 +8338,7 @@ func NewLoadBalancerResourceConfig() *LoadBalancerResourceConfig {
 	p := new(LoadBalancerResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoadBalancerResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7199,7 +8539,7 @@ func NewLoggingVolumeConfig() *LoggingVolumeConfig {
 	p := new(LoggingVolumeConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.LoggingVolumeConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7295,7 +8635,7 @@ func NewNic() *Nic {
 	p := new(Nic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Nic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7594,7 +8934,7 @@ func NewNutanixStorageClass() *NutanixStorageClass {
 	p := new(NutanixStorageClass)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.NutanixStorageClass"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7697,7 +9037,7 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7793,7 +9133,7 @@ func NewPostAppResponse() *PostAppResponse {
 	p := new(PostAppResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.PostAppResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7889,7 +9229,7 @@ func NewPostServiceResponse() *PostServiceResponse {
 	p := new(PostServiceResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.PostServiceResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7997,7 +9337,7 @@ func NewPrePostAction() *PrePostAction {
 	p := new(PrePostAction)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.PrePostAction"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8138,7 +9478,7 @@ func NewProtectionTarget() *ProtectionTarget {
 	p := new(ProtectionTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ProtectionTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8243,7 +9583,7 @@ func NewRegistryBundle() *RegistryBundle {
 	p := new(RegistryBundle)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.RegistryBundle"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8351,7 +9691,7 @@ func NewReplicationTarget() *ReplicationTarget {
 	p := new(ReplicationTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ReplicationTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8477,10 +9817,259 @@ func NewResourceLabelSelector() *ResourceLabelSelector {
 	p := new(ResourceLabelSelector)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ResourceLabelSelector"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Route configuration for the network.
+*/
+type Route struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Gateway of the route.
+	*/
+	Gateway *string `json:"gateway,omitempty"`
+	/*
+	  Destination IP address.
+	*/
+	Ip *string `json:"ip"`
+	/*
+	  Prefix of the route.
+	*/
+	Prefix *string `json:"prefix"`
+}
+
+func (p *Route) MarshalJSON() ([]byte, error) {
+	type RouteProxy Route
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*RouteProxy
+		Ip     *string `json:"ip,omitempty"`
+		Prefix *string `json:"prefix,omitempty"`
+	}{
+		RouteProxy: (*RouteProxy)(p),
+		Ip:         p.Ip,
+		Prefix:     p.Prefix,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Route) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Route
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewRoute()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Gateway != nil {
+		p.Gateway = known.Gateway
+	}
+	if known.Ip != nil {
+		p.Ip = known.Ip
+	}
+	if known.Prefix != nil {
+		p.Prefix = known.Prefix
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "gateway")
+	delete(allFields, "ip")
+	delete(allFields, "prefix")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewRoute() *Route {
+	p := new(Route)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.Route"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Base schedule configuration shared by all snapshot schedules.
+*/
+type Schedule struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	ScheduleConfigItemDiscriminator_ *string `json:"$scheduleConfigItemDiscriminator,omitempty"`
+
+	ScheduleConfig *OneOfScheduleScheduleConfig `json:"scheduleConfig"`
+}
+
+func (p *Schedule) MarshalJSON() ([]byte, error) {
+	type ScheduleProxy Schedule
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ScheduleProxy
+		ScheduleConfig *OneOfScheduleScheduleConfig `json:"scheduleConfig,omitempty"`
+	}{
+		ScheduleProxy:  (*ScheduleProxy)(p),
+		ScheduleConfig: p.ScheduleConfig,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Schedule) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Schedule
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSchedule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ScheduleConfigItemDiscriminator_ != nil {
+		p.ScheduleConfigItemDiscriminator_ = known.ScheduleConfigItemDiscriminator_
+	}
+	if known.ScheduleConfig != nil {
+		p.ScheduleConfig = known.ScheduleConfig
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$scheduleConfigItemDiscriminator")
+	delete(allFields, "scheduleConfig")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSchedule() *Schedule {
+	p := new(Schedule)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.Schedule"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *Schedule) GetScheduleConfig() interface{} {
+	if nil == p.ScheduleConfig {
+		return nil
+	}
+	return p.ScheduleConfig.GetValue()
+}
+
+func (p *Schedule) SetScheduleConfig(v interface{}) error {
+	if nil == p.ScheduleConfig {
+		p.ScheduleConfig = NewOneOfScheduleScheduleConfig()
+	}
+	e := p.ScheduleConfig.SetValue(v)
+	if nil == e {
+		if nil == p.ScheduleConfigItemDiscriminator_ {
+			p.ScheduleConfigItemDiscriminator_ = new(string)
+		}
+		*p.ScheduleConfigItemDiscriminator_ = *p.ScheduleConfig.Discriminator
+	}
+	return e
 }
 
 type Service struct {
@@ -8498,6 +10087,10 @@ type Service struct {
 
 	CreatedTimestamp *time.Time `json:"createdTimestamp,omitempty"`
 
+	CustomValues []CustomValue `json:"customValues,omitempty"`
+
+	ExtId *string `json:"extId,omitempty"`
+
 	IsInactive *bool `json:"isInactive,omitempty"`
 
 	LastUpdatedTimestamp *time.Time `json:"lastUpdatedTimestamp,omitempty"`
@@ -8505,8 +10098,6 @@ type Service struct {
 	Name *string `json:"name,omitempty"`
 
 	Status *string `json:"status,omitempty"`
-
-	Uuid *string `json:"uuid,omitempty"`
 
 	Version *string `json:"version,omitempty"`
 }
@@ -8575,6 +10166,12 @@ func (p *Service) UnmarshalJSON(b []byte) error {
 	if known.CreatedTimestamp != nil {
 		p.CreatedTimestamp = known.CreatedTimestamp
 	}
+	if known.CustomValues != nil {
+		p.CustomValues = known.CustomValues
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 	if known.IsInactive != nil {
 		p.IsInactive = known.IsInactive
 	}
@@ -8586,9 +10183,6 @@ func (p *Service) UnmarshalJSON(b []byte) error {
 	}
 	if known.Status != nil {
 		p.Status = known.Status
-	}
-	if known.Uuid != nil {
-		p.Uuid = known.Uuid
 	}
 	if known.Version != nil {
 		p.Version = known.Version
@@ -8602,11 +10196,12 @@ func (p *Service) UnmarshalJSON(b []byte) error {
 	delete(allFields, "apptype")
 	delete(allFields, "clusterUuid")
 	delete(allFields, "createdTimestamp")
+	delete(allFields, "customValues")
+	delete(allFields, "extId")
 	delete(allFields, "isInactive")
 	delete(allFields, "lastUpdatedTimestamp")
 	delete(allFields, "name")
 	delete(allFields, "status")
-	delete(allFields, "uuid")
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -8621,7 +10216,7 @@ func NewService() *Service {
 	p := new(Service)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Service"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8642,6 +10237,10 @@ type ServiceProjection struct {
 
 	CreatedTimestamp *time.Time `json:"createdTimestamp,omitempty"`
 
+	CustomValues []CustomValue `json:"customValues,omitempty"`
+
+	ExtId *string `json:"extId,omitempty"`
+
 	IsInactive *bool `json:"isInactive,omitempty"`
 
 	LastUpdatedTimestamp *time.Time `json:"lastUpdatedTimestamp,omitempty"`
@@ -8649,8 +10248,6 @@ type ServiceProjection struct {
 	Name *string `json:"name,omitempty"`
 
 	Status *string `json:"status,omitempty"`
-
-	Uuid *string `json:"uuid,omitempty"`
 
 	Version *string `json:"version,omitempty"`
 }
@@ -8719,6 +10316,12 @@ func (p *ServiceProjection) UnmarshalJSON(b []byte) error {
 	if known.CreatedTimestamp != nil {
 		p.CreatedTimestamp = known.CreatedTimestamp
 	}
+	if known.CustomValues != nil {
+		p.CustomValues = known.CustomValues
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 	if known.IsInactive != nil {
 		p.IsInactive = known.IsInactive
 	}
@@ -8730,9 +10333,6 @@ func (p *ServiceProjection) UnmarshalJSON(b []byte) error {
 	}
 	if known.Status != nil {
 		p.Status = known.Status
-	}
-	if known.Uuid != nil {
-		p.Uuid = known.Uuid
 	}
 	if known.Version != nil {
 		p.Version = known.Version
@@ -8746,11 +10346,12 @@ func (p *ServiceProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "apptype")
 	delete(allFields, "clusterUuid")
 	delete(allFields, "createdTimestamp")
+	delete(allFields, "customValues")
+	delete(allFields, "extId")
 	delete(allFields, "isInactive")
 	delete(allFields, "lastUpdatedTimestamp")
 	delete(allFields, "name")
 	delete(allFields, "status")
-	delete(allFields, "uuid")
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -8765,7 +10366,117 @@ func NewServiceProjection() *ServiceProjection {
 	p := new(ServiceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.ServiceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Specification for setting the offline mode of a cluster.
+*/
+type SetOfflineModeRequest struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Boolean value indicating whether to execute the operation in fire-and-forget mode.
+	*/
+	FireAndForget *bool `json:"fireAndForget"`
+	/*
+	  Boolean value, if set to true, cluster will be in offline mode.
+	*/
+	OfflineMode *bool `json:"offlineMode,omitempty"`
+}
+
+func (p *SetOfflineModeRequest) MarshalJSON() ([]byte, error) {
+	type SetOfflineModeRequestProxy SetOfflineModeRequest
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*SetOfflineModeRequestProxy
+		FireAndForget *bool `json:"fireAndForget,omitempty"`
+	}{
+		SetOfflineModeRequestProxy: (*SetOfflineModeRequestProxy)(p),
+		FireAndForget:              p.FireAndForget,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SetOfflineModeRequest) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SetOfflineModeRequest
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSetOfflineModeRequest()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FireAndForget != nil {
+		p.FireAndForget = known.FireAndForget
+	}
+	if known.OfflineMode != nil {
+		p.OfflineMode = known.OfflineMode
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "fireAndForget")
+	delete(allFields, "offlineMode")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSetOfflineModeRequest() *SetOfflineModeRequest {
+	p := new(SetOfflineModeRequest)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.svcmgr.SetOfflineModeRequest"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8941,7 +10652,7 @@ func NewSnapshot() *Snapshot {
 	p := new(Snapshot)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.Snapshot"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9211,7 +10922,7 @@ func NewSyncReplicationTargetConfig() *SyncReplicationTargetConfig {
 	p := new(SyncReplicationTargetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.SyncReplicationTargetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9322,7 +11033,7 @@ func NewTaskReferenceInternal() *TaskReferenceInternal {
 	p := new(TaskReferenceInternal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.TaskReferenceInternal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9516,7 +11227,7 @@ func NewTaskStep() *TaskStep {
 	p := new(TaskStep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.TaskStep"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9774,7 +11485,7 @@ func NewTaskV2() *TaskV2 {
 	p := new(TaskV2)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.TaskV2"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10032,7 +11743,7 @@ func NewTaskV2Projection() *TaskV2Projection {
 	p := new(TaskV2Projection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.TaskV2Projection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10149,7 +11860,7 @@ func NewVcenterLocation() *VcenterLocation {
 	p := new(VcenterLocation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.VcenterLocation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10171,22 +11882,15 @@ type VmNetworkResourceConfig struct {
 	/*
 	  Network id to be used for this vm config.
 	*/
-	Network *string `json:"network"`
+	Network *string `json:"network,omitempty"`
 }
 
 func (p *VmNetworkResourceConfig) MarshalJSON() ([]byte, error) {
-	type VmNetworkResourceConfigProxy VmNetworkResourceConfig
+	// Create Alias to avoid infinite recursion
+	type Alias VmNetworkResourceConfig
 
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*VmNetworkResourceConfigProxy
-		Network *string `json:"network,omitempty"`
-	}{
-		VmNetworkResourceConfigProxy: (*VmNetworkResourceConfigProxy)(p),
-		Network:                      p.Network,
-	}
-
-	known, err := json.Marshal(baseStruct)
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
 	if err != nil {
 		return nil, err
 	}
@@ -10259,7 +11963,7 @@ func NewVmNetworkResourceConfig() *VmNetworkResourceConfig {
 	p := new(VmNetworkResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.VmNetworkResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10370,7 +12074,7 @@ func NewVmResourceConfig() *VmResourceConfig {
 	p := new(VmResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.svcmgr.VmResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10381,6 +12085,8 @@ type OneOfClusterResourceConfigResourceConfig struct {
 	ObjectType_   *string            `json:"-"`
 	oneOfType1    *EsxResourceConfig `json:"-"`
 	oneOfType0    *AhvResourceConfig `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfClusterResourceConfigResourceConfig() *OneOfClusterResourceConfigResourceConfig {
@@ -10428,6 +12134,9 @@ func (p *OneOfClusterResourceConfigResourceConfig) SetValue(v interface{}) error
 }
 
 func (p *OneOfClusterResourceConfigResourceConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -10438,9 +12147,79 @@ func (p *OneOfClusterResourceConfigResourceConfig) GetValue() interface{} {
 }
 
 func (p *OneOfClusterResourceConfigResourceConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(EsxResourceConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.EsxResourceConfig" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(EsxResourceConfig)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AhvResourceConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AhvResourceConfig" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AhvResourceConfig)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(EsxResourceConfig)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "lifecycle.v4.svcmgr.EsxResourceConfig" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.EsxResourceConfig" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(EsxResourceConfig)
 			}
@@ -10458,7 +12237,7 @@ func (p *OneOfClusterResourceConfigResourceConfig) UnmarshalJSON(b []byte) error
 	}
 	vOneOfType0 := new(AhvResourceConfig)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "lifecycle.v4.svcmgr.AhvResourceConfig" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AhvResourceConfig" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AhvResourceConfig)
 			}
@@ -10474,10 +12253,31 @@ func (p *OneOfClusterResourceConfigResourceConfig) UnmarshalJSON(b []byte) error
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterResourceConfigResourceConfig"))
 }
 
 func (p *OneOfClusterResourceConfigResourceConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
@@ -10492,6 +12292,8 @@ type OneOfClientConfigConfig struct {
 	ObjectType_   *string          `json:"-"`
 	oneOfType1    *EsxClientConfig `json:"-"`
 	oneOfType0    *AhvClientConfig `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfClientConfigConfig() *OneOfClientConfigConfig {
@@ -10539,6 +12341,9 @@ func (p *OneOfClientConfigConfig) SetValue(v interface{}) error {
 }
 
 func (p *OneOfClientConfigConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -10549,9 +12354,79 @@ func (p *OneOfClientConfigConfig) GetValue() interface{} {
 }
 
 func (p *OneOfClientConfigConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(EsxClientConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.EsxClientConfig" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(EsxClientConfig)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AhvClientConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AhvClientConfig" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AhvClientConfig)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(EsxClientConfig)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "lifecycle.v4.svcmgr.EsxClientConfig" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.EsxClientConfig" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(EsxClientConfig)
 			}
@@ -10569,7 +12444,7 @@ func (p *OneOfClientConfigConfig) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(AhvClientConfig)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "lifecycle.v4.svcmgr.AhvClientConfig" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AhvClientConfig" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AhvClientConfig)
 			}
@@ -10585,10 +12460,31 @@ func (p *OneOfClientConfigConfig) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClientConfigConfig"))
 }
 
 func (p *OneOfClientConfigConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
@@ -10603,6 +12499,8 @@ type OneOfLoadBalancerNetworkConfigVmNetworkConfig struct {
 	ObjectType_   *string                   `json:"-"`
 	oneOfType1    *EsxNetworkResourceConfig `json:"-"`
 	oneOfType0    *AhvNetworkResourceConfig `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfLoadBalancerNetworkConfigVmNetworkConfig() *OneOfLoadBalancerNetworkConfigVmNetworkConfig {
@@ -10650,6 +12548,9 @@ func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) SetValue(v interface{}) 
 }
 
 func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -10660,9 +12561,79 @@ func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) GetValue() interface{} {
 }
 
 func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(EsxNetworkResourceConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.EsxNetworkResourceConfig" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(EsxNetworkResourceConfig)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AhvNetworkResourceConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AhvNetworkResourceConfig" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AhvNetworkResourceConfig)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(EsxNetworkResourceConfig)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "lifecycle.v4.svcmgr.EsxNetworkResourceConfig" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.EsxNetworkResourceConfig" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(EsxNetworkResourceConfig)
 			}
@@ -10680,7 +12651,7 @@ func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) UnmarshalJSON(b []byte) 
 	}
 	vOneOfType0 := new(AhvNetworkResourceConfig)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "lifecycle.v4.svcmgr.AhvNetworkResourceConfig" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AhvNetworkResourceConfig" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AhvNetworkResourceConfig)
 			}
@@ -10696,10 +12667,31 @@ func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) UnmarshalJSON(b []byte) 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfLoadBalancerNetworkConfigVmNetworkConfig"))
 }
 
 func (p *OneOfLoadBalancerNetworkConfigVmNetworkConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
@@ -10714,6 +12706,8 @@ type OneOfCustomValueItemValue struct {
 	ObjectType_   *string  `json:"-"`
 	oneOfType0    []string `json:"-"`
 	oneOfType1    *string  `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfCustomValueItemValue() *OneOfCustomValueItemValue {
@@ -10758,6 +12752,9 @@ func (p *OneOfCustomValueItemValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCustomValueItemValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<String>" == *p.Discriminator {
 		return p.oneOfType0
 	}
@@ -10768,6 +12765,67 @@ func (p *OneOfCustomValueItemValue) GetValue() interface{} {
 }
 
 func (p *OneOfCustomValueItemValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<String>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new([]string)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						p.oneOfType0 = *vOneOfType0
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "List<String>"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "List<String>"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["String"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(string)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType1 {
+							p.oneOfType1 = new(string)
+						}
+						*p.oneOfType1 = *vOneOfType1
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "String"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "String"
+						return nil
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new([]string)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		p.oneOfType0 = *vOneOfType0
@@ -10797,10 +12855,31 @@ func (p *OneOfCustomValueItemValue) UnmarshalJSON(b []byte) error {
 		*p.ObjectType_ = "String"
 		return nil
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCustomValueItemValue"))
 }
 
 func (p *OneOfCustomValueItemValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<String>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -10810,11 +12889,220 @@ func (p *OneOfCustomValueItemValue) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfCustomValueItemValue")
 }
 
+type OneOfScheduleScheduleConfig struct {
+	Discriminator *string           `json:"-"`
+	ObjectType_   *string           `json:"-"`
+	oneOfType0    *CronSchedule     `json:"-"`
+	oneOfType1    *IntervalSchedule `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfScheduleScheduleConfig() *OneOfScheduleScheduleConfig {
+	p := new(OneOfScheduleScheduleConfig)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfScheduleScheduleConfig) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfScheduleScheduleConfig is nil"))
+	}
+	switch v.(type) {
+	case CronSchedule:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(CronSchedule)
+		}
+		*p.oneOfType0 = v.(CronSchedule)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case IntervalSchedule:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(IntervalSchedule)
+		}
+		*p.oneOfType1 = v.(IntervalSchedule)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfScheduleScheduleConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	return nil
+}
+
+func (p *OneOfScheduleScheduleConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(CronSchedule)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.CronSchedule" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(CronSchedule)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(IntervalSchedule)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.IntervalSchedule" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(IntervalSchedule)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType0 := new(CronSchedule)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.CronSchedule" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(CronSchedule)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType1 := new(IntervalSchedule)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.IntervalSchedule" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(IntervalSchedule)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfScheduleScheduleConfig"))
+}
+
+func (p *OneOfScheduleScheduleConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	return nil, errors.New("No value to marshal for OneOfScheduleScheduleConfig")
+}
+
 type OneOfReplicationTargetReplicationTargetConfig struct {
 	Discriminator *string                       `json:"-"`
 	ObjectType_   *string                       `json:"-"`
 	oneOfType1    *SyncReplicationTargetConfig  `json:"-"`
 	oneOfType0    *AsyncReplicationTargetConfig `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfReplicationTargetReplicationTargetConfig() *OneOfReplicationTargetReplicationTargetConfig {
@@ -10862,6 +13150,9 @@ func (p *OneOfReplicationTargetReplicationTargetConfig) SetValue(v interface{}) 
 }
 
 func (p *OneOfReplicationTargetReplicationTargetConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -10872,9 +13163,79 @@ func (p *OneOfReplicationTargetReplicationTargetConfig) GetValue() interface{} {
 }
 
 func (p *OneOfReplicationTargetReplicationTargetConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(SyncReplicationTargetConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.SyncReplicationTargetConfig" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(SyncReplicationTargetConfig)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AsyncReplicationTargetConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AsyncReplicationTargetConfig" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AsyncReplicationTargetConfig)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(SyncReplicationTargetConfig)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "lifecycle.v4.svcmgr.SyncReplicationTargetConfig" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.SyncReplicationTargetConfig" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(SyncReplicationTargetConfig)
 			}
@@ -10892,7 +13253,7 @@ func (p *OneOfReplicationTargetReplicationTargetConfig) UnmarshalJSON(b []byte) 
 	}
 	vOneOfType0 := new(AsyncReplicationTargetConfig)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "lifecycle.v4.svcmgr.AsyncReplicationTargetConfig" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.AsyncReplicationTargetConfig" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AsyncReplicationTargetConfig)
 			}
@@ -10908,10 +13269,31 @@ func (p *OneOfReplicationTargetReplicationTargetConfig) UnmarshalJSON(b []byte) 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfReplicationTargetReplicationTargetConfig"))
 }
 
 func (p *OneOfReplicationTargetReplicationTargetConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
@@ -10926,6 +13308,8 @@ type OneOfPrePostActionActionDetails struct {
 	ObjectType_   *string         `json:"-"`
 	oneOfType1    *APICallDetails `json:"-"`
 	oneOfType0    *HelmJobDetails `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfPrePostActionActionDetails() *OneOfPrePostActionActionDetails {
@@ -10973,6 +13357,9 @@ func (p *OneOfPrePostActionActionDetails) SetValue(v interface{}) error {
 }
 
 func (p *OneOfPrePostActionActionDetails) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -10983,9 +13370,79 @@ func (p *OneOfPrePostActionActionDetails) GetValue() interface{} {
 }
 
 func (p *OneOfPrePostActionActionDetails) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(APICallDetails)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.APICallDetails" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(APICallDetails)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(HelmJobDetails)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.HelmJobDetails" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(HelmJobDetails)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(APICallDetails)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "lifecycle.v4.svcmgr.APICallDetails" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "lifecycle.v4.svcmgr.APICallDetails" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(APICallDetails)
 			}
@@ -11003,7 +13460,7 @@ func (p *OneOfPrePostActionActionDetails) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(HelmJobDetails)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "lifecycle.v4.svcmgr.HelmJobDetails" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "lifecycle.v4.svcmgr.HelmJobDetails" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(HelmJobDetails)
 			}
@@ -11019,10 +13476,31 @@ func (p *OneOfPrePostActionActionDetails) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPrePostActionActionDetails"))
 }
 
 func (p *OneOfPrePostActionActionDetails) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}

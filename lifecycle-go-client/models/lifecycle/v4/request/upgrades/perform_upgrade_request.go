@@ -1,16 +1,16 @@
 package upgrades
 
 import (
-	import4 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/common"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/common"
 )
 
 // This file holds the request struct for the PerformUpgrade operation.
 
 type PerformUpgradeRequest struct {
 	// (required)
-	Body *import4.UpgradeSpec
+	Body *import6.UpgradeSpec
 
-	// Cluster uuid on which the resource is present or operation is being performed.
+	// The cluster UUID on which the resource is present or the operation is being performed.
 	XClusterId *string
 
 	// A URL query parameter that allows long running operations to execute in a dry-run mode providing ability to identify

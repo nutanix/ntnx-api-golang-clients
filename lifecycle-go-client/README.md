@@ -9,8 +9,8 @@ The Go client for Nutanix Lifecycle Management APIs is designed for Go client ap
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.2
-- Package version: v4.2.2
+- API version: v4.3
+- Package version: v4.3.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/...@v4.2.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/...@v4.3.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4 v4.2.2
+	github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4 v4.3.1
 )
 ```
 
@@ -159,6 +159,43 @@ ApiClientInstance.Proxy.Port = 1080
 
 
 
+### Additional CA Certificates
+To trust additional CA certificates (e.g. self-signed or custom root CAs), use the `SetAdditionalCertificates` method with PEM-encoded certificate data. Both single and multiple certificates in the PEM data are supported.
+
+Certificate validity is checked lazily on the next request. If the PEM data contains no valid certificates, a warning is logged and the additional certificates are not applied.
+
+Passing `nil` or empty bytes to `SetAdditionalCertificates` is equivalent to calling `ClearAdditionalCertificates`. 
+This will remove all additional certificates previously added to the trustStore and restore trustStore its original
+state.
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
+	"os"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+caCert, err := os.ReadFile("/path/to/ca-certificate.pem")
+if err != nil {
+	// handle error
+}
+// No error is returned for invalid PEM — a warning is logged on the next request instead
+ApiClientInstance.SetAdditionalCertificates(caCert)
+
+// Passing nil or empty bytes clears any previously set additional CA certificates
+ApiClientInstance.SetAdditionalCertificates(nil)
+
+// Alternatively, clear explicitly
+ApiClientInstance.ClearAdditionalCertificates()
+```
+
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
 
@@ -208,7 +245,7 @@ ApiClientInstance.RetryInterval = 5 * time.Second // Interval (in time.Duration)
 
 ### Invoking an operation
 ```go
-// The following sample code is an example and does not reflect the real APIs provided by this client.
+
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/api"
@@ -216,7 +253,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	SampleApiInstance *api.SampleApi
+	ClaimTokensApiInstance *api.ClaimTokensApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -224,11 +261,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-SampleApiInstance = api.SampleApi(ApiClientInstance)
-var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
+ClaimTokensApiInstance = api.NewClaimTokensApi(ApiClientInstance)
+extId := "C8ebff56-29F2-C2Fa-aaAd-1CaC3e8B7aB3"
 
-// Get sample entity by ID
-response, err := SampleApiInstance.GetSampleEntityById(&extId)
+// 
+getResponse, err := ClaimTokensApiInstance.GetClaimTokenById(&extId)
 if err != nil {
 ....
 }
@@ -256,43 +293,46 @@ You can also modify the headers sent with each individual operation:
 #### Operation specific headers
 Nutanix APIs require that concurrent updates are protected using [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) headers. This would mean that the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header received in the response of a fetch (GET) operation should be used as an [If-Match](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match) header for the modification (PUT) operation.
 ```go
-// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/api"
+    // import request body DTO for put api
 )
 
 var (
 	ApiClientInstance *client.ApiClient
-	SampleApiInstance *api.SampleApi
+	ClaimTokensApiInstance *api.ClaimTokensApi
 )
 
 ApiClientInstance = client.NewApiClient()
-// Configure the client as shown in the previous step
+// Configure the client as shown in a previous step
 // ...
 
 // Initialize the API
-SampleApiInstance = api.SampleApi(ApiClientInstance)
-var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
+ClaimTokensApiInstance = api.NewClaimTokensApi(ApiClientInstance)
+extId := "C8ebff56-29F2-C2Fa-aaAd-1CaC3e8B7aB3"
 
-// Get sample entity by ID
-response, err := SampleApiInstance.GetSampleEntityById(&extId)
+// 
+getResponse, err := ClaimTokensApiInstance.GetClaimTokenById(&extId)
 if err != nil {
-....
+    ....
 }
 
 // Extract E-Tag Header
-etagValue := ApiClientInstance.GetEtag(response)
-    
-// The following sample code is an example and does not reflect the real APIs provided by this client.
+etagValue := ApiClientInstance.GetEtag(getResponse)
 
-// Update sample entity by ID
 args := make(map[string] interface {})
 args["If-Match"] = etagValue
+// ...
+// Perform update call with received E-Tag reference
+// initialize/change parameters for update
+// ...
+claimToken := getResponse.GetData().(import1.ClaimToken)
+
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := SampleApiInstance.UpdateSampleEntityById(&body, &extId, args)
+response, err := ClaimTokensApiInstance.UpdateClaimTokenById(&claimToken&extId, , args)
 if err != nil {
-    ....
+....
 }
 ```
 
@@ -342,7 +382,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=lifecycle&version=v4.2&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=lifecycle&version=v4.3&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

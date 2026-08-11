@@ -60,7 +60,7 @@ func NewBundlesServiceApi(apiClient *client.ApiClient) *BundlesServiceApi {
 	return a
 }
 
-// Create a bundle
+// Create a new LCM bundle on the cluster. Bundle creation is a 2-step process. Step 1: Stream the bundle bits from the user's local setup to the objects-lite service using the AWS S3 PUT API. Use base64-encoded username and password of a Prism Admin or Super Admin user as credentials. Alternatively, if the bundle is hosted somewhere accessible (e.g., external server or Nutanix Portal), provide a URL source to avoid Step 1; LCM will download the bundle from the URL. Step 2: Finalize the bundle by calling this CreateBundle v4 API with the object key from Step 1 in the name field (or omit name when using URL source). The request body must include the bundle vendor and may include a checksum (for verification). The operation is asynchronous and returns a TaskReference; poll the task to track progress. After a bundle is successfully created, run an inventory (POST /$actions/inventory) to discover the newly available updates from the bundle's images. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
 func (api *BundlesApi) CreateBundle(body *import1.Bundle, args ...map[string]interface{}) (*import1.CreateBundleApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewBundlesServiceApi(api.ApiClient)
@@ -70,14 +70,14 @@ func (api *BundlesApi) CreateBundle(body *import1.Bundle, args ...map[string]int
 	}, args...)
 }
 
-// Create a bundle
+// Create a new LCM bundle on the cluster. Bundle creation is a 2-step process. Step 1: Stream the bundle bits from the user's local setup to the objects-lite service using the AWS S3 PUT API. Use base64-encoded username and password of a Prism Admin or Super Admin user as credentials. Alternatively, if the bundle is hosted somewhere accessible (e.g., external server or Nutanix Portal), provide a URL source to avoid Step 1; LCM will download the bundle from the URL. Step 2: Finalize the bundle by calling this CreateBundle v4 API with the object key from Step 1 in the name field (or omit name when using URL source). The request body must include the bundle vendor and may include a checksum (for verification). The operation is asynchronous and returns a TaskReference; poll the task to track progress. After a bundle is successfully created, run an inventory (POST /$actions/inventory) to discover the newly available updates from the bundle's images. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
 func (api *BundlesServiceApi) CreateBundle(ctx context.Context, request *import2.CreateBundleRequest, args ...map[string]interface{}) (*import1.CreateBundleApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/bundles"
+	uri := "/api/lifecycle/v4.3/resources/bundles"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,13 +112,19 @@ func (api *BundlesServiceApi) CreateBundle(ctx context.Context, request *import2
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateBundleApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Delete bundle for the specified ExtId.
+// Delete an LCM bundle and its associated images from the cluster. This operation is asynchronous and returns a TaskReference; poll the task to confirm deletion completed. Deleting a bundle removes the upgrade images it contains, which may affect the ability to perform upgrades for the corresponding entities until new images are provided. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
 func (api *BundlesApi) DeleteBundleById(extId *string, args ...map[string]interface{}) (*import1.DeleteBundleByIdApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewBundlesServiceApi(api.ApiClient)
@@ -128,14 +134,14 @@ func (api *BundlesApi) DeleteBundleById(extId *string, args ...map[string]interf
 	}, args...)
 }
 
-// Delete bundle for the specified ExtId.
+// Delete an LCM bundle and its associated images from the cluster. This operation is asynchronous and returns a TaskReference; poll the task to confirm deletion completed. Deleting a bundle removes the upgrade images it contains, which may affect the ability to perform upgrades for the corresponding entities until new images are provided. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
 func (api *BundlesServiceApi) DeleteBundleById(ctx context.Context, request *import2.DeleteBundleByIdRequest, args ...map[string]interface{}) (*import1.DeleteBundleByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/bundles/{extId}"
+	uri := "/api/lifecycle/v4.3/resources/bundles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,13 +178,19 @@ func (api *BundlesServiceApi) DeleteBundleById(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteBundleByIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Get bundle details for bundle id.
+// Retrieve the full details of a specific LCM bundle by its external identifier. The response includes the bundle name, size, type (SOFTWARE, FIRMWARE, PRODUCT_META, FRAMEWORK, or IMAGE_BUNDLE), vendor, creation timestamp, contained images, checksum, and upload mode. Bundles are used primarily in dark-site deployments to deliver upgrade images to a cluster that lacks internet connectivity.
 func (api *BundlesApi) GetBundleById(extId *string, args ...map[string]interface{}) (*import1.GetBundleByIdApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewBundlesServiceApi(api.ApiClient)
@@ -188,14 +200,14 @@ func (api *BundlesApi) GetBundleById(extId *string, args ...map[string]interface
 	}, args...)
 }
 
-// Get bundle details for bundle id.
+// Retrieve the full details of a specific LCM bundle by its external identifier. The response includes the bundle name, size, type (SOFTWARE, FIRMWARE, PRODUCT_META, FRAMEWORK, or IMAGE_BUNDLE), vendor, creation timestamp, contained images, checksum, and upload mode. Bundles are used primarily in dark-site deployments to deliver upgrade images to a cluster that lacks internet connectivity.
 func (api *BundlesServiceApi) GetBundleById(ctx context.Context, request *import2.GetBundleByIdRequest, args ...map[string]interface{}) (*import1.GetBundleByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/bundles/{extId}"
+	uri := "/api/lifecycle/v4.3/resources/bundles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,13 +244,19 @@ func (api *BundlesServiceApi) GetBundleById(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetBundleByIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Query list of bundles
+// Retrieve a paginated list of all LCM bundles present on the cluster. Supports standard query parameters for pagination ($page, $limit), filtering ($filter), sorting ($orderby), and field projection ($select). Each bundle entry includes metadata such as name, type, vendor, size, and creation time. For dark-site deployments, bundles are the primary mechanism for delivering upgrade images to the cluster.
 func (api *BundlesApi) ListBundles(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListBundlesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewBundlesServiceApi(api.ApiClient)
@@ -252,14 +270,14 @@ func (api *BundlesApi) ListBundles(page_ *int, limit_ *int, filter_ *string, ord
 	}, args...)
 }
 
-// Query list of bundles
+// Retrieve a paginated list of all LCM bundles present on the cluster. Supports standard query parameters for pagination ($page, $limit), filtering ($filter), sorting ($orderby), and field projection ($select). Each bundle entry includes metadata such as name, type, vendor, size, and creation time. For dark-site deployments, bundles are the primary mechanism for delivering upgrade images to the cluster.
 func (api *BundlesServiceApi) ListBundles(ctx context.Context, request *import2.ListBundlesRequest, args ...map[string]interface{}) (*import1.ListBundlesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/bundles"
+	uri := "/api/lifecycle/v4.3/resources/bundles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,8 +323,14 @@ func (api *BundlesServiceApi) ListBundles(ctx context.Context, request *import2.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListBundlesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

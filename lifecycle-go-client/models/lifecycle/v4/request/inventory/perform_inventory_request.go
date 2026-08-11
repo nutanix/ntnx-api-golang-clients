@@ -1,17 +1,17 @@
 package inventory
 
 import (
-	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
 )
 
 // This file holds the request struct for the PerformInventory operation.
 
 type PerformInventoryRequest struct {
-	// Cluster uuid on which the resource is present or operation is being performed.
+	// The cluster UUID on which the resource is present or the operation is being performed.
 	XClusterId *string
 
 	//
-	Body *import5.InventorySpec
+	Body *import7.InventorySpec
 
 	// A URL query parameter that allows long running operations to execute in a dry-run mode providing ability to identify
 	// trouble spots and system failures without performing the actual operation. Additionally this mode also offers a summary

@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/config"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -60,24 +60,24 @@ func NewConfigServiceApi(apiClient *client.ApiClient) *ConfigServiceApi {
 	return a
 }
 
-// Get LCM configuration.
+// Retrieve the current LCM framework configuration for a cluster. The response includes the LCM repository URL, auto-inventory settings, framework version, connectivity type (connected-site or dark-site), HTTPS enforcement, and lists of supported and deprecated software entities. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster; omitting the header returns the Prism Central configuration. To modify the configuration, use PUT /config.
 func (api *ConfigApi) GetConfig(xClusterId *string, args ...map[string]interface{}) (*import1.GetConfigApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetConfig(context.Background(), &import3.GetConfigRequest{
+	return api.ServiceClient.GetConfig(context.Background(), &import5.GetConfigRequest{
 		XClusterId: xClusterId,
 	}, args...)
 }
 
-// Get LCM configuration.
-func (api *ConfigServiceApi) GetConfig(ctx context.Context, request *import3.GetConfigRequest, args ...map[string]interface{}) (*import1.GetConfigApiResponse, error) {
+// Retrieve the current LCM framework configuration for a cluster. The response includes the LCM repository URL, auto-inventory settings, framework version, connectivity type (connected-site or dark-site), HTTPS enforcement, and lists of supported and deprecated software entities. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster; omitting the header returns the Prism Central configuration. To modify the configuration, use PUT /config.
+func (api *ConfigServiceApi) GetConfig(ctx context.Context, request *import5.GetConfigRequest, args ...map[string]interface{}) (*import1.GetConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/config"
+	uri := "/api/lifecycle/v4.3/resources/config"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -110,31 +110,37 @@ func (api *ConfigServiceApi) GetConfig(ctx context.Context, request *import3.Get
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Update LCM configuration.
+// Update the LCM framework configuration for a cluster. Supply the full Config object in the request body with the desired changes. Updatable fields include the repository URL, auto-inventory toggle and schedule, HTTPS enforcement, and module auto-upgrade enablement. Read-only fields such as version and displayVersion are ignored in the request. The operation is asynchronous and returns a TaskReference; poll the task to confirm the configuration change succeeded. This endpoint requires the If-Match header with the ETag value from a prior GET /config response to prevent concurrent modification conflicts. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster.
 func (api *ConfigApi) UpdateConfig(body *import1.Config, xClusterId *string, args ...map[string]interface{}) (*import1.UpdateConfigApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateConfig(context.Background(), &import3.UpdateConfigRequest{
+	return api.ServiceClient.UpdateConfig(context.Background(), &import5.UpdateConfigRequest{
 		Body:       body,
 		XClusterId: xClusterId,
 	}, args...)
 }
 
-// Update LCM configuration.
-func (api *ConfigServiceApi) UpdateConfig(ctx context.Context, request *import3.UpdateConfigRequest, args ...map[string]interface{}) (*import1.UpdateConfigApiResponse, error) {
+// Update the LCM framework configuration for a cluster. Supply the full Config object in the request body with the desired changes. Updatable fields include the repository URL, auto-inventory toggle and schedule, HTTPS enforcement, and module auto-upgrade enablement. Read-only fields such as version and displayVersion are ignored in the request. The operation is asynchronous and returns a TaskReference; poll the task to confirm the configuration change succeeded. This endpoint requires the If-Match header with the ETag value from a prior GET /config response to prevent concurrent modification conflicts. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster.
+func (api *ConfigServiceApi) UpdateConfig(ctx context.Context, request *import5.UpdateConfigRequest, args ...map[string]interface{}) (*import1.UpdateConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/config"
+	uri := "/api/lifecycle/v4.3/resources/config"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -172,8 +178,14 @@ func (api *ConfigServiceApi) UpdateConfig(ctx context.Context, request *import3.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

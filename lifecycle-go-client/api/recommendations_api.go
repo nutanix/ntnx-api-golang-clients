@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
-	import13 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/recommendations"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import21 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/recommendations"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -61,25 +61,25 @@ func NewRecommendationsServiceApi(apiClient *client.ApiClient) *RecommendationsS
 	return a
 }
 
-// Compute LCM upgrade recommendations given a set of entities to update along with a target version. The recommendations are computed based on the current state of the entities and the target version. Once the task is successfully completed, the resource identifier for the computation result is stored in the completion_details field of the task. The result can then be retrieved using the resource id via the GET recommendations/ endpoint.
-func (api *RecommendationsApi) ComputeRecommendations(body *import1.RecommendationSpec, xClusterId *string, args ...map[string]interface{}) (*import5.ComputeRecommendationsApiResponse, error) {
+// Compute upgrade recommendations for a set of LCM entities. Recommendations resolve inter-entity dependencies, identify additional entities that must be co-upgraded, and produce a validated list of entityUpdateSpecs ready for use in prechecks (POST /$actions/prechecks) and upgrades (POST /$actions/upgrade). Submit a RecommendationSpec containing one of four input types: entity types (SOFTWARE/FIRMWARE) for broad recommendations, target entities for entity-class/model-based selection, entity update specs for specific UUID-to-version mappings, or deploy specs for pre-deployment planning. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster; if omitted, the operation targets the Prism Central cluster itself. The operation is asynchronous and returns a TaskReference. Once the task completes successfully, retrieve the resource identifier from the task's completion_details field and use GET /recommendations/{extId} to fetch the computed recommendation results. The result resource is valid for 1 hour from creation. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency. In dark-site mode, recommendations are limited to updates available from uploaded bundles.
+func (api *RecommendationsApi) ComputeRecommendations(body *import1.RecommendationSpec, xClusterId *string, args ...map[string]interface{}) (*import7.ComputeRecommendationsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRecommendationsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ComputeRecommendations(context.Background(), &import13.ComputeRecommendationsRequest{
+	return api.ServiceClient.ComputeRecommendations(context.Background(), &import21.ComputeRecommendationsRequest{
 		Body:       body,
 		XClusterId: xClusterId,
 	}, args...)
 }
 
-// Compute LCM upgrade recommendations given a set of entities to update along with a target version. The recommendations are computed based on the current state of the entities and the target version. Once the task is successfully completed, the resource identifier for the computation result is stored in the completion_details field of the task. The result can then be retrieved using the resource id via the GET recommendations/ endpoint.
-func (api *RecommendationsServiceApi) ComputeRecommendations(ctx context.Context, request *import13.ComputeRecommendationsRequest, args ...map[string]interface{}) (*import5.ComputeRecommendationsApiResponse, error) {
+// Compute upgrade recommendations for a set of LCM entities. Recommendations resolve inter-entity dependencies, identify additional entities that must be co-upgraded, and produce a validated list of entityUpdateSpecs ready for use in prechecks (POST /$actions/prechecks) and upgrades (POST /$actions/upgrade). Submit a RecommendationSpec containing one of four input types: entity types (SOFTWARE/FIRMWARE) for broad recommendations, target entities for entity-class/model-based selection, entity update specs for specific UUID-to-version mappings, or deploy specs for pre-deployment planning. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster; if omitted, the operation targets the Prism Central cluster itself. The operation is asynchronous and returns a TaskReference. Once the task completes successfully, retrieve the resource identifier from the task's completion_details field and use GET /recommendations/{extId} to fetch the computed recommendation results. The result resource is valid for 1 hour from creation. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency. In dark-site mode, recommendations are limited to updates available from uploaded bundles.
+func (api *RecommendationsServiceApi) ComputeRecommendations(ctx context.Context, request *import21.ComputeRecommendationsRequest, args ...map[string]interface{}) (*import7.ComputeRecommendationsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/operations/$actions/compute-recommendations"
+	uri := "/api/lifecycle/v4.3/operations/$actions/compute-recommendations"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -117,30 +117,36 @@ func (api *RecommendationsServiceApi) ComputeRecommendations(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import5.ComputeRecommendationsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import7.ComputeRecommendationsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Get LCM upgrade recommendation details for specified resource ID. The resource is valid for 1 hour from the time it was created using the computeRecommendations endpoint.
+// Retrieve the computed upgrade recommendation result by its resource identifier. The resource identifier is obtained from the completion_details field of the task returned by POST /$actions/compute-recommendations. The result includes the resolved entityUpdateSpecs (entity UUID and target version pairs), any entities that were skipped, modified, or added during dependency resolution, and deployable version information. The recommendation result is valid for 1 hour from the time it was computed. Use the entityUpdateSpecs from the result as input to POST /$actions/prechecks and POST /$actions/upgrade.
 func (api *RecommendationsApi) GetRecommendationById(extId *string, args ...map[string]interface{}) (*import1.GetRecommendationByIdApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRecommendationsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetRecommendationById(context.Background(), &import13.GetRecommendationByIdRequest{
+	return api.ServiceClient.GetRecommendationById(context.Background(), &import21.GetRecommendationByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Get LCM upgrade recommendation details for specified resource ID. The resource is valid for 1 hour from the time it was created using the computeRecommendations endpoint.
-func (api *RecommendationsServiceApi) GetRecommendationById(ctx context.Context, request *import13.GetRecommendationByIdRequest, args ...map[string]interface{}) (*import1.GetRecommendationByIdApiResponse, error) {
+// Retrieve the computed upgrade recommendation result by its resource identifier. The resource identifier is obtained from the completion_details field of the task returned by POST /$actions/compute-recommendations. The result includes the resolved entityUpdateSpecs (entity UUID and target version pairs), any entities that were skipped, modified, or added during dependency resolution, and deployable version information. The recommendation result is valid for 1 hour from the time it was computed. Use the entityUpdateSpecs from the result as input to POST /$actions/prechecks and POST /$actions/upgrade.
+func (api *RecommendationsServiceApi) GetRecommendationById(ctx context.Context, request *import21.GetRecommendationByIdRequest, args ...map[string]interface{}) (*import1.GetRecommendationByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/recommendations/{extId}"
+	uri := "/api/lifecycle/v4.3/resources/recommendations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -177,8 +183,14 @@ func (api *RecommendationsServiceApi) GetRecommendationById(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRecommendationByIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

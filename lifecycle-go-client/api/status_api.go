@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import14 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/status"
+	import22 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/status"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -60,24 +60,24 @@ func NewStatusServiceApi(apiClient *client.ApiClient) *StatusServiceApi {
 	return a
 }
 
-// Get the LCM framework status.
+// Retrieve the current operational status of the LCM framework on a cluster. The response includes the installed framework version, whether a framework update is available, any in-progress operation (inventory, prechecks, upgrade, or upload) with its task identifier, the cancel-intent flag, URL accessibility, connectivity type (connected-site or dark-site), and restricted-mode information. Always check this endpoint before starting a new operation (POST /$actions/inventory, POST /$actions/prechecks, or POST /$actions/upgrade) to confirm no conflicting operation is already running. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster; if omitted, the operation targets the Prism Central cluster itself.
 func (api *StatusApi) GetStatus(xClusterId *string, args ...map[string]interface{}) (*import1.GetStatusApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStatusServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetStatus(context.Background(), &import14.GetStatusRequest{
+	return api.ServiceClient.GetStatus(context.Background(), &import22.GetStatusRequest{
 		XClusterId: xClusterId,
 	}, args...)
 }
 
-// Get the LCM framework status.
-func (api *StatusServiceApi) GetStatus(ctx context.Context, request *import14.GetStatusRequest, args ...map[string]interface{}) (*import1.GetStatusApiResponse, error) {
+// Retrieve the current operational status of the LCM framework on a cluster. The response includes the installed framework version, whether a framework update is available, any in-progress operation (inventory, prechecks, upgrade, or upload) with its task identifier, the cancel-intent flag, URL accessibility, connectivity type (connected-site or dark-site), and restricted-mode information. Always check this endpoint before starting a new operation (POST /$actions/inventory, POST /$actions/prechecks, or POST /$actions/upgrade) to confirm no conflicting operation is already running. When operating from Prism Central, supply the X-Cluster-Id header to target a specific Prism Element cluster; if omitted, the operation targets the Prism Central cluster itself.
+func (api *StatusServiceApi) GetStatus(ctx context.Context, request *import22.GetStatusRequest, args ...map[string]interface{}) (*import1.GetStatusApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/status"
+	uri := "/api/lifecycle/v4.3/resources/status"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -110,8 +110,14 @@ func (api *StatusServiceApi) GetStatus(ctx context.Context, request *import14.Ge
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetStatusApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

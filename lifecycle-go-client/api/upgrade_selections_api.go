@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import15 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/upgradeselections"
+	import23 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/upgradeselections"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -60,24 +60,24 @@ func NewUpgradeSelectionsServiceApi(apiClient *client.ApiClient) *UpgradeSelecti
 	return a
 }
 
-// Create an LCM Upgrade Selection
+// Create a new upgrade selection to save the intended set of entity upgrades for a cluster. This is primarily used in dark-site workflows where the user selects entities to upgrade, saves the selection, and then exports it to generate a download helper for obtaining the required bundles from the Nutanix Portal. Submit an UpgradeSelection object containing the selectedUpgrades (entity UUID and target version pairs) and the clusterExtId. The operation is asynchronous and returns a TaskReference. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency. After creating a selection, use POST /upgrade-selections/{extId}/$actions/export to generate the download helper package.
 func (api *UpgradeSelectionsApi) CreateUpgradeSelection(body *import1.UpgradeSelection, args ...map[string]interface{}) (*import1.CreateUpgradeSelectionApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateUpgradeSelection(context.Background(), &import15.CreateUpgradeSelectionRequest{
+	return api.ServiceClient.CreateUpgradeSelection(context.Background(), &import23.CreateUpgradeSelectionRequest{
 		Body: body,
 	}, args...)
 }
 
-// Create an LCM Upgrade Selection
-func (api *UpgradeSelectionsServiceApi) CreateUpgradeSelection(ctx context.Context, request *import15.CreateUpgradeSelectionRequest, args ...map[string]interface{}) (*import1.CreateUpgradeSelectionApiResponse, error) {
+// Create a new upgrade selection to save the intended set of entity upgrades for a cluster. This is primarily used in dark-site workflows where the user selects entities to upgrade, saves the selection, and then exports it to generate a download helper for obtaining the required bundles from the Nutanix Portal. Submit an UpgradeSelection object containing the selectedUpgrades (entity UUID and target version pairs) and the clusterExtId. The operation is asynchronous and returns a TaskReference. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency. After creating a selection, use POST /upgrade-selections/{extId}/$actions/export to generate the download helper package.
+func (api *UpgradeSelectionsServiceApi) CreateUpgradeSelection(ctx context.Context, request *import23.CreateUpgradeSelectionRequest, args ...map[string]interface{}) (*import1.CreateUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/upgrade-selections"
+	uri := "/api/lifecycle/v4.3/resources/upgrade-selections"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,30 +112,36 @@ func (api *UpgradeSelectionsServiceApi) CreateUpgradeSelection(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateUpgradeSelectionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Delete upgrade selection for the specified ExtId
+// Delete an upgrade selection that is no longer needed. This operation is asynchronous and returns a TaskReference. Deleting a selection does not affect any bundles or images that have already been uploaded to the cluster. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
 func (api *UpgradeSelectionsApi) DeleteUpgradeSelectionById(extId *string, args ...map[string]interface{}) (*import1.DeleteUpgradeSelectionApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteUpgradeSelectionById(context.Background(), &import15.DeleteUpgradeSelectionByIdRequest{
+	return api.ServiceClient.DeleteUpgradeSelectionById(context.Background(), &import23.DeleteUpgradeSelectionByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Delete upgrade selection for the specified ExtId
-func (api *UpgradeSelectionsServiceApi) DeleteUpgradeSelectionById(ctx context.Context, request *import15.DeleteUpgradeSelectionByIdRequest, args ...map[string]interface{}) (*import1.DeleteUpgradeSelectionApiResponse, error) {
+// Delete an upgrade selection that is no longer needed. This operation is asynchronous and returns a TaskReference. Deleting a selection does not affect any bundles or images that have already been uploaded to the cluster. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
+func (api *UpgradeSelectionsServiceApi) DeleteUpgradeSelectionById(ctx context.Context, request *import23.DeleteUpgradeSelectionByIdRequest, args ...map[string]interface{}) (*import1.DeleteUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/upgrade-selections/{extId}"
+	uri := "/api/lifecycle/v4.3/resources/upgrade-selections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,30 +178,36 @@ func (api *UpgradeSelectionsServiceApi) DeleteUpgradeSelectionById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteUpgradeSelectionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Generates the download_helper.zip file which contains scripts and instructions for downloading the LCM darksite bundles required for upgrades. Once the task is successfully completed, the url to download the download_helper.zip file is stored in the completion_details field of the task.
+// Generate a download_helper.zip file containing scripts and instructions for downloading the LCM dark-site bundles required for the selected upgrades from the Nutanix Portal. The operation is asynchronous and returns a TaskReference. Once the task completes successfully, the URL to download the download_helper.zip file is available in the completion_details field of the task. The download helper includes metadata about which bundles are needed and helper scripts for automated download. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
 func (api *UpgradeSelectionsApi) ExportUpgradeSelection(extId *string, args ...map[string]interface{}) (*import1.ExportUpgradeSelectionApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ExportUpgradeSelection(context.Background(), &import15.ExportUpgradeSelectionRequest{
+	return api.ServiceClient.ExportUpgradeSelection(context.Background(), &import23.ExportUpgradeSelectionRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Generates the download_helper.zip file which contains scripts and instructions for downloading the LCM darksite bundles required for upgrades. Once the task is successfully completed, the url to download the download_helper.zip file is stored in the completion_details field of the task.
-func (api *UpgradeSelectionsServiceApi) ExportUpgradeSelection(ctx context.Context, request *import15.ExportUpgradeSelectionRequest, args ...map[string]interface{}) (*import1.ExportUpgradeSelectionApiResponse, error) {
+// Generate a download_helper.zip file containing scripts and instructions for downloading the LCM dark-site bundles required for the selected upgrades from the Nutanix Portal. The operation is asynchronous and returns a TaskReference. Once the task completes successfully, the URL to download the download_helper.zip file is available in the completion_details field of the task. The download helper includes metadata about which bundles are needed and helper scripts for automated download. Requires the NTNX-Request-Id header (a UUID v4 value) for idempotency.
+func (api *UpgradeSelectionsServiceApi) ExportUpgradeSelection(ctx context.Context, request *import23.ExportUpgradeSelectionRequest, args ...map[string]interface{}) (*import1.ExportUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/upgrade-selections/{extId}/$actions/export"
+	uri := "/api/lifecycle/v4.3/resources/upgrade-selections/{extId}/$actions/export"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,30 +244,36 @@ func (api *UpgradeSelectionsServiceApi) ExportUpgradeSelection(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ExportUpgradeSelectionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Get upgrade selection details for upgrade selction id
+// Retrieve the full details of a specific upgrade selection by its identifier. The response includes the list of selected entity upgrades (entity UUID and target version pairs), the cluster identifier, and the current selection status (PENDING_UPLOAD, UPGRADE_READY, or STALE_SELECTION). Use this endpoint to check whether all required bundles have been uploaded and the selection is ready for upgrade.
 func (api *UpgradeSelectionsApi) GetUpgradeSelectionById(extId *string, args ...map[string]interface{}) (*import1.GetUpgradeSelectionApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetUpgradeSelectionById(context.Background(), &import15.GetUpgradeSelectionByIdRequest{
+	return api.ServiceClient.GetUpgradeSelectionById(context.Background(), &import23.GetUpgradeSelectionByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Get upgrade selection details for upgrade selction id
-func (api *UpgradeSelectionsServiceApi) GetUpgradeSelectionById(ctx context.Context, request *import15.GetUpgradeSelectionByIdRequest, args ...map[string]interface{}) (*import1.GetUpgradeSelectionApiResponse, error) {
+// Retrieve the full details of a specific upgrade selection by its identifier. The response includes the list of selected entity upgrades (entity UUID and target version pairs), the cluster identifier, and the current selection status (PENDING_UPLOAD, UPGRADE_READY, or STALE_SELECTION). Use this endpoint to check whether all required bundles have been uploaded and the selection is ready for upgrade.
+func (api *UpgradeSelectionsServiceApi) GetUpgradeSelectionById(ctx context.Context, request *import23.GetUpgradeSelectionByIdRequest, args ...map[string]interface{}) (*import1.GetUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/upgrade-selections/{extId}"
+	uri := "/api/lifecycle/v4.3/resources/upgrade-selections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -292,18 +310,24 @@ func (api *UpgradeSelectionsServiceApi) GetUpgradeSelectionById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetUpgradeSelectionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Query list of Upgrade Selections
+// Retrieve a paginated list of all upgrade selections on the cluster. Supports standard query parameters for pagination ($page, $limit) and filtering ($filter). Each selection shows the saved entity upgrades, cluster identifier, and current status.
 func (api *UpgradeSelectionsApi) ListUpgradeSelections(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListUpgradeSelectionsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListUpgradeSelections(context.Background(), &import15.ListUpgradeSelectionsRequest{
+	return api.ServiceClient.ListUpgradeSelections(context.Background(), &import23.ListUpgradeSelectionsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -312,14 +336,14 @@ func (api *UpgradeSelectionsApi) ListUpgradeSelections(page_ *int, limit_ *int, 
 	}, args...)
 }
 
-// Query list of Upgrade Selections
-func (api *UpgradeSelectionsServiceApi) ListUpgradeSelections(ctx context.Context, request *import15.ListUpgradeSelectionsRequest, args ...map[string]interface{}) (*import1.ListUpgradeSelectionsApiResponse, error) {
+// Retrieve a paginated list of all upgrade selections on the cluster. Supports standard query parameters for pagination ($page, $limit) and filtering ($filter). Each selection shows the saved entity upgrades, cluster identifier, and current status.
+func (api *UpgradeSelectionsServiceApi) ListUpgradeSelections(ctx context.Context, request *import23.ListUpgradeSelectionsRequest, args ...map[string]interface{}) (*import1.ListUpgradeSelectionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.2/resources/upgrade-selections"
+	uri := "/api/lifecycle/v4.3/resources/upgrade-selections"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -365,8 +389,14 @@ func (api *UpgradeSelectionsServiceApi) ListUpgradeSelections(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListUpgradeSelectionsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
