@@ -85,7 +85,7 @@ func (api *EsxiStatsServiceApi) GetDiskStatsById(ctx context.Context, request *i
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/stats/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.3/esxi/stats/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == request.VmExtId {
@@ -148,9 +148,15 @@ func (api *EsxiStatsServiceApi) GetDiskStatsById(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import2.GetDiskStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -177,7 +183,7 @@ func (api *EsxiStatsServiceApi) GetNicStatsById(ctx context.Context, request *im
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/stats/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.3/esxi/stats/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == request.VmExtId {
@@ -240,9 +246,15 @@ func (api *EsxiStatsServiceApi) GetNicStatsById(ctx context.Context, request *im
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import2.GetNicStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -268,7 +280,7 @@ func (api *EsxiStatsServiceApi) GetVmStatsById(ctx context.Context, request *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/stats/vms/{extId}"
+	uri := "/api/vmm/v4.3/esxi/stats/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -326,9 +338,15 @@ func (api *EsxiStatsServiceApi) GetVmStatsById(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import2.GetVmStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -357,7 +375,7 @@ func (api *EsxiStatsServiceApi) ListVmStats(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/stats/vms"
+	uri := "/api/vmm/v4.3/esxi/stats/vms"
 
 	// verify the required parameter 'startTime_' is set
 	if nil == request.StartTime_ {
@@ -421,8 +439,14 @@ func (api *EsxiStatsServiceApi) ListVmStats(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import2.ListVmStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

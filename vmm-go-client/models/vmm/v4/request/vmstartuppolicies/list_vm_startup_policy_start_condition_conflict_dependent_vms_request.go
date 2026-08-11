@@ -10,11 +10,13 @@ type ListVmStartupPolicyStartConditionConflictDependentVmsRequest struct {
 	StartConditionConflictExtId *string
 
 	// A URL query parameter that specifies the page number of the result set. It must be a positive integer between 0 and the
-	// maximum number of pages that are available for that resource. Any number out of this range might lead to no results.
+	// maximum number of pages that are available for that resource. Any number out of this range might lead to no results. If
+	// both $page and $apply query parameters are present, $page will be applied on entities within the groups.
 	Page_ *int
 
 	// A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer
 	// between 1 and 100. Any number out of this range will lead to a validation error. If the limit is not provided, a default
-	// value of 50 records will be returned in the result set.
+	// value of 50 records will be returned in the result set. If both $limit and $apply query parameters are present, $limit
+	// will be applied on entities within the groups. Default value of limit with $apply will be 5.
 	Limit_ *int
 }

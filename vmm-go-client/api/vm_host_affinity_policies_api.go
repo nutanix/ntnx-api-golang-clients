@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import21 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/policies"
-	import24 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/vmhostaffinitypolicies"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/policies"
+	import25 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/vmhostaffinitypolicies"
 	"net/http"
 	"net/url"
 	"strings"
@@ -61,23 +61,23 @@ func NewVmHostAffinityPoliciesServiceApi(apiClient *client.ApiClient) *VmHostAff
 }
 
 // Creates a new VM-host affinity policy with the provided configuration.
-func (api *VmHostAffinityPoliciesApi) CreateVmHostAffinityPolicy(body *import21.VmHostAffinityPolicy, args ...map[string]interface{}) (*import21.CreateVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) CreateVmHostAffinityPolicy(body *import6.VmHostAffinityPolicy, args ...map[string]interface{}) (*import6.CreateVmHostAffinityPolicyApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateVmHostAffinityPolicy(context.Background(), &import24.CreateVmHostAffinityPolicyRequest{
+	return api.ServiceClient.CreateVmHostAffinityPolicy(context.Background(), &import25.CreateVmHostAffinityPolicyRequest{
 		Body: body,
 	}, args...)
 }
 
 // Creates a new VM-host affinity policy with the provided configuration.
-func (api *VmHostAffinityPoliciesServiceApi) CreateVmHostAffinityPolicy(ctx context.Context, request *import24.CreateVmHostAffinityPolicyRequest, args ...map[string]interface{}) (*import21.CreateVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) CreateVmHostAffinityPolicy(ctx context.Context, request *import25.CreateVmHostAffinityPolicyRequest, args ...map[string]interface{}) (*import6.CreateVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,30 +112,36 @@ func (api *VmHostAffinityPoliciesServiceApi) CreateVmHostAffinityPolicy(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.CreateVmHostAffinityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.CreateVmHostAffinityPolicyApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Deletes the VM-host affinity policy with the given external identifier.
-func (api *VmHostAffinityPoliciesApi) DeleteVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import21.DeleteVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) DeleteVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import6.DeleteVmHostAffinityPolicyApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteVmHostAffinityPolicyById(context.Background(), &import24.DeleteVmHostAffinityPolicyByIdRequest{
+	return api.ServiceClient.DeleteVmHostAffinityPolicyById(context.Background(), &import25.DeleteVmHostAffinityPolicyByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Deletes the VM-host affinity policy with the given external identifier.
-func (api *VmHostAffinityPoliciesServiceApi) DeleteVmHostAffinityPolicyById(ctx context.Context, request *import24.DeleteVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import21.DeleteVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) DeleteVmHostAffinityPolicyById(ctx context.Context, request *import25.DeleteVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import6.DeleteVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,30 +178,36 @@ func (api *VmHostAffinityPoliciesServiceApi) DeleteVmHostAffinityPolicyById(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.DeleteVmHostAffinityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.DeleteVmHostAffinityPolicyApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Fetches the VM-host affinity policy configuration for the provided VM-host affinity policy external identifier.
-func (api *VmHostAffinityPoliciesApi) GetVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import21.GetVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) GetVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import6.GetVmHostAffinityPolicyApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetVmHostAffinityPolicyById(context.Background(), &import24.GetVmHostAffinityPolicyByIdRequest{
+	return api.ServiceClient.GetVmHostAffinityPolicyById(context.Background(), &import25.GetVmHostAffinityPolicyByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Fetches the VM-host affinity policy configuration for the provided VM-host affinity policy external identifier.
-func (api *VmHostAffinityPoliciesServiceApi) GetVmHostAffinityPolicyById(ctx context.Context, request *import24.GetVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import21.GetVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) GetVmHostAffinityPolicyById(ctx context.Context, request *import25.GetVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import6.GetVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,18 +244,24 @@ func (api *VmHostAffinityPoliciesServiceApi) GetVmHostAffinityPolicyById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.GetVmHostAffinityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.GetVmHostAffinityPolicyApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Lists all the VM-Host Affinity policies.
-func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import21.ListVmHostAffinityPoliciesApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import6.ListVmHostAffinityPoliciesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVmHostAffinityPolicies(context.Background(), &import24.ListVmHostAffinityPoliciesRequest{
+	return api.ServiceClient.ListVmHostAffinityPolicies(context.Background(), &import25.ListVmHostAffinityPoliciesRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -252,13 +270,13 @@ func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, lim
 }
 
 // Lists all the VM-Host Affinity policies.
-func (api *VmHostAffinityPoliciesServiceApi) ListVmHostAffinityPolicies(ctx context.Context, request *import24.ListVmHostAffinityPoliciesRequest, args ...map[string]interface{}) (*import21.ListVmHostAffinityPoliciesApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) ListVmHostAffinityPolicies(ctx context.Context, request *import25.ListVmHostAffinityPoliciesRequest, args ...map[string]interface{}) (*import6.ListVmHostAffinityPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -301,18 +319,24 @@ func (api *VmHostAffinityPoliciesServiceApi) ListVmHostAffinityPolicies(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.ListVmHostAffinityPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.ListVmHostAffinityPoliciesApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Lists the compliance state of all the VMs associated with the VM-host affinity policy.
-func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates(vmHostAffinityPolicyExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import21.ListVmHostAffinityPolicyVmComplianceStatesApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates(vmHostAffinityPolicyExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import6.ListVmHostAffinityPolicyVmComplianceStatesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVmHostAffinityPolicyVmComplianceStates(context.Background(), &import24.ListVmHostAffinityPolicyVmComplianceStatesRequest{
+	return api.ServiceClient.ListVmHostAffinityPolicyVmComplianceStates(context.Background(), &import25.ListVmHostAffinityPolicyVmComplianceStatesRequest{
 		VmHostAffinityPolicyExtId: vmHostAffinityPolicyExtId,
 		Page_:                     page_,
 		Limit_:                    limit_,
@@ -320,13 +344,13 @@ func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates
 }
 
 // Lists the compliance state of all the VMs associated with the VM-host affinity policy.
-func (api *VmHostAffinityPoliciesServiceApi) ListVmHostAffinityPolicyVmComplianceStates(ctx context.Context, request *import24.ListVmHostAffinityPolicyVmComplianceStatesRequest, args ...map[string]interface{}) (*import21.ListVmHostAffinityPolicyVmComplianceStatesApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) ListVmHostAffinityPolicyVmComplianceStates(ctx context.Context, request *import25.ListVmHostAffinityPolicyVmComplianceStatesRequest, args ...map[string]interface{}) (*import6.ListVmHostAffinityPolicyVmComplianceStatesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{vmHostAffinityPolicyExtId}/vm-compliance-states"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies/{vmHostAffinityPolicyExtId}/vm-compliance-states"
 
 	// verify the required parameter 'vmHostAffinityPolicyExtId' is set
 	if nil == request.VmHostAffinityPolicyExtId {
@@ -370,30 +394,36 @@ func (api *VmHostAffinityPoliciesServiceApi) ListVmHostAffinityPolicyVmComplianc
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.ListVmHostAffinityPolicyVmComplianceStatesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.ListVmHostAffinityPolicyVmComplianceStatesApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Re-enforces the VM-host affinity policy on all the VMs associated with the policy.
-func (api *VmHostAffinityPoliciesApi) ReEnforceVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import21.ReEnforceVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) ReEnforceVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import6.ReEnforceVmHostAffinityPolicyApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ReEnforceVmHostAffinityPolicyById(context.Background(), &import24.ReEnforceVmHostAffinityPolicyByIdRequest{
+	return api.ServiceClient.ReEnforceVmHostAffinityPolicyById(context.Background(), &import25.ReEnforceVmHostAffinityPolicyByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Re-enforces the VM-host affinity policy on all the VMs associated with the policy.
-func (api *VmHostAffinityPoliciesServiceApi) ReEnforceVmHostAffinityPolicyById(ctx context.Context, request *import24.ReEnforceVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import21.ReEnforceVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) ReEnforceVmHostAffinityPolicyById(ctx context.Context, request *import25.ReEnforceVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import6.ReEnforceVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}/$actions/re-enforce"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies/{extId}/$actions/re-enforce"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -430,31 +460,37 @@ func (api *VmHostAffinityPoliciesServiceApi) ReEnforceVmHostAffinityPolicyById(c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.ReEnforceVmHostAffinityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.ReEnforceVmHostAffinityPolicyApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Updates the configuration of the VM-host affinity policy with the given external identifier.
-func (api *VmHostAffinityPoliciesApi) UpdateVmHostAffinityPolicyById(extId *string, body *import21.VmHostAffinityPolicy, args ...map[string]interface{}) (*import21.UpdateVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesApi) UpdateVmHostAffinityPolicyById(extId *string, body *import6.VmHostAffinityPolicy, args ...map[string]interface{}) (*import6.UpdateVmHostAffinityPolicyApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmHostAffinityPoliciesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateVmHostAffinityPolicyById(context.Background(), &import24.UpdateVmHostAffinityPolicyByIdRequest{
+	return api.ServiceClient.UpdateVmHostAffinityPolicyById(context.Background(), &import25.UpdateVmHostAffinityPolicyByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Updates the configuration of the VM-host affinity policy with the given external identifier.
-func (api *VmHostAffinityPoliciesServiceApi) UpdateVmHostAffinityPolicyById(ctx context.Context, request *import24.UpdateVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import21.UpdateVmHostAffinityPolicyApiResponse, error) {
+func (api *VmHostAffinityPoliciesServiceApi) UpdateVmHostAffinityPolicyById(ctx context.Context, request *import25.UpdateVmHostAffinityPolicyByIdRequest, args ...map[string]interface{}) (*import6.UpdateVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.3/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -495,8 +531,14 @@ func (api *VmHostAffinityPoliciesServiceApi) UpdateVmHostAffinityPolicyById(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import21.UpdateVmHostAffinityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.UpdateVmHostAffinityPolicyApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

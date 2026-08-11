@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/common/v1/stats"
-	import14 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/stats"
-	import15 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/stats"
+	import16 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/stats"
+	import17 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -63,11 +63,11 @@ func NewStatsServiceApi(apiClient *client.ApiClient) *StatsServiceApi {
 }
 
 // Fetches the stats for the specified VM disk. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
-func (api *StatsApi) GetDiskStatsById(vmExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import14.GetDiskStatsApiResponse, error) {
+func (api *StatsApi) GetDiskStatsById(vmExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import16.GetDiskStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStatsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetDiskStatsById(context.Background(), &import15.GetDiskStatsByIdRequest{
+	return api.ServiceClient.GetDiskStatsById(context.Background(), &import17.GetDiskStatsByIdRequest{
 		VmExtId:           vmExtId,
 		ExtId:             extId,
 		StartTime_:        startTime_,
@@ -79,13 +79,13 @@ func (api *StatsApi) GetDiskStatsById(vmExtId *string, extId *string, startTime_
 }
 
 // Fetches the stats for the specified VM disk. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
-func (api *StatsServiceApi) GetDiskStatsById(ctx context.Context, request *import15.GetDiskStatsByIdRequest, args ...map[string]interface{}) (*import14.GetDiskStatsApiResponse, error) {
+func (api *StatsServiceApi) GetDiskStatsById(ctx context.Context, request *import17.GetDiskStatsByIdRequest, args ...map[string]interface{}) (*import16.GetDiskStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/stats/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.3/ahv/stats/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == request.VmExtId {
@@ -148,18 +148,24 @@ func (api *StatsServiceApi) GetDiskStatsById(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import14.GetDiskStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import16.GetDiskStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Fetches the stats for the specified VM NIC. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
-func (api *StatsApi) GetNicStatsById(vmExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import14.GetNicStatsApiResponse, error) {
+func (api *StatsApi) GetNicStatsById(vmExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import16.GetNicStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStatsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetNicStatsById(context.Background(), &import15.GetNicStatsByIdRequest{
+	return api.ServiceClient.GetNicStatsById(context.Background(), &import17.GetNicStatsByIdRequest{
 		VmExtId:           vmExtId,
 		ExtId:             extId,
 		StartTime_:        startTime_,
@@ -171,13 +177,13 @@ func (api *StatsApi) GetNicStatsById(vmExtId *string, extId *string, startTime_ 
 }
 
 // Fetches the stats for the specified VM NIC. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
-func (api *StatsServiceApi) GetNicStatsById(ctx context.Context, request *import15.GetNicStatsByIdRequest, args ...map[string]interface{}) (*import14.GetNicStatsApiResponse, error) {
+func (api *StatsServiceApi) GetNicStatsById(ctx context.Context, request *import17.GetNicStatsByIdRequest, args ...map[string]interface{}) (*import16.GetNicStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/stats/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.3/ahv/stats/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == request.VmExtId {
@@ -240,18 +246,24 @@ func (api *StatsServiceApi) GetNicStatsById(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import14.GetNicStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import16.GetNicStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Get VM stats for a given VM. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
-func (api *StatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import14.GetVmStatsApiResponse, error) {
+func (api *StatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import16.GetVmStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStatsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetVmStatsById(context.Background(), &import15.GetVmStatsByIdRequest{
+	return api.ServiceClient.GetVmStatsById(context.Background(), &import17.GetVmStatsByIdRequest{
 		ExtId:             extId,
 		StartTime_:        startTime_,
 		EndTime_:          endTime_,
@@ -262,13 +274,13 @@ func (api *StatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, endTim
 }
 
 // Get VM stats for a given VM. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
-func (api *StatsServiceApi) GetVmStatsById(ctx context.Context, request *import15.GetVmStatsByIdRequest, args ...map[string]interface{}) (*import14.GetVmStatsApiResponse, error) {
+func (api *StatsServiceApi) GetVmStatsById(ctx context.Context, request *import17.GetVmStatsByIdRequest, args ...map[string]interface{}) (*import16.GetVmStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/stats/vms/{extId}"
+	uri := "/api/vmm/v4.3/ahv/stats/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -326,18 +338,24 @@ func (api *StatsServiceApi) GetVmStatsById(ctx context.Context, request *import1
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import14.GetVmStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import16.GetVmStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // List VM stats for all VMs.  Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/controllerNumIo,stats/hypervisorNumIo'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data; 6) '$orderby'; 7) '$page'; 8) '$limit'; and 9) '$filter': the OData filter to use, e.g. 'stats/hypervisorCpuUsagePpm gt 100000 and stats/guestMemoryUsagePpm lt 2000000.'
-func (api *StatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import14.ListVmStatsApiResponse, error) {
+func (api *StatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import16.ListVmStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStatsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVmStats(context.Background(), &import15.ListVmStatsRequest{
+	return api.ServiceClient.ListVmStats(context.Background(), &import17.ListVmStatsRequest{
 		StartTime_:        startTime_,
 		EndTime_:          endTime_,
 		SamplingInterval_: samplingInterval_,
@@ -351,13 +369,13 @@ func (api *StatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time, sam
 }
 
 // List VM stats for all VMs.  Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/controllerNumIo,stats/hypervisorNumIo'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data; 6) '$orderby'; 7) '$page'; 8) '$limit'; and 9) '$filter': the OData filter to use, e.g. 'stats/hypervisorCpuUsagePpm gt 100000 and stats/guestMemoryUsagePpm lt 2000000.'
-func (api *StatsServiceApi) ListVmStats(ctx context.Context, request *import15.ListVmStatsRequest, args ...map[string]interface{}) (*import14.ListVmStatsApiResponse, error) {
+func (api *StatsServiceApi) ListVmStats(ctx context.Context, request *import17.ListVmStatsRequest, args ...map[string]interface{}) (*import16.ListVmStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/stats/vms"
+	uri := "/api/vmm/v4.3/ahv/stats/vms"
 
 	// verify the required parameter 'startTime_' is set
 	if nil == request.StartTime_ {
@@ -421,8 +439,14 @@ func (api *StatsServiceApi) ListVmStats(ctx context.Context, request *import15.L
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import14.ListVmStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import16.ListVmStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

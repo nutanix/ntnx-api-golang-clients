@@ -78,7 +78,7 @@ func (api *EsxiVmServiceApi) AssignVmOwner(ctx context.Context, request *import5
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/assign-owner"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/assign-owner"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,9 +119,15 @@ func (api *EsxiVmServiceApi) AssignVmOwner(ctx context.Context, request *import5
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.AssignVmOwnerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -143,7 +149,7 @@ func (api *EsxiVmServiceApi) AssociateCategories(ctx context.Context, request *i
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/associate-categories"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/associate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -184,9 +190,15 @@ func (api *EsxiVmServiceApi) AssociateCategories(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.AssociateCategoriesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -208,7 +220,7 @@ func (api *EsxiVmServiceApi) DisassociateCategories(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/disassociate-categories"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -249,9 +261,15 @@ func (api *EsxiVmServiceApi) DisassociateCategories(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.DisassociateCategoriesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -272,7 +290,7 @@ func (api *EsxiVmServiceApi) GetNutanixGuestToolsById(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/nutanix-guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -309,9 +327,15 @@ func (api *EsxiVmServiceApi) GetNutanixGuestToolsById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetNutanixGuestToolsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -332,7 +356,7 @@ func (api *EsxiVmServiceApi) GetVmById(ctx context.Context, request *import5.Get
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -369,9 +393,15 @@ func (api *EsxiVmServiceApi) GetVmById(ctx context.Context, request *import5.Get
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -393,7 +423,7 @@ func (api *EsxiVmServiceApi) InsertNutanixGuestTools(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -434,9 +464,15 @@ func (api *EsxiVmServiceApi) InsertNutanixGuestTools(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.InsertNutanixGuestToolsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -458,7 +494,7 @@ func (api *EsxiVmServiceApi) InstallNutanixGuestTools(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -499,9 +535,15 @@ func (api *EsxiVmServiceApi) InstallNutanixGuestTools(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.InstallNutanixGuestToolsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -526,7 +568,7 @@ func (api *EsxiVmServiceApi) ListVms(ctx context.Context, request *import5.ListV
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms"
+	uri := "/api/vmm/v4.3/esxi/config/vms"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -572,9 +614,15 @@ func (api *EsxiVmServiceApi) ListVms(ctx context.Context, request *import5.ListV
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListVmsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -595,7 +643,7 @@ func (api *EsxiVmServiceApi) PowerOffVm(ctx context.Context, request *import5.Po
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/power-off"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/power-off"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -632,9 +680,15 @@ func (api *EsxiVmServiceApi) PowerOffVm(ctx context.Context, request *import5.Po
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.PowerOffVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -655,7 +709,7 @@ func (api *EsxiVmServiceApi) PowerOnVm(ctx context.Context, request *import5.Pow
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/power-on"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/power-on"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -692,9 +746,15 @@ func (api *EsxiVmServiceApi) PowerOnVm(ctx context.Context, request *import5.Pow
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.PowerOnVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -715,7 +775,7 @@ func (api *EsxiVmServiceApi) RebootGuestVm(ctx context.Context, request *import5
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/guest-reboot"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/guest-reboot"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -752,9 +812,15 @@ func (api *EsxiVmServiceApi) RebootGuestVm(ctx context.Context, request *import5
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.RebootGuestOSApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -775,7 +841,7 @@ func (api *EsxiVmServiceApi) ResetVm(ctx context.Context, request *import5.Reset
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/reset"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/reset"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -812,9 +878,15 @@ func (api *EsxiVmServiceApi) ResetVm(ctx context.Context, request *import5.Reset
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ResetVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -836,7 +908,7 @@ func (api *EsxiVmServiceApi) RevertVm(ctx context.Context, request *import5.Reve
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/revert"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/revert"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -877,9 +949,15 @@ func (api *EsxiVmServiceApi) RevertVm(ctx context.Context, request *import5.Reve
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.RevertVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -900,7 +978,7 @@ func (api *EsxiVmServiceApi) ShutdownGuestVm(ctx context.Context, request *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/guest-shutdown"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/guest-shutdown"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -937,9 +1015,15 @@ func (api *EsxiVmServiceApi) ShutdownGuestVm(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ShutdownVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -960,7 +1044,7 @@ func (api *EsxiVmServiceApi) SuspendVm(ctx context.Context, request *import5.Sus
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/$actions/suspend"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/$actions/suspend"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -997,9 +1081,15 @@ func (api *EsxiVmServiceApi) SuspendVm(ctx context.Context, request *import5.Sus
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.SuspendVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1020,7 +1110,7 @@ func (api *EsxiVmServiceApi) UninstallNutanixGuestTools(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1057,9 +1147,15 @@ func (api *EsxiVmServiceApi) UninstallNutanixGuestTools(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UninstallNutanixGuestToolsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1081,7 +1177,7 @@ func (api *EsxiVmServiceApi) UpdateNutanixGuestToolsById(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/nutanix-guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1122,9 +1218,15 @@ func (api *EsxiVmServiceApi) UpdateNutanixGuestToolsById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UpdateNutanixGuestToolsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1146,7 +1248,7 @@ func (api *EsxiVmServiceApi) UpgradeNutanixGuestTools(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade"
+	uri := "/api/vmm/v4.3/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1187,8 +1289,14 @@ func (api *EsxiVmServiceApi) UpgradeNutanixGuestTools(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UpgradeNutanixGuestToolsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

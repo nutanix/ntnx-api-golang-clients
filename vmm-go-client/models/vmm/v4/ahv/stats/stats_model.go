@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/ahv/stats/stats_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms/{vmExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.3/ahv/stats/vms/{vmExtId}/disks/{extId} Get operation
 */
 type GetDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -124,7 +124,7 @@ func NewGetDiskStatsApiResponse() *GetDiskStatsApiResponse {
 	p := new(GetDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.GetDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -152,7 +152,7 @@ func (p *GetDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms/{vmExtId}/nics/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.3/ahv/stats/vms/{vmExtId}/nics/{extId} Get operation
 */
 type GetNicStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -252,7 +252,7 @@ func NewGetNicStatsApiResponse() *GetNicStatsApiResponse {
 	p := new(GetNicStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.GetNicStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -280,7 +280,7 @@ func (p *GetNicStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.3/ahv/stats/vms/{extId} Get operation
 */
 type GetVmStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -380,7 +380,7 @@ func NewGetVmStatsApiResponse() *GetVmStatsApiResponse {
 	p := new(GetVmStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.GetVmStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -408,7 +408,7 @@ func (p *GetVmStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms Get operation
+REST response for all response codes in API path /vmm/v4.3/ahv/stats/vms Get operation
 */
 type ListVmStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -508,7 +508,7 @@ func NewListVmStatsApiResponse() *ListVmStatsApiResponse {
 	p := new(ListVmStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.ListVmStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -656,7 +656,7 @@ func NewVmDiskStats() *VmDiskStats {
 	p := new(VmDiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmDiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -967,7 +967,7 @@ func NewVmDiskStatsTuple() *VmDiskStatsTuple {
 	p := new(VmDiskStatsTuple)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmDiskStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1275,7 +1275,7 @@ func NewVmDiskStatsTupleProjection() *VmDiskStatsTupleProjection {
 	p := new(VmDiskStatsTupleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmDiskStatsTupleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1402,7 +1402,7 @@ func NewVmNicStats() *VmNicStats {
 	p := new(VmNicStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmNicStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1513,7 +1513,7 @@ func NewVmNicStatsTuple() *VmNicStatsTuple {
 	p := new(VmNicStatsTuple)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmNicStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1621,7 +1621,7 @@ func NewVmNicStatsTupleProjection() *VmNicStatsTupleProjection {
 	p := new(VmNicStatsTupleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmNicStatsTupleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1740,7 +1740,7 @@ func NewVmStats() *VmStats {
 	p := new(VmStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1763,6 +1763,10 @@ type VmStatsTuple struct {
 	  The UUID of the cluster on which the VM resides.
 	*/
 	Cluster *string `json:"cluster,omitempty"`
+	/*
+	  Configured memory capacity of the VM in bytes.
+	*/
+	ConfiguredMemoryBytes *int64 `json:"configuredMemoryBytes,omitempty"`
 	/*
 	  The VM controller average I/O latency in microseconds.
 	*/
@@ -1964,6 +1968,22 @@ type VmStatsTuple struct {
 	*/
 	GuestMemoryUsagePpm *int64 `json:"guestMemoryUsagePpm,omitempty"`
 	/*
+	  Rate at which memory is swapped from guest swap into active memory.
+	*/
+	GuestSwapInRateKbps *int64 `json:"guestSwapInRateKbps,omitempty"`
+	/*
+	  Rate at which memory is being swapped from active memory to guest swap.
+	*/
+	GuestSwapOutRateKbps *int64 `json:"guestSwapOutRateKbps,omitempty"`
+	/*
+	  Memory swapped to Host, in bytes.
+	*/
+	HostSwapUsedBytes *int64 `json:"hostSwapUsedBytes,omitempty"`
+	/*
+	  Memory swapped to Host, in PPM.
+	*/
+	HostSwapUsedPpm *int64 `json:"hostSwapUsedPpm,omitempty"`
+	/*
 	  The average I/O latency of the VM in microseconds
 	*/
 	HypervisorAvgIoLatencyMicros *int64 `json:"hypervisorAvgIoLatencyMicros,omitempty"`
@@ -2072,6 +2092,14 @@ type VmStatsTuple struct {
 	*/
 	HypervisorWriteIoBandwidthKbps *int64 `json:"hypervisorWriteIoBandwidthKbps,omitempty"`
 	/*
+	  Memory Reclaimed from Overcommit VM by the host in bytes.
+	*/
+	MemoryBalloonedBytes *int64 `json:"memoryBalloonedBytes,omitempty"`
+	/*
+	  Memory Reclaimed from Overcommit VM by the host in PPM.
+	*/
+	MemoryBalloonedPpm *int64 `json:"memoryBalloonedPpm,omitempty"`
+	/*
 	  The reserved memory of the VM in bytes.
 	*/
 	MemoryReservedBytes *int64 `json:"memoryReservedBytes,omitempty"`
@@ -2083,6 +2111,14 @@ type VmStatsTuple struct {
 	  The VM memory usage in PPM.
 	*/
 	MemoryUsagePpm *int64 `json:"memoryUsagePpm,omitempty"`
+	/*
+	  Memory usage by the VM without ballooned memory included in bytes.
+	*/
+	MemoryUsageWithoutBalloonedMemoryBytes *int64 `json:"memoryUsageWithoutBalloonedMemoryBytes,omitempty"`
+	/*
+	  Memory usage by the VM without ballooned memory included in PPM.
+	*/
+	MemoryUsageWithoutBalloonedMemoryPpm *int64 `json:"memoryUsageWithoutBalloonedMemoryPpm,omitempty"`
 	/*
 	  The VM number of vCPUs used in PPM.
 	*/
@@ -2155,6 +2191,9 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	if known.Cluster != nil {
 		p.Cluster = known.Cluster
 	}
+	if known.ConfiguredMemoryBytes != nil {
+		p.ConfiguredMemoryBytes = known.ConfiguredMemoryBytes
+	}
 	if known.ControllerAvgIoLatencyMicros != nil {
 		p.ControllerAvgIoLatencyMicros = known.ControllerAvgIoLatencyMicros
 	}
@@ -2305,6 +2344,18 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	if known.GuestMemoryUsagePpm != nil {
 		p.GuestMemoryUsagePpm = known.GuestMemoryUsagePpm
 	}
+	if known.GuestSwapInRateKbps != nil {
+		p.GuestSwapInRateKbps = known.GuestSwapInRateKbps
+	}
+	if known.GuestSwapOutRateKbps != nil {
+		p.GuestSwapOutRateKbps = known.GuestSwapOutRateKbps
+	}
+	if known.HostSwapUsedBytes != nil {
+		p.HostSwapUsedBytes = known.HostSwapUsedBytes
+	}
+	if known.HostSwapUsedPpm != nil {
+		p.HostSwapUsedPpm = known.HostSwapUsedPpm
+	}
 	if known.HypervisorAvgIoLatencyMicros != nil {
 		p.HypervisorAvgIoLatencyMicros = known.HypervisorAvgIoLatencyMicros
 	}
@@ -2386,6 +2437,12 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	if known.HypervisorWriteIoBandwidthKbps != nil {
 		p.HypervisorWriteIoBandwidthKbps = known.HypervisorWriteIoBandwidthKbps
 	}
+	if known.MemoryBalloonedBytes != nil {
+		p.MemoryBalloonedBytes = known.MemoryBalloonedBytes
+	}
+	if known.MemoryBalloonedPpm != nil {
+		p.MemoryBalloonedPpm = known.MemoryBalloonedPpm
+	}
 	if known.MemoryReservedBytes != nil {
 		p.MemoryReservedBytes = known.MemoryReservedBytes
 	}
@@ -2394,6 +2451,12 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	}
 	if known.MemoryUsagePpm != nil {
 		p.MemoryUsagePpm = known.MemoryUsagePpm
+	}
+	if known.MemoryUsageWithoutBalloonedMemoryBytes != nil {
+		p.MemoryUsageWithoutBalloonedMemoryBytes = known.MemoryUsageWithoutBalloonedMemoryBytes
+	}
+	if known.MemoryUsageWithoutBalloonedMemoryPpm != nil {
+		p.MemoryUsageWithoutBalloonedMemoryPpm = known.MemoryUsageWithoutBalloonedMemoryPpm
 	}
 	if known.NumVcpusUsedPpm != nil {
 		p.NumVcpusUsedPpm = known.NumVcpusUsedPpm
@@ -2411,6 +2474,7 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "checkScore")
 	delete(allFields, "cluster")
+	delete(allFields, "configuredMemoryBytes")
 	delete(allFields, "controllerAvgIoLatencyMicros")
 	delete(allFields, "controllerAvgReadIoLatencyMicros")
 	delete(allFields, "controllerAvgReadIoSizeKb")
@@ -2461,6 +2525,10 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	delete(allFields, "frameBufferUsagePpm")
 	delete(allFields, "gpuUsagePpm")
 	delete(allFields, "guestMemoryUsagePpm")
+	delete(allFields, "guestSwapInRateKbps")
+	delete(allFields, "guestSwapOutRateKbps")
+	delete(allFields, "hostSwapUsedBytes")
+	delete(allFields, "hostSwapUsedPpm")
 	delete(allFields, "hypervisorAvgIoLatencyMicros")
 	delete(allFields, "hypervisorCpuReadyTimePpm")
 	delete(allFields, "hypervisorCpuUsagePpm")
@@ -2488,9 +2556,13 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	delete(allFields, "hypervisorType")
 	delete(allFields, "hypervisorVmRunningTimeUsecs")
 	delete(allFields, "hypervisorWriteIoBandwidthKbps")
+	delete(allFields, "memoryBalloonedBytes")
+	delete(allFields, "memoryBalloonedPpm")
 	delete(allFields, "memoryReservedBytes")
 	delete(allFields, "memoryUsageBytes")
 	delete(allFields, "memoryUsagePpm")
+	delete(allFields, "memoryUsageWithoutBalloonedMemoryBytes")
+	delete(allFields, "memoryUsageWithoutBalloonedMemoryPpm")
 	delete(allFields, "numVcpusUsedPpm")
 	delete(allFields, "physicalMemoryAllocatedBytes")
 	delete(allFields, "timestamp")
@@ -2507,7 +2579,7 @@ func NewVmStatsTuple() *VmStatsTuple {
 	p := new(VmStatsTuple)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2527,6 +2599,10 @@ type VmStatsTupleProjection struct {
 	  The UUID of the cluster on which the VM resides.
 	*/
 	Cluster *string `json:"cluster,omitempty"`
+	/*
+	  Configured memory capacity of the VM in bytes.
+	*/
+	ConfiguredMemoryBytes *int64 `json:"configuredMemoryBytes,omitempty"`
 	/*
 	  The VM controller average I/O latency in microseconds.
 	*/
@@ -2728,6 +2804,22 @@ type VmStatsTupleProjection struct {
 	*/
 	GuestMemoryUsagePpm *int64 `json:"guestMemoryUsagePpm,omitempty"`
 	/*
+	  Rate at which memory is swapped from guest swap into active memory.
+	*/
+	GuestSwapInRateKbps *int64 `json:"guestSwapInRateKbps,omitempty"`
+	/*
+	  Rate at which memory is being swapped from active memory to guest swap.
+	*/
+	GuestSwapOutRateKbps *int64 `json:"guestSwapOutRateKbps,omitempty"`
+	/*
+	  Memory swapped to Host, in bytes.
+	*/
+	HostSwapUsedBytes *int64 `json:"hostSwapUsedBytes,omitempty"`
+	/*
+	  Memory swapped to Host, in PPM.
+	*/
+	HostSwapUsedPpm *int64 `json:"hostSwapUsedPpm,omitempty"`
+	/*
 	  The average I/O latency of the VM in microseconds
 	*/
 	HypervisorAvgIoLatencyMicros *int64 `json:"hypervisorAvgIoLatencyMicros,omitempty"`
@@ -2836,6 +2928,14 @@ type VmStatsTupleProjection struct {
 	*/
 	HypervisorWriteIoBandwidthKbps *int64 `json:"hypervisorWriteIoBandwidthKbps,omitempty"`
 	/*
+	  Memory Reclaimed from Overcommit VM by the host in bytes.
+	*/
+	MemoryBalloonedBytes *int64 `json:"memoryBalloonedBytes,omitempty"`
+	/*
+	  Memory Reclaimed from Overcommit VM by the host in PPM.
+	*/
+	MemoryBalloonedPpm *int64 `json:"memoryBalloonedPpm,omitempty"`
+	/*
 	  The reserved memory of the VM in bytes.
 	*/
 	MemoryReservedBytes *int64 `json:"memoryReservedBytes,omitempty"`
@@ -2847,6 +2947,14 @@ type VmStatsTupleProjection struct {
 	  The VM memory usage in PPM.
 	*/
 	MemoryUsagePpm *int64 `json:"memoryUsagePpm,omitempty"`
+	/*
+	  Memory usage by the VM without ballooned memory included in bytes.
+	*/
+	MemoryUsageWithoutBalloonedMemoryBytes *int64 `json:"memoryUsageWithoutBalloonedMemoryBytes,omitempty"`
+	/*
+	  Memory usage by the VM without ballooned memory included in PPM.
+	*/
+	MemoryUsageWithoutBalloonedMemoryPpm *int64 `json:"memoryUsageWithoutBalloonedMemoryPpm,omitempty"`
 	/*
 	  The VM number of vCPUs used in PPM.
 	*/
@@ -2918,6 +3026,9 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	}
 	if known.Cluster != nil {
 		p.Cluster = known.Cluster
+	}
+	if known.ConfiguredMemoryBytes != nil {
+		p.ConfiguredMemoryBytes = known.ConfiguredMemoryBytes
 	}
 	if known.ControllerAvgIoLatencyMicros != nil {
 		p.ControllerAvgIoLatencyMicros = known.ControllerAvgIoLatencyMicros
@@ -3069,6 +3180,18 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	if known.GuestMemoryUsagePpm != nil {
 		p.GuestMemoryUsagePpm = known.GuestMemoryUsagePpm
 	}
+	if known.GuestSwapInRateKbps != nil {
+		p.GuestSwapInRateKbps = known.GuestSwapInRateKbps
+	}
+	if known.GuestSwapOutRateKbps != nil {
+		p.GuestSwapOutRateKbps = known.GuestSwapOutRateKbps
+	}
+	if known.HostSwapUsedBytes != nil {
+		p.HostSwapUsedBytes = known.HostSwapUsedBytes
+	}
+	if known.HostSwapUsedPpm != nil {
+		p.HostSwapUsedPpm = known.HostSwapUsedPpm
+	}
 	if known.HypervisorAvgIoLatencyMicros != nil {
 		p.HypervisorAvgIoLatencyMicros = known.HypervisorAvgIoLatencyMicros
 	}
@@ -3150,6 +3273,12 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	if known.HypervisorWriteIoBandwidthKbps != nil {
 		p.HypervisorWriteIoBandwidthKbps = known.HypervisorWriteIoBandwidthKbps
 	}
+	if known.MemoryBalloonedBytes != nil {
+		p.MemoryBalloonedBytes = known.MemoryBalloonedBytes
+	}
+	if known.MemoryBalloonedPpm != nil {
+		p.MemoryBalloonedPpm = known.MemoryBalloonedPpm
+	}
 	if known.MemoryReservedBytes != nil {
 		p.MemoryReservedBytes = known.MemoryReservedBytes
 	}
@@ -3158,6 +3287,12 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	}
 	if known.MemoryUsagePpm != nil {
 		p.MemoryUsagePpm = known.MemoryUsagePpm
+	}
+	if known.MemoryUsageWithoutBalloonedMemoryBytes != nil {
+		p.MemoryUsageWithoutBalloonedMemoryBytes = known.MemoryUsageWithoutBalloonedMemoryBytes
+	}
+	if known.MemoryUsageWithoutBalloonedMemoryPpm != nil {
+		p.MemoryUsageWithoutBalloonedMemoryPpm = known.MemoryUsageWithoutBalloonedMemoryPpm
 	}
 	if known.NumVcpusUsedPpm != nil {
 		p.NumVcpusUsedPpm = known.NumVcpusUsedPpm
@@ -3175,6 +3310,7 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "checkScore")
 	delete(allFields, "cluster")
+	delete(allFields, "configuredMemoryBytes")
 	delete(allFields, "controllerAvgIoLatencyMicros")
 	delete(allFields, "controllerAvgReadIoLatencyMicros")
 	delete(allFields, "controllerAvgReadIoSizeKb")
@@ -3225,6 +3361,10 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "frameBufferUsagePpm")
 	delete(allFields, "gpuUsagePpm")
 	delete(allFields, "guestMemoryUsagePpm")
+	delete(allFields, "guestSwapInRateKbps")
+	delete(allFields, "guestSwapOutRateKbps")
+	delete(allFields, "hostSwapUsedBytes")
+	delete(allFields, "hostSwapUsedPpm")
 	delete(allFields, "hypervisorAvgIoLatencyMicros")
 	delete(allFields, "hypervisorCpuReadyTimePpm")
 	delete(allFields, "hypervisorCpuUsagePpm")
@@ -3252,9 +3392,13 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "hypervisorType")
 	delete(allFields, "hypervisorVmRunningTimeUsecs")
 	delete(allFields, "hypervisorWriteIoBandwidthKbps")
+	delete(allFields, "memoryBalloonedBytes")
+	delete(allFields, "memoryBalloonedPpm")
 	delete(allFields, "memoryReservedBytes")
 	delete(allFields, "memoryUsageBytes")
 	delete(allFields, "memoryUsagePpm")
+	delete(allFields, "memoryUsageWithoutBalloonedMemoryBytes")
+	delete(allFields, "memoryUsageWithoutBalloonedMemoryPpm")
 	delete(allFields, "numVcpusUsedPpm")
 	delete(allFields, "physicalMemoryAllocatedBytes")
 	delete(allFields, "timestamp")
@@ -3271,7 +3415,7 @@ func NewVmStatsTupleProjection() *VmStatsTupleProjection {
 	p := new(VmStatsTupleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmStatsTupleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3282,6 +3426,8 @@ type OneOfGetDiskStatsApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *VmDiskStats           `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetDiskStatsApiResponseData() *OneOfGetDiskStatsApiResponseData {
@@ -3329,6 +3475,9 @@ func (p *OneOfGetDiskStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetDiskStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -3339,9 +3488,79 @@ func (p *OneOfGetDiskStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(VmDiskStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "vmm.v4.ahv.stats.VmDiskStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(VmDiskStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(VmDiskStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.stats.VmDiskStats" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "vmm.v4.ahv.stats.VmDiskStats" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(VmDiskStats)
 			}
@@ -3359,7 +3578,7 @@ func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3375,10 +3594,31 @@ func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskStatsApiResponseData"))
 }
 
 func (p *OneOfGetDiskStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -3393,6 +3633,8 @@ type OneOfGetNicStatsApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 	oneOfType2001 *VmNicStats            `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetNicStatsApiResponseData() *OneOfGetNicStatsApiResponseData {
@@ -3440,6 +3682,9 @@ func (p *OneOfGetNicStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetNicStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -3450,9 +3695,79 @@ func (p *OneOfGetNicStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetNicStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(VmNicStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "vmm.v4.ahv.stats.VmNicStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(VmNicStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3470,7 +3785,7 @@ func (p *OneOfGetNicStatsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2001 := new(VmNicStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.stats.VmNicStats" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "vmm.v4.ahv.stats.VmNicStats" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(VmNicStats)
 			}
@@ -3486,10 +3801,31 @@ func (p *OneOfGetNicStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetNicStatsApiResponseData"))
 }
 
 func (p *OneOfGetNicStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -3504,6 +3840,8 @@ type OneOfListVmStatsApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 []VmStats              `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListVmStatsApiResponseData() *OneOfListVmStatsApiResponseData {
@@ -3548,6 +3886,9 @@ func (p *OneOfListVmStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListVmStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<vmm.v4.ahv.stats.VmStats>" == *p.Discriminator {
 		return p.oneOfType2001
 	}
@@ -3558,9 +3899,76 @@ func (p *OneOfListVmStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListVmStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<vmm.v4.ahv.stats.VmStats>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]VmStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "vmm.v4.ahv.stats.VmStats" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<vmm.v4.ahv.stats.VmStats>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<vmm.v4.ahv.stats.VmStats>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new([]VmStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.stats.VmStats" == *((*vOneOfType2001)[0].ObjectType_) {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "vmm.v4.ahv.stats.VmStats" == *((*vOneOfType2001)[0].ObjectType_)) {
 			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -3575,7 +3983,7 @@ func (p *OneOfListVmStatsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3591,10 +3999,31 @@ func (p *OneOfListVmStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVmStatsApiResponseData"))
 }
 
 func (p *OneOfListVmStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<vmm.v4.ahv.stats.VmStats>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -3609,6 +4038,8 @@ type OneOfGetVmStatsApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *VmStats               `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetVmStatsApiResponseData() *OneOfGetVmStatsApiResponseData {
@@ -3656,6 +4087,9 @@ func (p *OneOfGetVmStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetVmStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -3666,9 +4100,79 @@ func (p *OneOfGetVmStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetVmStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(VmStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "vmm.v4.ahv.stats.VmStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(VmStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(VmStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.stats.VmStats" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "vmm.v4.ahv.stats.VmStats" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(VmStats)
 			}
@@ -3686,7 +4190,7 @@ func (p *OneOfGetVmStatsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3702,10 +4206,31 @@ func (p *OneOfGetVmStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmStatsApiResponseData"))
 }
 
 func (p *OneOfGetVmStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}

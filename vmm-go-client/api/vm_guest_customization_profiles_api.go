@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import19 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
-	import23 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/vmguestcustomizationprofiles"
+	import21 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import24 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/vmguestcustomizationprofiles"
 	"net/http"
 	"net/url"
 	"strings"
@@ -61,23 +61,23 @@ func NewVmGuestCustomizationProfilesServiceApi(apiClient *client.ApiClient) *VmG
 }
 
 // Creates a new VM Guest Customization profile with the provided configuration.
-func (api *VmGuestCustomizationProfilesApi) CreateVmGuestCustomizationProfile(body *import19.VmGuestCustomizationProfile, args ...map[string]interface{}) (*import19.CreateVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesApi) CreateVmGuestCustomizationProfile(body *import21.VmGuestCustomizationProfile, args ...map[string]interface{}) (*import21.CreateVmGuestCustomizationProfileApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmGuestCustomizationProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateVmGuestCustomizationProfile(context.Background(), &import23.CreateVmGuestCustomizationProfileRequest{
+	return api.ServiceClient.CreateVmGuestCustomizationProfile(context.Background(), &import24.CreateVmGuestCustomizationProfileRequest{
 		Body: body,
 	}, args...)
 }
 
 // Creates a new VM Guest Customization profile with the provided configuration.
-func (api *VmGuestCustomizationProfilesServiceApi) CreateVmGuestCustomizationProfile(ctx context.Context, request *import23.CreateVmGuestCustomizationProfileRequest, args ...map[string]interface{}) (*import19.CreateVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesServiceApi) CreateVmGuestCustomizationProfile(ctx context.Context, request *import24.CreateVmGuestCustomizationProfileRequest, args ...map[string]interface{}) (*import21.CreateVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles"
+	uri := "/api/vmm/v4.3/ahv/config/vm-guest-customization-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,30 +112,36 @@ func (api *VmGuestCustomizationProfilesServiceApi) CreateVmGuestCustomizationPro
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.CreateVmGuestCustomizationProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.CreateVmGuestCustomizationProfileApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Deletes the specified VM Guest Customization Profile.
-func (api *VmGuestCustomizationProfilesApi) DeleteVmGuestCustomizationProfileById(extId *string, args ...map[string]interface{}) (*import19.DeleteVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesApi) DeleteVmGuestCustomizationProfileById(extId *string, args ...map[string]interface{}) (*import21.DeleteVmGuestCustomizationProfileApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmGuestCustomizationProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteVmGuestCustomizationProfileById(context.Background(), &import23.DeleteVmGuestCustomizationProfileByIdRequest{
+	return api.ServiceClient.DeleteVmGuestCustomizationProfileById(context.Background(), &import24.DeleteVmGuestCustomizationProfileByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Deletes the specified VM Guest Customization Profile.
-func (api *VmGuestCustomizationProfilesServiceApi) DeleteVmGuestCustomizationProfileById(ctx context.Context, request *import23.DeleteVmGuestCustomizationProfileByIdRequest, args ...map[string]interface{}) (*import19.DeleteVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesServiceApi) DeleteVmGuestCustomizationProfileById(ctx context.Context, request *import24.DeleteVmGuestCustomizationProfileByIdRequest, args ...map[string]interface{}) (*import21.DeleteVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId}"
+	uri := "/api/vmm/v4.3/ahv/config/vm-guest-customization-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,30 +178,36 @@ func (api *VmGuestCustomizationProfilesServiceApi) DeleteVmGuestCustomizationPro
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.DeleteVmGuestCustomizationProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.DeleteVmGuestCustomizationProfileApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Retrieves the VM Guest Customization Profile configuration of the provided VM Guest Customization Profile external identifier.
-func (api *VmGuestCustomizationProfilesApi) GetVmGuestCustomizationProfileById(extId *string, args ...map[string]interface{}) (*import19.GetVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesApi) GetVmGuestCustomizationProfileById(extId *string, args ...map[string]interface{}) (*import21.GetVmGuestCustomizationProfileApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmGuestCustomizationProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetVmGuestCustomizationProfileById(context.Background(), &import23.GetVmGuestCustomizationProfileByIdRequest{
+	return api.ServiceClient.GetVmGuestCustomizationProfileById(context.Background(), &import24.GetVmGuestCustomizationProfileByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Retrieves the VM Guest Customization Profile configuration of the provided VM Guest Customization Profile external identifier.
-func (api *VmGuestCustomizationProfilesServiceApi) GetVmGuestCustomizationProfileById(ctx context.Context, request *import23.GetVmGuestCustomizationProfileByIdRequest, args ...map[string]interface{}) (*import19.GetVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesServiceApi) GetVmGuestCustomizationProfileById(ctx context.Context, request *import24.GetVmGuestCustomizationProfileByIdRequest, args ...map[string]interface{}) (*import21.GetVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId}"
+	uri := "/api/vmm/v4.3/ahv/config/vm-guest-customization-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,18 +244,24 @@ func (api *VmGuestCustomizationProfilesServiceApi) GetVmGuestCustomizationProfil
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.GetVmGuestCustomizationProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.GetVmGuestCustomizationProfileApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Lists VM Guest Customization Profiles.
-func (api *VmGuestCustomizationProfilesApi) ListVmGuestCustomizationProfiles(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import19.ListVmGuestCustomizationProfilesApiResponse, error) {
+func (api *VmGuestCustomizationProfilesApi) ListVmGuestCustomizationProfiles(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import21.ListVmGuestCustomizationProfilesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmGuestCustomizationProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVmGuestCustomizationProfiles(context.Background(), &import23.ListVmGuestCustomizationProfilesRequest{
+	return api.ServiceClient.ListVmGuestCustomizationProfiles(context.Background(), &import24.ListVmGuestCustomizationProfilesRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -253,13 +271,13 @@ func (api *VmGuestCustomizationProfilesApi) ListVmGuestCustomizationProfiles(pag
 }
 
 // Lists VM Guest Customization Profiles.
-func (api *VmGuestCustomizationProfilesServiceApi) ListVmGuestCustomizationProfiles(ctx context.Context, request *import23.ListVmGuestCustomizationProfilesRequest, args ...map[string]interface{}) (*import19.ListVmGuestCustomizationProfilesApiResponse, error) {
+func (api *VmGuestCustomizationProfilesServiceApi) ListVmGuestCustomizationProfiles(ctx context.Context, request *import24.ListVmGuestCustomizationProfilesRequest, args ...map[string]interface{}) (*import21.ListVmGuestCustomizationProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles"
+	uri := "/api/vmm/v4.3/ahv/config/vm-guest-customization-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,31 +323,37 @@ func (api *VmGuestCustomizationProfilesServiceApi) ListVmGuestCustomizationProfi
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.ListVmGuestCustomizationProfilesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.ListVmGuestCustomizationProfilesApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Updates the specified VM Guest Customization Profile.
-func (api *VmGuestCustomizationProfilesApi) UpdateVmGuestCustomizationProfileById(extId *string, body *import19.VmGuestCustomizationProfile, args ...map[string]interface{}) (*import19.UpdateVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesApi) UpdateVmGuestCustomizationProfileById(extId *string, body *import21.VmGuestCustomizationProfile, args ...map[string]interface{}) (*import21.UpdateVmGuestCustomizationProfileApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmGuestCustomizationProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateVmGuestCustomizationProfileById(context.Background(), &import23.UpdateVmGuestCustomizationProfileByIdRequest{
+	return api.ServiceClient.UpdateVmGuestCustomizationProfileById(context.Background(), &import24.UpdateVmGuestCustomizationProfileByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Updates the specified VM Guest Customization Profile.
-func (api *VmGuestCustomizationProfilesServiceApi) UpdateVmGuestCustomizationProfileById(ctx context.Context, request *import23.UpdateVmGuestCustomizationProfileByIdRequest, args ...map[string]interface{}) (*import19.UpdateVmGuestCustomizationProfileApiResponse, error) {
+func (api *VmGuestCustomizationProfilesServiceApi) UpdateVmGuestCustomizationProfileById(ctx context.Context, request *import24.UpdateVmGuestCustomizationProfileByIdRequest, args ...map[string]interface{}) (*import21.UpdateVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId}"
+	uri := "/api/vmm/v4.3/ahv/config/vm-guest-customization-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *VmGuestCustomizationProfilesServiceApi) UpdateVmGuestCustomizationPro
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.UpdateVmGuestCustomizationProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.UpdateVmGuestCustomizationProfileApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

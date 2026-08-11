@@ -1,7 +1,7 @@
 package vm
 
 import (
-	import19 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import21 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
 )
 
 // This file holds the request struct for the UpgradeVmGuestTools operation.
@@ -11,5 +11,5 @@ type UpgradeVmGuestToolsRequest struct {
 	ExtId *string
 
 	// (required)
-	Body *import19.GuestToolsUpgradeConfig
+	Body *import21.GuestToolsUpgradeConfig
 }

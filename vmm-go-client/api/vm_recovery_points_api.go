@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import19 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
-	import25 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/vmrecoverypoints"
+	import21 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import27 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/vmrecoverypoints"
 	"net/http"
 	"net/url"
 	"strings"
@@ -61,23 +61,23 @@ func NewVmRecoveryPointsServiceApi(apiClient *client.ApiClient) *VmRecoveryPoint
 }
 
 // Creates an AHV VM recovery point based on the provided recovery point details.
-func (api *VmRecoveryPointsApi) CreateVmRecoveryPoint(body *import19.VmRecoveryPoint, args ...map[string]interface{}) (*import19.CreateVMRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsApi) CreateVmRecoveryPoint(body *import21.VmRecoveryPoint, args ...map[string]interface{}) (*import21.CreateVMRecoveryPointApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmRecoveryPointsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateVmRecoveryPoint(context.Background(), &import25.CreateVmRecoveryPointRequest{
+	return api.ServiceClient.CreateVmRecoveryPoint(context.Background(), &import27.CreateVmRecoveryPointRequest{
 		Body: body,
 	}, args...)
 }
 
 // Creates an AHV VM recovery point based on the provided recovery point details.
-func (api *VmRecoveryPointsServiceApi) CreateVmRecoveryPoint(ctx context.Context, request *import25.CreateVmRecoveryPointRequest, args ...map[string]interface{}) (*import19.CreateVMRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsServiceApi) CreateVmRecoveryPoint(ctx context.Context, request *import27.CreateVmRecoveryPointRequest, args ...map[string]interface{}) (*import21.CreateVMRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points"
+	uri := "/api/vmm/v4.3/ahv/config/vm-recovery-points"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,30 +112,36 @@ func (api *VmRecoveryPointsServiceApi) CreateVmRecoveryPoint(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.CreateVMRecoveryPointApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.CreateVMRecoveryPointApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Deletes an AHV VM recovery point based on the provided identifier.
-func (api *VmRecoveryPointsApi) DeleteVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import19.DeleteVmRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsApi) DeleteVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import21.DeleteVmRecoveryPointApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmRecoveryPointsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteVmRecoveryPointByExtId(context.Background(), &import25.DeleteVmRecoveryPointByExtIdRequest{
+	return api.ServiceClient.DeleteVmRecoveryPointByExtId(context.Background(), &import27.DeleteVmRecoveryPointByExtIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Deletes an AHV VM recovery point based on the provided identifier.
-func (api *VmRecoveryPointsServiceApi) DeleteVmRecoveryPointByExtId(ctx context.Context, request *import25.DeleteVmRecoveryPointByExtIdRequest, args ...map[string]interface{}) (*import19.DeleteVmRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsServiceApi) DeleteVmRecoveryPointByExtId(ctx context.Context, request *import27.DeleteVmRecoveryPointByExtIdRequest, args ...map[string]interface{}) (*import21.DeleteVmRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points/{extId}"
+	uri := "/api/vmm/v4.3/ahv/config/vm-recovery-points/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,30 +178,36 @@ func (api *VmRecoveryPointsServiceApi) DeleteVmRecoveryPointByExtId(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.DeleteVmRecoveryPointApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.DeleteVmRecoveryPointApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Retrieves the AHV VM recovery point details, including both VM recovery point and VM configuration.
-func (api *VmRecoveryPointsApi) GetVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import19.GetVmRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsApi) GetVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import21.GetVmRecoveryPointApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmRecoveryPointsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetVmRecoveryPointByExtId(context.Background(), &import25.GetVmRecoveryPointByExtIdRequest{
+	return api.ServiceClient.GetVmRecoveryPointByExtId(context.Background(), &import27.GetVmRecoveryPointByExtIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Retrieves the AHV VM recovery point details, including both VM recovery point and VM configuration.
-func (api *VmRecoveryPointsServiceApi) GetVmRecoveryPointByExtId(ctx context.Context, request *import25.GetVmRecoveryPointByExtIdRequest, args ...map[string]interface{}) (*import19.GetVmRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsServiceApi) GetVmRecoveryPointByExtId(ctx context.Context, request *import27.GetVmRecoveryPointByExtIdRequest, args ...map[string]interface{}) (*import21.GetVmRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points/{extId}"
+	uri := "/api/vmm/v4.3/ahv/config/vm-recovery-points/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,18 +244,24 @@ func (api *VmRecoveryPointsServiceApi) GetVmRecoveryPointByExtId(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.GetVmRecoveryPointApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.GetVmRecoveryPointApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // List the AHV VM recovery points defined on the PC. It can be further refined using various filtering.
-func (api *VmRecoveryPointsApi) ListVmRecoveryPoints(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import19.ListVmRecoveryPointsApiResponse, error) {
+func (api *VmRecoveryPointsApi) ListVmRecoveryPoints(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import21.ListVmRecoveryPointsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmRecoveryPointsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVmRecoveryPoints(context.Background(), &import25.ListVmRecoveryPointsRequest{
+	return api.ServiceClient.ListVmRecoveryPoints(context.Background(), &import27.ListVmRecoveryPointsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -253,13 +271,13 @@ func (api *VmRecoveryPointsApi) ListVmRecoveryPoints(page_ *int, limit_ *int, fi
 }
 
 // List the AHV VM recovery points defined on the PC. It can be further refined using various filtering.
-func (api *VmRecoveryPointsServiceApi) ListVmRecoveryPoints(ctx context.Context, request *import25.ListVmRecoveryPointsRequest, args ...map[string]interface{}) (*import19.ListVmRecoveryPointsApiResponse, error) {
+func (api *VmRecoveryPointsServiceApi) ListVmRecoveryPoints(ctx context.Context, request *import27.ListVmRecoveryPointsRequest, args ...map[string]interface{}) (*import21.ListVmRecoveryPointsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points"
+	uri := "/api/vmm/v4.3/ahv/config/vm-recovery-points"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,31 +323,37 @@ func (api *VmRecoveryPointsServiceApi) ListVmRecoveryPoints(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.ListVmRecoveryPointsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.ListVmRecoveryPointsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Restores a new VM from an AHV VM recovery point using the VM configuration captured in the VM recovery point and the parameters provided in the restore API request body.
-func (api *VmRecoveryPointsApi) RestoreVmRecoveryPoint(extId *string, body *import19.RestoreVmRecoveryPointParams, args ...map[string]interface{}) (*import19.RestoreVmRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsApi) RestoreVmRecoveryPoint(extId *string, body *import21.RestoreVmRecoveryPointParams, args ...map[string]interface{}) (*import21.RestoreVmRecoveryPointApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVmRecoveryPointsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.RestoreVmRecoveryPoint(context.Background(), &import25.RestoreVmRecoveryPointRequest{
+	return api.ServiceClient.RestoreVmRecoveryPoint(context.Background(), &import27.RestoreVmRecoveryPointRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Restores a new VM from an AHV VM recovery point using the VM configuration captured in the VM recovery point and the parameters provided in the restore API request body.
-func (api *VmRecoveryPointsServiceApi) RestoreVmRecoveryPoint(ctx context.Context, request *import25.RestoreVmRecoveryPointRequest, args ...map[string]interface{}) (*import19.RestoreVmRecoveryPointApiResponse, error) {
+func (api *VmRecoveryPointsServiceApi) RestoreVmRecoveryPoint(ctx context.Context, request *import27.RestoreVmRecoveryPointRequest, args ...map[string]interface{}) (*import21.RestoreVmRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points/{extId}/$actions/restore"
+	uri := "/api/vmm/v4.3/ahv/config/vm-recovery-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *VmRecoveryPointsServiceApi) RestoreVmRecoveryPoint(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import19.RestoreVmRecoveryPointApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import21.RestoreVmRecoveryPointApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

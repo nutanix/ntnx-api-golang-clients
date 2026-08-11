@@ -1,7 +1,7 @@
 package vm
 
 import (
-	import19 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import21 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
 )
 
 // This file holds the request struct for the CrossClusterMigrateVm operation.
@@ -11,7 +11,7 @@ type CrossClusterMigrateVmRequest struct {
 	ExtId *string
 
 	// (required) Input on how to migrate a VM across clusters.
-	Body *import19.VmCrossClusterMigrateParams
+	Body *import21.VmCrossClusterMigrateParams
 
 	// A URL query parameter that allows long running operations to execute in a dry-run mode providing ability to identify
 	// trouble spots and system failures without performing the actual operation. Additionally this mode also offers a summary
