@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/config"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/registereddomains"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/config"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/registereddomains"
 	"net/http"
 	"net/url"
 	"strings"
@@ -61,23 +61,23 @@ func NewRegisteredDomainsServiceApi(apiClient *client.ApiClient) *RegisteredDoma
 }
 
 // Creates a new registered domain and saves it to database.
-func (api *RegisteredDomainsApi) CreateRegisteredDomain(body *import1.RegisteredDomain, args ...map[string]interface{}) (*import1.CreateRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsApi) CreateRegisteredDomain(body *import3.RegisteredDomain, args ...map[string]interface{}) (*import3.CreateRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateRegisteredDomain(context.Background(), &import6.CreateRegisteredDomainRequest{
+	return api.ServiceClient.CreateRegisteredDomain(context.Background(), &import9.CreateRegisteredDomainRequest{
 		Body: body,
 	}, args...)
 }
 
 // Creates a new registered domain and saves it to database.
-func (api *RegisteredDomainsServiceApi) CreateRegisteredDomain(ctx context.Context, request *import6.CreateRegisteredDomainRequest, args ...map[string]interface{}) (*import1.CreateRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsServiceApi) CreateRegisteredDomain(ctx context.Context, request *import9.CreateRegisteredDomainRequest, args ...map[string]interface{}) (*import3.CreateRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/registered-domains"
+	uri := "/api/multidomain/v4.4.b1/config/registered-domains"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,30 +112,36 @@ func (api *RegisteredDomainsServiceApi) CreateRegisteredDomain(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import1.CreateRegisteredDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.CreateRegisteredDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Deletes the registered domain with the requested external identifier.
-func (api *RegisteredDomainsApi) DeleteRegisteredDomainById(extId *string, args ...map[string]interface{}) (*import1.DeleteRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsApi) DeleteRegisteredDomainById(extId *string, args ...map[string]interface{}) (*import3.DeleteRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteRegisteredDomainById(context.Background(), &import6.DeleteRegisteredDomainByIdRequest{
+	return api.ServiceClient.DeleteRegisteredDomainById(context.Background(), &import9.DeleteRegisteredDomainByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Deletes the registered domain with the requested external identifier.
-func (api *RegisteredDomainsServiceApi) DeleteRegisteredDomainById(ctx context.Context, request *import6.DeleteRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import1.DeleteRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsServiceApi) DeleteRegisteredDomainById(ctx context.Context, request *import9.DeleteRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import3.DeleteRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/registered-domains/{extId}"
+	uri := "/api/multidomain/v4.4.b1/config/registered-domains/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,31 +178,37 @@ func (api *RegisteredDomainsServiceApi) DeleteRegisteredDomainById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import1.DeleteRegisteredDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.DeleteRegisteredDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Retrieves the registered domain by its external identifier.
-func (api *RegisteredDomainsApi) GetRegisteredDomainById(extId *string, select_ *string, args ...map[string]interface{}) (*import1.GetRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsApi) GetRegisteredDomainById(extId *string, select_ *string, args ...map[string]interface{}) (*import3.GetRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetRegisteredDomainById(context.Background(), &import6.GetRegisteredDomainByIdRequest{
+	return api.ServiceClient.GetRegisteredDomainById(context.Background(), &import9.GetRegisteredDomainByIdRequest{
 		ExtId:   extId,
 		Select_: select_,
 	}, args...)
 }
 
 // Retrieves the registered domain by its external identifier.
-func (api *RegisteredDomainsServiceApi) GetRegisteredDomainById(ctx context.Context, request *import6.GetRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import1.GetRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsServiceApi) GetRegisteredDomainById(ctx context.Context, request *import9.GetRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import3.GetRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/registered-domains/{extId}"
+	uri := "/api/multidomain/v4.4.b1/config/registered-domains/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -237,18 +249,24 @@ func (api *RegisteredDomainsServiceApi) GetRegisteredDomainById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import1.GetRegisteredDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.GetRegisteredDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // List all registered domains.
-func (api *RegisteredDomainsApi) ListRegisteredDomains(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListRegisteredDomainsApiResponse, error) {
+func (api *RegisteredDomainsApi) ListRegisteredDomains(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListRegisteredDomainsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListRegisteredDomains(context.Background(), &import6.ListRegisteredDomainsRequest{
+	return api.ServiceClient.ListRegisteredDomains(context.Background(), &import9.ListRegisteredDomainsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -259,13 +277,13 @@ func (api *RegisteredDomainsApi) ListRegisteredDomains(page_ *int, limit_ *int, 
 }
 
 // List all registered domains.
-func (api *RegisteredDomainsServiceApi) ListRegisteredDomains(ctx context.Context, request *import6.ListRegisteredDomainsRequest, args ...map[string]interface{}) (*import1.ListRegisteredDomainsApiResponse, error) {
+func (api *RegisteredDomainsServiceApi) ListRegisteredDomains(ctx context.Context, request *import9.ListRegisteredDomainsRequest, args ...map[string]interface{}) (*import3.ListRegisteredDomainsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/registered-domains"
+	uri := "/api/multidomain/v4.4.b1/config/registered-domains"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -314,31 +332,103 @@ func (api *RegisteredDomainsServiceApi) ListRegisteredDomains(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import1.ListRegisteredDomainsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.ListRegisteredDomainsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Refreshes the API credentials for the registered domain.
+func (api *RegisteredDomainsApi) RefreshApiCredentials(extId *string, args ...map[string]interface{}) (*import3.RefreshApiCredentialsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.RefreshApiCredentials(context.Background(), &import9.RefreshApiCredentialsRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Refreshes the API credentials for the registered domain.
+func (api *RegisteredDomainsServiceApi) RefreshApiCredentials(ctx context.Context, request *import9.RefreshApiCredentialsRequest, args ...map[string]interface{}) (*import3.RefreshApiCredentialsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/multidomain/v4.4.b1/config/registered-domains/{extId}/$actions/refresh-api-credentials"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.RefreshApiCredentialsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Updates a registered domain by its external identifier.
-func (api *RegisteredDomainsApi) UpdateRegisteredDomainById(extId *string, body *import1.RegisteredDomain, args ...map[string]interface{}) (*import1.UpdateRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsApi) UpdateRegisteredDomainById(extId *string, body *import3.RegisteredDomain, args ...map[string]interface{}) (*import3.UpdateRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateRegisteredDomainById(context.Background(), &import6.UpdateRegisteredDomainByIdRequest{
+	return api.ServiceClient.UpdateRegisteredDomainById(context.Background(), &import9.UpdateRegisteredDomainByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Updates a registered domain by its external identifier.
-func (api *RegisteredDomainsServiceApi) UpdateRegisteredDomainById(ctx context.Context, request *import6.UpdateRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import1.UpdateRegisteredDomainApiResponse, error) {
+func (api *RegisteredDomainsServiceApi) UpdateRegisteredDomainById(ctx context.Context, request *import9.UpdateRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import3.UpdateRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/registered-domains/{extId}"
+	uri := "/api/multidomain/v4.4.b1/config/registered-domains/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -379,8 +469,14 @@ func (api *RegisteredDomainsServiceApi) UpdateRegisteredDomainById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import1.UpdateRegisteredDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.UpdateRegisteredDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

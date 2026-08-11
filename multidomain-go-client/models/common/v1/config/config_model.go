@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1-beta-1
  *
  * Part of the Nutanix Multidomain Versioned APIs
  *
@@ -20,6 +20,118 @@ import (
 	"errors"
 	"fmt"
 )
+
+/*
+An authentication scheme that requires the client to present a username and password. The server will service the request only if it can validate the user-ID and password for the protection space of the Request-URI.
+*/
+type BasicAuth struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Password required for the basic auth scheme.
+	*/
+	Password *string `json:"password"`
+	/*
+	  Username required for the basic auth scheme. As per [RFC 2617](https://datatracker.ietf.org/doc/html/rfc2617) usernames might be case sensitive.
+	*/
+	Username *string `json:"username"`
+}
+
+func (p *BasicAuth) MarshalJSON() ([]byte, error) {
+	type BasicAuthProxy BasicAuth
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BasicAuthProxy
+		Password *string `json:"password,omitempty"`
+		Username *string `json:"username,omitempty"`
+	}{
+		BasicAuthProxy: (*BasicAuthProxy)(p),
+		Password:       p.Password,
+		Username:       p.Username,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BasicAuth) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BasicAuth
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBasicAuth()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "password")
+	delete(allFields, "username")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBasicAuth() *BasicAuth {
+	p := new(BasicAuth)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "common.v1.config.BasicAuth"
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
 
 /*
 A fully qualified domain name that specifies its exact location in the tree hierarchy of the Domain Name System.
@@ -220,6 +332,116 @@ func NewFlag() *Flag {
 	*p.Value = false
 
 	return p
+}
+
+/*
+An unique address that identifies a device on the internet or a local network in IPv4 or IPv6 format.
+*/
+type IPAddress struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Ipv4 *IPv4Address `json:"ipv4,omitempty"`
+
+	Ipv6 *IPv6Address `json:"ipv6,omitempty"`
+}
+
+func (p *IPAddress) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IPAddress
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IPAddress) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IPAddress
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewIPAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4 != nil {
+		p.Ipv4 = known.Ipv4
+	}
+	if known.Ipv6 != nil {
+		p.Ipv6 = known.Ipv6
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "ipv4")
+	delete(allFields, "ipv6")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewIPAddress() *IPAddress {
+	p := new(IPAddress)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "common.v1.config.IPAddress"
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (i *IPAddress) HasIpv4() bool {
+	return i.Ipv4 != nil
+}
+func (i *IPAddress) HasIpv6() bool {
+	return i.Ipv6 != nil
+}
+
+func (i *IPAddress) IsValid() bool {
+	return i.HasIpv4() || i.HasIpv6()
 }
 
 /*
@@ -563,6 +785,105 @@ func NewIPv6Address() *IPv6Address {
 
 	p.PrefixLength = new(int)
 	*p.PrefixLength = 128
+
+	return p
+}
+
+/*
+Range of consecutive IP addresses that can be assigned to a specific Subnet.The size of the IP range is determined by the subnet mask.
+*/
+type IpRange struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Begin *IPAddress `json:"begin,omitempty"`
+
+	End *IPAddress `json:"end,omitempty"`
+}
+
+func (p *IpRange) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IpRange
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IpRange) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IpRange
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewIpRange()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Begin != nil {
+		p.Begin = known.Begin
+	}
+	if known.End != nil {
+		p.End = known.End
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "begin")
+	delete(allFields, "end")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewIpRange() *IpRange {
+	p := new(IpRange)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "common.v1.config.IpRange"
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
@@ -1099,6 +1420,8 @@ type OneOfKVPairValue struct {
 	oneOfType1008 []int                `json:"-"`
 	oneOfType1002 *string              `json:"-"`
 	oneOfType1007 []MapOfStringWrapper `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfKVPairValue() *OneOfKVPairValue {
@@ -1199,6 +1522,9 @@ func (p *OneOfKVPairValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfKVPairValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "Map<String, String>" == *p.Discriminator {
 		return p.oneOfType1006
 	}
@@ -1224,6 +1550,201 @@ func (p *OneOfKVPairValue) GetValue() interface{} {
 }
 
 func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Map<String, String>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1006 := new(map[string]string)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1006)
+					if unmarshalErr == nil {
+						p.oneOfType1006 = *vOneOfType1006
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Map<String, String>"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Map<String, String>"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Boolean"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1004 := new(bool)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1004)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType1004 {
+							p.oneOfType1004 = new(bool)
+						}
+						*p.oneOfType1004 = *vOneOfType1004
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Boolean"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Boolean"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<String>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1005 := new([]string)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1005)
+					if unmarshalErr == nil {
+						p.oneOfType1005 = *vOneOfType1005
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "List<String>"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "List<String>"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Integer"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1003 := new(int)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1003)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType1003 {
+							p.oneOfType1003 = new(int)
+						}
+						*p.oneOfType1003 = *vOneOfType1003
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Integer"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Integer"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<Integer>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1008 := new([]int)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1008)
+					if unmarshalErr == nil {
+						p.oneOfType1008 = *vOneOfType1008
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "List<Integer>"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "List<Integer>"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["String"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1002 := new(string)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1002)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType1002 {
+							p.oneOfType1002 = new(string)
+						}
+						*p.oneOfType1002 = *vOneOfType1002
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "String"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "String"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<common.v1.config.MapOfStringWrapper>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1007 := new([]MapOfStringWrapper)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1007)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType1007 == nil || len(*vOneOfType1007) == 0 || ((*vOneOfType1007)[0].ObjectType_ != nil && "common.v1.config.MapOfStringWrapper" == *((*vOneOfType1007)[0].ObjectType_)) {
+							p.oneOfType1007 = *vOneOfType1007
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<common.v1.config.MapOfStringWrapper>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<common.v1.config.MapOfStringWrapper>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1006 := new(map[string]string)
 	if err := json.Unmarshal(b, vOneOfType1006); err == nil {
 		p.oneOfType1006 = *vOneOfType1006
@@ -1313,7 +1834,7 @@ func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1007 := new([]MapOfStringWrapper)
 	if err := json.Unmarshal(b, vOneOfType1007); err == nil {
-		if len(*vOneOfType1007) == 0 || "common.v1.config.MapOfStringWrapper" == *((*vOneOfType1007)[0].ObjectType_) {
+		if len(*vOneOfType1007) == 0 || (vOneOfType1007 != nil && (*vOneOfType1007)[0].ObjectType_ != nil && "common.v1.config.MapOfStringWrapper" == *((*vOneOfType1007)[0].ObjectType_)) {
 			p.oneOfType1007 = *vOneOfType1007
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -1326,10 +1847,31 @@ func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfKVPairValue"))
 }
 
 func (p *OneOfKVPairValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "Map<String, String>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType1006)
 	}

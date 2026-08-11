@@ -1,7 +1,7 @@
 /*
  * Generated file models/multidomain/v4/resources/resources_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1-beta-1
  *
  * Part of the Nutanix Multidomain Versioned APIs
  *
@@ -192,7 +192,7 @@ func NewDomain() *Domain {
 	p := new(Domain)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.Domain"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsReachable = new(bool)
@@ -327,7 +327,7 @@ func NewDomainAuditTrail() *DomainAuditTrail {
 	p := new(DomainAuditTrail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainAuditTrail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -427,7 +427,7 @@ func NewDomainChangeStateRequest() *DomainChangeStateRequest {
 	p := new(DomainChangeStateRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainChangeStateRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -529,7 +529,7 @@ func NewDomainChangeStateResponse() *DomainChangeStateResponse {
 	p := new(DomainChangeStateResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainChangeStateResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -640,7 +640,7 @@ func NewDomainDeleteResponse() *DomainDeleteResponse {
 	p := new(DomainDeleteResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainDeleteResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -751,7 +751,7 @@ func NewDomainDetails() *DomainDetails {
 	p := new(DomainDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -846,7 +846,7 @@ func NewDomainExportResponse() *DomainExportResponse {
 	p := new(DomainExportResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainExportResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1016,7 +1016,7 @@ func NewDomainProjection() *DomainProjection {
 	p := new(DomainProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsReachable = new(bool)
@@ -1121,7 +1121,7 @@ func NewDomainRegisterRequest() *DomainRegisterRequest {
 	p := new(DomainRegisterRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainRegisterRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1271,7 +1271,7 @@ func NewDomainRegisterResponse() *DomainRegisterResponse {
 	p := new(DomainRegisterResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.DomainRegisterResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1494,7 +1494,7 @@ func NewLocation() *Location {
 	p := new(Location)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.Location"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1597,7 +1597,7 @@ func NewPrismCentral() *PrismCentral {
 	p := new(PrismCentral)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.resources.PrismCentral"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1607,6 +1607,8 @@ type OneOfDomainPlatformData struct {
 	Discriminator *string       `json:"-"`
 	ObjectType_   *string       `json:"-"`
 	oneOfType0    *PrismCentral `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfDomainPlatformData() *OneOfDomainPlatformData {
@@ -1641,6 +1643,9 @@ func (p *OneOfDomainPlatformData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfDomainPlatformData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -1648,9 +1653,48 @@ func (p *OneOfDomainPlatformData) GetValue() interface{} {
 }
 
 func (p *OneOfDomainPlatformData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(PrismCentral)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "multidomain.v4.resources.PrismCentral" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(PrismCentral)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(PrismCentral)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "multidomain.v4.resources.PrismCentral" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "multidomain.v4.resources.PrismCentral" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(PrismCentral)
 			}
@@ -1666,10 +1710,31 @@ func (p *OneOfDomainPlatformData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDomainPlatformData"))
 }
 
 func (p *OneOfDomainPlatformData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -1680,6 +1745,8 @@ type OneOfDomainProjectionPlatformData struct {
 	Discriminator *string       `json:"-"`
 	ObjectType_   *string       `json:"-"`
 	oneOfType0    *PrismCentral `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfDomainProjectionPlatformData() *OneOfDomainProjectionPlatformData {
@@ -1714,6 +1781,9 @@ func (p *OneOfDomainProjectionPlatformData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfDomainProjectionPlatformData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -1721,9 +1791,48 @@ func (p *OneOfDomainProjectionPlatformData) GetValue() interface{} {
 }
 
 func (p *OneOfDomainProjectionPlatformData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(PrismCentral)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "multidomain.v4.resources.PrismCentral" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(PrismCentral)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(PrismCentral)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "multidomain.v4.resources.PrismCentral" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "multidomain.v4.resources.PrismCentral" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(PrismCentral)
 			}
@@ -1739,10 +1848,31 @@ func (p *OneOfDomainProjectionPlatformData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDomainProjectionPlatformData"))
 }
 
 func (p *OneOfDomainProjectionPlatformData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}

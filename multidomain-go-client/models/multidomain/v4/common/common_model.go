@@ -1,7 +1,7 @@
 /*
  * Generated file models/multidomain/v4/common/common_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1-beta-1
  *
  * Part of the Nutanix Multidomain Versioned APIs
  *
@@ -117,7 +117,7 @@ func NewActionBaseResponse() *ActionBaseResponse {
 	p := new(ActionBaseResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.common.ActionBaseResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -228,7 +228,7 @@ func NewDomainError() *DomainError {
 	p := new(DomainError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.common.DomainError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -331,7 +331,7 @@ func NewDomainInformation() *DomainInformation {
 	p := new(DomainInformation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.common.DomainInformation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -443,7 +443,7 @@ func NewRegistrationCredentials() *RegistrationCredentials {
 	p := new(RegistrationCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.common.RegistrationCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -645,7 +645,7 @@ func NewTenantInfo() *TenantInfo {
 	p := new(TenantInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.common.TenantInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

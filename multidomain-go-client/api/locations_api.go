@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/config"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/locations"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/config"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/locations"
 	"net/http"
 	"net/url"
 	"strings"
@@ -61,11 +61,11 @@ func NewLocationsServiceApi(apiClient *client.ApiClient) *LocationsServiceApi {
 }
 
 // List locations.
-func (api *LocationsApi) ListLocations(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListLocationsApiResponse, error) {
+func (api *LocationsApi) ListLocations(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListLocationsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewLocationsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListLocations(context.Background(), &import5.ListLocationsRequest{
+	return api.ServiceClient.ListLocations(context.Background(), &import7.ListLocationsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -75,13 +75,13 @@ func (api *LocationsApi) ListLocations(page_ *int, limit_ *int, filter_ *string,
 }
 
 // List locations.
-func (api *LocationsServiceApi) ListLocations(ctx context.Context, request *import5.ListLocationsRequest, args ...map[string]interface{}) (*import1.ListLocationsApiResponse, error) {
+func (api *LocationsServiceApi) ListLocations(ctx context.Context, request *import7.ListLocationsRequest, args ...map[string]interface{}) (*import3.ListLocationsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/locations"
+	uri := "/api/multidomain/v4.4.b1/config/locations"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -127,8 +127,14 @@ func (api *LocationsServiceApi) ListLocations(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import1.ListLocationsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.ListLocationsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -1,7 +1,7 @@
 /*
  * Generated file models/multidomain/v4/management/management_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1-beta-1
  *
  * Part of the Nutanix Multidomain Versioned APIs
  *
@@ -106,7 +106,7 @@ func (e ConnectionStatus) Ref() *ConnectionStatus {
 }
 
 /*
-REST response for all response codes in API path /multidomain/v4.3/management/local-domain Get operation
+REST response for all response codes in API path /multidomain/v4.4.b1/management/local-domain Get operation
 */
 type GetLocalDomainApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -206,7 +206,7 @@ func NewGetLocalDomainApiResponse() *GetLocalDomainApiResponse {
 	p := new(GetLocalDomainApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.GetLocalDomainApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -252,6 +252,10 @@ type LocalDomain struct {
 	Name *string `json:"name,omitempty"`
 
 	RegistrationStatus *LocalDomainRegistrationStatus `json:"registrationStatus,omitempty"`
+	/*
+	  Prism Central should use this URL to communicate with Nutanix Central.
+	*/
+	TargetUrl *string `json:"targetUrl,omitempty"`
 }
 
 func (p *LocalDomain) MarshalJSON() ([]byte, error) {
@@ -318,6 +322,9 @@ func (p *LocalDomain) UnmarshalJSON(b []byte) error {
 	if known.RegistrationStatus != nil {
 		p.RegistrationStatus = known.RegistrationStatus
 	}
+	if known.TargetUrl != nil {
+		p.TargetUrl = known.TargetUrl
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -327,6 +334,7 @@ func (p *LocalDomain) UnmarshalJSON(b []byte) error {
 	delete(allFields, "location")
 	delete(allFields, "name")
 	delete(allFields, "registrationStatus")
+	delete(allFields, "targetUrl")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -340,7 +348,7 @@ func NewLocalDomain() *LocalDomain {
 	p := new(LocalDomain)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.LocalDomain"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -439,7 +447,7 @@ func NewLocalDomainConnectionStatus() *LocalDomainConnectionStatus {
 	p := new(LocalDomainConnectionStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.LocalDomainConnectionStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -579,7 +587,7 @@ func NewLocalDomainRegistrationSpec() *LocalDomainRegistrationSpec {
 	p := new(LocalDomainRegistrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.LocalDomainRegistrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -594,8 +602,16 @@ type LocalDomainRegistrationStatus struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Indicates remaining days to domain credential expiry, 0 means expired
+	*/
+	DaysToExpiry *int `json:"daysToExpiry,omitempty"`
 
 	ErrorStage *OperationStage `json:"errorStage,omitempty"`
+	/*
+	  Identity provider unique identifier. Identity provider can be directory-service or SAML based identity provider.
+	*/
+	IdentityProviderExtId *string `json:"identityProviderExtId,omitempty"`
 
 	State *import4.RegistrationState `json:"state,omitempty"`
 }
@@ -652,8 +668,14 @@ func (p *LocalDomainRegistrationStatus) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
+	if known.DaysToExpiry != nil {
+		p.DaysToExpiry = known.DaysToExpiry
+	}
 	if known.ErrorStage != nil {
 		p.ErrorStage = known.ErrorStage
+	}
+	if known.IdentityProviderExtId != nil {
+		p.IdentityProviderExtId = known.IdentityProviderExtId
 	}
 	if known.State != nil {
 		p.State = known.State
@@ -663,7 +685,9 @@ func (p *LocalDomainRegistrationStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "daysToExpiry")
 	delete(allFields, "errorStage")
+	delete(allFields, "identityProviderExtId")
 	delete(allFields, "state")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -678,7 +702,7 @@ func NewLocalDomainRegistrationStatus() *LocalDomainRegistrationStatus {
 	p := new(LocalDomainRegistrationStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.LocalDomainRegistrationStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -792,7 +816,7 @@ func (e OperationStage) Ref() *OperationStage {
 }
 
 /*
-REST response for all response codes in API path /multidomain/v4.3/management/local-domain/$actions/register Post operation
+REST response for all response codes in API path /multidomain/v4.4.b1/management/local-domain/$actions/register Post operation
 */
 type RegisterLocalDomainApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -892,7 +916,7 @@ func NewRegisterLocalDomainApiResponse() *RegisterLocalDomainApiResponse {
 	p := new(RegisterLocalDomainApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.RegisterLocalDomainApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1091,14 +1115,14 @@ func NewServiceStatus() *ServiceStatus {
 	p := new(ServiceStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.ServiceStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /multidomain/v4.3/management/local-domain/$actions/unregister Post operation
+REST response for all response codes in API path /multidomain/v4.4.b1/management/local-domain/$actions/unregister Post operation
 */
 type UnregisterLocalDomainApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1198,7 +1222,7 @@ func NewUnregisterLocalDomainApiResponse() *UnregisterLocalDomainApiResponse {
 	p := new(UnregisterLocalDomainApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "multidomain.v4.management.UnregisterLocalDomainApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1230,6 +1254,8 @@ type OneOfGetLocalDomainApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 	oneOfType0    *LocalDomain           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetLocalDomainApiResponseData() *OneOfGetLocalDomainApiResponseData {
@@ -1277,6 +1303,9 @@ func (p *OneOfGetLocalDomainApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetLocalDomainApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -1287,9 +1316,79 @@ func (p *OneOfGetLocalDomainApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetLocalDomainApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(LocalDomain)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "multidomain.v4.management.LocalDomain" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(LocalDomain)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -1307,7 +1406,7 @@ func (p *OneOfGetLocalDomainApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(LocalDomain)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "multidomain.v4.management.LocalDomain" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "multidomain.v4.management.LocalDomain" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(LocalDomain)
 			}
@@ -1323,10 +1422,31 @@ func (p *OneOfGetLocalDomainApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLocalDomainApiResponseData"))
 }
 
 func (p *OneOfGetLocalDomainApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -1341,6 +1461,8 @@ type OneOfRegisterLocalDomainApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *import5.TaskReference `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfRegisterLocalDomainApiResponseData() *OneOfRegisterLocalDomainApiResponseData {
@@ -1388,6 +1510,9 @@ func (p *OneOfRegisterLocalDomainApiResponseData) SetValue(v interface{}) error 
 }
 
 func (p *OneOfRegisterLocalDomainApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -1398,9 +1523,79 @@ func (p *OneOfRegisterLocalDomainApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfRegisterLocalDomainApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(import5.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(import5.TaskReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(import5.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(import5.TaskReference)
 			}
@@ -1418,7 +1613,7 @@ func (p *OneOfRegisterLocalDomainApiResponseData) UnmarshalJSON(b []byte) error 
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -1434,10 +1629,31 @@ func (p *OneOfRegisterLocalDomainApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRegisterLocalDomainApiResponseData"))
 }
 
 func (p *OneOfRegisterLocalDomainApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -1452,6 +1668,8 @@ type OneOfUnregisterLocalDomainApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *import5.TaskReference `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfUnregisterLocalDomainApiResponseData() *OneOfUnregisterLocalDomainApiResponseData {
@@ -1499,6 +1717,9 @@ func (p *OneOfUnregisterLocalDomainApiResponseData) SetValue(v interface{}) erro
 }
 
 func (p *OneOfUnregisterLocalDomainApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -1509,9 +1730,79 @@ func (p *OneOfUnregisterLocalDomainApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfUnregisterLocalDomainApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(import5.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(import5.TaskReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(import5.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(import5.TaskReference)
 			}
@@ -1529,7 +1820,7 @@ func (p *OneOfUnregisterLocalDomainApiResponseData) UnmarshalJSON(b []byte) erro
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "multidomain.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -1545,10 +1836,31 @@ func (p *OneOfUnregisterLocalDomainApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUnregisterLocalDomainApiResponseData"))
 }
 
 func (p *OneOfUnregisterLocalDomainApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}

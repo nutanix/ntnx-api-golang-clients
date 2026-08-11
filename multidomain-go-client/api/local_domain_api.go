@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/management"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/localdomain"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/management"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/localdomain"
 	"net/http"
 	"net/url"
 	"strings"
@@ -61,21 +61,21 @@ func NewLocalDomainServiceApi(apiClient *client.ApiClient) *LocalDomainServiceAp
 }
 
 // Returns the domain entity
-func (api *LocalDomainApi) GetLocalDomain(args ...map[string]interface{}) (*import3.GetLocalDomainApiResponse, error) {
+func (api *LocalDomainApi) GetLocalDomain(args ...map[string]interface{}) (*import5.GetLocalDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewLocalDomainServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetLocalDomain(context.Background(), &import4.GetLocalDomainRequest{}, args...)
+	return api.ServiceClient.GetLocalDomain(context.Background(), &import6.GetLocalDomainRequest{}, args...)
 }
 
 // Returns the domain entity
-func (api *LocalDomainServiceApi) GetLocalDomain(ctx context.Context, request *import4.GetLocalDomainRequest, args ...map[string]interface{}) (*import3.GetLocalDomainApiResponse, error) {
+func (api *LocalDomainServiceApi) GetLocalDomain(ctx context.Context, request *import6.GetLocalDomainRequest, args ...map[string]interface{}) (*import5.GetLocalDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/management/local-domain"
+	uri := "/api/multidomain/v4.4.b1/management/local-domain"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -105,30 +105,36 @@ func (api *LocalDomainServiceApi) GetLocalDomain(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import3.GetLocalDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import5.GetLocalDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Registers the domain with Nutanix Central, establishing a connection between Prism Central and their corresponding Nutanix Central components.
-func (api *LocalDomainApi) RegisterLocalDomain(body *import3.LocalDomainRegistrationSpec, args ...map[string]interface{}) (*import3.RegisterLocalDomainApiResponse, error) {
+func (api *LocalDomainApi) RegisterLocalDomain(body *import5.LocalDomainRegistrationSpec, args ...map[string]interface{}) (*import5.RegisterLocalDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewLocalDomainServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.RegisterLocalDomain(context.Background(), &import4.RegisterLocalDomainRequest{
+	return api.ServiceClient.RegisterLocalDomain(context.Background(), &import6.RegisterLocalDomainRequest{
 		Body: body,
 	}, args...)
 }
 
 // Registers the domain with Nutanix Central, establishing a connection between Prism Central and their corresponding Nutanix Central components.
-func (api *LocalDomainServiceApi) RegisterLocalDomain(ctx context.Context, request *import4.RegisterLocalDomainRequest, args ...map[string]interface{}) (*import3.RegisterLocalDomainApiResponse, error) {
+func (api *LocalDomainServiceApi) RegisterLocalDomain(ctx context.Context, request *import6.RegisterLocalDomainRequest, args ...map[string]interface{}) (*import5.RegisterLocalDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/management/local-domain/$actions/register"
+	uri := "/api/multidomain/v4.4.b1/management/local-domain/$actions/register"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -163,28 +169,34 @@ func (api *LocalDomainServiceApi) RegisterLocalDomain(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import3.RegisterLocalDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import5.RegisterLocalDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Unregister a domain from Nutanix Central.
-func (api *LocalDomainApi) UnregisterLocalDomain(args ...map[string]interface{}) (*import3.UnregisterLocalDomainApiResponse, error) {
+func (api *LocalDomainApi) UnregisterLocalDomain(args ...map[string]interface{}) (*import5.UnregisterLocalDomainApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewLocalDomainServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UnregisterLocalDomain(context.Background(), &import4.UnregisterLocalDomainRequest{}, args...)
+	return api.ServiceClient.UnregisterLocalDomain(context.Background(), &import6.UnregisterLocalDomainRequest{}, args...)
 }
 
 // Unregister a domain from Nutanix Central.
-func (api *LocalDomainServiceApi) UnregisterLocalDomain(ctx context.Context, request *import4.UnregisterLocalDomainRequest, args ...map[string]interface{}) (*import3.UnregisterLocalDomainApiResponse, error) {
+func (api *LocalDomainServiceApi) UnregisterLocalDomain(ctx context.Context, request *import6.UnregisterLocalDomainRequest, args ...map[string]interface{}) (*import5.UnregisterLocalDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/management/local-domain/$actions/unregister"
+	uri := "/api/multidomain/v4.4.b1/management/local-domain/$actions/unregister"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -214,8 +226,14 @@ func (api *LocalDomainServiceApi) UnregisterLocalDomain(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import3.UnregisterLocalDomainApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import5.UnregisterLocalDomainApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
