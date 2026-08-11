@@ -77,7 +77,7 @@ func (api *RecoveryPlanActionsServiceApi) CleanupRecoveryPlanResources(ctx conte
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/clean-up-resources"
+	uri := "/api/dataprotection/v4.4/operations/recovery-plans/{recoveryPlanExtId}/$actions/clean-up-resources"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -114,9 +114,15 @@ func (api *RecoveryPlanActionsServiceApi) CleanupRecoveryPlanResources(ctx conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.CleanupRecoveryPlanResourcesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -138,7 +144,7 @@ func (api *RecoveryPlanActionsServiceApi) PlannedFailoverRecoveryPlan(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/planned-failover"
+	uri := "/api/dataprotection/v4.4/operations/recovery-plans/{recoveryPlanExtId}/$actions/planned-failover"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -179,9 +185,81 @@ func (api *RecoveryPlanActionsServiceApi) PlannedFailoverRecoveryPlan(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.PlannedFailoverRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Resume protection on a Recovery Plan after a planned or unplanned failover operation. This operation re-enables data protection policies that may have been paused during the failover process, ensuring ongoing replication and backup of recovered workloads.<br> #### Task Completion Details <br> The external identifier for the task is available in the task completion details under the key `taskExtId`, as well as in the `entitiesAffected` section.
+func (api *RecoveryPlanActionsApi) ResumeProtection(recoveryPlanExtId *string, args ...map[string]interface{}) (*import4.ResumeProtectionApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRecoveryPlanActionsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ResumeProtection(context.Background(), &import5.ResumeProtectionRequest{
+		RecoveryPlanExtId: recoveryPlanExtId,
+	}, args...)
+}
+
+// Resume protection on a Recovery Plan after a planned or unplanned failover operation. This operation re-enables data protection policies that may have been paused during the failover process, ensuring ongoing replication and backup of recovered workloads.<br> #### Task Completion Details <br> The external identifier for the task is available in the task completion details under the key `taskExtId`, as well as in the `entitiesAffected` section.
+func (api *RecoveryPlanActionsServiceApi) ResumeProtection(ctx context.Context, request *import5.ResumeProtectionRequest, args ...map[string]interface{}) (*import4.ResumeProtectionApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/dataprotection/v4.4/operations/recovery-plans/{recoveryPlanExtId}/$actions/resume-protection"
+
+	// verify the required parameter 'recoveryPlanExtId' is set
+	if nil == request.RecoveryPlanExtId {
+		return nil, client.ReportError("recoveryPlanExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"recoveryPlanExtId"+"}", url.PathEscape(client.ParameterToString(*request.RecoveryPlanExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.ResumeProtectionApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -203,7 +281,7 @@ func (api *RecoveryPlanActionsServiceApi) TestFailoverRecoveryPlan(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/test-failover"
+	uri := "/api/dataprotection/v4.4/operations/recovery-plans/{recoveryPlanExtId}/$actions/test-failover"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -244,9 +322,15 @@ func (api *RecoveryPlanActionsServiceApi) TestFailoverRecoveryPlan(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TestFailoverRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -268,7 +352,7 @@ func (api *RecoveryPlanActionsServiceApi) UnplannedFailoverRecoveryPlan(ctx cont
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/unplanned-failover"
+	uri := "/api/dataprotection/v4.4/operations/recovery-plans/{recoveryPlanExtId}/$actions/unplanned-failover"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -309,9 +393,15 @@ func (api *RecoveryPlanActionsServiceApi) UnplannedFailoverRecoveryPlan(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UnplannedFailoverRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -333,7 +423,7 @@ func (api *RecoveryPlanActionsServiceApi) ValidateRecoveryPlan(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/validate"
+	uri := "/api/dataprotection/v4.4/operations/recovery-plans/{recoveryPlanExtId}/$actions/validate"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -374,8 +464,14 @@ func (api *RecoveryPlanActionsServiceApi) ValidateRecoveryPlan(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ValidateRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

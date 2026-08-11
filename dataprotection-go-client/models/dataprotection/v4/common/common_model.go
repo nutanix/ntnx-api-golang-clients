@@ -1,7 +1,7 @@
 /*
  * Generated file models/dataprotection/v4/common/common_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -106,7 +106,7 @@ func (e BackupType) Ref() *BackupType {
 }
 
 /*
-A model that represents common properties of a Recovery point resources
+A model that represents common properties of a recovery point resource.
 */
 type BaseRecoveryPoint struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -115,11 +115,11 @@ type BaseRecoveryPoint struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  The UTC date and time in ISO-8601 format when the Recovery point is created.
+	  The UTC date and time in ISO-8601 format when the recovery point is created.
 	*/
 	CreationTime *time.Time `json:"creationTime,omitempty"`
 	/*
-	  The UTC date and time in ISO-8601 format when the current Recovery point expires and will be garbage collected.
+	  The UTC date and time in ISO-8601 format when the current recovery point expires and will be removed.
 	*/
 	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
 	/*
@@ -131,15 +131,21 @@ type BaseRecoveryPoint struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  Location agnostic identifier of the Recovery point.
+	  Location agnostic identifier of the recovery point.
 	*/
 	LocationAgnosticId *string `json:"locationAgnosticId,omitempty"`
 	/*
-	  The name of the Recovery point.
+	  The name of the recovery point.
 	*/
 	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier for the project associated with the resource. This field is required in create requests for authorization and must match the project identifier of all associated entities.
+	*/
+	ProjectExtId *string `json:"projectExtId,omitempty"`
 
 	RecoveryPointType *RecoveryPointType `json:"recoveryPointType,omitempty"`
+
+	SourceLocation *DisasterRecoveryLocation `json:"sourceLocation,omitempty"`
 
 	Status *RecoveryPointStatus `json:"status,omitempty"`
 	/*
@@ -147,7 +153,7 @@ type BaseRecoveryPoint struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  Indicates the total exclusive usage of this recovery point, which is the total space that could be reclaimed after deleting this recovery point.
+	  Indicates the total exclusive usage of the recovery point, which is the total space that could be reclaimed after deleting the recovery point.
 	*/
 	TotalExclusiveUsageBytes *int64 `json:"totalExclusiveUsageBytes,omitempty"`
 }
@@ -222,8 +228,14 @@ func (p *BaseRecoveryPoint) UnmarshalJSON(b []byte) error {
 	if known.Name != nil {
 		p.Name = known.Name
 	}
+	if known.ProjectExtId != nil {
+		p.ProjectExtId = known.ProjectExtId
+	}
 	if known.RecoveryPointType != nil {
 		p.RecoveryPointType = known.RecoveryPointType
+	}
+	if known.SourceLocation != nil {
+		p.SourceLocation = known.SourceLocation
 	}
 	if known.Status != nil {
 		p.Status = known.Status
@@ -245,7 +257,9 @@ func (p *BaseRecoveryPoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "locationAgnosticId")
 	delete(allFields, "name")
+	delete(allFields, "projectExtId")
 	delete(allFields, "recoveryPointType")
+	delete(allFields, "sourceLocation")
 	delete(allFields, "status")
 	delete(allFields, "tenantId")
 	delete(allFields, "totalExclusiveUsageBytes")
@@ -269,7 +283,7 @@ func NewBaseRecoveryPoint() *BaseRecoveryPoint {
 }
 
 /*
-A model that represents common properties of a VM Recovery point resources
+A model that represents common properties of a VM recovery point resource.
 */
 type BaseVmRecoveryPoint struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -286,17 +300,17 @@ type BaseVmRecoveryPoint struct {
 	*/
 	ApplicationConsistentProperties *OneOfBaseVmRecoveryPointApplicationConsistentProperties `json:"applicationConsistentProperties,omitempty"`
 	/*
-	  External identifier of the Consistency group which the VM was part of at the time of recovery point creation.
+	  External identifier of the consistency group that the VM was part of at the time of recovery point creation.
 	*/
 	ConsistencyGroupExtId *string `json:"consistencyGroupExtId,omitempty"`
 	/*
-	  The UTC date and time in ISO-8601 format when the Recovery point is created.
+	  The UTC date and time in ISO-8601 format when the recovery point is created.
 	*/
 	CreationTime *time.Time `json:"creationTime,omitempty"`
 
 	DiskRecoveryPoints []DiskRecoveryPoint `json:"diskRecoveryPoints,omitempty"`
 	/*
-	  The UTC date and time in ISO-8601 format when the current Recovery point expires and will be garbage collected.
+	  The UTC date and time in ISO-8601 format when the current recovery point expires and will be removed.
 	*/
 	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
 	/*
@@ -308,15 +322,21 @@ type BaseVmRecoveryPoint struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  Location agnostic identifier of the Recovery point.
+	  Location agnostic identifier of the recovery point.
 	*/
 	LocationAgnosticId *string `json:"locationAgnosticId,omitempty"`
 	/*
-	  The name of the Recovery point.
+	  The name of the recovery point.
 	*/
 	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier for the project associated with the resource. This field is required in create requests for authorization and must match the project identifier of all associated entities.
+	*/
+	ProjectExtId *string `json:"projectExtId,omitempty"`
 
 	RecoveryPointType *RecoveryPointType `json:"recoveryPointType,omitempty"`
+
+	SourceLocation *DisasterRecoveryLocation `json:"sourceLocation,omitempty"`
 
 	Status *RecoveryPointStatus `json:"status,omitempty"`
 	/*
@@ -324,7 +344,7 @@ type BaseVmRecoveryPoint struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  Indicates the total exclusive usage of this recovery point, which is the total space that could be reclaimed after deleting this recovery point.
+	  Indicates the total exclusive usage of the recovery point, which is the total space that could be reclaimed after deleting the recovery point.
 	*/
 	TotalExclusiveUsageBytes *int64 `json:"totalExclusiveUsageBytes,omitempty"`
 	/*
@@ -419,8 +439,14 @@ func (p *BaseVmRecoveryPoint) UnmarshalJSON(b []byte) error {
 	if known.Name != nil {
 		p.Name = known.Name
 	}
+	if known.ProjectExtId != nil {
+		p.ProjectExtId = known.ProjectExtId
+	}
 	if known.RecoveryPointType != nil {
 		p.RecoveryPointType = known.RecoveryPointType
+	}
+	if known.SourceLocation != nil {
+		p.SourceLocation = known.SourceLocation
 	}
 	if known.Status != nil {
 		p.Status = known.Status
@@ -452,7 +478,9 @@ func (p *BaseVmRecoveryPoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "locationAgnosticId")
 	delete(allFields, "name")
+	delete(allFields, "projectExtId")
 	delete(allFields, "recoveryPointType")
+	delete(allFields, "sourceLocation")
 	delete(allFields, "status")
 	delete(allFields, "tenantId")
 	delete(allFields, "totalExclusiveUsageBytes")
@@ -496,6 +524,213 @@ func (p *BaseVmRecoveryPoint) SetApplicationConsistentProperties(v interface{}) 
 		*p.ApplicationConsistentPropertiesItemDiscriminator_ = *p.ApplicationConsistentProperties.Discriminator
 	}
 	return e
+}
+
+/*
+A model that represents common properties of a volume group recovery point resource.
+*/
+type BaseVolumeGroupRecoveryPoint struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External identifier of the consistency group that the volume group was part of at the time of recovery point creation.
+	*/
+	ConsistencyGroupExtId *string `json:"consistencyGroupExtId,omitempty"`
+	/*
+	  The UTC date and time in ISO-8601 format when the recovery point is created.
+	*/
+	CreationTime *time.Time `json:"creationTime,omitempty"`
+
+	DiskRecoveryPoints []DiskRecoveryPoint `json:"diskRecoveryPoints,omitempty"`
+	/*
+	  The UTC date and time in ISO-8601 format when the current recovery point expires and will be removed.
+	*/
+	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Location agnostic identifier of the recovery point.
+	*/
+	LocationAgnosticId *string `json:"locationAgnosticId,omitempty"`
+	/*
+	  The name of the recovery point.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier for the project associated with the resource. This field is required in create requests for authorization and must match the project identifier of all associated entities.
+	*/
+	ProjectExtId *string `json:"projectExtId,omitempty"`
+
+	RecoveryPointType *RecoveryPointType `json:"recoveryPointType,omitempty"`
+
+	SourceLocation *DisasterRecoveryLocation `json:"sourceLocation,omitempty"`
+
+	Status *RecoveryPointStatus `json:"status,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Indicates the total exclusive usage of the recovery point, which is the total space that could be reclaimed after deleting the recovery point.
+	*/
+	TotalExclusiveUsageBytes *int64 `json:"totalExclusiveUsageBytes,omitempty"`
+	/*
+	  Category key-value pairs associated with the volume group at the time of recovery point creation. The category key and value are separated by '/'. For example, a category with key 'dept' and value 'hr' is displayed as 'dept/hr'.
+	*/
+	VolumeGroupCategories []string `json:"volumeGroupCategories,omitempty"`
+	/*
+	  Volume group external identifier which is captured as a part of this recovery point.
+	*/
+	VolumeGroupExtId *string `json:"volumeGroupExtId,omitempty"`
+}
+
+func (p *BaseVolumeGroupRecoveryPoint) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BaseVolumeGroupRecoveryPoint
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BaseVolumeGroupRecoveryPoint) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BaseVolumeGroupRecoveryPoint
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBaseVolumeGroupRecoveryPoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConsistencyGroupExtId != nil {
+		p.ConsistencyGroupExtId = known.ConsistencyGroupExtId
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.DiskRecoveryPoints != nil {
+		p.DiskRecoveryPoints = known.DiskRecoveryPoints
+	}
+	if known.ExpirationTime != nil {
+		p.ExpirationTime = known.ExpirationTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationAgnosticId != nil {
+		p.LocationAgnosticId = known.LocationAgnosticId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ProjectExtId != nil {
+		p.ProjectExtId = known.ProjectExtId
+	}
+	if known.RecoveryPointType != nil {
+		p.RecoveryPointType = known.RecoveryPointType
+	}
+	if known.SourceLocation != nil {
+		p.SourceLocation = known.SourceLocation
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalExclusiveUsageBytes != nil {
+		p.TotalExclusiveUsageBytes = known.TotalExclusiveUsageBytes
+	}
+	if known.VolumeGroupCategories != nil {
+		p.VolumeGroupCategories = known.VolumeGroupCategories
+	}
+	if known.VolumeGroupExtId != nil {
+		p.VolumeGroupExtId = known.VolumeGroupExtId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "consistencyGroupExtId")
+	delete(allFields, "creationTime")
+	delete(allFields, "diskRecoveryPoints")
+	delete(allFields, "expirationTime")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "locationAgnosticId")
+	delete(allFields, "name")
+	delete(allFields, "projectExtId")
+	delete(allFields, "recoveryPointType")
+	delete(allFields, "sourceLocation")
+	delete(allFields, "status")
+	delete(allFields, "tenantId")
+	delete(allFields, "totalExclusiveUsageBytes")
+	delete(allFields, "volumeGroupCategories")
+	delete(allFields, "volumeGroupExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBaseVolumeGroupRecoveryPoint() *BaseVolumeGroupRecoveryPoint {
+	p := new(BaseVolumeGroupRecoveryPoint)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "dataprotection.v4.common.BaseVolumeGroupRecoveryPoint"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -593,7 +828,119 @@ func NewClusterInfo() *ClusterInfo {
 	p := new(ClusterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.common.ClusterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+disasterRecoveryLocationDesc
+*/
+type DisasterRecoveryLocation struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External identifier of the cluster(s) associated with the recovery point at source Prism Central.
+	*/
+	ClusterExtIds []string `json:"clusterExtIds"`
+	/*
+	  External identifier of the Prism Central (also known as the Domain Manager) where the recovery point was first created.
+	*/
+	DomainManagerExtId *string `json:"domainManagerExtId"`
+}
+
+func (p *DisasterRecoveryLocation) MarshalJSON() ([]byte, error) {
+	type DisasterRecoveryLocationProxy DisasterRecoveryLocation
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*DisasterRecoveryLocationProxy
+		ClusterExtIds      []string `json:"clusterExtIds,omitempty"`
+		DomainManagerExtId *string  `json:"domainManagerExtId,omitempty"`
+	}{
+		DisasterRecoveryLocationProxy: (*DisasterRecoveryLocationProxy)(p),
+		ClusterExtIds:                 p.ClusterExtIds,
+		DomainManagerExtId:            p.DomainManagerExtId,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DisasterRecoveryLocation) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DisasterRecoveryLocation
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDisasterRecoveryLocation()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtIds != nil {
+		p.ClusterExtIds = known.ClusterExtIds
+	}
+	if known.DomainManagerExtId != nil {
+		p.DomainManagerExtId = known.DomainManagerExtId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtIds")
+	delete(allFields, "domainManagerExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDisasterRecoveryLocation() *DisasterRecoveryLocation {
+	p := new(DisasterRecoveryLocation)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "dataprotection.v4.common.DisasterRecoveryLocation"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -609,7 +956,7 @@ type DiskRecoveryPoint struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Disk external identifier which is captured as a part of this recovery point.
+	  Disk external identifier captured as a part of the recovery point.
 	*/
 	DiskExtId *string `json:"diskExtId,omitempty"`
 	/*
@@ -703,7 +1050,7 @@ func NewDiskRecoveryPoint() *DiskRecoveryPoint {
 }
 
 /*
-The status of the Recovery point, which indicates whether this Recovery point is fit to be consumed.
+The status of the recovery point indicating whether the recovery point is fit to be consumed.
 */
 type RecoveryPointStatus int
 
@@ -778,7 +1125,7 @@ func (e RecoveryPointStatus) Ref() *RecoveryPointStatus {
 }
 
 /*
-Type of the Recovery point.
+Type of the recovery point.
 */
 type RecoveryPointType int
 
@@ -989,6 +1336,8 @@ type OneOfBaseVmRecoveryPointApplicationConsistentProperties struct {
 	Discriminator *string        `json:"-"`
 	ObjectType_   *string        `json:"-"`
 	oneOfType2001 *VssProperties `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfBaseVmRecoveryPointApplicationConsistentProperties() *OneOfBaseVmRecoveryPointApplicationConsistentProperties {
@@ -1023,6 +1372,9 @@ func (p *OneOfBaseVmRecoveryPointApplicationConsistentProperties) SetValue(v int
 }
 
 func (p *OneOfBaseVmRecoveryPointApplicationConsistentProperties) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -1030,9 +1382,48 @@ func (p *OneOfBaseVmRecoveryPointApplicationConsistentProperties) GetValue() int
 }
 
 func (p *OneOfBaseVmRecoveryPointApplicationConsistentProperties) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(VssProperties)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "dataprotection.v4.common.VssProperties" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(VssProperties)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(VssProperties)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "dataprotection.v4.common.VssProperties" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "dataprotection.v4.common.VssProperties" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(VssProperties)
 			}
@@ -1048,10 +1439,31 @@ func (p *OneOfBaseVmRecoveryPointApplicationConsistentProperties) UnmarshalJSON(
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBaseVmRecoveryPointApplicationConsistentProperties"))
 }
 
 func (p *OneOfBaseVmRecoveryPointApplicationConsistentProperties) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}

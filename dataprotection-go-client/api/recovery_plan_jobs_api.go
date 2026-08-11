@@ -77,7 +77,7 @@ func (api *RecoveryPlanJobsServiceApi) DeleteRecoveryPlanJobById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{extId}"
+	uri := "/api/dataprotection/v4.4/config/recovery-plan-jobs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *RecoveryPlanJobsServiceApi) DeleteRecoveryPlanJobById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteRecoveryPlanJobApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -137,7 +143,7 @@ func (api *RecoveryPlanJobsServiceApi) GetRecoveryPlanJobById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{extId}"
+	uri := "/api/dataprotection/v4.4/config/recovery-plan-jobs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -174,9 +180,15 @@ func (api *RecoveryPlanJobsServiceApi) GetRecoveryPlanJobById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRecoveryPlanJobApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -201,7 +213,7 @@ func (api *RecoveryPlanJobsServiceApi) ListExecutionStepsByRecoveryPlanJobId(ctx
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{recoveryPlanJobExtId}/execution-steps"
+	uri := "/api/dataprotection/v4.4/config/recovery-plan-jobs/{recoveryPlanJobExtId}/execution-steps"
 
 	// verify the required parameter 'recoveryPlanJobExtId' is set
 	if nil == request.RecoveryPlanJobExtId {
@@ -251,14 +263,20 @@ func (api *RecoveryPlanJobsServiceApi) ListExecutionStepsByRecoveryPlanJobId(ctx
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRecoveryPlanJobExecutionStepsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // List recovery plan jobs.
-func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobsApiResponse, error) {
+func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRecoveryPlanJobsServiceApi(api.ApiClient)
 	}
@@ -267,6 +285,7 @@ func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, fi
 		Limit_:   limit_,
 		Filter_:  filter_,
 		Orderby_: orderby_,
+		Apply_:   apply_,
 		Select_:  select_,
 	}, args...)
 }
@@ -278,7 +297,7 @@ func (api *RecoveryPlanJobsServiceApi) ListRecoveryPlanJobs(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs"
+	uri := "/api/dataprotection/v4.4/config/recovery-plan-jobs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -303,6 +322,9 @@ func (api *RecoveryPlanJobsServiceApi) ListRecoveryPlanJobs(ctx context.Context,
 	if request.Orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
+	if request.Apply_ != nil {
+		queryParams.Add("$apply", client.ParameterToString(*request.Apply_, ""))
+	}
 	if request.Select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
@@ -324,9 +346,15 @@ func (api *RecoveryPlanJobsServiceApi) ListRecoveryPlanJobs(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRecoveryPlanJobsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -351,7 +379,7 @@ func (api *RecoveryPlanJobsServiceApi) ListValidationErrorsByRecoveryPlanJobId(c
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{recoveryPlanJobExtId}/validation-errors"
+	uri := "/api/dataprotection/v4.4/config/recovery-plan-jobs/{recoveryPlanJobExtId}/validation-errors"
 
 	// verify the required parameter 'recoveryPlanJobExtId' is set
 	if nil == request.RecoveryPlanJobExtId {
@@ -401,8 +429,14 @@ func (api *RecoveryPlanJobsServiceApi) ListValidationErrorsByRecoveryPlanJobId(c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRecoveryPlanJobValidationErrorsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

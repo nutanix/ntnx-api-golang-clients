@@ -81,7 +81,7 @@ func (api *DataProtectionClusterCapabilitiesServiceApi) ListDataProtectionCluste
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/cluster-capabilities"
+	uri := "/api/dataprotection/v4.4/config/cluster-capabilities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -127,8 +127,14 @@ func (api *DataProtectionClusterCapabilitiesServiceApi) ListDataProtectionCluste
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListDPClusterCapabilitiesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

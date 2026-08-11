@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Data Protection APIs
  *

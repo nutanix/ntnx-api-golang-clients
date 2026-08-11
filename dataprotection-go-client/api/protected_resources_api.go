@@ -77,7 +77,7 @@ func (api *ProtectedResourcesServiceApi) GetProtectedResourceById(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/protected-resources/{extId}"
+	uri := "/api/dataprotection/v4.4/config/protected-resources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *ProtectedResourcesServiceApi) GetProtectedResourceById(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetProtectedResourceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -137,7 +143,7 @@ func (api *ProtectedResourcesServiceApi) PromoteProtectedResource(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/protected-resources/{extId}/$actions/promote"
+	uri := "/api/dataprotection/v4.4/config/protected-resources/{extId}/$actions/promote"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -174,9 +180,15 @@ func (api *ProtectedResourcesServiceApi) PromoteProtectedResource(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ProtectedResourcePromoteApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -198,7 +210,7 @@ func (api *ProtectedResourcesServiceApi) RestoreProtectedResource(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.3/config/protected-resources/{extId}/$actions/restore"
+	uri := "/api/dataprotection/v4.4/config/protected-resources/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -239,8 +251,14 @@ func (api *ProtectedResourcesServiceApi) RestoreProtectedResource(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ProtectedResourceRestoreApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

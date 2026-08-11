@@ -9,8 +9,8 @@ The Go client for Nutanix Data Protection APIs is designed for Go client applica
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.3
-- Package version: v4.3.1
+- API version: v4.4
+- Package version: v4.4.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/...@v4.3.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/...@v4.4.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4 v4.3.1
+	github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4 v4.4.1
 )
 ```
 
@@ -158,6 +158,43 @@ ApiClientInstance.Proxy.Port = 1080
 ```
 
 
+
+### Additional CA Certificates
+To trust additional CA certificates (e.g. self-signed or custom root CAs), use the `SetAdditionalCertificates` method with PEM-encoded certificate data. Both single and multiple certificates in the PEM data are supported.
+
+Certificate validity is checked lazily on the next request. If the PEM data contains no valid certificates, a warning is logged and the additional certificates are not applied.
+
+Passing `nil` or empty bytes to `SetAdditionalCertificates` is equivalent to calling `ClearAdditionalCertificates`. 
+This will remove all additional certificates previously added to the trustStore and restore trustStore its original
+state.
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
+	"os"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+caCert, err := os.ReadFile("/path/to/ca-certificate.pem")
+if err != nil {
+	// handle error
+}
+// No error is returned for invalid PEM — a warning is logged on the next request instead
+ApiClientInstance.SetAdditionalCertificates(caCert)
+
+// Passing nil or empty bytes clears any previously set additional CA certificates
+ApiClientInstance.SetAdditionalCertificates(nil)
+
+// Alternatively, clear explicitly
+ApiClientInstance.ClearAdditionalCertificates()
+```
 
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
@@ -342,7 +379,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=dataprotection&version=v4.3&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=dataprotection&version=v4.4&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

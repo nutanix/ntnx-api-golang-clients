@@ -1,7 +1,7 @@
 /*
  * Generated file models/dataprotection/v4/content/content_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -117,7 +117,7 @@ func NewBaseRecoveryPointSpec() *BaseRecoveryPointSpec {
 	p := new(BaseRecoveryPointSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.BaseRecoveryPointSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -237,14 +237,14 @@ func NewChangedRegion() *ChangedRegion {
 	p := new(ChangedRegion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedRegion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.3/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.4/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVmRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -344,7 +344,7 @@ func NewChangedVmRegionsApiResponse() *ChangedVmRegionsApiResponse {
 	p := new(ChangedVmRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVmRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -372,7 +372,7 @@ func (p *ChangedVmRegionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.3/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.4/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVolumeGroupRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -472,7 +472,7 @@ func NewChangedVolumeGroupRegionsApiResponse() *ChangedVolumeGroupRegionsApiResp
 	p := new(ChangedVolumeGroupRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVolumeGroupRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -690,7 +690,7 @@ func NewClusterDiscoverSpec() *ClusterDiscoverSpec {
 	p := new(ClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -837,7 +837,7 @@ func NewComputeChangedRegionsClusterDiscoverSpec() *ComputeChangedRegionsCluster
 	p := new(ComputeChangedRegionsClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -961,7 +961,7 @@ func NewDiskRecoveryPointReference() *DiskRecoveryPointReference {
 	p := new(DiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.DiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1045,14 +1045,14 @@ func NewFileWrapper() *FileWrapper {
 	p := new(FileWrapper)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.FileWrapper"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.3/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
+REST response for all response codes in API path /dataprotection/v4.4/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
 */
 type GetVssMetadataApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1152,7 +1152,7 @@ func NewGetVssMetadataApiResponse() *GetVssMetadataApiResponse {
 	p := new(GetVssMetadataApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1275,7 +1275,7 @@ func NewGetVssMetadataClusterDiscoverSpec() *GetVssMetadataClusterDiscoverSpec {
 	p := new(GetVssMetadataClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1465,7 +1465,7 @@ func NewVmDiskRecoveryPointClusterDiscoverSpec() *VmDiskRecoveryPointClusterDisc
 	p := new(VmDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1576,7 +1576,7 @@ func NewVmDiskRecoveryPointReference() *VmDiskRecoveryPointReference {
 	p := new(VmDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1711,7 +1711,7 @@ func NewVmRecoveryPointChangedRegionsComputeSpec() *VmRecoveryPointChangedRegion
 	p := new(VmRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1822,7 +1822,7 @@ func NewVolumeGroupDiskRecoveryPointClusterDiscoverSpec() *VolumeGroupDiskRecove
 	p := new(VolumeGroupDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1933,7 +1933,7 @@ func NewVolumeGroupDiskRecoveryPointReference() *VolumeGroupDiskRecoveryPointRef
 	p := new(VolumeGroupDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2068,10 +2068,208 @@ func NewVolumeGroupRecoveryPointChangedRegionsComputeSpec() *VolumeGroupRecovery
 	p := new(VolumeGroupRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+type OneOfChangedVolumeGroupRegionsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType2001 []ChangedRegion        `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfChangedVolumeGroupRegionsApiResponseData() *OneOfChangedVolumeGroupRegionsApiResponseData {
+	p := new(OneOfChangedVolumeGroupRegionsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfChangedVolumeGroupRegionsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfChangedVolumeGroupRegionsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []ChangedRegion:
+		p.oneOfType2001 = v.([]ChangedRegion)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfChangedVolumeGroupRegionsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfChangedVolumeGroupRegionsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<dataprotection.v4.content.ChangedRegion>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]ChangedRegion)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]ChangedRegion)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_)) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfChangedVolumeGroupRegionsApiResponseData"))
+}
+
+func (p *OneOfChangedVolumeGroupRegionsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfChangedVolumeGroupRegionsApiResponseData")
 }
 
 type OneOfClusterDiscoverSpecSpec struct {
@@ -2079,6 +2277,8 @@ type OneOfClusterDiscoverSpecSpec struct {
 	ObjectType_   *string                                   `json:"-"`
 	oneOfType2102 *ComputeChangedRegionsClusterDiscoverSpec `json:"-"`
 	oneOfType2101 *GetVssMetadataClusterDiscoverSpec        `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfClusterDiscoverSpecSpec() *OneOfClusterDiscoverSpecSpec {
@@ -2126,6 +2326,9 @@ func (p *OneOfClusterDiscoverSpecSpec) SetValue(v interface{}) error {
 }
 
 func (p *OneOfClusterDiscoverSpecSpec) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2102
 	}
@@ -2136,9 +2339,79 @@ func (p *OneOfClusterDiscoverSpecSpec) GetValue() interface{} {
 }
 
 func (p *OneOfClusterDiscoverSpecSpec) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2102 := new(ComputeChangedRegionsClusterDiscoverSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2102)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2102.ObjectType_ != nil && "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec" == *vOneOfType2102.ObjectType_ {
+							if nil == p.oneOfType2102 {
+								p.oneOfType2102 = new(ComputeChangedRegionsClusterDiscoverSpec)
+							}
+							*p.oneOfType2102 = *vOneOfType2102
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2102.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2102.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2101 := new(GetVssMetadataClusterDiscoverSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2101)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2101.ObjectType_ != nil && "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec" == *vOneOfType2101.ObjectType_ {
+							if nil == p.oneOfType2101 {
+								p.oneOfType2101 = new(GetVssMetadataClusterDiscoverSpec)
+							}
+							*p.oneOfType2101 = *vOneOfType2101
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2101.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2101.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2102 := new(ComputeChangedRegionsClusterDiscoverSpec)
 	if err := json.Unmarshal(b, vOneOfType2102); err == nil {
-		if "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec" == *vOneOfType2102.ObjectType_ {
+		if vOneOfType2102.ObjectType_ != nil && "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec" == *vOneOfType2102.ObjectType_ {
 			if nil == p.oneOfType2102 {
 				p.oneOfType2102 = new(ComputeChangedRegionsClusterDiscoverSpec)
 			}
@@ -2156,7 +2429,7 @@ func (p *OneOfClusterDiscoverSpecSpec) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2101 := new(GetVssMetadataClusterDiscoverSpec)
 	if err := json.Unmarshal(b, vOneOfType2101); err == nil {
-		if "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec" == *vOneOfType2101.ObjectType_ {
+		if vOneOfType2101.ObjectType_ != nil && "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec" == *vOneOfType2101.ObjectType_ {
 			if nil == p.oneOfType2101 {
 				p.oneOfType2101 = new(GetVssMetadataClusterDiscoverSpec)
 			}
@@ -2172,10 +2445,31 @@ func (p *OneOfClusterDiscoverSpecSpec) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterDiscoverSpecSpec"))
 }
 
 func (p *OneOfClusterDiscoverSpecSpec) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2102)
 	}
@@ -2185,116 +2479,13 @@ func (p *OneOfClusterDiscoverSpecSpec) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfClusterDiscoverSpecSpec")
 }
 
-type OneOfChangedVmRegionsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 []ChangedRegion        `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfChangedVmRegionsApiResponseData() *OneOfChangedVmRegionsApiResponseData {
-	p := new(OneOfChangedVmRegionsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfChangedVmRegionsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfChangedVmRegionsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []ChangedRegion:
-		p.oneOfType2001 = v.([]ChangedRegion)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfChangedVmRegionsApiResponseData) GetValue() interface{} {
-	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfChangedVmRegionsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new([]ChangedRegion)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfChangedVmRegionsApiResponseData"))
-}
-
-func (p *OneOfChangedVmRegionsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfChangedVmRegionsApiResponseData")
-}
-
 type OneOfGetVssMetadataApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 	oneOfType2001 *FileWrapper           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetVssMetadataApiResponseData() *OneOfGetVssMetadataApiResponseData {
@@ -2342,6 +2533,9 @@ func (p *OneOfGetVssMetadataApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetVssMetadataApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -2352,9 +2546,79 @@ func (p *OneOfGetVssMetadataApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetVssMetadataApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(FileWrapper)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "dataprotection.v4.content.FileWrapper" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(FileWrapper)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -2372,7 +2636,7 @@ func (p *OneOfGetVssMetadataApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2001 := new(FileWrapper)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "dataprotection.v4.content.FileWrapper" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "dataprotection.v4.content.FileWrapper" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(FileWrapper)
 			}
@@ -2388,10 +2652,31 @@ func (p *OneOfGetVssMetadataApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVssMetadataApiResponseData"))
 }
 
 func (p *OneOfGetVssMetadataApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -2406,6 +2691,8 @@ type OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint struct {
 	ObjectType_   *string                                `json:"-"`
 	oneOfType2102 *VolumeGroupDiskRecoveryPointReference `json:"-"`
 	oneOfType2101 *VmDiskRecoveryPointReference          `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint() *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint {
@@ -2453,6 +2740,9 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) SetValu
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2102
 	}
@@ -2463,9 +2753,79 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) GetValu
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2102 := new(VolumeGroupDiskRecoveryPointReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2102)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2102.ObjectType_ != nil && "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2102.ObjectType_ {
+							if nil == p.oneOfType2102 {
+								p.oneOfType2102 = new(VolumeGroupDiskRecoveryPointReference)
+							}
+							*p.oneOfType2102 = *vOneOfType2102
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2102.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2102.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2101 := new(VmDiskRecoveryPointReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2101)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2101.ObjectType_ != nil && "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2101.ObjectType_ {
+							if nil == p.oneOfType2101 {
+								p.oneOfType2101 = new(VmDiskRecoveryPointReference)
+							}
+							*p.oneOfType2101 = *vOneOfType2101
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2101.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2101.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2102 := new(VolumeGroupDiskRecoveryPointReference)
 	if err := json.Unmarshal(b, vOneOfType2102); err == nil {
-		if "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2102.ObjectType_ {
+		if vOneOfType2102.ObjectType_ != nil && "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2102.ObjectType_ {
 			if nil == p.oneOfType2102 {
 				p.oneOfType2102 = new(VolumeGroupDiskRecoveryPointReference)
 			}
@@ -2483,7 +2843,7 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) Unmarsh
 	}
 	vOneOfType2101 := new(VmDiskRecoveryPointReference)
 	if err := json.Unmarshal(b, vOneOfType2101); err == nil {
-		if "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2101.ObjectType_ {
+		if vOneOfType2101.ObjectType_ != nil && "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2101.ObjectType_ {
 			if nil == p.oneOfType2101 {
 				p.oneOfType2101 = new(VmDiskRecoveryPointReference)
 			}
@@ -2499,10 +2859,31 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) Unmarsh
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint"))
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2102)
 	}
@@ -2512,35 +2893,27 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) Marshal
 	return nil, errors.New("No value to marshal for OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint")
 }
 
-type OneOfChangedVolumeGroupRegionsApiResponseData struct {
+type OneOfChangedVmRegionsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType2001 []ChangedRegion        `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType2001 []ChangedRegion        `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfChangedVolumeGroupRegionsApiResponseData() *OneOfChangedVolumeGroupRegionsApiResponseData {
-	p := new(OneOfChangedVolumeGroupRegionsApiResponseData)
+func NewOneOfChangedVmRegionsApiResponseData() *OneOfChangedVmRegionsApiResponseData {
+	p := new(OneOfChangedVmRegionsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfChangedVolumeGroupRegionsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfChangedVmRegionsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfChangedVolumeGroupRegionsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfChangedVmRegionsApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []ChangedRegion:
-		p.oneOfType2001 = v.([]ChangedRegion)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -2554,41 +2927,106 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) SetValue(v interface{}) 
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []ChangedRegion:
+		p.oneOfType2001 = v.([]ChangedRegion)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfChangedVolumeGroupRegionsApiResponseData) GetValue() interface{} {
-	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return p.oneOfType2001
+func (p *OneOfChangedVmRegionsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
+	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
 	return nil
 }
 
-func (p *OneOfChangedVolumeGroupRegionsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new([]ChangedRegion)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
+func (p *OneOfChangedVmRegionsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
 			}
-			*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<dataprotection.v4.content.ChangedRegion>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]ChangedRegion)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
+							return nil
+						}
+					}
+				}
 			}
-			*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
-			return nil
 		}
 	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -2604,17 +3042,53 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) UnmarshalJSON(b []byte) 
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfChangedVolumeGroupRegionsApiResponseData"))
+	vOneOfType2001 := new([]ChangedRegion)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_)) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<dataprotection.v4.content.ChangedRegion>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<dataprotection.v4.content.ChangedRegion>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfChangedVmRegionsApiResponseData"))
 }
 
-func (p *OneOfChangedVolumeGroupRegionsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
+func (p *OneOfChangedVmRegionsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfChangedVolumeGroupRegionsApiResponseData")
+	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfChangedVmRegionsApiResponseData")
 }
 
 type OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint struct {
@@ -2622,6 +3096,8 @@ type OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint str
 	ObjectType_   *string                                `json:"-"`
 	oneOfType2104 *VolumeGroupDiskRecoveryPointReference `json:"-"`
 	oneOfType2103 *VmDiskRecoveryPointReference          `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint() *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint {
@@ -2669,6 +3145,9 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2104 != nil && *p.oneOfType2104.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2104
 	}
@@ -2679,9 +3158,79 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2104 := new(VolumeGroupDiskRecoveryPointReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2104)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2104.ObjectType_ != nil && "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2104.ObjectType_ {
+							if nil == p.oneOfType2104 {
+								p.oneOfType2104 = new(VolumeGroupDiskRecoveryPointReference)
+							}
+							*p.oneOfType2104 = *vOneOfType2104
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2104.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2104.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2103 := new(VmDiskRecoveryPointReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2103)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2103.ObjectType_ != nil && "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2103.ObjectType_ {
+							if nil == p.oneOfType2103 {
+								p.oneOfType2103 = new(VmDiskRecoveryPointReference)
+							}
+							*p.oneOfType2103 = *vOneOfType2103
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2103.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2103.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2104 := new(VolumeGroupDiskRecoveryPointReference)
 	if err := json.Unmarshal(b, vOneOfType2104); err == nil {
-		if "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2104.ObjectType_ {
+		if vOneOfType2104.ObjectType_ != nil && "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2104.ObjectType_ {
 			if nil == p.oneOfType2104 {
 				p.oneOfType2104 = new(VolumeGroupDiskRecoveryPointReference)
 			}
@@ -2699,7 +3248,7 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 	}
 	vOneOfType2103 := new(VmDiskRecoveryPointReference)
 	if err := json.Unmarshal(b, vOneOfType2103); err == nil {
-		if "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2103.ObjectType_ {
+		if vOneOfType2103.ObjectType_ != nil && "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2103.ObjectType_ {
 			if nil == p.oneOfType2103 {
 				p.oneOfType2103 = new(VmDiskRecoveryPointReference)
 			}
@@ -2715,10 +3264,31 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint"))
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2104 != nil && *p.oneOfType2104.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2104)
 	}
