@@ -77,7 +77,7 @@ func (api *SubnetMigrationsServiceApi) MigrateSubnets(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/$actions/migrate-subnets"
+	uri := "/api/networking/v4.4/config/$actions/migrate-subnets"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *SubnetMigrationsServiceApi) MigrateSubnets(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -136,7 +142,7 @@ func (api *SubnetMigrationsServiceApi) MigrateVnicById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vnics/{extId}/$actions/migrate"
+	uri := "/api/networking/v4.4/config/vnics/{extId}/$actions/migrate"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -177,8 +183,14 @@ func (api *SubnetMigrationsServiceApi) MigrateVnicById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

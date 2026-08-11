@@ -78,7 +78,7 @@ func (api *BridgesServiceApi) MigrateBridge(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/virtual-switches/$actions/migrate"
+	uri := "/api/networking/v4.4/config/virtual-switches/$actions/migrate"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -116,8 +116,14 @@ func (api *BridgesServiceApi) MigrateBridge(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

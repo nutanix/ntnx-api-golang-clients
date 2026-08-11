@@ -77,7 +77,7 @@ func (api *RoutingPoliciesServiceApi) CreateRoutingPolicy(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/routing-policies"
+	uri := "/api/networking/v4.4/config/routing-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *RoutingPoliciesServiceApi) CreateRoutingPolicy(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *RoutingPoliciesServiceApi) DeleteRoutingPolicyById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.4/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *RoutingPoliciesServiceApi) DeleteRoutingPolicyById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *RoutingPoliciesServiceApi) GetRoutingPolicyById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.4/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *RoutingPoliciesServiceApi) GetRoutingPolicyById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetRoutingPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -260,7 +278,7 @@ func (api *RoutingPoliciesServiceApi) ListRoutingPolicies(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/routing-policies"
+	uri := "/api/networking/v4.4/config/routing-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -309,9 +327,15 @@ func (api *RoutingPoliciesServiceApi) ListRoutingPolicies(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListRoutingPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -333,7 +357,7 @@ func (api *RoutingPoliciesServiceApi) UpdateRoutingPolicyById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.4/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -374,8 +398,14 @@ func (api *RoutingPoliciesServiceApi) UpdateRoutingPolicyById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

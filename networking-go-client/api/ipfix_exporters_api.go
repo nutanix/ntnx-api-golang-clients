@@ -77,7 +77,7 @@ func (api *IPFIXExportersServiceApi) CreateIpfixExporter(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/ipfix-exporters"
+	uri := "/api/networking/v4.4/config/ipfix-exporters"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *IPFIXExportersServiceApi) CreateIpfixExporter(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *IPFIXExportersServiceApi) DeleteIpfixExporterById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.4/config/ipfix-exporters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *IPFIXExportersServiceApi) DeleteIpfixExporterById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *IPFIXExportersServiceApi) GetIpfixExporterById(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.4/config/ipfix-exporters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *IPFIXExportersServiceApi) GetIpfixExporterById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetIPFIXExporterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -258,7 +276,7 @@ func (api *IPFIXExportersServiceApi) ListIpfixExporters(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/ipfix-exporters"
+	uri := "/api/networking/v4.4/config/ipfix-exporters"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -301,9 +319,15 @@ func (api *IPFIXExportersServiceApi) ListIpfixExporters(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListIPFIXExportersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -325,7 +349,7 @@ func (api *IPFIXExportersServiceApi) UpdateIpfixExporterById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.4/config/ipfix-exporters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -366,8 +390,14 @@ func (api *IPFIXExportersServiceApi) UpdateIpfixExporterById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

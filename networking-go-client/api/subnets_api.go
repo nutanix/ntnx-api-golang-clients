@@ -77,7 +77,7 @@ func (api *SubnetsServiceApi) CreateSubnet(ctx context.Context, request *import2
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/subnets"
+	uri := "/api/networking/v4.4/config/subnets"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *SubnetsServiceApi) CreateSubnet(ctx context.Context, request *import2
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *SubnetsServiceApi) DeleteSubnetById(ctx context.Context, request *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/subnets/{extId}"
+	uri := "/api/networking/v4.4/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *SubnetsServiceApi) DeleteSubnetById(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *SubnetsServiceApi) GetSubnetById(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/subnets/{extId}"
+	uri := "/api/networking/v4.4/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *SubnetsServiceApi) GetSubnetById(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetSubnetApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -260,7 +278,7 @@ func (api *SubnetsServiceApi) ListSubnets(ctx context.Context, request *import29
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/subnets"
+	uri := "/api/networking/v4.4/config/subnets"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -309,9 +327,15 @@ func (api *SubnetsServiceApi) ListSubnets(ctx context.Context, request *import29
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListSubnetsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -337,7 +361,7 @@ func (api *SubnetsServiceApi) ListVnicsBySubnetId(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/subnets/{subnetExtId}/vnics"
+	uri := "/api/networking/v4.4/config/subnets/{subnetExtId}/vnics"
 
 	// verify the required parameter 'subnetExtId' is set
 	if nil == request.SubnetExtId {
@@ -390,9 +414,157 @@ func (api *SubnetsServiceApi) ListVnicsBySubnetId(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListSubnetVnicsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Share the specified subnet with a project.
+func (api *SubnetsApi) ShareSubnetById(subnetExtId *string, body *import4.ProjectReference, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewSubnetsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ShareSubnetById(context.Background(), &import29.ShareSubnetByIdRequest{
+		SubnetExtId: subnetExtId,
+		Body:        body,
+	}, args...)
+}
+
+// Share the specified subnet with a project.
+func (api *SubnetsServiceApi) ShareSubnetById(ctx context.Context, request *import29.ShareSubnetByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.4/config/subnets/{subnetExtId}/$actions/share"
+
+	// verify the required parameter 'subnetExtId' is set
+	if nil == request.SubnetExtId {
+		return nil, client.ReportError("subnetExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"subnetExtId"+"}", url.PathEscape(client.ParameterToString(*request.SubnetExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Stop sharing the specified subnet with a project.
+func (api *SubnetsApi) UnshareSubnetById(subnetExtId *string, body *import4.ProjectReference, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewSubnetsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UnshareSubnetById(context.Background(), &import29.UnshareSubnetByIdRequest{
+		SubnetExtId: subnetExtId,
+		Body:        body,
+	}, args...)
+}
+
+// Stop sharing the specified subnet with a project.
+func (api *SubnetsServiceApi) UnshareSubnetById(ctx context.Context, request *import29.UnshareSubnetByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.4/config/subnets/{subnetExtId}/$actions/unshare"
+
+	// verify the required parameter 'subnetExtId' is set
+	if nil == request.SubnetExtId {
+		return nil, client.ReportError("subnetExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"subnetExtId"+"}", url.PathEscape(client.ParameterToString(*request.SubnetExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -414,7 +586,7 @@ func (api *SubnetsServiceApi) UpdateSubnetById(ctx context.Context, request *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/subnets/{extId}"
+	uri := "/api/networking/v4.4/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -455,8 +627,14 @@ func (api *SubnetsServiceApi) UpdateSubnetById(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

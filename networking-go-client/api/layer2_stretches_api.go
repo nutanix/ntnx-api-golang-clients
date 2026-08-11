@@ -77,7 +77,7 @@ func (api *Layer2StretchesServiceApi) CreateLayer2Stretch(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches"
+	uri := "/api/networking/v4.4/config/layer2-stretches"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *Layer2StretchesServiceApi) CreateLayer2Stretch(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *Layer2StretchesServiceApi) DeleteLayer2StretchById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.4/config/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *Layer2StretchesServiceApi) DeleteLayer2StretchById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *Layer2StretchesServiceApi) GetLayer2StretchById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.4/config/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *Layer2StretchesServiceApi) GetLayer2StretchById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetLayer2StretchApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -258,7 +276,7 @@ func (api *Layer2StretchesServiceApi) ListLayer2Stretches(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches"
+	uri := "/api/networking/v4.4/config/layer2-stretches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -301,9 +319,15 @@ func (api *Layer2StretchesServiceApi) ListLayer2Stretches(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListLayer2StretchesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -325,7 +349,7 @@ func (api *Layer2StretchesServiceApi) UpdateLayer2StretchById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.4/config/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -366,8 +390,14 @@ func (api *Layer2StretchesServiceApi) UpdateLayer2StretchById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

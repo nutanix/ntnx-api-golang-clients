@@ -5,4 +5,12 @@ package awsvpcs
 type ListAwsVpcsRequest struct {
 	// (required) Target cluster UUID.
 	XClusterId *string
+
+	// A URL query parameter that allows clients to request a specific set of properties for each entity or complex type.
+	// Expression specified with the $select must conform to the [OData
+	// V4.01](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) URL conventions. If a $select
+	// expression consists of a single select item that is an asterisk (i.e., *), then all properties on the matching resource
+	// will be returned. If both $select and $apply query parameters are present, $select will be applied on entities within
+	// the groups.
+	Select_ *string
 }

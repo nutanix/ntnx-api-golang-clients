@@ -78,7 +78,7 @@ func (api *RemoteEntitiesServiceApi) GetRemoteSubnetForClusterById(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/clusters/{clusterExtId}/remote-subnets/{extId}"
+	uri := "/api/networking/v4.4/config/clusters/{clusterExtId}/remote-subnets/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -120,9 +120,15 @@ func (api *RemoteEntitiesServiceApi) GetRemoteSubnetForClusterById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetRemoteSubnetApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -144,7 +150,7 @@ func (api *RemoteEntitiesServiceApi) GetRemoteVpnConnectionForClusterById(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/clusters/{clusterExtId}/remote-vpn-connections/{extId}"
+	uri := "/api/networking/v4.4/config/clusters/{clusterExtId}/remote-vpn-connections/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -186,9 +192,15 @@ func (api *RemoteEntitiesServiceApi) GetRemoteVpnConnectionForClusterById(ctx co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.RemoteVpnConnectionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -210,7 +222,7 @@ func (api *RemoteEntitiesServiceApi) GetRemoteVtepGatewayForClusterById(ctx cont
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/clusters/{clusterExtId}/remote-vtep-gateways/{extId}"
+	uri := "/api/networking/v4.4/config/clusters/{clusterExtId}/remote-vtep-gateways/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -252,9 +264,15 @@ func (api *RemoteEntitiesServiceApi) GetRemoteVtepGatewayForClusterById(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.RemoteVtepGatewayApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -279,7 +297,7 @@ func (api *RemoteEntitiesServiceApi) ListRemoteSubnetsByClusterId(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/clusters/{clusterExtId}/remote-subnets"
+	uri := "/api/networking/v4.4/config/clusters/{clusterExtId}/remote-subnets"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -329,9 +347,15 @@ func (api *RemoteEntitiesServiceApi) ListRemoteSubnetsByClusterId(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListRemoteSubnetsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -356,7 +380,7 @@ func (api *RemoteEntitiesServiceApi) ListRemoteVpnConnectionsByClusterId(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/clusters/{clusterExtId}/remote-vpn-connections"
+	uri := "/api/networking/v4.4/config/clusters/{clusterExtId}/remote-vpn-connections"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -406,9 +430,15 @@ func (api *RemoteEntitiesServiceApi) ListRemoteVpnConnectionsByClusterId(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.RemoteVpnConnectionListApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -433,7 +463,7 @@ func (api *RemoteEntitiesServiceApi) ListRemoteVtepGatewaysByClusterId(ctx conte
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/clusters/{clusterExtId}/remote-vtep-gateways"
+	uri := "/api/networking/v4.4/config/clusters/{clusterExtId}/remote-vtep-gateways"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -483,8 +513,14 @@ func (api *RemoteEntitiesServiceApi) ListRemoteVtepGatewaysByClusterId(ctx conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.RemoteVtepGatewayListApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

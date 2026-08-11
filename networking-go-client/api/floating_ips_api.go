@@ -77,7 +77,7 @@ func (api *FloatingIpsServiceApi) CreateFloatingIp(ctx context.Context, request 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/floating-ips"
+	uri := "/api/networking/v4.4/config/floating-ips"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *FloatingIpsServiceApi) CreateFloatingIp(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *FloatingIpsServiceApi) DeleteFloatingIpById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/floating-ips/{extId}"
+	uri := "/api/networking/v4.4/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *FloatingIpsServiceApi) DeleteFloatingIpById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *FloatingIpsServiceApi) GetFloatingIpById(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/floating-ips/{extId}"
+	uri := "/api/networking/v4.4/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *FloatingIpsServiceApi) GetFloatingIpById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetFloatingIpApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,7 +277,7 @@ func (api *FloatingIpsServiceApi) ListFloatingIps(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/floating-ips"
+	uri := "/api/networking/v4.4/config/floating-ips"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,15 @@ func (api *FloatingIpsServiceApi) ListFloatingIps(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListFloatingIpsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -329,7 +353,7 @@ func (api *FloatingIpsServiceApi) UpdateFloatingIpById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/floating-ips/{extId}"
+	uri := "/api/networking/v4.4/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *FloatingIpsServiceApi) UpdateFloatingIpById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -78,7 +78,7 @@ func (api *MacAddressesServiceApi) GetLearnedMacAddressForLayer2StretchById(ctx 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
+	uri := "/api/networking/v4.4/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
 
 	// verify the required parameter 'layer2StretchExtId' is set
 	if nil == request.Layer2StretchExtId {
@@ -120,9 +120,15 @@ func (api *MacAddressesServiceApi) GetLearnedMacAddressForLayer2StretchById(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetLearnedMacAddressApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -147,7 +153,7 @@ func (api *MacAddressesServiceApi) ListLearnedMacAddressesByLayer2StretchId(ctx 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
+	uri := "/api/networking/v4.4/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
 
 	// verify the required parameter 'layer2StretchExtId' is set
 	if nil == request.Layer2StretchExtId {
@@ -197,8 +203,14 @@ func (api *MacAddressesServiceApi) ListLearnedMacAddressesByLayer2StretchId(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListLearnedMacAddressesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

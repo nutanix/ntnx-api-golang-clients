@@ -77,7 +77,7 @@ func (api *VpnConnectionsServiceApi) CreateVpnConnection(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections"
+	uri := "/api/networking/v4.4/config/vpn-connections"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *VpnConnectionsServiceApi) CreateVpnConnection(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *VpnConnectionsServiceApi) DeleteVpnConnectionById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections/{extId}"
+	uri := "/api/networking/v4.4/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *VpnConnectionsServiceApi) DeleteVpnConnectionById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -196,7 +208,7 @@ func (api *VpnConnectionsServiceApi) GetVpnApplianceForVpnConnectionById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs/{extId}"
+	uri := "/api/networking/v4.4/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs/{extId}"
 
 	// verify the required parameter 'vpnConnectionExtId' is set
 	if nil == request.VpnConnectionExtId {
@@ -238,9 +250,15 @@ func (api *VpnConnectionsServiceApi) GetVpnApplianceForVpnConnectionById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(string)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -261,7 +279,7 @@ func (api *VpnConnectionsServiceApi) GetVpnConnectionById(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections/{extId}"
+	uri := "/api/networking/v4.4/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -298,9 +316,15 @@ func (api *VpnConnectionsServiceApi) GetVpnConnectionById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetVpnConnectionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -325,7 +349,7 @@ func (api *VpnConnectionsServiceApi) ListVpnAppliancesByVpnConnectionId(ctx cont
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs"
+	uri := "/api/networking/v4.4/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs"
 
 	// verify the required parameter 'vpnConnectionExtId' is set
 	if nil == request.VpnConnectionExtId {
@@ -375,9 +399,15 @@ func (api *VpnConnectionsServiceApi) ListVpnAppliancesByVpnConnectionId(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListVpnVendorConfigsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -401,7 +431,7 @@ func (api *VpnConnectionsServiceApi) ListVpnConnections(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections"
+	uri := "/api/networking/v4.4/config/vpn-connections"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -444,9 +474,15 @@ func (api *VpnConnectionsServiceApi) ListVpnConnections(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListVpnConnectionsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -468,7 +504,7 @@ func (api *VpnConnectionsServiceApi) UpdateVpnConnectionById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpn-connections/{extId}"
+	uri := "/api/networking/v4.4/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -509,8 +545,14 @@ func (api *VpnConnectionsServiceApi) UpdateVpnConnectionById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

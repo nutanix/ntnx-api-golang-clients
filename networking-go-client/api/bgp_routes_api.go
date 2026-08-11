@@ -78,7 +78,7 @@ func (api *BgpRoutesServiceApi) GetRouteForBgpSessionById(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
+	uri := "/api/networking/v4.4/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -120,9 +120,15 @@ func (api *BgpRoutesServiceApi) GetRouteForBgpSessionById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetBgpRouteApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -147,7 +153,7 @@ func (api *BgpRoutesServiceApi) ListRoutesByBgpSessionId(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
+	uri := "/api/networking/v4.4/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
 
 	// verify the required parameter 'bgpSessionExtId' is set
 	if nil == request.BgpSessionExtId {
@@ -197,8 +203,14 @@ func (api *BgpRoutesServiceApi) ListRoutesByBgpSessionId(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListBgpRoutesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

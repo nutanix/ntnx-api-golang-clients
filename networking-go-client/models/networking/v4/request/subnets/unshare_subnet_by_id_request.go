@@ -1,0 +1,15 @@
+package subnets
+
+import (
+	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+)
+
+// This file holds the request struct for the UnshareSubnetById operation.
+
+type UnshareSubnetByIdRequest struct {
+	// (required) UUID of the subnet.
+	SubnetExtId *string
+
+	// (required) Request to stop sharing a subnet with a project.
+	Body *import4.ProjectReference
+}

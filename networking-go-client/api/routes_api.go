@@ -60,7 +60,7 @@ func NewRoutesServiceApi(apiClient *client.ApiClient) *RoutesServiceApi {
 	return a
 }
 
-// Create a user-configured route for a specified .
+// Create a user-configured route for a specified route table.
 func (api *RoutesApi) CreateRouteForRouteTable(routeTableExtId *string, body *import4.Route, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewRoutesServiceApi(api.ApiClient)
@@ -71,14 +71,14 @@ func (api *RoutesApi) CreateRouteForRouteTable(routeTableExtId *string, body *im
 	}, args...)
 }
 
-// Create a user-configured route for a specified .
+// Create a user-configured route for a specified route table.
 func (api *RoutesServiceApi) CreateRouteForRouteTable(ctx context.Context, request *import24.CreateRouteForRouteTableRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables/{routeTableExtId}/routes"
+	uri := "/api/networking/v4.4/config/route-tables/{routeTableExtId}/routes"
 
 	// verify the required parameter 'routeTableExtId' is set
 	if nil == request.RouteTableExtId {
@@ -119,9 +119,15 @@ func (api *RoutesServiceApi) CreateRouteForRouteTable(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -143,7 +149,7 @@ func (api *RoutesServiceApi) DeleteRouteForRouteTableById(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.4/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -185,9 +191,15 @@ func (api *RoutesServiceApi) DeleteRouteForRouteTableById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -209,7 +221,7 @@ func (api *RoutesServiceApi) GetRouteForRouteTableById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.4/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -251,9 +263,15 @@ func (api *RoutesServiceApi) GetRouteForRouteTableById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetRouteApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -278,7 +296,7 @@ func (api *RoutesServiceApi) ListRoutesByRouteTableId(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables/{routeTableExtId}/routes"
+	uri := "/api/networking/v4.4/config/route-tables/{routeTableExtId}/routes"
 
 	// verify the required parameter 'routeTableExtId' is set
 	if nil == request.RouteTableExtId {
@@ -328,9 +346,15 @@ func (api *RoutesServiceApi) ListRoutesByRouteTableId(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListRoutesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -353,7 +377,7 @@ func (api *RoutesServiceApi) UpdateRouteForRouteTableById(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.4/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -399,8 +423,14 @@ func (api *RoutesServiceApi) UpdateRouteForRouteTableById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

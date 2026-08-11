@@ -77,7 +77,7 @@ func (api *RouteTablesServiceApi) GetRouteTableById(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables/{extId}"
+	uri := "/api/networking/v4.4/config/route-tables/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *RouteTablesServiceApi) GetRouteTableById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetRouteTableApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -140,7 +146,7 @@ func (api *RouteTablesServiceApi) ListRouteTables(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/route-tables"
+	uri := "/api/networking/v4.4/config/route-tables"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -183,8 +189,14 @@ func (api *RouteTablesServiceApi) ListRouteTables(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListRouteTablesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

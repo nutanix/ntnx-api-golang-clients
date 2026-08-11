@@ -61,12 +61,13 @@ func NewAwsVpcsServiceApi(apiClient *client.ApiClient) *AwsVpcsServiceApi {
 }
 
 // Get the list of NC2 AWS VPCs associated with a Cluster.
-func (api *AwsVpcsApi) ListAwsVpcs(xClusterId *string, args ...map[string]interface{}) (*import1.ListAwsVpcsApiResponse, error) {
+func (api *AwsVpcsApi) ListAwsVpcs(xClusterId *string, select_ *string, args ...map[string]interface{}) (*import1.ListAwsVpcsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewAwsVpcsServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.ListAwsVpcs(context.Background(), &import3.ListAwsVpcsRequest{
 		XClusterId: xClusterId,
+		Select_:    select_,
 	}, args...)
 }
 
@@ -77,7 +78,7 @@ func (api *AwsVpcsServiceApi) ListAwsVpcs(ctx context.Context, request *import3.
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/aws/config/vpcs"
+	uri := "/api/networking/v4.4/aws/config/vpcs"
 
 	// verify the required parameter 'xClusterId' is set
 	if nil == request.XClusterId {
@@ -94,6 +95,10 @@ func (api *AwsVpcsServiceApi) ListAwsVpcs(ctx context.Context, request *import3.
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
+	}
 	headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -113,8 +118,14 @@ func (api *AwsVpcsServiceApi) ListAwsVpcs(ctx context.Context, request *import3.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListAwsVpcsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

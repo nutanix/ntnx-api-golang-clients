@@ -77,7 +77,7 @@ func (api *NetworkFunctionsServiceApi) CreateNetworkFunction(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/network-functions"
+	uri := "/api/networking/v4.4/config/network-functions"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *NetworkFunctionsServiceApi) CreateNetworkFunction(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *NetworkFunctionsServiceApi) DeleteNetworkFunctionById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/network-functions/{extId}"
+	uri := "/api/networking/v4.4/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *NetworkFunctionsServiceApi) DeleteNetworkFunctionById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *NetworkFunctionsServiceApi) GetNetworkFunctionById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/network-functions/{extId}"
+	uri := "/api/networking/v4.4/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *NetworkFunctionsServiceApi) GetNetworkFunctionById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetNetworkFunctionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -258,7 +276,7 @@ func (api *NetworkFunctionsServiceApi) ListNetworkFunctions(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/network-functions"
+	uri := "/api/networking/v4.4/config/network-functions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -301,9 +319,15 @@ func (api *NetworkFunctionsServiceApi) ListNetworkFunctions(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListNetworkFunctionsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -325,7 +349,7 @@ func (api *NetworkFunctionsServiceApi) UpdateNetworkFunctionById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/network-functions/{extId}"
+	uri := "/api/networking/v4.4/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -366,8 +390,14 @@ func (api *NetworkFunctionsServiceApi) UpdateNetworkFunctionById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

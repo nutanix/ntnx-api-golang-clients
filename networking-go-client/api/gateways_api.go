@@ -77,7 +77,7 @@ func (api *GatewaysServiceApi) CreateGateway(ctx context.Context, request *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/gateways"
+	uri := "/api/networking/v4.4/config/gateways"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *GatewaysServiceApi) CreateGateway(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *GatewaysServiceApi) DeleteGatewayById(ctx context.Context, request *i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/gateways/{extId}"
+	uri := "/api/networking/v4.4/config/gateways/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *GatewaysServiceApi) DeleteGatewayById(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *GatewaysServiceApi) GetGatewayById(ctx context.Context, request *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/gateways/{extId}"
+	uri := "/api/networking/v4.4/config/gateways/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *GatewaysServiceApi) GetGatewayById(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetGatewayApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -260,7 +278,7 @@ func (api *GatewaysServiceApi) ListGateways(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/gateways"
+	uri := "/api/networking/v4.4/config/gateways"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -309,9 +327,15 @@ func (api *GatewaysServiceApi) ListGateways(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListGatewaysApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -333,7 +357,7 @@ func (api *GatewaysServiceApi) UpdateGatewayById(ctx context.Context, request *i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/gateways/{extId}"
+	uri := "/api/networking/v4.4/config/gateways/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -374,9 +398,15 @@ func (api *GatewaysServiceApi) UpdateGatewayById(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -397,7 +427,7 @@ func (api *GatewaysServiceApi) UpgradeGatewayById(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/gateways/{extId}/$actions/upgrade"
+	uri := "/api/networking/v4.4/config/gateways/{extId}/$actions/upgrade"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -434,8 +464,14 @@ func (api *GatewaysServiceApi) UpgradeGatewayById(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

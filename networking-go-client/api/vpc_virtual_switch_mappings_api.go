@@ -77,7 +77,7 @@ func (api *VpcVirtualSwitchMappingsServiceApi) CreateVpcVirtualSwitchMapping(ctx
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpc-virtual-switch-mappings"
+	uri := "/api/networking/v4.4/config/vpc-virtual-switch-mappings"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *VpcVirtualSwitchMappingsServiceApi) CreateVpcVirtualSwitchMapping(ctx
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -138,7 +144,7 @@ func (api *VpcVirtualSwitchMappingsServiceApi) ListVpcVirtualSwitchMappings(ctx 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpc-virtual-switch-mappings"
+	uri := "/api/networking/v4.4/config/vpc-virtual-switch-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -181,8 +187,14 @@ func (api *VpcVirtualSwitchMappingsServiceApi) ListVpcVirtualSwitchMappings(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListVpcVirtualSwitchMappingsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

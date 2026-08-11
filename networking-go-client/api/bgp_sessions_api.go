@@ -77,7 +77,7 @@ func (api *BgpSessionsServiceApi) CreateBgpSession(ctx context.Context, request 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions"
+	uri := "/api/networking/v4.4/config/bgp-sessions"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *BgpSessionsServiceApi) CreateBgpSession(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *BgpSessionsServiceApi) DeleteBgpSessionById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.4/config/bgp-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *BgpSessionsServiceApi) DeleteBgpSessionById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *BgpSessionsServiceApi) GetBgpSessionById(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.4/config/bgp-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *BgpSessionsServiceApi) GetBgpSessionById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetBgpSessionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,7 +277,7 @@ func (api *BgpSessionsServiceApi) ListBgpSessions(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions"
+	uri := "/api/networking/v4.4/config/bgp-sessions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,15 @@ func (api *BgpSessionsServiceApi) ListBgpSessions(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListBgpSessionsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -329,7 +353,7 @@ func (api *BgpSessionsServiceApi) UpdateBgpSessionById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.4/config/bgp-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *BgpSessionsServiceApi) UpdateBgpSessionById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

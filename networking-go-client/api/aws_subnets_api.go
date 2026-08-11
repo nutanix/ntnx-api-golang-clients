@@ -82,7 +82,7 @@ func (api *AwsSubnetsServiceApi) ListAwsSubnets(ctx context.Context, request *im
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/aws/config/subnets"
+	uri := "/api/networking/v4.4/aws/config/subnets"
 
 	// verify the required parameter 'xClusterId' is set
 	if nil == request.XClusterId {
@@ -134,8 +134,14 @@ func (api *AwsSubnetsServiceApi) ListAwsSubnets(ctx context.Context, request *im
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListAwsSubnetsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

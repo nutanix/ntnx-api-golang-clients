@@ -78,7 +78,7 @@ func (api *NicProfilesServiceApi) AssociateHostNicToNicProfile(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles/{extId}/$actions/associate-host-nic"
+	uri := "/api/networking/v4.4/config/nic-profiles/{extId}/$actions/associate-host-nic"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,9 +119,15 @@ func (api *NicProfilesServiceApi) AssociateHostNicToNicProfile(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -142,7 +148,7 @@ func (api *NicProfilesServiceApi) CreateNicProfile(ctx context.Context, request 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles"
+	uri := "/api/networking/v4.4/config/nic-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -177,9 +183,15 @@ func (api *NicProfilesServiceApi) CreateNicProfile(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -200,7 +212,7 @@ func (api *NicProfilesServiceApi) DeleteNicProfileById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles/{extId}"
+	uri := "/api/networking/v4.4/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -237,9 +249,15 @@ func (api *NicProfilesServiceApi) DeleteNicProfileById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -261,7 +279,7 @@ func (api *NicProfilesServiceApi) DisassociateHostNicFromNicProfile(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles/{extId}/$actions/disassociate-host-nic"
+	uri := "/api/networking/v4.4/config/nic-profiles/{extId}/$actions/disassociate-host-nic"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -302,9 +320,15 @@ func (api *NicProfilesServiceApi) DisassociateHostNicFromNicProfile(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -325,7 +349,7 @@ func (api *NicProfilesServiceApi) GetNicProfileById(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles/{extId}"
+	uri := "/api/networking/v4.4/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -362,9 +386,15 @@ func (api *NicProfilesServiceApi) GetNicProfileById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetNicProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -389,7 +419,7 @@ func (api *NicProfilesServiceApi) ListNicProfiles(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles"
+	uri := "/api/networking/v4.4/config/nic-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -435,9 +465,15 @@ func (api *NicProfilesServiceApi) ListNicProfiles(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListNicProfilesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -459,7 +495,7 @@ func (api *NicProfilesServiceApi) UpdateNicProfileById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/nic-profiles/{extId}"
+	uri := "/api/networking/v4.4/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -500,8 +536,14 @@ func (api *NicProfilesServiceApi) UpdateNicProfileById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

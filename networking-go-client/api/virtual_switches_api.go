@@ -78,7 +78,7 @@ func (api *VirtualSwitchesServiceApi) CreateVirtualSwitch(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/virtual-switches"
+	uri := "/api/networking/v4.4/config/virtual-switches"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -116,9 +116,15 @@ func (api *VirtualSwitchesServiceApi) CreateVirtualSwitch(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -140,7 +146,7 @@ func (api *VirtualSwitchesServiceApi) DeleteVirtualSwitchById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.4/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -180,9 +186,15 @@ func (api *VirtualSwitchesServiceApi) DeleteVirtualSwitchById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -204,7 +216,7 @@ func (api *VirtualSwitchesServiceApi) GetVirtualSwitchById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.4/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -244,9 +256,15 @@ func (api *VirtualSwitchesServiceApi) GetVirtualSwitchById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetVirtualSwitchApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -271,7 +289,7 @@ func (api *VirtualSwitchesServiceApi) ListVirtualSwitches(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/virtual-switches"
+	uri := "/api/networking/v4.4/config/virtual-switches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -317,9 +335,15 @@ func (api *VirtualSwitchesServiceApi) ListVirtualSwitches(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListVirtualSwitchesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -342,7 +366,7 @@ func (api *VirtualSwitchesServiceApi) UpdateVirtualSwitchById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.4/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -386,8 +410,14 @@ func (api *VirtualSwitchesServiceApi) UpdateVirtualSwitchById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

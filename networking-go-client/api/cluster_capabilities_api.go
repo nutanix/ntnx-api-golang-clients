@@ -80,7 +80,7 @@ func (api *ClusterCapabilitiesServiceApi) ListClusterCapabilities(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/capabilities"
+	uri := "/api/networking/v4.4/config/capabilities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -123,8 +123,14 @@ func (api *ClusterCapabilitiesServiceApi) ListClusterCapabilities(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListClusterCapabilitiesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

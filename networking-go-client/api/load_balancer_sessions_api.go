@@ -77,7 +77,7 @@ func (api *LoadBalancerSessionsServiceApi) CreateLoadBalancerSession(ctx context
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/load-balancer-sessions"
+	uri := "/api/networking/v4.4/config/load-balancer-sessions"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *LoadBalancerSessionsServiceApi) CreateLoadBalancerSession(ctx context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *LoadBalancerSessionsServiceApi) DeleteLoadBalancerSessionById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.4/config/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *LoadBalancerSessionsServiceApi) DeleteLoadBalancerSessionById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -196,7 +208,7 @@ func (api *LoadBalancerSessionsServiceApi) GetLoadBalancerSessionById(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.4/config/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -237,9 +249,15 @@ func (api *LoadBalancerSessionsServiceApi) GetLoadBalancerSessionById(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetLoadBalancerSessionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -264,7 +282,7 @@ func (api *LoadBalancerSessionsServiceApi) ListLoadBalancerSessions(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/load-balancer-sessions"
+	uri := "/api/networking/v4.4/config/load-balancer-sessions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -310,9 +328,15 @@ func (api *LoadBalancerSessionsServiceApi) ListLoadBalancerSessions(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListLoadBalancerSessionsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -334,7 +358,7 @@ func (api *LoadBalancerSessionsServiceApi) UpdateLoadBalancerSessionById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.4/config/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -375,8 +399,14 @@ func (api *LoadBalancerSessionsServiceApi) UpdateLoadBalancerSessionById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

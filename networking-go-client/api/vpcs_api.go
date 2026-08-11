@@ -77,7 +77,7 @@ func (api *VpcsServiceApi) CreateVpc(ctx context.Context, request *import37.Crea
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpcs"
+	uri := "/api/networking/v4.4/config/vpcs"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *VpcsServiceApi) CreateVpc(ctx context.Context, request *import37.Crea
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *VpcsServiceApi) DeleteVpcById(ctx context.Context, request *import37.
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpcs/{extId}"
+	uri := "/api/networking/v4.4/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *VpcsServiceApi) DeleteVpcById(ctx context.Context, request *import37.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *VpcsServiceApi) GetVpcById(ctx context.Context, request *import37.Get
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpcs/{extId}"
+	uri := "/api/networking/v4.4/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *VpcsServiceApi) GetVpcById(ctx context.Context, request *import37.Get
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetVpcApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,7 +277,7 @@ func (api *VpcsServiceApi) ListVpcs(ctx context.Context, request *import37.ListV
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpcs"
+	uri := "/api/networking/v4.4/config/vpcs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,157 @@ func (api *VpcsServiceApi) ListVpcs(ctx context.Context, request *import37.ListV
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListVpcsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Share the specified VPC with a project.
+func (api *VpcsApi) ShareVpcById(extId *string, body *import4.ProjectReference, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVpcsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ShareVpcById(context.Background(), &import37.ShareVpcByIdRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Share the specified VPC with a project.
+func (api *VpcsServiceApi) ShareVpcById(ctx context.Context, request *import37.ShareVpcByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.4/config/vpcs/{extId}/$actions/share"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Stop sharing the specified VPC with a project.
+func (api *VpcsApi) UnshareVpcById(extId *string, body *import4.ProjectReference, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVpcsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UnshareVpcById(context.Background(), &import37.UnshareVpcByIdRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Stop sharing the specified VPC with a project.
+func (api *VpcsServiceApi) UnshareVpcById(ctx context.Context, request *import37.UnshareVpcByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.4/config/vpcs/{extId}/$actions/unshare"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -329,7 +495,7 @@ func (api *VpcsServiceApi) UpdateVpcById(ctx context.Context, request *import37.
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.3/config/vpcs/{extId}"
+	uri := "/api/networking/v4.4/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +536,14 @@ func (api *VpcsServiceApi) UpdateVpcById(ctx context.Context, request *import37.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.TaskReferenceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
