@@ -77,7 +77,7 @@ func (api *DirectoryServerConfigsServiceApi) CreateCategoryMapping(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/category-mappings"
+	uri := "/api/microseg/v4.3/config/category-mappings"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *DirectoryServerConfigsServiceApi) CreateCategoryMapping(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateDsCategoryMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *DirectoryServerConfigsServiceApi) CreateDirectoryServerConfig(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/directory-server-configs"
+	uri := "/api/microseg/v4.3/config/directory-server-configs"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -170,9 +176,15 @@ func (api *DirectoryServerConfigsServiceApi) CreateDirectoryServerConfig(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateDirectoryServerConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -193,7 +205,7 @@ func (api *DirectoryServerConfigsServiceApi) DeleteDirectoryServerConfigById(ctx
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.3/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -230,9 +242,15 @@ func (api *DirectoryServerConfigsServiceApi) DeleteDirectoryServerConfigById(ctx
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteDirectoryServerConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -253,7 +271,7 @@ func (api *DirectoryServerConfigsServiceApi) DeleteDsCategoryMappingById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.3/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -290,9 +308,15 @@ func (api *DirectoryServerConfigsServiceApi) DeleteDsCategoryMappingById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteDsCategoryMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -313,7 +337,7 @@ func (api *DirectoryServerConfigsServiceApi) GetDirectoryServerConfigById(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.3/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -350,9 +374,15 @@ func (api *DirectoryServerConfigsServiceApi) GetDirectoryServerConfigById(ctx co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetDirectoryServerConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -373,7 +403,7 @@ func (api *DirectoryServerConfigsServiceApi) GetDsCategoryMappingById(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.3/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -410,9 +440,15 @@ func (api *DirectoryServerConfigsServiceApi) GetDsCategoryMappingById(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetDsCategoryMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -437,7 +473,7 @@ func (api *DirectoryServerConfigsServiceApi) ListCategoryMappings(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/category-mappings"
+	uri := "/api/microseg/v4.3/config/category-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -483,9 +519,15 @@ func (api *DirectoryServerConfigsServiceApi) ListCategoryMappings(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListDsCategoryMappingsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -506,7 +548,7 @@ func (api *DirectoryServerConfigsServiceApi) ListDirectoryServerConfigs(ctx cont
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/directory-server-configs"
+	uri := "/api/microseg/v4.3/config/directory-server-configs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -540,9 +582,15 @@ func (api *DirectoryServerConfigsServiceApi) ListDirectoryServerConfigs(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListDirectoryServerConfigsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -564,7 +612,7 @@ func (api *DirectoryServerConfigsServiceApi) UpdateDirectoryServerConfigById(ctx
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.3/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -605,9 +653,15 @@ func (api *DirectoryServerConfigsServiceApi) UpdateDirectoryServerConfigById(ctx
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateDirectoryServerConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -629,7 +683,7 @@ func (api *DirectoryServerConfigsServiceApi) UpdateDsCategoryMappingById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.3/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -670,8 +724,14 @@ func (api *DirectoryServerConfigsServiceApi) UpdateDsCategoryMappingById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateDsCategoryMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

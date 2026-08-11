@@ -77,7 +77,7 @@ func (api *ServiceGroupsServiceApi) CreateServiceGroup(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/service-groups"
+	uri := "/api/microseg/v4.3/config/service-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *ServiceGroupsServiceApi) CreateServiceGroup(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateServiceGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *ServiceGroupsServiceApi) DeleteServiceGroupById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.3/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *ServiceGroupsServiceApi) DeleteServiceGroupById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteServiceGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *ServiceGroupsServiceApi) GetServiceGroupById(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.3/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *ServiceGroupsServiceApi) GetServiceGroupById(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetServiceGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,7 +277,7 @@ func (api *ServiceGroupsServiceApi) ListServiceGroups(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/service-groups"
+	uri := "/api/microseg/v4.3/config/service-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,15 @@ func (api *ServiceGroupsServiceApi) ListServiceGroups(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListServiceGroupsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -329,7 +353,7 @@ func (api *ServiceGroupsServiceApi) UpdateServiceGroupById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.3/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *ServiceGroupsServiceApi) UpdateServiceGroupById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateServiceGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -1,7 +1,7 @@
 /*
  * Generated file models/microseg/v4/operation/operation_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Flow Management APIs
  *
@@ -127,7 +127,7 @@ func NewDryRunSpec() *DryRunSpec {
 	p := new(DryRunSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.DryRunSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -261,7 +261,7 @@ func NewDryRunSummary() *DryRunSummary {
 	p := new(DryRunSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.DryRunSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -386,7 +386,7 @@ func NewPolicyCount() *PolicyCount {
 	p := new(PolicyCount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyCount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -485,7 +485,7 @@ func NewPolicyCountByType() *PolicyCountByType {
 	p := new(PolicyCountByType)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyCountByType"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -649,7 +649,7 @@ func NewPolicyMetadata() *PolicyMetadata {
 	p := new(PolicyMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -772,7 +772,7 @@ func NewPolicyPreview() *PolicyPreview {
 	p := new(PolicyPreview)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyPreview"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -894,7 +894,7 @@ func NewPolicyUpgradeSummary() *PolicyUpgradeSummary {
 	p := new(PolicyUpgradeSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyUpgradeSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -997,7 +997,7 @@ func NewSecurityPolicyOptions() *SecurityPolicyOptions {
 	p := new(SecurityPolicyOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.SecurityPolicyOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsHitlogEnabled = new(bool)
@@ -1213,7 +1213,7 @@ func NewSubnetUpgradeSummary() *SubnetUpgradeSummary {
 	p := new(SubnetUpgradeSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.SubnetUpgradeSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1320,7 +1320,7 @@ func NewTotalPolicyCount() *TotalPolicyCount {
 	p := new(TotalPolicyCount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.TotalPolicyCount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1455,7 +1455,7 @@ func NewUpgradeJob() *UpgradeJob {
 	p := new(UpgradeJob)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.UpgradeJob"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1592,7 +1592,7 @@ func NewUpgradeSpec() *UpgradeSpec {
 	p := new(UpgradeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.UpgradeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1603,6 +1603,8 @@ type OneOfUpgradeJobSpec struct {
 	ObjectType_   *string      `json:"-"`
 	oneOfType0    *UpgradeSpec `json:"-"`
 	oneOfType1    *DryRunSpec  `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfUpgradeJobSpec() *OneOfUpgradeJobSpec {
@@ -1650,6 +1652,9 @@ func (p *OneOfUpgradeJobSpec) SetValue(v interface{}) error {
 }
 
 func (p *OneOfUpgradeJobSpec) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -1660,9 +1665,79 @@ func (p *OneOfUpgradeJobSpec) GetValue() interface{} {
 }
 
 func (p *OneOfUpgradeJobSpec) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(UpgradeSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "microseg.v4.operation.UpgradeSpec" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(UpgradeSpec)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(DryRunSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "microseg.v4.operation.DryRunSpec" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(DryRunSpec)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(UpgradeSpec)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "microseg.v4.operation.UpgradeSpec" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "microseg.v4.operation.UpgradeSpec" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(UpgradeSpec)
 			}
@@ -1680,7 +1755,7 @@ func (p *OneOfUpgradeJobSpec) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(DryRunSpec)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "microseg.v4.operation.DryRunSpec" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "microseg.v4.operation.DryRunSpec" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(DryRunSpec)
 			}
@@ -1696,10 +1771,31 @@ func (p *OneOfUpgradeJobSpec) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpgradeJobSpec"))
 }
 
 func (p *OneOfUpgradeJobSpec) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}

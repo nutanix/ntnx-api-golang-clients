@@ -77,7 +77,7 @@ func (api *EntityGroupsServiceApi) CreateEntityGroup(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/entity-groups"
+	uri := "/api/microseg/v4.3/config/entity-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *EntityGroupsServiceApi) CreateEntityGroup(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateEntityGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *EntityGroupsServiceApi) DeleteEntityGroupById(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/entity-groups/{extId}"
+	uri := "/api/microseg/v4.3/config/entity-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *EntityGroupsServiceApi) DeleteEntityGroupById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteEntityGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *EntityGroupsServiceApi) GetEntityGroupById(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/entity-groups/{extId}"
+	uri := "/api/microseg/v4.3/config/entity-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *EntityGroupsServiceApi) GetEntityGroupById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetEntityGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,7 +277,7 @@ func (api *EntityGroupsServiceApi) ListEntityGroups(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/entity-groups"
+	uri := "/api/microseg/v4.3/config/entity-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,15 @@ func (api *EntityGroupsServiceApi) ListEntityGroups(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListEntityGroupsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -329,7 +353,7 @@ func (api *EntityGroupsServiceApi) UpdateEntityGroupById(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/entity-groups/{extId}"
+	uri := "/api/microseg/v4.3/config/entity-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *EntityGroupsServiceApi) UpdateEntityGroupById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateEntityGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

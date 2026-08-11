@@ -65,13 +65,14 @@ func NewNetworkSecurityPoliciesServiceApi(apiClient *client.ApiClient) *NetworkS
 }
 
 // Imports all the Network Security Policies specified by the data file.
-func (api *NetworkSecurityPoliciesApi) ApplyNetworkSecurityPolicyImport(path *string, nTNXPurgePolicies *bool, dryrun_ *bool, args ...map[string]interface{}) (*import1.CreateNetworkSecurityPolicyImportApiResponse, error) {
+func (api *NetworkSecurityPoliciesApi) ApplyNetworkSecurityPolicyImport(path *string, nTNXPurgePolicies *bool, nTNXProjectExtId *string, dryrun_ *bool, args ...map[string]interface{}) (*import1.CreateNetworkSecurityPolicyImportApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewNetworkSecurityPoliciesServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.ApplyNetworkSecurityPolicyImport(context.Background(), &import7.ApplyNetworkSecurityPolicyImportRequest{
 		Path:              path,
 		NTNXPurgePolicies: nTNXPurgePolicies,
+		NTNXProjectExtId:  nTNXProjectExtId,
 		Dryrun_:           dryrun_,
 	}, args...)
 }
@@ -83,7 +84,7 @@ func (api *NetworkSecurityPoliciesServiceApi) ApplyNetworkSecurityPolicyImport(c
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies/$actions/import"
+	uri := "/api/microseg/v4.3/config/policies/$actions/import"
 
 	// verify the required parameter 'path' is set
 	if nil == request.Path {
@@ -106,6 +107,9 @@ func (api *NetworkSecurityPoliciesServiceApi) ApplyNetworkSecurityPolicyImport(c
 	}
 	if request.NTNXPurgePolicies != nil {
 		headerParams["NTNX-Purge-Policies"] = client.ParameterToString(*request.NTNXPurgePolicies, "")
+	}
+	if request.NTNXProjectExtId != nil {
+		headerParams["NTNX-Project-ExtId"] = client.ParameterToString(*request.NTNXProjectExtId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -137,9 +141,15 @@ func (api *NetworkSecurityPoliciesServiceApi) ApplyNetworkSecurityPolicyImport(c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateNetworkSecurityPolicyImportApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -160,7 +170,7 @@ func (api *NetworkSecurityPoliciesServiceApi) CreateNetworkSecurityPolicy(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies"
+	uri := "/api/microseg/v4.3/config/policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -195,9 +205,15 @@ func (api *NetworkSecurityPoliciesServiceApi) CreateNetworkSecurityPolicy(ctx co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateNetworkSecurityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -218,7 +234,7 @@ func (api *NetworkSecurityPoliciesServiceApi) DeleteNetworkSecurityPolicyById(ct
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies/{extId}"
+	uri := "/api/microseg/v4.3/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -255,9 +271,15 @@ func (api *NetworkSecurityPoliciesServiceApi) DeleteNetworkSecurityPolicyById(ct
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteNetworkSecurityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -278,7 +300,7 @@ func (api *NetworkSecurityPoliciesServiceApi) ExportNetworkSecurityPolicy(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies/$actions/prepare-export"
+	uri := "/api/microseg/v4.3/config/policies/$actions/prepare-export"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -308,9 +330,15 @@ func (api *NetworkSecurityPoliciesServiceApi) ExportNetworkSecurityPolicy(ctx co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateNetworkSecurityPolicyExportApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -331,7 +359,7 @@ func (api *NetworkSecurityPoliciesServiceApi) GetNetworkSecurityPolicyById(ctx c
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies/{extId}"
+	uri := "/api/microseg/v4.3/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -368,23 +396,30 @@ func (api *NetworkSecurityPoliciesServiceApi) GetNetworkSecurityPolicyById(ctx c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetNetworkSecurityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Gets a list of Network Security Policies.
-func (api *NetworkSecurityPoliciesApi) ListNetworkSecurityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListNetworkSecurityPoliciesApiResponse, error) {
+func (api *NetworkSecurityPoliciesApi) ListNetworkSecurityPolicies(nTNXProjectExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListNetworkSecurityPoliciesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewNetworkSecurityPoliciesServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.ListNetworkSecurityPolicies(context.Background(), &import7.ListNetworkSecurityPoliciesRequest{
-		Page_:    page_,
-		Limit_:   limit_,
-		Filter_:  filter_,
-		Orderby_: orderby_,
-		Select_:  select_,
+		NTNXProjectExtId: nTNXProjectExtId,
+		Page_:            page_,
+		Limit_:           limit_,
+		Filter_:          filter_,
+		Orderby_:         orderby_,
+		Select_:          select_,
 	}, args...)
 }
 
@@ -395,7 +430,7 @@ func (api *NetworkSecurityPoliciesServiceApi) ListNetworkSecurityPolicies(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies"
+	uri := "/api/microseg/v4.3/config/policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -423,6 +458,9 @@ func (api *NetworkSecurityPoliciesServiceApi) ListNetworkSecurityPolicies(ctx co
 	if request.Select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
+	if request.NTNXProjectExtId != nil {
+		headerParams["NTNX-Project-ExtId"] = client.ParameterToString(*request.NTNXProjectExtId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -440,6 +478,9 @@ func (api *NetworkSecurityPoliciesServiceApi) ListNetworkSecurityPolicies(ctx co
 	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
 	}
 
 	binaryMediaTypes := []string{"application/octet-stream", "application/pdf", "application/zip"}
@@ -471,8 +512,11 @@ func (api *NetworkSecurityPoliciesServiceApi) ListNetworkSecurityPolicies(ctx co
 		}
 	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListNetworkSecurityPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -498,7 +542,7 @@ func (api *NetworkSecurityPoliciesServiceApi) ListNetworkSecurityPolicyRules(ctx
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies/{policyExtId}/rules"
+	uri := "/api/microseg/v4.3/config/policies/{policyExtId}/rules"
 
 	// verify the required parameter 'policyExtId' is set
 	if nil == request.PolicyExtId {
@@ -551,9 +595,15 @@ func (api *NetworkSecurityPoliciesServiceApi) ListNetworkSecurityPolicyRules(ctx
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListNetworkSecurityPolicyRulesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -575,7 +625,7 @@ func (api *NetworkSecurityPoliciesServiceApi) UpdateNetworkSecurityPolicyById(ct
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.2/config/policies/{extId}"
+	uri := "/api/microseg/v4.3/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -616,8 +666,14 @@ func (api *NetworkSecurityPoliciesServiceApi) UpdateNetworkSecurityPolicyById(ct
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateNetworkSecurityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
