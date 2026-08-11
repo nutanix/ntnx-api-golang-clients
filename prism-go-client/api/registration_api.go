@@ -78,7 +78,7 @@ func (api *RegistrationServiceApi) GetRegistrationById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/registrations/{extId}"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/registrations/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -120,9 +120,15 @@ func (api *RegistrationServiceApi) GetRegistrationById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetRegistrationApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -148,7 +154,7 @@ func (api *RegistrationServiceApi) ListRegistrations(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/registrations"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/registrations"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -201,8 +207,14 @@ func (api *RegistrationServiceApi) ListRegistrations(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.ListRegistrationApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

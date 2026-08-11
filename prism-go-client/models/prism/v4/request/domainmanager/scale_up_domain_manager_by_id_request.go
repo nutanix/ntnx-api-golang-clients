@@ -1,14 +1,17 @@
 package domainmanager
 
 import (
-	import3 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/management"
 )
 
-// This file holds the request struct for the CreateDomainManager operation.
+// This file holds the request struct for the ScaleUpDomainManagerById operation.
 
-type CreateDomainManagerRequest struct {
-	// (required) Request body to deploy a Prism Central.
-	Body *import3.DomainManager
+type ScaleUpDomainManagerByIdRequest struct {
+	// (required) The external identifier of the domain manager (Prism Central) resource.
+	ExtId *string
+
+	// (required) Payload for scaling up a Domain Manager cluster by specifying the desired size.
+	Body *import5.ScaleUpDomainManagerSpec
 
 	// A URL query parameter that allows long running operations to execute in a dry-run mode providing ability to identify
 	// trouble spots and system failures without performing the actual operation. Additionally this mode also offers a summary

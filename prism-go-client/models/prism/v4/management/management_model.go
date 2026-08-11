@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/management/management_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -120,7 +120,7 @@ func NewAOSRemoteClusterSpec() *AOSRemoteClusterSpec {
 	p := new(AOSRemoteClusterSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.AOSRemoteClusterSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -236,7 +236,7 @@ func NewAWSS3Config() *AWSS3Config {
 	p := new(AWSS3Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.AWSS3Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -351,7 +351,7 @@ func NewAccessKeyCredentials() *AccessKeyCredentials {
 	p := new(AccessKeyCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.AccessKeyCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -453,7 +453,7 @@ func NewBackupPolicy() *BackupPolicy {
 	p := new(BackupPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.BackupPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -604,7 +604,7 @@ func NewBackupTarget() *BackupTarget {
 	p := new(BackupTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.BackupTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -821,7 +821,7 @@ func NewClusterLocation() *ClusterLocation {
 	p := new(ClusterLocation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterLocation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -952,7 +952,7 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1062,7 +1062,7 @@ func NewClusterRegistrationSpec() *ClusterRegistrationSpec {
 	p := new(ClusterRegistrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterRegistrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1093,14 +1093,16 @@ func (p *ClusterRegistrationSpec) SetRemoteCluster(v interface{}) error {
 Type of cluster to be connected:
 - DOMAIN_MANAGER : Domain manager (Prism Central) instance
 - AOS : Prism Element cluster instance
+- WITNESS_SERVICE: Witness Service instance
 */
 type ClusterType int
 
 const (
-	CLUSTERTYPE_UNKNOWN        ClusterType = 0
-	CLUSTERTYPE_REDACTED       ClusterType = 1
-	CLUSTERTYPE_DOMAIN_MANAGER ClusterType = 2
-	CLUSTERTYPE_AOS            ClusterType = 3
+	CLUSTERTYPE_UNKNOWN         ClusterType = 0
+	CLUSTERTYPE_REDACTED        ClusterType = 1
+	CLUSTERTYPE_DOMAIN_MANAGER  ClusterType = 2
+	CLUSTERTYPE_AOS             ClusterType = 3
+	CLUSTERTYPE_WITNESS_SERVICE ClusterType = 4
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1112,6 +1114,7 @@ func (e *ClusterType) name(index int) string {
 		"$REDACTED",
 		"DOMAIN_MANAGER",
 		"AOS",
+		"WITNESS_SERVICE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1127,6 +1130,7 @@ func (e ClusterType) GetName() string {
 		"$REDACTED",
 		"DOMAIN_MANAGER",
 		"AOS",
+		"WITNESS_SERVICE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1141,6 +1145,7 @@ func (e *ClusterType) index(name string) ClusterType {
 		"$REDACTED",
 		"DOMAIN_MANAGER",
 		"AOS",
+		"WITNESS_SERVICE",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1264,7 +1269,7 @@ func NewClusterUnregistrationSpec() *ClusterUnregistrationSpec {
 	p := new(ClusterUnregistrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterUnregistrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1397,7 +1402,7 @@ func NewConnectionConfig() *ConnectionConfig {
 	p := new(ConnectionConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ConnectionConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Port = new(int)
@@ -1502,7 +1507,7 @@ func NewConnectionConfigurationSpec() *ConnectionConfigurationSpec {
 	p := new(ConnectionConfigurationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ConnectionConfigurationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1602,7 +1607,7 @@ func NewConnectionUnconfigurationSpec() *ConnectionUnconfigurationSpec {
 	p := new(ConnectionUnconfigurationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ConnectionUnconfigurationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1692,7 +1697,7 @@ func (e ConnectivityStatus) Ref() *ConnectivityStatus {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets Post operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets Post operation
 */
 type CreateBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1792,7 +1797,7 @@ func NewCreateBackupTargetApiResponse() *CreateBackupTargetApiResponse {
 	p := new(CreateBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.CreateBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1820,7 +1825,7 @@ func (p *CreateBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources Post operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources Post operation
 */
 type CreateRestoreSourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1920,7 +1925,7 @@ func NewCreateRestoreSourceApiResponse() *CreateRestoreSourceApiResponse {
 	p := new(CreateRestoreSourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.CreateRestoreSourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2041,14 +2046,14 @@ func NewCredentials() *Credentials {
 	p := new(Credentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.Credentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Delete operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Delete operation
 */
 type DeleteBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2148,7 +2153,7 @@ func NewDeleteBackupTargetApiResponse() *DeleteBackupTargetApiResponse {
 	p := new(DeleteBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.DeleteBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2176,7 +2181,7 @@ func (p *DeleteBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources/{extId} Delete operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources/{extId} Delete operation
 */
 type DeleteRestoreSourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2276,7 +2281,7 @@ func NewDeleteRestoreSourceApiResponse() *DeleteRestoreSourceApiResponse {
 	p := new(DeleteRestoreSourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.DeleteRestoreSourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2487,7 +2492,7 @@ func NewDomainManagerRemoteClusterSpec() *DomainManagerRemoteClusterSpec {
 	p := new(DomainManagerRemoteClusterSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.DomainManagerRemoteClusterSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2588,6 +2593,17 @@ type FlowControllerMetadata struct {
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
+	  Indicates whether the Flow Controller should operate in Flex mode or App-centric mode for Flow Network Security policies.
+	Flex mode introduces a streamlined approach using standard 5-tuple network definitions (source, destination, protocol, ports) for more explicit control. App centric mode uses the traditional Secured entity-based approach.
+	*/
+	IsFNSFlexModeEnabled *bool `json:"isFNSFlexModeEnabled,omitempty"`
+	/*
+	  Indicates whether the Security Analytics feature is enabled for the Flow Controller.
+	*/
+	IsSecurityAnalyticsEnabled *bool `json:"isSecurityAnalyticsEnabled,omitempty"`
+
+	Size *FlowControllerSize `json:"size,omitempty"`
+	/*
 	  Reference to the subnet where flow controller will be deployed.
 	*/
 	SubnetExtId *string `json:"subnetExtId,omitempty"`
@@ -2651,6 +2667,15 @@ func (p *FlowControllerMetadata) UnmarshalJSON(b []byte) error {
 	if known.ClusterExtId != nil {
 		p.ClusterExtId = known.ClusterExtId
 	}
+	if known.IsFNSFlexModeEnabled != nil {
+		p.IsFNSFlexModeEnabled = known.IsFNSFlexModeEnabled
+	}
+	if known.IsSecurityAnalyticsEnabled != nil {
+		p.IsSecurityAnalyticsEnabled = known.IsSecurityAnalyticsEnabled
+	}
+	if known.Size != nil {
+		p.Size = known.Size
+	}
 	if known.SubnetExtId != nil {
 		p.SubnetExtId = known.SubnetExtId
 	}
@@ -2661,6 +2686,9 @@ func (p *FlowControllerMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "cloudSubstrate")
 	delete(allFields, "clusterExtId")
+	delete(allFields, "isFNSFlexModeEnabled")
+	delete(allFields, "isSecurityAnalyticsEnabled")
+	delete(allFields, "size")
 	delete(allFields, "subnetExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -2675,10 +2703,98 @@ func NewFlowControllerMetadata() *FlowControllerMetadata {
 	p := new(FlowControllerMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.FlowControllerMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
+	p.IsFNSFlexModeEnabled = new(bool)
+	*p.IsFNSFlexModeEnabled = false
+	p.IsSecurityAnalyticsEnabled = new(bool)
+	*p.IsSecurityAnalyticsEnabled = true
+
 	return p
+}
+
+/*
+Size of the Flow Controller Deployment.
+*/
+type FlowControllerSize int
+
+const (
+	FLOWCONTROLLERSIZE_UNKNOWN  FlowControllerSize = 0
+	FLOWCONTROLLERSIZE_REDACTED FlowControllerSize = 1
+	FLOWCONTROLLERSIZE_SMALL    FlowControllerSize = 2
+	FLOWCONTROLLERSIZE_LARGE    FlowControllerSize = 3
+	FLOWCONTROLLERSIZE_XLARGE   FlowControllerSize = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *FlowControllerSize) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SMALL",
+		"LARGE",
+		"XLARGE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e FlowControllerSize) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SMALL",
+		"LARGE",
+		"XLARGE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *FlowControllerSize) index(name string) FlowControllerSize {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SMALL",
+		"LARGE",
+		"XLARGE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return FlowControllerSize(idx)
+		}
+	}
+	return FLOWCONTROLLERSIZE_UNKNOWN
+}
+
+func (e *FlowControllerSize) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for FlowControllerSize:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *FlowControllerSize) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e FlowControllerSize) Ref() *FlowControllerSize {
+	return &e
 }
 
 /*
@@ -2768,7 +2884,7 @@ func NewGenericMetadata() *GenericMetadata {
 	p := new(GenericMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GenericMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2900,7 +3016,7 @@ func NewGenericS3Config() *GenericS3Config {
 	p := new(GenericS3Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GenericS3Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -2931,7 +3047,7 @@ func (p *GenericS3Config) SetCredentials(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Get operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Get operation
 */
 type GetBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3031,7 +3147,7 @@ func NewGetBackupTargetApiResponse() *GetBackupTargetApiResponse {
 	p := new(GetBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3059,7 +3175,7 @@ func (p *GetBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/products/{extId} Get operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/products/{extId} Get operation
 */
 type GetProductApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3159,7 +3275,7 @@ func NewGetProductApiResponse() *GetProductApiResponse {
 	p := new(GetProductApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetProductApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3187,7 +3303,7 @@ func (p *GetProductApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/registrations/{extId} Get operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/registrations/{extId} Get operation
 */
 type GetRegistrationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3287,7 +3403,7 @@ func NewGetRegistrationApiResponse() *GetRegistrationApiResponse {
 	p := new(GetRegistrationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetRegistrationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3315,7 +3431,7 @@ func (p *GetRegistrationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId} Get operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId} Get operation
 */
 type GetRestorePointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3415,7 +3531,7 @@ func NewGetRestorePointApiResponse() *GetRestorePointApiResponse {
 	p := new(GetRestorePointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetRestorePointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3443,7 +3559,7 @@ func (p *GetRestorePointApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources/{extId} Get operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources/{extId} Get operation
 */
 type GetRestoreSourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3543,7 +3659,7 @@ func NewGetRestoreSourceApiResponse() *GetRestoreSourceApiResponse {
 	p := new(GetRestoreSourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetRestoreSourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3571,7 +3687,7 @@ func (p *GetRestoreSourceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets Get operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets Get operation
 */
 type ListBackupTargetsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3671,7 +3787,7 @@ func NewListBackupTargetsApiResponse() *ListBackupTargetsApiResponse {
 	p := new(ListBackupTargetsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListBackupTargetsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3699,7 +3815,7 @@ func (p *ListBackupTargetsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/products Get operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/products Get operation
 */
 type ListProductsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3799,7 +3915,7 @@ func NewListProductsApiResponse() *ListProductsApiResponse {
 	p := new(ListProductsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListProductsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3827,7 +3943,7 @@ func (p *ListProductsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/registrations Get operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/registrations Get operation
 */
 type ListRegistrationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3927,7 +4043,7 @@ func NewListRegistrationApiResponse() *ListRegistrationApiResponse {
 	p := new(ListRegistrationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListRegistrationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3955,7 +4071,7 @@ func (p *ListRegistrationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers Get operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers Get operation
 */
 type ListRestorableDomainManagersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4055,7 +4171,7 @@ func NewListRestorableDomainManagersApiResponse() *ListRestorableDomainManagersA
 	p := new(ListRestorableDomainManagersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListRestorableDomainManagersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4083,7 +4199,7 @@ func (p *ListRestorableDomainManagersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points Get operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points Get operation
 */
 type ListRestorePointsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4183,7 +4299,7 @@ func NewListRestorePointsApiResponse() *ListRestorePointsApiResponse {
 	p := new(ListRestorePointsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListRestorePointsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4336,7 +4452,7 @@ func NewNutanixObjectsConfig() *NutanixObjectsConfig {
 	p := new(NutanixObjectsConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.NutanixObjectsConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -4476,7 +4592,7 @@ func NewObjectStoreLocation() *ObjectStoreLocation {
 	p := new(ObjectStoreLocation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ObjectStoreLocation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4676,7 +4792,7 @@ func NewProduct() *Product {
 	p := new(Product)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.Product"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4807,7 +4923,7 @@ func (e ProductName) Ref() *ProductName {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{extId}/$actions/register Post operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{extId}/$actions/register Post operation
 */
 type RegisterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4907,7 +5023,7 @@ func NewRegisterApiResponse() *RegisterApiResponse {
 	p := new(RegisterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RegisterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5070,7 +5186,7 @@ func NewRegistration() *Registration {
 	p := new(Registration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.Registration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5098,7 +5214,7 @@ func (p *Registration) SetMetadata(v interface{}) error {
 }
 
 /*
-This includes the attributes of a remote cluster, such as the cluster name, cluster type, and address details. The address details comprise the external address (either a virtual IP or FQDN), the port for incoming connections, and the internal addresses (node IP addresses).
+This includes the attributes of a remote cluster, such as the cluster name, cluster type, and address details. The address details comprise the external address (either a virtual IP or FQDN), the port.
 */
 type RemoteCluster struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5130,6 +5246,10 @@ type RemoteCluster struct {
 	  Node IP addresses of a registered cluster.
 	*/
 	NodeIpAddresses []import2.IPAddressOrFQDN `json:"nodeIpAddresses,omitempty"`
+	/*
+	  Port of the cluster exposed externally. This would be 9440 by default.
+	*/
+	Port *int64 `json:"port,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -5216,6 +5336,9 @@ func (p *RemoteCluster) UnmarshalJSON(b []byte) error {
 	if known.NodeIpAddresses != nil {
 		p.NodeIpAddresses = known.NodeIpAddresses
 	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
 	if known.TenantId != nil {
 		p.TenantId = known.TenantId
 	}
@@ -5231,6 +5354,7 @@ func (p *RemoteCluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "name")
 	delete(allFields, "nodeIpAddresses")
+	delete(allFields, "port")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -5245,8 +5369,11 @@ func NewRemoteCluster() *RemoteCluster {
 	p := new(RemoteCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RemoteCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.Port = new(int64)
+	*p.Port = 9440
 
 	return p
 }
@@ -5264,6 +5391,10 @@ type RemoteClusterSpec struct {
 	Address *import2.IPAddressOrFQDN `json:"address"`
 
 	Credentials *Credentials `json:"credentials"`
+	/*
+	  Port of remote cluster to register.
+	*/
+	Port *int64 `json:"port,omitempty"`
 }
 
 func (p *RemoteClusterSpec) MarshalJSON() ([]byte, error) {
@@ -5333,6 +5464,9 @@ func (p *RemoteClusterSpec) UnmarshalJSON(b []byte) error {
 	if known.Credentials != nil {
 		p.Credentials = known.Credentials
 	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5340,6 +5474,7 @@ func (p *RemoteClusterSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "address")
 	delete(allFields, "credentials")
+	delete(allFields, "port")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -5353,8 +5488,11 @@ func NewRemoteClusterSpec() *RemoteClusterSpec {
 	p := new(RemoteClusterSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RemoteClusterSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.Port = new(int64)
+	*p.Port = 9440
 
 	return p
 }
@@ -5456,7 +5594,7 @@ func NewResourceSpec() *ResourceSpec {
 	p := new(ResourceSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ResourceSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5628,7 +5766,7 @@ func NewRestorableDomainManager() *RestorableDomainManager {
 	p := new(RestorableDomainManager)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestorableDomainManager"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldEnableHighAvailability = new(bool)
@@ -5638,7 +5776,7 @@ func NewRestorableDomainManager() *RestorableDomainManager {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore Post operation
+REST response for all response codes in API path /prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore Post operation
 */
 type RestoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5738,7 +5876,7 @@ func NewRestoreApiResponse() *RestoreApiResponse {
 	p := new(RestoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5884,7 +6022,7 @@ func NewRestorePoint() *RestorePoint {
 	p := new(RestorePoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestorePoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6011,7 +6149,7 @@ func NewRestoreSource() *RestoreSource {
 	p := new(RestoreSource)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestoreSource"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6132,7 +6270,7 @@ func NewRestoreSpec() *RestoreSpec {
 	p := new(RestoreSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestoreSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6234,7 +6372,7 @@ func NewRootCertRemoveSpec() *RootCertRemoveSpec {
 	p := new(RootCertRemoveSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RootCertRemoveSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6360,7 +6498,7 @@ func NewRootCertificateAddSpec() *RootCertificateAddSpec {
 	p := new(RootCertificateAddSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RootCertificateAddSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6470,7 +6608,7 @@ func NewS3Config() *S3Config {
 	p := new(S3Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.S3Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -6480,7 +6618,322 @@ func NewS3Config() *S3Config {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{extId}/$actions/unregister Post operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{extId}/$actions/scale-up Post operation
+*/
+type ScaleUpDomainManagerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfScaleUpDomainManagerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ScaleUpDomainManagerApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ScaleUpDomainManagerApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ScaleUpDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ScaleUpDomainManagerApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewScaleUpDomainManagerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewScaleUpDomainManagerApiResponse() *ScaleUpDomainManagerApiResponse {
+	p := new(ScaleUpDomainManagerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.management.ScaleUpDomainManagerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ScaleUpDomainManagerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ScaleUpDomainManagerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfScaleUpDomainManagerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Input Specifications to perform the scale-up operation.
+*/
+type ScaleUpDomainManagerSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Size *Size `json:"size"`
+}
+
+func (p *ScaleUpDomainManagerSpec) MarshalJSON() ([]byte, error) {
+	type ScaleUpDomainManagerSpecProxy ScaleUpDomainManagerSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ScaleUpDomainManagerSpecProxy
+		Size *Size `json:"size,omitempty"`
+	}{
+		ScaleUpDomainManagerSpecProxy: (*ScaleUpDomainManagerSpecProxy)(p),
+		Size:                          p.Size,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ScaleUpDomainManagerSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ScaleUpDomainManagerSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewScaleUpDomainManagerSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Size != nil {
+		p.Size = known.Size
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "size")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewScaleUpDomainManagerSpec() *ScaleUpDomainManagerSpec {
+	p := new(ScaleUpDomainManagerSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.management.ScaleUpDomainManagerSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Domain manager (Prism Central) size is an enumeration of starter, small, large, or extra large starter values.
+*/
+type Size int
+
+const (
+	SIZE_UNKNOWN    Size = 0
+	SIZE_REDACTED   Size = 1
+	SIZE_STARTER    Size = 2
+	SIZE_SMALL      Size = 3
+	SIZE_LARGE      Size = 4
+	SIZE_EXTRALARGE Size = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *Size) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STARTER",
+		"SMALL",
+		"LARGE",
+		"EXTRALARGE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e Size) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STARTER",
+		"SMALL",
+		"LARGE",
+		"EXTRALARGE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *Size) index(name string) Size {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STARTER",
+		"SMALL",
+		"LARGE",
+		"EXTRALARGE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return Size(idx)
+		}
+	}
+	return SIZE_UNKNOWN
+}
+
+func (e *Size) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for Size:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *Size) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e Size) Ref() *Size {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{extId}/$actions/unregister Post operation
 */
 type UnregisterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6580,7 +7033,7 @@ func NewUnregisterApiResponse() *UnregisterApiResponse {
 	p := new(UnregisterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.UnregisterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6608,7 +7061,7 @@ func (p *UnregisterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Put operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Put operation
 */
 type UpdateBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6708,7 +7161,7 @@ func NewUpdateBackupTargetApiResponse() *UpdateBackupTargetApiResponse {
 	p := new(UpdateBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.UpdateBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6736,7 +7189,7 @@ func (p *UpdateBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/products/{extId} Put operation
+REST response for all response codes in API path /prism/v4.4/management/domain-managers/{domainManagerExtId}/products/{extId} Put operation
 */
 type UpdateProductApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6836,7 +7289,7 @@ func NewUpdateProductApiResponse() *UpdateProductApiResponse {
 	p := new(UpdateProductApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.UpdateProductApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6863,11 +7316,144 @@ func (p *UpdateProductApiResponse) SetData(v interface{}) error {
 	return e
 }
 
+/*
+Remote cluster specification required for registering a Witness Service.
+*/
+type WitnessServiceRemoteClusterSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	WitnessDetailsItemDiscriminator_ *string `json:"$witnessDetailsItemDiscriminator,omitempty"`
+	/*
+	  Remote cluster specification required for registering a cluster.
+	*/
+	WitnessDetails *OneOfWitnessServiceRemoteClusterSpecWitnessDetails `json:"witnessDetails"`
+}
+
+func (p *WitnessServiceRemoteClusterSpec) MarshalJSON() ([]byte, error) {
+	type WitnessServiceRemoteClusterSpecProxy WitnessServiceRemoteClusterSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*WitnessServiceRemoteClusterSpecProxy
+		WitnessDetails *OneOfWitnessServiceRemoteClusterSpecWitnessDetails `json:"witnessDetails,omitempty"`
+	}{
+		WitnessServiceRemoteClusterSpecProxy: (*WitnessServiceRemoteClusterSpecProxy)(p),
+		WitnessDetails:                       p.WitnessDetails,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *WitnessServiceRemoteClusterSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias WitnessServiceRemoteClusterSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewWitnessServiceRemoteClusterSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.WitnessDetailsItemDiscriminator_ != nil {
+		p.WitnessDetailsItemDiscriminator_ = known.WitnessDetailsItemDiscriminator_
+	}
+	if known.WitnessDetails != nil {
+		p.WitnessDetails = known.WitnessDetails
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$witnessDetailsItemDiscriminator")
+	delete(allFields, "witnessDetails")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewWitnessServiceRemoteClusterSpec() *WitnessServiceRemoteClusterSpec {
+	p := new(WitnessServiceRemoteClusterSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.management.WitnessServiceRemoteClusterSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *WitnessServiceRemoteClusterSpec) GetWitnessDetails() interface{} {
+	if nil == p.WitnessDetails {
+		return nil
+	}
+	return p.WitnessDetails.GetValue()
+}
+
+func (p *WitnessServiceRemoteClusterSpec) SetWitnessDetails(v interface{}) error {
+	if nil == p.WitnessDetails {
+		p.WitnessDetails = NewOneOfWitnessServiceRemoteClusterSpecWitnessDetails()
+	}
+	e := p.WitnessDetails.SetValue(v)
+	if nil == e {
+		if nil == p.WitnessDetailsItemDiscriminator_ {
+			p.WitnessDetailsItemDiscriminator_ = new(string)
+		}
+		*p.WitnessDetailsItemDiscriminator_ = *p.WitnessDetails.Discriminator
+	}
+	return e
+}
+
 type OneOfGetBackupTargetApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *BackupTarget          `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetBackupTargetApiResponseData() *OneOfGetBackupTargetApiResponseData {
@@ -6915,6 +7501,9 @@ func (p *OneOfGetBackupTargetApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetBackupTargetApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -6925,9 +7514,79 @@ func (p *OneOfGetBackupTargetApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(BackupTarget)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.BackupTarget" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(BackupTarget)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -6945,7 +7604,7 @@ func (p *OneOfGetBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(BackupTarget)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.BackupTarget" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.BackupTarget" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(BackupTarget)
 			}
@@ -6961,10 +7620,31 @@ func (p *OneOfGetBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetBackupTargetApiResponseData"))
 }
 
 func (p *OneOfGetBackupTargetApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -6974,116 +7654,13 @@ func (p *OneOfGetBackupTargetApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetBackupTargetApiResponseData")
 }
 
-type OneOfListProductsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2002 []Product              `json:"-"`
-}
-
-func NewOneOfListProductsApiResponseData() *OneOfListProductsApiResponseData {
-	p := new(OneOfListProductsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListProductsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListProductsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Product:
-		p.oneOfType2002 = v.([]Product)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<prism.v4.management.Product>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<prism.v4.management.Product>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListProductsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<prism.v4.management.Product>" == *p.Discriminator {
-		return p.oneOfType2002
-	}
-	return nil
-}
-
-func (p *OneOfListProductsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2002 := new([]Product)
-	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if len(*vOneOfType2002) == 0 || "prism.v4.management.Product" == *((*vOneOfType2002)[0].ObjectType_) {
-			p.oneOfType2002 = *vOneOfType2002
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.management.Product>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.management.Product>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListProductsApiResponseData"))
-}
-
-func (p *OneOfListProductsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<prism.v4.management.Product>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2002)
-	}
-	return nil, errors.New("No value to marshal for OneOfListProductsApiResponseData")
-}
-
 type OneOfUnregisterApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfUnregisterApiResponseData() *OneOfUnregisterApiResponseData {
@@ -7131,6 +7708,9 @@ func (p *OneOfUnregisterApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfUnregisterApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -7141,9 +7721,79 @@ func (p *OneOfUnregisterApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfUnregisterApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import3.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(import3.TaskReference)
 			}
@@ -7161,7 +7811,7 @@ func (p *OneOfUnregisterApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -7177,10 +7827,31 @@ func (p *OneOfUnregisterApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUnregisterApiResponseData"))
 }
 
 func (p *OneOfUnregisterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -7195,6 +7866,8 @@ type OneOfRestoreApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfRestoreApiResponseData() *OneOfRestoreApiResponseData {
@@ -7242,6 +7915,9 @@ func (p *OneOfRestoreApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfRestoreApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -7252,9 +7928,79 @@ func (p *OneOfRestoreApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfRestoreApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(import3.TaskReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(import3.TaskReference)
 			}
@@ -7272,7 +8018,7 @@ func (p *OneOfRestoreApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -7288,10 +8034,31 @@ func (p *OneOfRestoreApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRestoreApiResponseData"))
 }
 
 func (p *OneOfRestoreApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -7306,6 +8073,8 @@ type OneOfBackupTargetLocation struct {
 	ObjectType_   *string              `json:"-"`
 	oneOfType0    *ClusterLocation     `json:"-"`
 	oneOfType1    *ObjectStoreLocation `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfBackupTargetLocation() *OneOfBackupTargetLocation {
@@ -7353,6 +8122,9 @@ func (p *OneOfBackupTargetLocation) SetValue(v interface{}) error {
 }
 
 func (p *OneOfBackupTargetLocation) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -7363,9 +8135,79 @@ func (p *OneOfBackupTargetLocation) GetValue() interface{} {
 }
 
 func (p *OneOfBackupTargetLocation) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(ClusterLocation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.ClusterLocation" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(ClusterLocation)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(ObjectStoreLocation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "prism.v4.management.ObjectStoreLocation" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(ObjectStoreLocation)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(ClusterLocation)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.ClusterLocation" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.ClusterLocation" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(ClusterLocation)
 			}
@@ -7383,7 +8225,7 @@ func (p *OneOfBackupTargetLocation) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(ObjectStoreLocation)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.management.ObjectStoreLocation" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "prism.v4.management.ObjectStoreLocation" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(ObjectStoreLocation)
 			}
@@ -7399,10 +8241,31 @@ func (p *OneOfBackupTargetLocation) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBackupTargetLocation"))
 }
 
 func (p *OneOfBackupTargetLocation) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -7417,6 +8280,8 @@ type OneOfProductMetadata struct {
 	ObjectType_    *string                 `json:"-"`
 	oneOfType12002 *FlowControllerMetadata `json:"-"`
 	oneOfType12001 *GenericMetadata        `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfProductMetadata() *OneOfProductMetadata {
@@ -7464,6 +8329,9 @@ func (p *OneOfProductMetadata) SetValue(v interface{}) error {
 }
 
 func (p *OneOfProductMetadata) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType12002 != nil && *p.oneOfType12002.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType12002
 	}
@@ -7474,9 +8342,79 @@ func (p *OneOfProductMetadata) GetValue() interface{} {
 }
 
 func (p *OneOfProductMetadata) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType12002 := new(FlowControllerMetadata)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType12002)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType12002.ObjectType_ != nil && "prism.v4.management.FlowControllerMetadata" == *vOneOfType12002.ObjectType_ {
+							if nil == p.oneOfType12002 {
+								p.oneOfType12002 = new(FlowControllerMetadata)
+							}
+							*p.oneOfType12002 = *vOneOfType12002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType12002.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType12002.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType12001 := new(GenericMetadata)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType12001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType12001.ObjectType_ != nil && "prism.v4.management.GenericMetadata" == *vOneOfType12001.ObjectType_ {
+							if nil == p.oneOfType12001 {
+								p.oneOfType12001 = new(GenericMetadata)
+							}
+							*p.oneOfType12001 = *vOneOfType12001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType12001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType12001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType12002 := new(FlowControllerMetadata)
 	if err := json.Unmarshal(b, vOneOfType12002); err == nil {
-		if "prism.v4.management.FlowControllerMetadata" == *vOneOfType12002.ObjectType_ {
+		if vOneOfType12002.ObjectType_ != nil && "prism.v4.management.FlowControllerMetadata" == *vOneOfType12002.ObjectType_ {
 			if nil == p.oneOfType12002 {
 				p.oneOfType12002 = new(FlowControllerMetadata)
 			}
@@ -7494,7 +8432,7 @@ func (p *OneOfProductMetadata) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType12001 := new(GenericMetadata)
 	if err := json.Unmarshal(b, vOneOfType12001); err == nil {
-		if "prism.v4.management.GenericMetadata" == *vOneOfType12001.ObjectType_ {
+		if vOneOfType12001.ObjectType_ != nil && "prism.v4.management.GenericMetadata" == *vOneOfType12001.ObjectType_ {
 			if nil == p.oneOfType12001 {
 				p.oneOfType12001 = new(GenericMetadata)
 			}
@@ -7510,10 +8448,31 @@ func (p *OneOfProductMetadata) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfProductMetadata"))
 }
 
 func (p *OneOfProductMetadata) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType12002 != nil && *p.oneOfType12002.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType12002)
 	}
@@ -7528,6 +8487,8 @@ type OneOfRegisterApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfRegisterApiResponseData() *OneOfRegisterApiResponseData {
@@ -7575,6 +8536,9 @@ func (p *OneOfRegisterApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfRegisterApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -7585,9 +8549,79 @@ func (p *OneOfRegisterApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfRegisterApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import3.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(import3.TaskReference)
 			}
@@ -7605,7 +8639,7 @@ func (p *OneOfRegisterApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -7621,10 +8655,31 @@ func (p *OneOfRegisterApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRegisterApiResponseData"))
 }
 
 func (p *OneOfRegisterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -7639,6 +8694,8 @@ type OneOfDeleteBackupTargetApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfDeleteBackupTargetApiResponseData() *OneOfDeleteBackupTargetApiResponseData {
@@ -7686,6 +8743,9 @@ func (p *OneOfDeleteBackupTargetApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfDeleteBackupTargetApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -7696,9 +8756,79 @@ func (p *OneOfDeleteBackupTargetApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfDeleteBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(import3.TaskReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(import3.TaskReference)
 			}
@@ -7716,7 +8846,7 @@ func (p *OneOfDeleteBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -7732,10 +8862,31 @@ func (p *OneOfDeleteBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteBackupTargetApiResponseData"))
 }
 
 func (p *OneOfDeleteBackupTargetApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -7750,6 +8901,8 @@ type OneOfGetRestoreSourceApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *RestoreSource         `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetRestoreSourceApiResponseData() *OneOfGetRestoreSourceApiResponseData {
@@ -7797,6 +8950,9 @@ func (p *OneOfGetRestoreSourceApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetRestoreSourceApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -7807,9 +8963,79 @@ func (p *OneOfGetRestoreSourceApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(RestoreSource)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.RestoreSource" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(RestoreSource)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -7827,7 +9053,7 @@ func (p *OneOfGetRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(RestoreSource)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.RestoreSource" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.RestoreSource" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(RestoreSource)
 			}
@@ -7843,10 +9069,31 @@ func (p *OneOfGetRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRestoreSourceApiResponseData"))
 }
 
 func (p *OneOfGetRestoreSourceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -7860,6 +9107,8 @@ type OneOfRegistrationMetadata struct {
 	Discriminator  *string          `json:"-"`
 	ObjectType_    *string          `json:"-"`
 	oneOfType12001 *GenericMetadata `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfRegistrationMetadata() *OneOfRegistrationMetadata {
@@ -7894,6 +9143,9 @@ func (p *OneOfRegistrationMetadata) SetValue(v interface{}) error {
 }
 
 func (p *OneOfRegistrationMetadata) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType12001 != nil && *p.oneOfType12001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType12001
 	}
@@ -7901,9 +9153,48 @@ func (p *OneOfRegistrationMetadata) GetValue() interface{} {
 }
 
 func (p *OneOfRegistrationMetadata) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType12001 := new(GenericMetadata)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType12001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType12001.ObjectType_ != nil && "prism.v4.management.GenericMetadata" == *vOneOfType12001.ObjectType_ {
+							if nil == p.oneOfType12001 {
+								p.oneOfType12001 = new(GenericMetadata)
+							}
+							*p.oneOfType12001 = *vOneOfType12001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType12001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType12001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType12001 := new(GenericMetadata)
 	if err := json.Unmarshal(b, vOneOfType12001); err == nil {
-		if "prism.v4.management.GenericMetadata" == *vOneOfType12001.ObjectType_ {
+		if vOneOfType12001.ObjectType_ != nil && "prism.v4.management.GenericMetadata" == *vOneOfType12001.ObjectType_ {
 			if nil == p.oneOfType12001 {
 				p.oneOfType12001 = new(GenericMetadata)
 			}
@@ -7919,10 +9210,31 @@ func (p *OneOfRegistrationMetadata) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRegistrationMetadata"))
 }
 
 func (p *OneOfRegistrationMetadata) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType12001 != nil && *p.oneOfType12001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType12001)
 	}
@@ -7934,6 +9246,8 @@ type OneOfClusterLocationConfig struct {
 	ObjectType_   *string            `json:"-"`
 	oneOfType0    *ClusterReference  `json:"-"`
 	oneOfType1    *RemoteClusterSpec `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfClusterLocationConfig() *OneOfClusterLocationConfig {
@@ -7981,6 +9295,9 @@ func (p *OneOfClusterLocationConfig) SetValue(v interface{}) error {
 }
 
 func (p *OneOfClusterLocationConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -7991,9 +9308,79 @@ func (p *OneOfClusterLocationConfig) GetValue() interface{} {
 }
 
 func (p *OneOfClusterLocationConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(ClusterReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.ClusterReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(ClusterReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(RemoteClusterSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "prism.v4.management.RemoteClusterSpec" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(RemoteClusterSpec)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(ClusterReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.ClusterReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.ClusterReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(ClusterReference)
 			}
@@ -8011,7 +9398,7 @@ func (p *OneOfClusterLocationConfig) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(RemoteClusterSpec)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.management.RemoteClusterSpec" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "prism.v4.management.RemoteClusterSpec" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(RemoteClusterSpec)
 			}
@@ -8027,10 +9414,31 @@ func (p *OneOfClusterLocationConfig) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterLocationConfig"))
 }
 
 func (p *OneOfClusterLocationConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -8040,12 +9448,212 @@ func (p *OneOfClusterLocationConfig) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfClusterLocationConfig")
 }
 
+type OneOfListRestorePointsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []RestorePoint         `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListRestorePointsApiResponseData() *OneOfListRestorePointsApiResponseData {
+	p := new(OneOfListRestorePointsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRestorePointsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRestorePointsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []RestorePoint:
+		p.oneOfType2001 = v.([]RestorePoint)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.management.RestorePoint>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.management.RestorePoint>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRestorePointsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<prism.v4.management.RestorePoint>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListRestorePointsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<prism.v4.management.RestorePoint>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]RestorePoint)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "prism.v4.management.RestorePoint" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<prism.v4.management.RestorePoint>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<prism.v4.management.RestorePoint>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]RestorePoint)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "prism.v4.management.RestorePoint" == *((*vOneOfType2001)[0].ObjectType_)) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.management.RestorePoint>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.management.RestorePoint>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRestorePointsApiResponseData"))
+}
+
+func (p *OneOfListRestorePointsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.management.RestorePoint>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRestorePointsApiResponseData")
+}
+
 type OneOfClusterRegistrationSpecRemoteCluster struct {
 	Discriminator  *string                         `json:"-"`
 	ObjectType_    *string                         `json:"-"`
 	oneOfType12002 *AOSRemoteClusterSpec           `json:"-"`
 	oneOfType12003 *ClusterReference               `json:"-"`
 	oneOfType12001 *DomainManagerRemoteClusterSpec `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfClusterRegistrationSpecRemoteCluster() *OneOfClusterRegistrationSpecRemoteCluster {
@@ -8106,6 +9714,9 @@ func (p *OneOfClusterRegistrationSpecRemoteCluster) SetValue(v interface{}) erro
 }
 
 func (p *OneOfClusterRegistrationSpecRemoteCluster) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType12002 != nil && *p.oneOfType12002.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType12002
 	}
@@ -8119,9 +9730,110 @@ func (p *OneOfClusterRegistrationSpecRemoteCluster) GetValue() interface{} {
 }
 
 func (p *OneOfClusterRegistrationSpecRemoteCluster) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType12002 := new(AOSRemoteClusterSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType12002)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType12002.ObjectType_ != nil && "prism.v4.management.AOSRemoteClusterSpec" == *vOneOfType12002.ObjectType_ {
+							if nil == p.oneOfType12002 {
+								p.oneOfType12002 = new(AOSRemoteClusterSpec)
+							}
+							*p.oneOfType12002 = *vOneOfType12002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType12002.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType12002.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType12003 := new(ClusterReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType12003)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType12003.ObjectType_ != nil && "prism.v4.management.ClusterReference" == *vOneOfType12003.ObjectType_ {
+							if nil == p.oneOfType12003 {
+								p.oneOfType12003 = new(ClusterReference)
+							}
+							*p.oneOfType12003 = *vOneOfType12003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType12003.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType12003.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType12001 := new(DomainManagerRemoteClusterSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType12001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType12001.ObjectType_ != nil && "prism.v4.management.DomainManagerRemoteClusterSpec" == *vOneOfType12001.ObjectType_ {
+							if nil == p.oneOfType12001 {
+								p.oneOfType12001 = new(DomainManagerRemoteClusterSpec)
+							}
+							*p.oneOfType12001 = *vOneOfType12001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType12001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType12001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType12002 := new(AOSRemoteClusterSpec)
 	if err := json.Unmarshal(b, vOneOfType12002); err == nil {
-		if "prism.v4.management.AOSRemoteClusterSpec" == *vOneOfType12002.ObjectType_ {
+		if vOneOfType12002.ObjectType_ != nil && "prism.v4.management.AOSRemoteClusterSpec" == *vOneOfType12002.ObjectType_ {
 			if nil == p.oneOfType12002 {
 				p.oneOfType12002 = new(AOSRemoteClusterSpec)
 			}
@@ -8139,7 +9851,7 @@ func (p *OneOfClusterRegistrationSpecRemoteCluster) UnmarshalJSON(b []byte) erro
 	}
 	vOneOfType12003 := new(ClusterReference)
 	if err := json.Unmarshal(b, vOneOfType12003); err == nil {
-		if "prism.v4.management.ClusterReference" == *vOneOfType12003.ObjectType_ {
+		if vOneOfType12003.ObjectType_ != nil && "prism.v4.management.ClusterReference" == *vOneOfType12003.ObjectType_ {
 			if nil == p.oneOfType12003 {
 				p.oneOfType12003 = new(ClusterReference)
 			}
@@ -8157,7 +9869,7 @@ func (p *OneOfClusterRegistrationSpecRemoteCluster) UnmarshalJSON(b []byte) erro
 	}
 	vOneOfType12001 := new(DomainManagerRemoteClusterSpec)
 	if err := json.Unmarshal(b, vOneOfType12001); err == nil {
-		if "prism.v4.management.DomainManagerRemoteClusterSpec" == *vOneOfType12001.ObjectType_ {
+		if vOneOfType12001.ObjectType_ != nil && "prism.v4.management.DomainManagerRemoteClusterSpec" == *vOneOfType12001.ObjectType_ {
 			if nil == p.oneOfType12001 {
 				p.oneOfType12001 = new(DomainManagerRemoteClusterSpec)
 			}
@@ -8173,10 +9885,31 @@ func (p *OneOfClusterRegistrationSpecRemoteCluster) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterRegistrationSpecRemoteCluster"))
 }
 
 func (p *OneOfClusterRegistrationSpecRemoteCluster) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType12002 != nil && *p.oneOfType12002.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType12002)
 	}
@@ -8189,12 +9922,212 @@ func (p *OneOfClusterRegistrationSpecRemoteCluster) MarshalJSON() ([]byte, error
 	return nil, errors.New("No value to marshal for OneOfClusterRegistrationSpecRemoteCluster")
 }
 
+type OneOfListRestorableDomainManagersApiResponseData struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType400  *import4.ErrorResponse    `json:"-"`
+	oneOfType2001 []RestorableDomainManager `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListRestorableDomainManagersApiResponseData() *OneOfListRestorableDomainManagersApiResponseData {
+	p := new(OneOfListRestorableDomainManagersApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRestorableDomainManagersApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRestorableDomainManagersApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []RestorableDomainManager:
+		p.oneOfType2001 = v.([]RestorableDomainManager)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.management.RestorableDomainManager>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.management.RestorableDomainManager>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRestorableDomainManagersApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<prism.v4.management.RestorableDomainManager>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListRestorableDomainManagersApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<prism.v4.management.RestorableDomainManager>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]RestorableDomainManager)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "prism.v4.management.RestorableDomainManager" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<prism.v4.management.RestorableDomainManager>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<prism.v4.management.RestorableDomainManager>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]RestorableDomainManager)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "prism.v4.management.RestorableDomainManager" == *((*vOneOfType2001)[0].ObjectType_)) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.management.RestorableDomainManager>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.management.RestorableDomainManager>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRestorableDomainManagersApiResponseData"))
+}
+
+func (p *OneOfListRestorableDomainManagersApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.management.RestorableDomainManager>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRestorableDomainManagersApiResponseData")
+}
+
 type OneOfObjectStoreLocationProviderConfig struct {
 	Discriminator *string               `json:"-"`
 	ObjectType_   *string               `json:"-"`
 	oneOfType0    *AWSS3Config          `json:"-"`
 	oneOfType2    *GenericS3Config      `json:"-"`
 	oneOfType1    *NutanixObjectsConfig `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfObjectStoreLocationProviderConfig() *OneOfObjectStoreLocationProviderConfig {
@@ -8255,6 +10188,9 @@ func (p *OneOfObjectStoreLocationProviderConfig) SetValue(v interface{}) error {
 }
 
 func (p *OneOfObjectStoreLocationProviderConfig) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -8268,9 +10204,110 @@ func (p *OneOfObjectStoreLocationProviderConfig) GetValue() interface{} {
 }
 
 func (p *OneOfObjectStoreLocationProviderConfig) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AWSS3Config)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.AWSS3Config" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AWSS3Config)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2 := new(GenericS3Config)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2.ObjectType_ != nil && "prism.v4.management.GenericS3Config" == *vOneOfType2.ObjectType_ {
+							if nil == p.oneOfType2 {
+								p.oneOfType2 = new(GenericS3Config)
+							}
+							*p.oneOfType2 = *vOneOfType2
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(NutanixObjectsConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "prism.v4.management.NutanixObjectsConfig" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(NutanixObjectsConfig)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(AWSS3Config)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.AWSS3Config" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.AWSS3Config" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AWSS3Config)
 			}
@@ -8288,7 +10325,7 @@ func (p *OneOfObjectStoreLocationProviderConfig) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2 := new(GenericS3Config)
 	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "prism.v4.management.GenericS3Config" == *vOneOfType2.ObjectType_ {
+		if vOneOfType2.ObjectType_ != nil && "prism.v4.management.GenericS3Config" == *vOneOfType2.ObjectType_ {
 			if nil == p.oneOfType2 {
 				p.oneOfType2 = new(GenericS3Config)
 			}
@@ -8306,7 +10343,7 @@ func (p *OneOfObjectStoreLocationProviderConfig) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(NutanixObjectsConfig)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.management.NutanixObjectsConfig" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "prism.v4.management.NutanixObjectsConfig" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(NutanixObjectsConfig)
 			}
@@ -8322,10 +10359,31 @@ func (p *OneOfObjectStoreLocationProviderConfig) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfObjectStoreLocationProviderConfig"))
 }
 
 func (p *OneOfObjectStoreLocationProviderConfig) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -8338,23 +10396,25 @@ func (p *OneOfObjectStoreLocationProviderConfig) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfObjectStoreLocationProviderConfig")
 }
 
-type OneOfListBackupTargetsApiResponseData struct {
+type OneOfListRegistrationApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    []BackupTarget         `json:"-"`
+	oneOfType2001 []Registration         `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListBackupTargetsApiResponseData() *OneOfListBackupTargetsApiResponseData {
-	p := new(OneOfListBackupTargetsApiResponseData)
+func NewOneOfListRegistrationApiResponseData() *OneOfListRegistrationApiResponseData {
+	p := new(OneOfListRegistrationApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListBackupTargetsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListRegistrationApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListBackupTargetsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListRegistrationApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import4.ErrorResponse:
@@ -8370,141 +10430,106 @@ func (p *OneOfListBackupTargetsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []BackupTarget:
-		p.oneOfType0 = v.([]BackupTarget)
+	case []Registration:
+		p.oneOfType2001 = v.([]Registration)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<prism.v4.management.BackupTarget>"
+		*p.Discriminator = "List<prism.v4.management.Registration>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<prism.v4.management.BackupTarget>"
+		*p.ObjectType_ = "List<prism.v4.management.Registration>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListBackupTargetsApiResponseData) GetValue() interface{} {
+func (p *OneOfListRegistrationApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<prism.v4.management.BackupTarget>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListBackupTargetsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]BackupTarget)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "prism.v4.management.BackupTarget" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.management.BackupTarget>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.management.BackupTarget>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBackupTargetsApiResponseData"))
-}
-
-func (p *OneOfListBackupTargetsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<prism.v4.management.BackupTarget>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListBackupTargetsApiResponseData")
-}
-
-type OneOfListRestorePointsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 []RestorePoint         `json:"-"`
-}
-
-func NewOneOfListRestorePointsApiResponseData() *OneOfListRestorePointsApiResponseData {
-	p := new(OneOfListRestorePointsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListRestorePointsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListRestorePointsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []RestorePoint:
-		p.oneOfType2001 = v.([]RestorePoint)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<prism.v4.management.RestorePoint>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<prism.v4.management.RestorePoint>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListRestorePointsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<prism.v4.management.RestorePoint>" == *p.Discriminator {
+	if "List<prism.v4.management.Registration>" == *p.Discriminator {
 		return p.oneOfType2001
 	}
 	return nil
 }
 
-func (p *OneOfListRestorePointsApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListRegistrationApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<prism.v4.management.Registration>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]Registration)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "prism.v4.management.Registration" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<prism.v4.management.Registration>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<prism.v4.management.Registration>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -8520,143 +10545,61 @@ func (p *OneOfListRestorePointsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType2001 := new([]RestorePoint)
+	vOneOfType2001 := new([]Registration)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "prism.v4.management.RestorePoint" == *((*vOneOfType2001)[0].ObjectType_) {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "prism.v4.management.Registration" == *((*vOneOfType2001)[0].ObjectType_)) {
 			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<prism.v4.management.RestorePoint>"
+			*p.Discriminator = "List<prism.v4.management.Registration>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<prism.v4.management.RestorePoint>"
+			*p.ObjectType_ = "List<prism.v4.management.Registration>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRestorePointsApiResponseData"))
-}
-
-func (p *OneOfListRestorePointsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<prism.v4.management.RestorePoint>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListRestorePointsApiResponseData")
-}
-
-type OneOfListRestorableDomainManagersApiResponseData struct {
-	Discriminator *string                   `json:"-"`
-	ObjectType_   *string                   `json:"-"`
-	oneOfType2001 []RestorableDomainManager `json:"-"`
-	oneOfType400  *import4.ErrorResponse    `json:"-"`
-}
-
-func NewOneOfListRestorableDomainManagersApiResponseData() *OneOfListRestorableDomainManagersApiResponseData {
-	p := new(OneOfListRestorableDomainManagersApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListRestorableDomainManagersApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListRestorableDomainManagersApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []RestorableDomainManager:
-		p.oneOfType2001 = v.([]RestorableDomainManager)
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<prism.v4.management.RestorableDomainManager>"
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<prism.v4.management.RestorableDomainManager>"
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+		*p.ObjectType_ = *p.Discriminator
+		return nil
 	}
-	return nil
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRegistrationApiResponseData"))
 }
 
-func (p *OneOfListRestorableDomainManagersApiResponseData) GetValue() interface{} {
-	if "List<prism.v4.management.RestorableDomainManager>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListRestorableDomainManagersApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new([]RestorableDomainManager)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "prism.v4.management.RestorableDomainManager" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.management.RestorableDomainManager>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.management.RestorableDomainManager>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRestorableDomainManagersApiResponseData"))
-}
-
-func (p *OneOfListRestorableDomainManagersApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<prism.v4.management.RestorableDomainManager>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
+func (p *OneOfListRegistrationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfListRestorableDomainManagersApiResponseData")
+	if "List<prism.v4.management.Registration>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRegistrationApiResponseData")
 }
 
 type OneOfGenericS3ConfigCredentials struct {
 	Discriminator *string               `json:"-"`
 	ObjectType_   *string               `json:"-"`
 	oneOfType0    *AccessKeyCredentials `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGenericS3ConfigCredentials() *OneOfGenericS3ConfigCredentials {
@@ -8691,6 +10634,9 @@ func (p *OneOfGenericS3ConfigCredentials) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGenericS3ConfigCredentials) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -8698,9 +10644,48 @@ func (p *OneOfGenericS3ConfigCredentials) GetValue() interface{} {
 }
 
 func (p *OneOfGenericS3ConfigCredentials) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AccessKeyCredentials)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.AccessKeyCredentials" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AccessKeyCredentials)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(AccessKeyCredentials)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.AccessKeyCredentials" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.AccessKeyCredentials" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AccessKeyCredentials)
 			}
@@ -8716,14 +10701,242 @@ func (p *OneOfGenericS3ConfigCredentials) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGenericS3ConfigCredentials"))
 }
 
 func (p *OneOfGenericS3ConfigCredentials) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfGenericS3ConfigCredentials")
+}
+
+type OneOfScaleUpDomainManagerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfScaleUpDomainManagerApiResponseData() *OneOfScaleUpDomainManagerApiResponseData {
+	p := new(OneOfScaleUpDomainManagerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfScaleUpDomainManagerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfScaleUpDomainManagerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfScaleUpDomainManagerApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfScaleUpDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import3.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfScaleUpDomainManagerApiResponseData"))
+}
+
+func (p *OneOfScaleUpDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfScaleUpDomainManagerApiResponseData")
 }
 
 type OneOfGetRegistrationApiResponseData struct {
@@ -8731,6 +10944,8 @@ type OneOfGetRegistrationApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType2001 *Registration          `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetRegistrationApiResponseData() *OneOfGetRegistrationApiResponseData {
@@ -8778,6 +10993,9 @@ func (p *OneOfGetRegistrationApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetRegistrationApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -8788,9 +11006,79 @@ func (p *OneOfGetRegistrationApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetRegistrationApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(Registration)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.management.Registration" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(Registration)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -8808,7 +11096,7 @@ func (p *OneOfGetRegistrationApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2001 := new(Registration)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.management.Registration" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.management.Registration" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(Registration)
 			}
@@ -8824,10 +11112,31 @@ func (p *OneOfGetRegistrationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRegistrationApiResponseData"))
 }
 
 func (p *OneOfGetRegistrationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -8842,6 +11151,8 @@ type OneOfGetRestorePointApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *RestorePoint          `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetRestorePointApiResponseData() *OneOfGetRestorePointApiResponseData {
@@ -8889,6 +11200,9 @@ func (p *OneOfGetRestorePointApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetRestorePointApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -8899,9 +11213,79 @@ func (p *OneOfGetRestorePointApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetRestorePointApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(RestorePoint)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.management.RestorePoint" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(RestorePoint)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(RestorePoint)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.management.RestorePoint" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.management.RestorePoint" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(RestorePoint)
 			}
@@ -8919,7 +11303,7 @@ func (p *OneOfGetRestorePointApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -8935,10 +11319,31 @@ func (p *OneOfGetRestorePointApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRestorePointApiResponseData"))
 }
 
 func (p *OneOfGetRestorePointApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -8953,6 +11358,8 @@ type OneOfCreateRestoreSourceApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *RestoreSource         `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfCreateRestoreSourceApiResponseData() *OneOfCreateRestoreSourceApiResponseData {
@@ -9000,6 +11407,9 @@ func (p *OneOfCreateRestoreSourceApiResponseData) SetValue(v interface{}) error 
 }
 
 func (p *OneOfCreateRestoreSourceApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -9010,9 +11420,79 @@ func (p *OneOfCreateRestoreSourceApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfCreateRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(RestoreSource)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.RestoreSource" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(RestoreSource)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -9030,7 +11510,7 @@ func (p *OneOfCreateRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error 
 	}
 	vOneOfType0 := new(RestoreSource)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.RestoreSource" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.RestoreSource" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(RestoreSource)
 			}
@@ -9046,10 +11526,31 @@ func (p *OneOfCreateRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateRestoreSourceApiResponseData"))
 }
 
 func (p *OneOfCreateRestoreSourceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -9059,10 +11560,210 @@ func (p *OneOfCreateRestoreSourceApiResponseData) MarshalJSON() ([]byte, error) 
 	return nil, errors.New("No value to marshal for OneOfCreateRestoreSourceApiResponseData")
 }
 
+type OneOfListProductsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2002 []Product              `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListProductsApiResponseData() *OneOfListProductsApiResponseData {
+	p := new(OneOfListProductsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListProductsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListProductsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Product:
+		p.oneOfType2002 = v.([]Product)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.management.Product>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.management.Product>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListProductsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<prism.v4.management.Product>" == *p.Discriminator {
+		return p.oneOfType2002
+	}
+	return nil
+}
+
+func (p *OneOfListProductsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<prism.v4.management.Product>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2002 := new([]Product)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2002)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2002 == nil || len(*vOneOfType2002) == 0 || ((*vOneOfType2002)[0].ObjectType_ != nil && "prism.v4.management.Product" == *((*vOneOfType2002)[0].ObjectType_)) {
+							p.oneOfType2002 = *vOneOfType2002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<prism.v4.management.Product>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<prism.v4.management.Product>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new([]Product)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if len(*vOneOfType2002) == 0 || (vOneOfType2002 != nil && (*vOneOfType2002)[0].ObjectType_ != nil && "prism.v4.management.Product" == *((*vOneOfType2002)[0].ObjectType_)) {
+			p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.management.Product>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.management.Product>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListProductsApiResponseData"))
+}
+
+func (p *OneOfListProductsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.management.Product>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	return nil, errors.New("No value to marshal for OneOfListProductsApiResponseData")
+}
+
 type OneOfNutanixObjectsConfigCredentials struct {
 	Discriminator *string               `json:"-"`
 	ObjectType_   *string               `json:"-"`
 	oneOfType0    *AccessKeyCredentials `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfNutanixObjectsConfigCredentials() *OneOfNutanixObjectsConfigCredentials {
@@ -9097,6 +11798,9 @@ func (p *OneOfNutanixObjectsConfigCredentials) SetValue(v interface{}) error {
 }
 
 func (p *OneOfNutanixObjectsConfigCredentials) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -9104,9 +11808,48 @@ func (p *OneOfNutanixObjectsConfigCredentials) GetValue() interface{} {
 }
 
 func (p *OneOfNutanixObjectsConfigCredentials) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(AccessKeyCredentials)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.AccessKeyCredentials" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(AccessKeyCredentials)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(AccessKeyCredentials)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.AccessKeyCredentials" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.AccessKeyCredentials" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(AccessKeyCredentials)
 			}
@@ -9122,10 +11865,31 @@ func (p *OneOfNutanixObjectsConfigCredentials) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNutanixObjectsConfigCredentials"))
 }
 
 func (p *OneOfNutanixObjectsConfigCredentials) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -9137,6 +11901,8 @@ type OneOfUpdateBackupTargetApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfUpdateBackupTargetApiResponseData() *OneOfUpdateBackupTargetApiResponseData {
@@ -9184,6 +11950,9 @@ func (p *OneOfUpdateBackupTargetApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfUpdateBackupTargetApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -9194,9 +11963,79 @@ func (p *OneOfUpdateBackupTargetApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfUpdateBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(import3.TaskReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(import3.TaskReference)
 			}
@@ -9214,7 +12053,7 @@ func (p *OneOfUpdateBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -9230,10 +12069,31 @@ func (p *OneOfUpdateBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateBackupTargetApiResponseData"))
 }
 
 func (p *OneOfUpdateBackupTargetApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -9243,11 +12103,151 @@ func (p *OneOfUpdateBackupTargetApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfUpdateBackupTargetApiResponseData")
 }
 
+type OneOfWitnessServiceRemoteClusterSpecWitnessDetails struct {
+	Discriminator  *string            `json:"-"`
+	ObjectType_    *string            `json:"-"`
+	oneOfType10001 *RemoteClusterSpec `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfWitnessServiceRemoteClusterSpecWitnessDetails() *OneOfWitnessServiceRemoteClusterSpecWitnessDetails {
+	p := new(OneOfWitnessServiceRemoteClusterSpecWitnessDetails)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfWitnessServiceRemoteClusterSpecWitnessDetails) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfWitnessServiceRemoteClusterSpecWitnessDetails is nil"))
+	}
+	switch v.(type) {
+	case RemoteClusterSpec:
+		if nil == p.oneOfType10001 {
+			p.oneOfType10001 = new(RemoteClusterSpec)
+		}
+		*p.oneOfType10001 = v.(RemoteClusterSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType10001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType10001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfWitnessServiceRemoteClusterSpecWitnessDetails) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType10001 != nil && *p.oneOfType10001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType10001
+	}
+	return nil
+}
+
+func (p *OneOfWitnessServiceRemoteClusterSpecWitnessDetails) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType10001 := new(RemoteClusterSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType10001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType10001.ObjectType_ != nil && "prism.v4.management.RemoteClusterSpec" == *vOneOfType10001.ObjectType_ {
+							if nil == p.oneOfType10001 {
+								p.oneOfType10001 = new(RemoteClusterSpec)
+							}
+							*p.oneOfType10001 = *vOneOfType10001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType10001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType10001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType10001 := new(RemoteClusterSpec)
+	if err := json.Unmarshal(b, vOneOfType10001); err == nil {
+		if vOneOfType10001.ObjectType_ != nil && "prism.v4.management.RemoteClusterSpec" == *vOneOfType10001.ObjectType_ {
+			if nil == p.oneOfType10001 {
+				p.oneOfType10001 = new(RemoteClusterSpec)
+			}
+			*p.oneOfType10001 = *vOneOfType10001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType10001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType10001.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfWitnessServiceRemoteClusterSpecWitnessDetails"))
+}
+
+func (p *OneOfWitnessServiceRemoteClusterSpecWitnessDetails) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType10001 != nil && *p.oneOfType10001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType10001)
+	}
+	return nil, errors.New("No value to marshal for OneOfWitnessServiceRemoteClusterSpecWitnessDetails")
+}
+
 type OneOfGetProductApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType2001 *Product               `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetProductApiResponseData() *OneOfGetProductApiResponseData {
@@ -9295,6 +12295,9 @@ func (p *OneOfGetProductApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetProductApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -9305,9 +12308,79 @@ func (p *OneOfGetProductApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetProductApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(Product)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.management.Product" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(Product)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -9325,7 +12398,7 @@ func (p *OneOfGetProductApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2001 := new(Product)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.management.Product" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.management.Product" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(Product)
 			}
@@ -9341,10 +12414,31 @@ func (p *OneOfGetProductApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetProductApiResponseData"))
 }
 
 func (p *OneOfGetProductApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -9354,11 +12448,211 @@ func (p *OneOfGetProductApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetProductApiResponseData")
 }
 
+type OneOfListBackupTargetsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType0    []BackupTarget         `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListBackupTargetsApiResponseData() *OneOfListBackupTargetsApiResponseData {
+	p := new(OneOfListBackupTargetsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListBackupTargetsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListBackupTargetsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []BackupTarget:
+		p.oneOfType0 = v.([]BackupTarget)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.management.BackupTarget>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.management.BackupTarget>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListBackupTargetsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<prism.v4.management.BackupTarget>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListBackupTargetsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<prism.v4.management.BackupTarget>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new([]BackupTarget)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType0 == nil || len(*vOneOfType0) == 0 || ((*vOneOfType0)[0].ObjectType_ != nil && "prism.v4.management.BackupTarget" == *((*vOneOfType0)[0].ObjectType_)) {
+							p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<prism.v4.management.BackupTarget>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<prism.v4.management.BackupTarget>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]BackupTarget)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || (vOneOfType0 != nil && (*vOneOfType0)[0].ObjectType_ != nil && "prism.v4.management.BackupTarget" == *((*vOneOfType0)[0].ObjectType_)) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.management.BackupTarget>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.management.BackupTarget>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBackupTargetsApiResponseData"))
+}
+
+func (p *OneOfListBackupTargetsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.management.BackupTarget>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListBackupTargetsApiResponseData")
+}
+
 type OneOfUpdateProductApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfUpdateProductApiResponseData() *OneOfUpdateProductApiResponseData {
@@ -9406,6 +12700,9 @@ func (p *OneOfUpdateProductApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfUpdateProductApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -9416,9 +12713,79 @@ func (p *OneOfUpdateProductApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfUpdateProductApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import3.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(import3.TaskReference)
 			}
@@ -9436,7 +12803,7 @@ func (p *OneOfUpdateProductApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -9452,10 +12819,31 @@ func (p *OneOfUpdateProductApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateProductApiResponseData"))
 }
 
 func (p *OneOfUpdateProductApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -9465,116 +12853,13 @@ func (p *OneOfUpdateProductApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfUpdateProductApiResponseData")
 }
 
-type OneOfListRegistrationApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 []Registration         `json:"-"`
-}
-
-func NewOneOfListRegistrationApiResponseData() *OneOfListRegistrationApiResponseData {
-	p := new(OneOfListRegistrationApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListRegistrationApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListRegistrationApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Registration:
-		p.oneOfType2001 = v.([]Registration)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<prism.v4.management.Registration>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<prism.v4.management.Registration>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListRegistrationApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<prism.v4.management.Registration>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfListRegistrationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new([]Registration)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "prism.v4.management.Registration" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.management.Registration>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.management.Registration>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRegistrationApiResponseData"))
-}
-
-func (p *OneOfListRegistrationApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<prism.v4.management.Registration>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListRegistrationApiResponseData")
-}
-
 type OneOfRestoreSourceLocation struct {
 	Discriminator *string              `json:"-"`
 	ObjectType_   *string              `json:"-"`
 	oneOfType0    *ClusterLocation     `json:"-"`
 	oneOfType1    *ObjectStoreLocation `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfRestoreSourceLocation() *OneOfRestoreSourceLocation {
@@ -9622,6 +12907,9 @@ func (p *OneOfRestoreSourceLocation) SetValue(v interface{}) error {
 }
 
 func (p *OneOfRestoreSourceLocation) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -9632,9 +12920,79 @@ func (p *OneOfRestoreSourceLocation) GetValue() interface{} {
 }
 
 func (p *OneOfRestoreSourceLocation) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(ClusterLocation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.management.ClusterLocation" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(ClusterLocation)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(ObjectStoreLocation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "prism.v4.management.ObjectStoreLocation" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(ObjectStoreLocation)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(ClusterLocation)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.management.ClusterLocation" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.management.ClusterLocation" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(ClusterLocation)
 			}
@@ -9652,7 +13010,7 @@ func (p *OneOfRestoreSourceLocation) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(ObjectStoreLocation)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.management.ObjectStoreLocation" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "prism.v4.management.ObjectStoreLocation" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(ObjectStoreLocation)
 			}
@@ -9668,10 +13026,31 @@ func (p *OneOfRestoreSourceLocation) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRestoreSourceLocation"))
 }
 
 func (p *OneOfRestoreSourceLocation) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -9686,6 +13065,8 @@ type OneOfCreateBackupTargetApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfCreateBackupTargetApiResponseData() *OneOfCreateBackupTargetApiResponseData {
@@ -9733,6 +13114,9 @@ func (p *OneOfCreateBackupTargetApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCreateBackupTargetApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -9743,9 +13127,79 @@ func (p *OneOfCreateBackupTargetApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfCreateBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(import3.TaskReference)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(import3.TaskReference)
 			}
@@ -9763,7 +13217,7 @@ func (p *OneOfCreateBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -9779,10 +13233,31 @@ func (p *OneOfCreateBackupTargetApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateBackupTargetApiResponseData"))
 }
 
 func (p *OneOfCreateBackupTargetApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -9797,6 +13272,8 @@ type OneOfDeleteRestoreSourceApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType1    *interface{}           `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfDeleteRestoreSourceApiResponseData() *OneOfDeleteRestoreSourceApiResponseData {
@@ -9846,6 +13323,9 @@ func (p *OneOfDeleteRestoreSourceApiResponseData) SetValue(v interface{}) error 
 }
 
 func (p *OneOfDeleteRestoreSourceApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "EMPTY" == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -9874,9 +13354,48 @@ func (p *OneOfDeleteRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import4.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import4.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import4.ErrorResponse)
 			}
@@ -9892,10 +13411,31 @@ func (p *OneOfDeleteRestoreSourceApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteRestoreSourceApiResponseData"))
 }
 
 func (p *OneOfDeleteRestoreSourceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "EMPTY" == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}

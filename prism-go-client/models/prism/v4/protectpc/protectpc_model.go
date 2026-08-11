@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/protectpc/protectpc_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -118,203 +118,7 @@ func NewApiError() *ApiError {
 	p := new(ApiError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-HATEOAS links for the request.  For paginated requests includes prev/next/first and last links
-*/
-type ApiLink struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The URL that points to the relationship.
-	*/
-	Href *string `json:"href,omitempty"`
-	/*
-	  The name of the relationship.
-	*/
-	Rel *string `json:"rel,omitempty"`
-}
-
-func (p *ApiLink) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ApiLink
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *ApiLink) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ApiLink
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = *NewApiLink()
-
-	if known.ObjectType_ != nil {
-		p.ObjectType_ = known.ObjectType_
-	}
-	if known.Reserved_ != nil {
-		p.Reserved_ = known.Reserved_
-	}
-	if known.UnknownFields_ != nil {
-		p.UnknownFields_ = known.UnknownFields_
-	}
-	if known.Href != nil {
-		p.Href = known.Href
-	}
-	if known.Rel != nil {
-		p.Rel = known.Rel
-	}
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "href")
-	delete(allFields, "rel")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	for key, value := range allFields {
-		p.UnknownFields_[key] = value
-	}
-
-	return nil
-}
-
-func NewApiLink() *ApiLink {
-	p := new(ApiLink)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Metadata associated with API responses.
-*/
-type ApiResponseMetadata struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Links []ApiLink `json:"links,omitempty"`
-}
-
-func (p *ApiResponseMetadata) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ApiResponseMetadata
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ApiResponseMetadata
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = *NewApiResponseMetadata()
-
-	if known.ObjectType_ != nil {
-		p.ObjectType_ = known.ObjectType_
-	}
-	if known.Reserved_ != nil {
-		p.Reserved_ = known.Reserved_
-	}
-	if known.UnknownFields_ != nil {
-		p.UnknownFields_ = known.UnknownFields_
-	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "links")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	for key, value := range allFields {
-		p.UnknownFields_[key] = value
-	}
-
-	return nil
-}
-
-func NewApiResponseMetadata() *ApiResponseMetadata {
-	p := new(ApiResponseMetadata)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -409,7 +213,7 @@ func NewApiSuccess() *ApiSuccess {
 	p := new(ApiSuccess)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiSuccess"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -512,7 +316,7 @@ func NewBackupTargets() *BackupTargets {
 	p := new(BackupTargets)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.BackupTargets"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -611,7 +415,7 @@ func NewBackupTargetsInfo() *BackupTargetsInfo {
 	p := new(BackupTargetsInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.BackupTargetsInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -731,7 +535,7 @@ func NewEligibleCluster() *EligibleCluster {
 	p := new(EligibleCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.EligibleCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -825,7 +629,7 @@ func NewEligibleClusterList() *EligibleClusterList {
 	p := new(EligibleClusterList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.EligibleClusterList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -936,7 +740,7 @@ func NewFailedRecoveryPointDetails() *FailedRecoveryPointDetails {
 	p := new(FailedRecoveryPointDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.FailedRecoveryPointDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1037,7 +841,7 @@ func NewFailedRecoveryPointsStats() *FailedRecoveryPointsStats {
 	p := new(FailedRecoveryPointsStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.FailedRecoveryPointsStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1162,7 +966,7 @@ func NewObjectStoreEndpointInfo() *ObjectStoreEndpointInfo {
 	p := new(ObjectStoreEndpointInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ObjectStoreEndpointInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1289,7 +1093,7 @@ func NewPEInfo() *PEInfo {
 	p := new(PEInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PEInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1400,7 +1204,7 @@ func NewPcEndpointCredentials() *PcEndpointCredentials {
 	p := new(PcEndpointCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcEndpointCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1663,7 +1467,7 @@ func NewPcObjectStoreEndpoint() *PcObjectStoreEndpoint {
 	p := new(PcObjectStoreEndpoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcObjectStoreEndpoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.BackupRetentionDays = new(int)
@@ -1769,7 +1573,7 @@ func NewPcRestoreRootTask() *PcRestoreRootTask {
 	p := new(PcRestoreRootTask)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcRestoreRootTask"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1892,7 +1696,7 @@ func NewPcvmRestoreFile() *PcvmRestoreFile {
 	p := new(PcvmRestoreFile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcvmRestoreFile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1985,7 +1789,7 @@ func NewPcvmRestoreFiles() *PcvmRestoreFiles {
 	p := new(PcvmRestoreFiles)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcvmRestoreFiles"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2098,7 +1902,7 @@ func NewRecoveryStatus() *RecoveryStatus {
 	p := new(RecoveryStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.RecoveryStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2215,7 +2019,7 @@ func NewReplicaInfo() *ReplicaInfo {
 	p := new(ReplicaInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ReplicaInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2310,7 +2114,7 @@ func NewRpoConfig() *RpoConfig {
 	p := new(RpoConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.RpoConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

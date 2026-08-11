@@ -61,6 +61,8 @@ func NewExternalStoragesServiceApi(apiClient *client.ApiClient) *ExternalStorage
 }
 
 // Retrieves details of a specific external storage resource by its unique identifier.
+//
+// Deprecated: This API has been deprecated.
 func (api *ExternalStoragesApi) GetExternalStorageById(extId *string, args ...map[string]interface{}) (*import3.GetExternalStorageApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewExternalStoragesServiceApi(api.ApiClient)
@@ -71,13 +73,15 @@ func (api *ExternalStoragesApi) GetExternalStorageById(extId *string, args ...ma
 }
 
 // Retrieves details of a specific external storage resource by its unique identifier.
+//
+// Deprecated: This API has been deprecated.
 func (api *ExternalStoragesServiceApi) GetExternalStorageById(ctx context.Context, request *import8.GetExternalStorageByIdRequest, args ...map[string]interface{}) (*import3.GetExternalStorageApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/external-storages/{extId}"
+	uri := "/api/prism/v4.4/config/external-storages/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,8 +118,14 @@ func (api *ExternalStoragesServiceApi) GetExternalStorageById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.GetExternalStorageApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

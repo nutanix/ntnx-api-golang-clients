@@ -9,4 +9,7 @@ import (
 type SubmitBatchRequest struct {
 	// (required) The request payload for the batch operation.
 	Body *import1.BatchSpec
+
+	// Project header for the request.
+	XNtnxProject *string
 }

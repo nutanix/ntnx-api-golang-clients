@@ -77,7 +77,7 @@ func (api *BatchesServiceApi) GetBatchById(ctx context.Context, request *import2
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/operations/batches/{extId}"
+	uri := "/api/prism/v4.4/operations/batches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *BatchesServiceApi) GetBatchById(ctx context.Context, request *import2
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetBatchApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -141,7 +147,7 @@ func (api *BatchesServiceApi) ListBatches(ctx context.Context, request *import2.
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/operations/batches"
+	uri := "/api/prism/v4.4/operations/batches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -187,19 +193,26 @@ func (api *BatchesServiceApi) ListBatches(ctx context.Context, request *import2.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListBatchesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Submit a homogenous batch operation.
-func (api *BatchesApi) SubmitBatch(body *import1.BatchSpec, args ...map[string]interface{}) (*import1.SubmitBatchApiResponse, error) {
+func (api *BatchesApi) SubmitBatch(body *import1.BatchSpec, xNtnxProject *string, args ...map[string]interface{}) (*import1.SubmitBatchApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewBatchesServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.SubmitBatch(context.Background(), &import2.SubmitBatchRequest{
-		Body: body,
+		Body:         body,
+		XNtnxProject: xNtnxProject,
 	}, args...)
 }
 
@@ -210,7 +223,7 @@ func (api *BatchesServiceApi) SubmitBatch(ctx context.Context, request *import2.
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/operations/$actions/batch"
+	uri := "/api/prism/v4.4/operations/$actions/batch"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -227,6 +240,9 @@ func (api *BatchesServiceApi) SubmitBatch(ctx context.Context, request *import2.
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if request.XNtnxProject != nil {
+		headerParams["x-ntnx-project"] = client.ParameterToString(*request.XNtnxProject, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -245,8 +261,14 @@ func (api *BatchesServiceApi) SubmitBatch(ctx context.Context, request *import2.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.SubmitBatchApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

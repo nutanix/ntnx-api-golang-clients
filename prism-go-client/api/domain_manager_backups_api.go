@@ -78,7 +78,7 @@ func (api *DomainManagerBackupsServiceApi) CreateBackupTarget(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -119,9 +119,15 @@ func (api *DomainManagerBackupsServiceApi) CreateBackupTarget(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.CreateBackupTargetApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -142,7 +148,7 @@ func (api *DomainManagerBackupsServiceApi) CreateRestoreSource(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources"
+	uri := "/api/prism/v4.4/management/restore-sources"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -177,9 +183,15 @@ func (api *DomainManagerBackupsServiceApi) CreateRestoreSource(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.CreateRestoreSourceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -201,7 +213,7 @@ func (api *DomainManagerBackupsServiceApi) DeleteBackupTargetById(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -243,9 +255,15 @@ func (api *DomainManagerBackupsServiceApi) DeleteBackupTargetById(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.DeleteBackupTargetApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -266,7 +284,7 @@ func (api *DomainManagerBackupsServiceApi) DeleteRestoreSourceById(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.4/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -303,9 +321,15 @@ func (api *DomainManagerBackupsServiceApi) DeleteRestoreSourceById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.DeleteRestoreSourceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -327,7 +351,7 @@ func (api *DomainManagerBackupsServiceApi) GetBackupTargetById(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -369,9 +393,15 @@ func (api *DomainManagerBackupsServiceApi) GetBackupTargetById(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetBackupTargetApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -394,7 +424,7 @@ func (api *DomainManagerBackupsServiceApi) GetRestorePointById(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
+	uri := "/api/prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == request.RestoreSourceExtId {
@@ -441,9 +471,15 @@ func (api *DomainManagerBackupsServiceApi) GetRestorePointById(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetRestorePointApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -464,7 +500,7 @@ func (api *DomainManagerBackupsServiceApi) GetRestoreSourceById(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.4/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -501,9 +537,15 @@ func (api *DomainManagerBackupsServiceApi) GetRestoreSourceById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetRestoreSourceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -524,7 +566,7 @@ func (api *DomainManagerBackupsServiceApi) ListBackupTargets(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -561,9 +603,15 @@ func (api *DomainManagerBackupsServiceApi) ListBackupTargets(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.ListBackupTargetsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -587,7 +635,7 @@ func (api *DomainManagerBackupsServiceApi) ListRestorableDomainManagers(ctx cont
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
+	uri := "/api/prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == request.RestoreSourceExtId {
@@ -634,9 +682,15 @@ func (api *DomainManagerBackupsServiceApi) ListRestorableDomainManagers(ctx cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.ListRestorableDomainManagersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -663,7 +717,7 @@ func (api *DomainManagerBackupsServiceApi) ListRestorePoints(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
+	uri := "/api/prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == request.RestoreSourceExtId {
@@ -721,9 +775,15 @@ func (api *DomainManagerBackupsServiceApi) ListRestorePoints(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.ListRestorePointsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -747,7 +807,7 @@ func (api *DomainManagerBackupsServiceApi) Restore(ctx context.Context, request 
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
+	uri := "/api/prism/v4.4/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == request.RestoreSourceExtId {
@@ -798,9 +858,15 @@ func (api *DomainManagerBackupsServiceApi) Restore(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.RestoreApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -823,7 +889,7 @@ func (api *DomainManagerBackupsServiceApi) UpdateBackupTargetById(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -869,8 +935,14 @@ func (api *DomainManagerBackupsServiceApi) UpdateBackupTargetById(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.UpdateBackupTargetApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

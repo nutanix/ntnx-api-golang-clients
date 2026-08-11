@@ -61,24 +61,25 @@ func NewDomainManagerServiceApi(apiClient *client.ApiClient) *DomainManagerServi
 	return a
 }
 
-// Deploys a Prism Central using the provided details. Prism Central Size, Network Config are mandatory fields to deploy Prism Central. The response from this endpoint contains the URL in the task object location header that can be used to track the request status.
-func (api *DomainManagerApi) CreateDomainManager(body *import3.DomainManager, args ...map[string]interface{}) (*import3.CreateDomainManagerApiResponse, error) {
+// Deploys a Prism Central using the provided details. Prism Central Size, Network Config are mandatory fields to deploy Prism Central. The response from this endpoint contains the URL in the.
+func (api *DomainManagerApi) CreateDomainManager(body *import3.DomainManager, dryrun_ *bool, args ...map[string]interface{}) (*import3.CreateDomainManagerApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDomainManagerServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.CreateDomainManager(context.Background(), &import6.CreateDomainManagerRequest{
-		Body: body,
+		Body:    body,
+		Dryrun_: dryrun_,
 	}, args...)
 }
 
-// Deploys a Prism Central using the provided details. Prism Central Size, Network Config are mandatory fields to deploy Prism Central. The response from this endpoint contains the URL in the task object location header that can be used to track the request status.
+// Deploys a Prism Central using the provided details. Prism Central Size, Network Config are mandatory fields to deploy Prism Central. The response from this endpoint contains the URL in the.
 func (api *DomainManagerServiceApi) CreateDomainManager(ctx context.Context, request *import6.CreateDomainManagerRequest, args ...map[string]interface{}) (*import3.CreateDomainManagerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/domain-managers"
+	uri := "/api/prism/v4.4/config/domain-managers"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -95,6 +96,10 @@ func (api *DomainManagerServiceApi) CreateDomainManager(ctx context.Context, req
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if request.Dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*request.Dryrun_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -113,13 +118,19 @@ func (api *DomainManagerServiceApi) CreateDomainManager(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.CreateDomainManagerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Fetches the attributes associated with the domain manager (Prism Central) resource based on the provided external identifier. It includes attributes like config, network, node and other information such as size, environment and resource specifications.
+// Fetches the attributes associated with the domain manager (Prism Central) resource based on the provided external identifier. It includes attributes like config, network, node and other information such as size.
 func (api *DomainManagerApi) GetDomainManagerById(extId *string, args ...map[string]interface{}) (*import3.GetDomainManagerApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDomainManagerServiceApi(api.ApiClient)
@@ -129,14 +140,14 @@ func (api *DomainManagerApi) GetDomainManagerById(extId *string, args ...map[str
 	}, args...)
 }
 
-// Fetches the attributes associated with the domain manager (Prism Central) resource based on the provided external identifier. It includes attributes like config, network, node and other information such as size, environment and resource specifications.
+// Fetches the attributes associated with the domain manager (Prism Central) resource based on the provided external identifier. It includes attributes like config, network, node and other information such as size.
 func (api *DomainManagerServiceApi) GetDomainManagerById(ctx context.Context, request *import6.GetDomainManagerByIdRequest, args ...map[string]interface{}) (*import3.GetDomainManagerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/domain-managers/{extId}"
+	uri := "/api/prism/v4.4/config/domain-managers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -173,9 +184,15 @@ func (api *DomainManagerServiceApi) GetDomainManagerById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.GetDomainManagerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -197,7 +214,7 @@ func (api *DomainManagerServiceApi) GetProductById(ctx context.Context, request 
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/products/{extId}"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/products/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -239,9 +256,15 @@ func (api *DomainManagerServiceApi) GetProductById(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetProductApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -262,7 +285,7 @@ func (api *DomainManagerServiceApi) ListDomainManagers(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/domain-managers"
+	uri := "/api/prism/v4.4/config/domain-managers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -296,9 +319,15 @@ func (api *DomainManagerServiceApi) ListDomainManagers(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListDomainManagerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -324,7 +353,7 @@ func (api *DomainManagerServiceApi) ListProducts(ctx context.Context, request *i
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/products"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/products"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -377,9 +406,15 @@ func (api *DomainManagerServiceApi) ListProducts(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.ListProductsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -402,7 +437,7 @@ func (api *DomainManagerServiceApi) Register(ctx context.Context, request *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{extId}/$actions/register"
+	uri := "/api/prism/v4.4/management/domain-managers/{extId}/$actions/register"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -447,9 +482,91 @@ func (api *DomainManagerServiceApi) Register(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.RegisterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Performs a scale-up operation on a Domain Manager cluster to increase its capacity. This operation is asynchronous and returns a task UUID that can be used to track.
+func (api *DomainManagerApi) ScaleUpDomainManagerById(extId *string, body *import5.ScaleUpDomainManagerSpec, dryrun_ *bool, args ...map[string]interface{}) (*import5.ScaleUpDomainManagerApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ScaleUpDomainManagerById(context.Background(), &import6.ScaleUpDomainManagerByIdRequest{
+		ExtId:   extId,
+		Body:    body,
+		Dryrun_: dryrun_,
+	}, args...)
+}
+
+// Performs a scale-up operation on a Domain Manager cluster to increase its capacity. This operation is asynchronous and returns a task UUID that can be used to track.
+func (api *DomainManagerServiceApi) ScaleUpDomainManagerById(ctx context.Context, request *import6.ScaleUpDomainManagerByIdRequest, args ...map[string]interface{}) (*import5.ScaleUpDomainManagerApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/prism/v4.4/management/domain-managers/{extId}/$actions/scale-up"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if request.Dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*request.Dryrun_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import5.ScaleUpDomainManagerApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -472,7 +589,7 @@ func (api *DomainManagerServiceApi) Unregister(ctx context.Context, request *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{extId}/$actions/unregister"
+	uri := "/api/prism/v4.4/management/domain-managers/{extId}/$actions/unregister"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -517,9 +634,91 @@ func (api *DomainManagerServiceApi) Unregister(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.UnregisterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Updates Name, FQDN, VIP, and IPv6 VIP attributes of the domain manager (Prism Central) resource.
+func (api *DomainManagerApi) UpdateDomainManagerById(extId *string, body *import3.DomainManager, dryrun_ *bool, args ...map[string]interface{}) (*import3.UpdateDomainManagerApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UpdateDomainManagerById(context.Background(), &import6.UpdateDomainManagerByIdRequest{
+		ExtId:   extId,
+		Body:    body,
+		Dryrun_: dryrun_,
+	}, args...)
+}
+
+// Updates Name, FQDN, VIP, and IPv6 VIP attributes of the domain manager (Prism Central) resource.
+func (api *DomainManagerServiceApi) UpdateDomainManagerById(ctx context.Context, request *import6.UpdateDomainManagerByIdRequest, args ...map[string]interface{}) (*import3.UpdateDomainManagerApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/prism/v4.4/config/domain-managers/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if request.Dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*request.Dryrun_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPut, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import3.UpdateDomainManagerApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -543,7 +742,7 @@ func (api *DomainManagerServiceApi) UpdateProductById(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/products/{extId}"
+	uri := "/api/prism/v4.4/management/domain-managers/{domainManagerExtId}/products/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == request.DomainManagerExtId {
@@ -593,8 +792,14 @@ func (api *DomainManagerServiceApi) UpdateProductById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.UpdateProductApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

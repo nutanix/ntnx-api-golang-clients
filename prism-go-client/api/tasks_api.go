@@ -77,7 +77,7 @@ func (api *TasksServiceApi) CancelTask(ctx context.Context, request *import10.Ca
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/tasks/{taskExtId}/$actions/cancel"
+	uri := "/api/prism/v4.4/config/tasks/{taskExtId}/$actions/cancel"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == request.TaskExtId {
@@ -114,9 +114,15 @@ func (api *TasksServiceApi) CancelTask(ctx context.Context, request *import10.Ca
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.CancelTaskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -138,7 +144,7 @@ func (api *TasksServiceApi) GetTaskById(ctx context.Context, request *import10.G
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/tasks/{extId}"
+	uri := "/api/prism/v4.4/config/tasks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -179,9 +185,15 @@ func (api *TasksServiceApi) GetTaskById(ctx context.Context, request *import10.G
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.GetTaskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -204,7 +216,7 @@ func (api *TasksServiceApi) GetTaskJobById(ctx context.Context, request *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/tasks/{taskExtId}/jobs/{extId}"
+	uri := "/api/prism/v4.4/config/tasks/{taskExtId}/jobs/{extId}"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == request.TaskExtId {
@@ -250,9 +262,15 @@ func (api *TasksServiceApi) GetTaskJobById(ctx context.Context, request *import1
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.GetTaskJobApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -277,7 +295,7 @@ func (api *TasksServiceApi) ListTaskEntities(ctx context.Context, request *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/tasks/{taskExtId}/affected-entities"
+	uri := "/api/prism/v4.4/config/tasks/{taskExtId}/affected-entities"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == request.TaskExtId {
@@ -327,9 +345,15 @@ func (api *TasksServiceApi) ListTaskEntities(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListTaskEntitiesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -353,7 +377,7 @@ func (api *TasksServiceApi) ListTaskJobs(ctx context.Context, request *import10.
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/tasks/{taskExtId}/jobs"
+	uri := "/api/prism/v4.4/config/tasks/{taskExtId}/jobs"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == request.TaskExtId {
@@ -400,9 +424,15 @@ func (api *TasksServiceApi) ListTaskJobs(ctx context.Context, request *import10.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListTaskJobsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -427,7 +457,7 @@ func (api *TasksServiceApi) ListTasks(ctx context.Context, request *import10.Lis
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.3/config/tasks"
+	uri := "/api/prism/v4.4/config/tasks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -473,8 +503,14 @@ func (api *TasksServiceApi) ListTasks(ctx context.Context, request *import10.Lis
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListTasksApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

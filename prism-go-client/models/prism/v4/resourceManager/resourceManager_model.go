@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/resourceManager/resourceManager_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -113,7 +113,7 @@ func NewDetails() *Details {
 	p := new(Details)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.resourceManager.Details"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -244,7 +244,7 @@ func NewProduct() *Product {
 	p := new(Product)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.resourceManager.Product"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -443,7 +443,7 @@ func NewResourceSpec() *ResourceSpec {
 	p := new(ResourceSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.resourceManager.ResourceSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -611,7 +611,7 @@ func NewResourceTypeSpec() *ResourceTypeSpec {
 	p := new(ResourceTypeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.resourceManager.ResourceTypeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -714,7 +714,7 @@ func NewService() *Service {
 	p := new(Service)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.resourceManager.Service"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -804,6 +804,8 @@ type OneOfProductResourceModel struct {
 	ObjectType_   *string           `json:"-"`
 	oneOfType1    *ResourceSpec     `json:"-"`
 	oneOfType0    *ResourceTypeSpec `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfProductResourceModel() *OneOfProductResourceModel {
@@ -851,6 +853,9 @@ func (p *OneOfProductResourceModel) SetValue(v interface{}) error {
 }
 
 func (p *OneOfProductResourceModel) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -861,9 +866,79 @@ func (p *OneOfProductResourceModel) GetValue() interface{} {
 }
 
 func (p *OneOfProductResourceModel) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(ResourceSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "prism.v4.resourceManager.ResourceSpec" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(ResourceSpec)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(ResourceTypeSpec)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "prism.v4.resourceManager.ResourceTypeSpec" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(ResourceTypeSpec)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(ResourceSpec)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.resourceManager.ResourceSpec" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "prism.v4.resourceManager.ResourceSpec" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(ResourceSpec)
 			}
@@ -881,7 +956,7 @@ func (p *OneOfProductResourceModel) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(ResourceTypeSpec)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.resourceManager.ResourceTypeSpec" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "prism.v4.resourceManager.ResourceTypeSpec" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(ResourceTypeSpec)
 			}
@@ -897,10 +972,31 @@ func (p *OneOfProductResourceModel) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfProductResourceModel"))
 }
 
 func (p *OneOfProductResourceModel) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
