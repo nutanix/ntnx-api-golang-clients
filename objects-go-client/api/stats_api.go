@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/client"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/common/v1/stats"
-	import7 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/request/stats"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/stats"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/common/v1/stats"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/request/stats"
+	import8 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -63,11 +63,11 @@ func NewStatsServiceApi(apiClient *client.ApiClient) *StatsServiceApi {
 }
 
 // Get the time series stats of an Object store. If $samplingInterval is not set, a value of 120 seconds will be used. If $statType is not set, the operator \"SUM\" will be used. The stats can be fetched for an Object store when it is in the state \"OBJECT_STORE_AVAILABLE\".
-func (api *StatsApi) GetObjectstoreStatsById(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import5.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import6.GetObjectstoreStatsApiResponse, error) {
+func (api *StatsApi) GetObjectstoreStatsById(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import7.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import8.GetObjectstoreStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStatsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetObjectstoreStatsById(context.Background(), &import7.GetObjectstoreStatsByIdRequest{
+	return api.ServiceClient.GetObjectstoreStatsById(context.Background(), &import9.GetObjectstoreStatsByIdRequest{
 		ExtId:             extId,
 		StartTime_:        startTime_,
 		EndTime_:          endTime_,
@@ -78,13 +78,13 @@ func (api *StatsApi) GetObjectstoreStatsById(extId *string, startTime_ *time.Tim
 }
 
 // Get the time series stats of an Object store. If $samplingInterval is not set, a value of 120 seconds will be used. If $statType is not set, the operator \"SUM\" will be used. The stats can be fetched for an Object store when it is in the state \"OBJECT_STORE_AVAILABLE\".
-func (api *StatsServiceApi) GetObjectstoreStatsById(ctx context.Context, request *import7.GetObjectstoreStatsByIdRequest, args ...map[string]interface{}) (*import6.GetObjectstoreStatsApiResponse, error) {
+func (api *StatsServiceApi) GetObjectstoreStatsById(ctx context.Context, request *import9.GetObjectstoreStatsByIdRequest, args ...map[string]interface{}) (*import8.GetObjectstoreStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/stats/object-stores/{extId}"
+	uri := "/api/objects/v4.1/stats/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -142,8 +142,14 @@ func (api *StatsServiceApi) GetObjectstoreStatsById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import6.GetObjectstoreStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import8.GetObjectstoreStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

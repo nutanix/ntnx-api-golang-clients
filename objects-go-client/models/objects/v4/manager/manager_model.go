@@ -1,5 +1,5 @@
 /*
- * Generated file models/prism/v4/config/config_model.go.
+ * Generated file models/objects/v4/manager/manager_model.go.
  *
  * Product version: 4.1.1
  *
@@ -10,35 +10,39 @@
  */
 
 /*
-  Module prism.v4.config of Nutanix Objects Storage Management APIs
+  Module objects.v4.manager of Nutanix Objects Storage Management APIs
 */
-package config
+package manager
 
 import (
 	"encoding/json"
 )
 
-/*
-A reference to a task tracking an asynchronous operation. The status of the task can be queried by making a GET request to the task URI provided in the metadata section of the API response.
-*/
-type TaskReference struct {
+type ObjectsManagerConfig struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A globally unique identifier for a task.
+	  The version of Objects manager.
 	*/
-	ExtId *string `json:"extId,omitempty"`
+	Version *string `json:"version"`
 }
 
-func (p *TaskReference) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias TaskReference
+func (p *ObjectsManagerConfig) MarshalJSON() ([]byte, error) {
+	type ObjectsManagerConfigProxy ObjectsManagerConfig
 
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ObjectsManagerConfigProxy
+		Version *string `json:"version,omitempty"`
+	}{
+		ObjectsManagerConfigProxy: (*ObjectsManagerConfigProxy)(p),
+		Version:                   p.Version,
+	}
+
+	known, err := json.Marshal(baseStruct)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +63,7 @@ func (p *TaskReference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *TaskReference) UnmarshalJSON(b []byte) error {
+func (p *ObjectsManagerConfig) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -67,14 +71,14 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias TaskReference
+	type Alias ObjectsManagerConfig
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewTaskReference()
+	*p = *NewObjectsManagerConfig()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -85,15 +89,15 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
+	if known.Version != nil {
+		p.Version = known.Version
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
+	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -103,11 +107,11 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewTaskReference() *TaskReference {
-	p := new(TaskReference)
+func NewObjectsManagerConfig() *ObjectsManagerConfig {
+	p := new(ObjectsManagerConfig)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.config.TaskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	*p.ObjectType_ = "objects.v4.manager.ObjectsManagerConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

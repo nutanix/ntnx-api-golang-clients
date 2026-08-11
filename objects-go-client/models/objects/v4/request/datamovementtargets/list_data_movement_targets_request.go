@@ -1,8 +1,8 @@
-package objectstores
+package datamovementtargets
 
-// This file holds the request struct for the ListCertificatesByObjectstoreId operation.
+// This file holds the request struct for the ListDataMovementTargets operation.
 
-type ListCertificatesByObjectstoreIdRequest struct {
+type ListDataMovementTargetsRequest struct {
 	// (required) The UUID of the Object store.
 	ObjectStoreExtId *string
 
@@ -25,6 +25,13 @@ type ListCertificatesByObjectstoreIdRequest struct {
 	// filter **$filter=startswith(name, 'C')** would filter on cluster name starting with 'C'. If both $filter and $apply
 	// query parameters are present, $filter will be applied on entities within the groups.
 	Filter_ *string
+
+	// A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can
+	// be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified, the resources
+	// will be sorted in ascending order by default. For example, '$orderby=templateName desc' would get all templates sorted
+	// by templateName in descending order. If both $orderby and $apply query parameters are present, $orderby will be applied
+	// on entities within the groups.
+	Orderby_ *string
 
 	// A URL query parameter that allows clients to request a specific set of properties for each entity or complex type.
 	// Expression specified with the $select must conform to the [OData

@@ -1,10 +1,15 @@
-package objectstores
+package buckets
 
-// This file holds the request struct for the ListCertificatesByObjectstoreId operation.
+// This file holds the request struct for the ListBucketsByObjectstoreId operation.
 
-type ListCertificatesByObjectstoreIdRequest struct {
+type ListBucketsByObjectstoreIdRequest struct {
 	// (required) The UUID of the Object store.
 	ObjectStoreExtId *string
+
+	// "Name of the federated namespace that this Object store belongs to. It must contain only letters, numbers and hyphens
+	// but not consecutive hyphens. It must start with a letter and end with a letter or number. It must be between 1 and 16
+	// characters long. If not provided, local namespace is used."
+	XNtnxObjectsNamespace *string
 
 	// A URL query parameter that specifies the page number of the result set. It must be a positive integer between 0 and the
 	// maximum number of pages that are available for that resource. Any number out of this range might lead to no results. If
@@ -25,6 +30,13 @@ type ListCertificatesByObjectstoreIdRequest struct {
 	// filter **$filter=startswith(name, 'C')** would filter on cluster name starting with 'C'. If both $filter and $apply
 	// query parameters are present, $filter will be applied on entities within the groups.
 	Filter_ *string
+
+	// A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can
+	// be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified, the resources
+	// will be sorted in ascending order by default. For example, '$orderby=templateName desc' would get all templates sorted
+	// by templateName in descending order. If both $orderby and $apply query parameters are present, $orderby will be applied
+	// on entities within the groups.
+	Orderby_ *string
 
 	// A URL query parameter that allows clients to request a specific set of properties for each entity or complex type.
 	// Expression specified with the $select must conform to the [OData

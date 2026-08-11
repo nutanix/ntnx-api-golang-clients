@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/common/v1/config"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/common/v1/response"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/common/v1/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/common/v1/response"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/config"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/request/objectstores"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/models/objects/v4/request/objectstores"
 	"net/http"
 	"net/url"
 	"os"
@@ -69,20 +69,20 @@ func (api *ObjectStoresApi) CreateCertificate(objectStoreExtId *string, path *st
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateCertificate(context.Background(), &import4.CreateCertificateRequest{
+	return api.ServiceClient.CreateCertificate(context.Background(), &import6.CreateCertificateRequest{
 		ObjectStoreExtId: objectStoreExtId,
 		Path:             path,
 	}, args...)
 }
 
 // This operation creates a new default certificate and keys. It also creates the alternate FQDNs and alternate IPs for the Object store. The certificate of an Object store can be created when it is in a OBJECT_STORE_AVAILABLE or OBJECT_STORE_CERT_CREATION_FAILED state. If the publicCert, privateKey, and ca values are provided in the request body, these values are used to create the new certificate. If these values are not provided, a new certificate will be generated if 'shouldGenerate' is set to true and if it is set to false, the existing certificate will be used as the new certificate. Optionally, a list of additional alternate FQDNs and alternate IPs can be provided. These alternateFqdns and alternateIps must be included in the CA certificate if it has been provided.
-func (api *ObjectStoresServiceApi) CreateCertificate(ctx context.Context, request *import4.CreateCertificateRequest, args ...map[string]interface{}) (*import1.CreateCertificateApiResponse, error) {
+func (api *ObjectStoresServiceApi) CreateCertificate(ctx context.Context, request *import6.CreateCertificateRequest, args ...map[string]interface{}) (*import1.CreateCertificateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates"
+	uri := "/api/objects/v4.1/config/object-stores/{objectStoreExtId}/certificates"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == request.ObjectStoreExtId {
@@ -135,30 +135,36 @@ func (api *ObjectStoresServiceApi) CreateCertificate(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateCertificateApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Run the prechecks, create and start the deployment of an Object store on Prism Central.
+// Create an Object store. The behavior depends on the state provided in the request: - If the state is set to `UNDEPLOYED_OBJECT_STORE`: The Object store configuration is saved without starting the deployment. This allows saving the configuration for later deployment using the update Object store API. - If no state is provided: Run the prechecks, create the Object store, and start the deployment of the Object store immediately.
 func (api *ObjectStoresApi) CreateObjectstore(body *import1.ObjectStore, args ...map[string]interface{}) (*import1.CreateObjectstoreApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateObjectstore(context.Background(), &import4.CreateObjectstoreRequest{
+	return api.ServiceClient.CreateObjectstore(context.Background(), &import6.CreateObjectstoreRequest{
 		Body: body,
 	}, args...)
 }
 
-// Run the prechecks, create and start the deployment of an Object store on Prism Central.
-func (api *ObjectStoresServiceApi) CreateObjectstore(ctx context.Context, request *import4.CreateObjectstoreRequest, args ...map[string]interface{}) (*import1.CreateObjectstoreApiResponse, error) {
+// Create an Object store. The behavior depends on the state provided in the request: - If the state is set to `UNDEPLOYED_OBJECT_STORE`: The Object store configuration is saved without starting the deployment. This allows saving the configuration for later deployment using the update Object store API. - If no state is provided: Run the prechecks, create the Object store, and start the deployment of the Object store immediately.
+func (api *ObjectStoresServiceApi) CreateObjectstore(ctx context.Context, request *import6.CreateObjectstoreRequest, args ...map[string]interface{}) (*import1.CreateObjectstoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores"
+	uri := "/api/objects/v4.1/config/object-stores"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -193,9 +199,15 @@ func (api *ObjectStoresServiceApi) CreateObjectstore(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateObjectstoreApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -204,19 +216,19 @@ func (api *ObjectStoresApi) DeleteObjectstoreById(extId *string, args ...map[str
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteObjectstoreById(context.Background(), &import4.DeleteObjectstoreByIdRequest{
+	return api.ServiceClient.DeleteObjectstoreById(context.Background(), &import6.DeleteObjectstoreByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Send a request to delete an Object store for the provided UUID and clean up its data. An Object store can only be deleted when it is in the state UNDEPLOYED_OBJECT_STORE, OBJECT_STORE_AVAILABLE, OBJECT_STORE_DEPLOYMENT_FAILED or OBJECT_STORE_DELETION_FAILED and does not contain any buckets.
-func (api *ObjectStoresServiceApi) DeleteObjectstoreById(ctx context.Context, request *import4.DeleteObjectstoreByIdRequest, args ...map[string]interface{}) (*import1.DeleteObjectstoreApiResponse, error) {
+func (api *ObjectStoresServiceApi) DeleteObjectstoreById(ctx context.Context, request *import6.DeleteObjectstoreByIdRequest, args ...map[string]interface{}) (*import1.DeleteObjectstoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{extId}"
+	uri := "/api/objects/v4.1/config/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -253,9 +265,15 @@ func (api *ObjectStoresServiceApi) DeleteObjectstoreById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteObjectstoreApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -264,20 +282,20 @@ func (api *ObjectStoresApi) GetCaByCertificateId(objectStoreExtId *string, certi
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetCaByCertificateId(context.Background(), &import4.GetCaByCertificateIdRequest{
+	return api.ServiceClient.GetCaByCertificateId(context.Background(), &import6.GetCaByCertificateIdRequest{
 		ObjectStoreExtId: objectStoreExtId,
 		CertificateExtId: certificateExtId,
 	}, args...)
 }
 
 // Download the certificate authority of an Object store certificate.
-func (api *ObjectStoresServiceApi) GetCaByCertificateId(ctx context.Context, request *import4.GetCaByCertificateIdRequest, args ...map[string]interface{}) (*import1.GetCaApiResponse, error) {
+func (api *ObjectStoresServiceApi) GetCaByCertificateId(ctx context.Context, request *import6.GetCaByCertificateIdRequest, args ...map[string]interface{}) (*import1.GetCaApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates/{certificateExtId}/certificate-authority"
+	uri := "/api/objects/v4.1/config/object-stores/{objectStoreExtId}/certificates/{certificateExtId}/certificate-authority"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == request.ObjectStoreExtId {
@@ -319,6 +337,9 @@ func (api *ObjectStoresServiceApi) GetCaByCertificateId(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
 	binaryMediaTypes := []string{"application/octet-stream", "application/pdf", "application/zip"}
 	if httpResponse, ok := apiClientResponse.(*http.Response); ok {
@@ -335,9 +356,9 @@ func (api *ObjectStoresServiceApi) GetCaByCertificateId(ctx context.Context, req
 
 			flagName := "hasError"
 			flagValue := false
-			var flags []import2.Flag
-			flags = append(flags, import2.Flag{Name: &flagName, Value: &flagValue})
-			metadata := import3.NewApiResponseMetadata()
+			var flags []import4.Flag
+			flags = append(flags, import4.Flag{Name: &flagName, Value: &flagValue})
+			metadata := import5.NewApiResponseMetadata()
 			metadata.Flags = flags
 			response.Metadata = metadata
 			err = response.SetData(*fileDetail)
@@ -349,8 +370,11 @@ func (api *ObjectStoresServiceApi) GetCaByCertificateId(ctx context.Context, req
 		}
 	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetCaApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -359,20 +383,20 @@ func (api *ObjectStoresApi) GetCertificateById(objectStoreExtId *string, extId *
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetCertificateById(context.Background(), &import4.GetCertificateByIdRequest{
+	return api.ServiceClient.GetCertificateById(context.Background(), &import6.GetCertificateByIdRequest{
 		ObjectStoreExtId: objectStoreExtId,
 		ExtId:            extId,
 	}, args...)
 }
 
 // Get the details of the SSL certificate which can be used to connect to an Object store.
-func (api *ObjectStoresServiceApi) GetCertificateById(ctx context.Context, request *import4.GetCertificateByIdRequest, args ...map[string]interface{}) (*import1.GetCertificateApiResponse, error) {
+func (api *ObjectStoresServiceApi) GetCertificateById(ctx context.Context, request *import6.GetCertificateByIdRequest, args ...map[string]interface{}) (*import1.GetCertificateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates/{extId}"
+	uri := "/api/objects/v4.1/config/object-stores/{objectStoreExtId}/certificates/{extId}"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == request.ObjectStoreExtId {
@@ -414,9 +438,15 @@ func (api *ObjectStoresServiceApi) GetCertificateById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetCertificateApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -425,19 +455,19 @@ func (api *ObjectStoresApi) GetObjectstoreById(extId *string, args ...map[string
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetObjectstoreById(context.Background(), &import4.GetObjectstoreByIdRequest{
+	return api.ServiceClient.GetObjectstoreById(context.Background(), &import6.GetObjectstoreByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Get an Object store for the provided UUID. `state` string (State of the Object store) Enum for the state of the Object store. | Enum | Description | | ----------- | ----------- | | `\"DEPLOYING_OBJECT_STORE\"` | The Object store will be in this state during an ongoing deployment of the Object store. The Object store will be unavailable through S3 APIs in this state. The Object store will move to the OBJECT_STORE_AVAILABLE state if the deployment succeeds, and to the OBJECT_STORE_DEPLOYMENT_FAILED state if the deployment fails. | | `\"OBJECT_STORE_OPERATION_FAILED\"` | The Object store is in this state when there is an error while performing an operation on the Object store. The Object store may not be available through S3 APIs in this state. | | `\"OBJECT_STORE_CERT_CREATION_FAILED\"` |  An Object store enters this state if there is an error while creating the Object store certificate. Creating a new certificate can be retried from this state. The Object store may not be available through S3 APIs in this state. | | `\"OBJECT_STORE_OPERATION_PENDING\"` |  The Object store is in this state during an ongoing operation on the Object store. The Object store may not be available through S3 APIs in this state. The Object store will enter the OBJECT_STORE_OPERATION_FAILED state if the operation fails, or the OBJECT_STORE_AVAILABLE state if the operation is successful. | | `\"UNDEPLOYED_OBJECT_STORE\"` |  The Object store is in this state if it has not been deployed. | | `\"CREATING_OBJECT_STORE_CERT\"` |  The Object store is in this state during a certificate creation for the Object store. The Object store will be unavailable through S3 APIs in this state. It will move to the OBJECT_STORE_AVAILABLE state if the certificate was created successfully, or to the OBJECT_STORE_CERT_CREATION_FAILED state if an error occurs while creating the certificate. | | `\"OBJECT_STORE_AVAILABLE\"`  | An Object store is in this state if its deployment was successful, and there are no ongoing operations on the Object store. The Object store will be available through S3 APIs in this state. In this state, the Object store can be deleted or a new certificate can be created for this Object store. | | `\"OBJECT_STORE_DELETION_FAILED\"` |  An Object store enters this state if there is an error deleting the Object store. The Object store will not be available through S3 APIs in this state. Deleting the Object store can be retried from this state. | | `\"OBJECT_STORE_DEPLOYMENT_FAILED\"` |  An Object store enters this state when its deployment fails. The Object store deployment can be retried or the Object store can be deleted from this state. | | `\"DELETING_OBJECT_STORE\"` |  A deployed Object store is in this state when the Object store is being deleted. The Object store will be unavailable through S3 APIs in this state. It can be either deleted or move to the OBJECT_STORE_DELETION_FAILED state if the deletion fails. |
-func (api *ObjectStoresServiceApi) GetObjectstoreById(ctx context.Context, request *import4.GetObjectstoreByIdRequest, args ...map[string]interface{}) (*import1.GetObjectstoreApiResponse, error) {
+func (api *ObjectStoresServiceApi) GetObjectstoreById(ctx context.Context, request *import6.GetObjectstoreByIdRequest, args ...map[string]interface{}) (*import1.GetObjectstoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{extId}"
+	uri := "/api/objects/v4.1/config/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -474,9 +504,15 @@ func (api *ObjectStoresServiceApi) GetObjectstoreById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetObjectstoreApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -485,7 +521,7 @@ func (api *ObjectStoresApi) ListCertificatesByObjectstoreId(objectStoreExtId *st
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListCertificatesByObjectstoreId(context.Background(), &import4.ListCertificatesByObjectstoreIdRequest{
+	return api.ServiceClient.ListCertificatesByObjectstoreId(context.Background(), &import6.ListCertificatesByObjectstoreIdRequest{
 		ObjectStoreExtId: objectStoreExtId,
 		Page_:            page_,
 		Limit_:           limit_,
@@ -495,13 +531,13 @@ func (api *ObjectStoresApi) ListCertificatesByObjectstoreId(objectStoreExtId *st
 }
 
 // Get a list of the SSL certificates which can be used to access an Object store.
-func (api *ObjectStoresServiceApi) ListCertificatesByObjectstoreId(ctx context.Context, request *import4.ListCertificatesByObjectstoreIdRequest, args ...map[string]interface{}) (*import1.ListCertificatesApiResponse, error) {
+func (api *ObjectStoresServiceApi) ListCertificatesByObjectstoreId(ctx context.Context, request *import6.ListCertificatesByObjectstoreIdRequest, args ...map[string]interface{}) (*import1.ListCertificatesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates"
+	uri := "/api/objects/v4.1/config/object-stores/{objectStoreExtId}/certificates"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == request.ObjectStoreExtId {
@@ -551,9 +587,15 @@ func (api *ObjectStoresServiceApi) ListCertificatesByObjectstoreId(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListCertificatesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -562,7 +604,7 @@ func (api *ObjectStoresApi) ListObjectstores(page_ *int, limit_ *int, filter_ *s
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListObjectstores(context.Background(), &import4.ListObjectstoresRequest{
+	return api.ServiceClient.ListObjectstores(context.Background(), &import6.ListObjectstoresRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -573,13 +615,13 @@ func (api *ObjectStoresApi) ListObjectstores(page_ *int, limit_ *int, filter_ *s
 }
 
 // Get a list of all the Object store details on the registered Prism Central.
-func (api *ObjectStoresServiceApi) ListObjectstores(ctx context.Context, request *import4.ListObjectstoresRequest, args ...map[string]interface{}) (*import1.ListObjectstoresApiResponse, error) {
+func (api *ObjectStoresServiceApi) ListObjectstores(ctx context.Context, request *import6.ListObjectstoresRequest, args ...map[string]interface{}) (*import1.ListObjectstoresApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores"
+	uri := "/api/objects/v4.1/config/object-stores"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -628,31 +670,37 @@ func (api *ObjectStoresServiceApi) ListObjectstores(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListObjectstoresApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Update an Object store. The deployment of an Object store can be restarted from the state OBJECT_STORE_DEPLOYMENT_FAILED.
+// Update an Object store by modifying its state or configuration. The Object store can be updated when it is in specific states with supported state transitions: **Supported State Transitions:** - From `UNDEPLOYED_OBJECT_STORE` to `UNDEPLOYED_OBJECT_STORE`: Update and save the Object store configuration without starting the deployment. - From `UNDEPLOYED_OBJECT_STORE` to `DEPLOYING_OBJECT_STORE`: Start deployment of the Object store using the provided configuration. All required deployment parameters must be provided. - From `OBJECT_STORE_DEPLOYMENT_FAILED` to `OBJECT_STORE_DEPLOYMENT_FAILED`: Retry the failed deployment using the existing Object store configuration. No configuration changes are allowed. - From `OBJECT_STORE_DEPLOYMENT_FAILED` to `DEPLOYING_OBJECT_STORE`: Retry the failed deployment using the existing Object store configuration. No configuration changes are allowed - only the state can be modified.
 func (api *ObjectStoresApi) UpdateObjectstoreById(extId *string, body *import1.ObjectStore, args ...map[string]interface{}) (*import1.UpdateObjectstoreApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewObjectStoresServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateObjectstoreById(context.Background(), &import4.UpdateObjectstoreByIdRequest{
+	return api.ServiceClient.UpdateObjectstoreById(context.Background(), &import6.UpdateObjectstoreByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
-// Update an Object store. The deployment of an Object store can be restarted from the state OBJECT_STORE_DEPLOYMENT_FAILED.
-func (api *ObjectStoresServiceApi) UpdateObjectstoreById(ctx context.Context, request *import4.UpdateObjectstoreByIdRequest, args ...map[string]interface{}) (*import1.UpdateObjectstoreApiResponse, error) {
+// Update an Object store by modifying its state or configuration. The Object store can be updated when it is in specific states with supported state transitions: **Supported State Transitions:** - From `UNDEPLOYED_OBJECT_STORE` to `UNDEPLOYED_OBJECT_STORE`: Update and save the Object store configuration without starting the deployment. - From `UNDEPLOYED_OBJECT_STORE` to `DEPLOYING_OBJECT_STORE`: Start deployment of the Object store using the provided configuration. All required deployment parameters must be provided. - From `OBJECT_STORE_DEPLOYMENT_FAILED` to `OBJECT_STORE_DEPLOYMENT_FAILED`: Retry the failed deployment using the existing Object store configuration. No configuration changes are allowed. - From `OBJECT_STORE_DEPLOYMENT_FAILED` to `DEPLOYING_OBJECT_STORE`: Retry the failed deployment using the existing Object store configuration. No configuration changes are allowed - only the state can be modified.
+func (api *ObjectStoresServiceApi) UpdateObjectstoreById(ctx context.Context, request *import6.UpdateObjectstoreByIdRequest, args ...map[string]interface{}) (*import1.UpdateObjectstoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0/config/object-stores/{extId}"
+	uri := "/api/objects/v4.1/config/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -693,8 +741,14 @@ func (api *ObjectStoresServiceApi) UpdateObjectstoreById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateObjectstoreApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -1,7 +1,7 @@
 /*
  * Generated file models/objects/v4/stats/stats_model.go.
  *
- * Product version: 4.0.3
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Objects Storage Management APIs
  *
@@ -25,7 +25,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /objects/v4.0/stats/object-stores/{extId} Get operation
+REST response for all response codes in API path /objects/v4.1/stats/object-stores/{extId} Get operation
 */
 type GetObjectstoreStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -125,7 +125,7 @@ func NewGetObjectstoreStatsApiResponse() *GetObjectstoreStatsApiResponse {
 	p := new(GetObjectstoreStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.stats.GetObjectstoreStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -430,7 +430,7 @@ func NewObjectstoreStats() *ObjectstoreStats {
 	p := new(ObjectstoreStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.stats.ObjectstoreStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -533,7 +533,7 @@ func NewTimeFloatValuePair() *TimeFloatValuePair {
 	p := new(TimeFloatValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.stats.TimeFloatValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -544,6 +544,8 @@ type OneOfGetObjectstoreStatsApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *ObjectstoreStats      `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetObjectstoreStatsApiResponseData() *OneOfGetObjectstoreStatsApiResponseData {
@@ -591,6 +593,9 @@ func (p *OneOfGetObjectstoreStatsApiResponseData) SetValue(v interface{}) error 
 }
 
 func (p *OneOfGetObjectstoreStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -601,9 +606,79 @@ func (p *OneOfGetObjectstoreStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetObjectstoreStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(ObjectstoreStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "objects.v4.stats.ObjectstoreStats" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(ObjectstoreStats)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "objects.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(ObjectstoreStats)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "objects.v4.stats.ObjectstoreStats" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "objects.v4.stats.ObjectstoreStats" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(ObjectstoreStats)
 			}
@@ -621,7 +696,7 @@ func (p *OneOfGetObjectstoreStatsApiResponseData) UnmarshalJSON(b []byte) error 
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "objects.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "objects.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -637,10 +712,31 @@ func (p *OneOfGetObjectstoreStatsApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetObjectstoreStatsApiResponseData"))
 }
 
 func (p *OneOfGetObjectstoreStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
