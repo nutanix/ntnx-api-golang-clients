@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/clusterprofiles"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/clusterprofiles"
 	"net/http"
 	"net/url"
 	"strings"
@@ -65,7 +65,7 @@ func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ApplyClusterProfile(context.Background(), &import3.ApplyClusterProfileRequest{
+	return api.ServiceClient.ApplyClusterProfile(context.Background(), &import6.ApplyClusterProfileRequest{
 		ExtId:   extId,
 		Body:    body,
 		Dryrun_: dryrun_,
@@ -73,13 +73,13 @@ func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.
 }
 
 // Applies or associates clusters to a profile. The clusters will be added for application and monitoring.
-func (api *ClusterProfilesServiceApi) ApplyClusterProfile(ctx context.Context, request *import3.ApplyClusterProfileRequest, args ...map[string]interface{}) (*import1.ApplyClusterProfileApiResponse, error) {
+func (api *ClusterProfilesServiceApi) ApplyClusterProfile(ctx context.Context, request *import6.ApplyClusterProfileRequest, args ...map[string]interface{}) (*import1.ApplyClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}/$actions/apply"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles/{extId}/$actions/apply"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -124,9 +124,15 @@ func (api *ClusterProfilesServiceApi) ApplyClusterProfile(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ApplyClusterProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,19 +141,19 @@ func (api *ClusterProfilesApi) CreateClusterProfile(body *import1.ClusterProfile
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateClusterProfile(context.Background(), &import3.CreateClusterProfileRequest{
+	return api.ServiceClient.CreateClusterProfile(context.Background(), &import6.CreateClusterProfileRequest{
 		Body: body,
 	}, args...)
 }
 
 // Creates a cluster profile with the settings provided in the request body.
-func (api *ClusterProfilesServiceApi) CreateClusterProfile(ctx context.Context, request *import3.CreateClusterProfileRequest, args ...map[string]interface{}) (*import1.CreateClusterProfileApiResponse, error) {
+func (api *ClusterProfilesServiceApi) CreateClusterProfile(ctx context.Context, request *import6.CreateClusterProfileRequest, args ...map[string]interface{}) (*import1.CreateClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -182,9 +188,15 @@ func (api *ClusterProfilesServiceApi) CreateClusterProfile(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateClusterProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -193,19 +205,19 @@ func (api *ClusterProfilesApi) DeleteClusterProfileById(extId *string, args ...m
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteClusterProfileById(context.Background(), &import3.DeleteClusterProfileByIdRequest{
+	return api.ServiceClient.DeleteClusterProfileById(context.Background(), &import6.DeleteClusterProfileByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Deletes cluster profile. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
-func (api *ClusterProfilesServiceApi) DeleteClusterProfileById(ctx context.Context, request *import3.DeleteClusterProfileByIdRequest, args ...map[string]interface{}) (*import1.DeleteClusterProfileApiResponse, error) {
+func (api *ClusterProfilesServiceApi) DeleteClusterProfileById(ctx context.Context, request *import6.DeleteClusterProfileByIdRequest, args ...map[string]interface{}) (*import1.DeleteClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -242,9 +254,15 @@ func (api *ClusterProfilesServiceApi) DeleteClusterProfileById(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteClusterProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -253,20 +271,20 @@ func (api *ClusterProfilesApi) DisassociateClusterFromClusterProfile(extId *stri
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DisassociateClusterFromClusterProfile(context.Background(), &import3.DisassociateClusterFromClusterProfileRequest{
+	return api.ServiceClient.DisassociateClusterFromClusterProfile(context.Background(), &import6.DisassociateClusterFromClusterProfileRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Disassociate cluster from a cluster profile. This will halt the application and monitoring of the clusters.
-func (api *ClusterProfilesServiceApi) DisassociateClusterFromClusterProfile(ctx context.Context, request *import3.DisassociateClusterFromClusterProfileRequest, args ...map[string]interface{}) (*import1.DisassociateClusterFromClusterProfileApiResponse, error) {
+func (api *ClusterProfilesServiceApi) DisassociateClusterFromClusterProfile(ctx context.Context, request *import6.DisassociateClusterFromClusterProfileRequest, args ...map[string]interface{}) (*import1.DisassociateClusterFromClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -307,9 +325,15 @@ func (api *ClusterProfilesServiceApi) DisassociateClusterFromClusterProfile(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DisassociateClusterFromClusterProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -318,19 +342,19 @@ func (api *ClusterProfilesApi) GetClusterProfileById(extId *string, args ...map[
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetClusterProfileById(context.Background(), &import3.GetClusterProfileByIdRequest{
+	return api.ServiceClient.GetClusterProfileById(context.Background(), &import6.GetClusterProfileByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Fetches a cluster profile. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
-func (api *ClusterProfilesServiceApi) GetClusterProfileById(ctx context.Context, request *import3.GetClusterProfileByIdRequest, args ...map[string]interface{}) (*import1.GetClusterProfileApiResponse, error) {
+func (api *ClusterProfilesServiceApi) GetClusterProfileById(ctx context.Context, request *import6.GetClusterProfileByIdRequest, args ...map[string]interface{}) (*import1.GetClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -367,9 +391,15 @@ func (api *ClusterProfilesServiceApi) GetClusterProfileById(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetClusterProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -378,7 +408,7 @@ func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filt
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListClusterProfiles(context.Background(), &import3.ListClusterProfilesRequest{
+	return api.ServiceClient.ListClusterProfiles(context.Background(), &import6.ListClusterProfilesRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -388,13 +418,13 @@ func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filt
 }
 
 // Fetches a list of cluster profile entities. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
-func (api *ClusterProfilesServiceApi) ListClusterProfiles(ctx context.Context, request *import3.ListClusterProfilesRequest, args ...map[string]interface{}) (*import1.ListClusterProfilesApiResponse, error) {
+func (api *ClusterProfilesServiceApi) ListClusterProfiles(ctx context.Context, request *import6.ListClusterProfilesRequest, args ...map[string]interface{}) (*import1.ListClusterProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -440,9 +470,15 @@ func (api *ClusterProfilesServiceApi) ListClusterProfiles(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListClusterProfilesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -451,7 +487,7 @@ func (api *ClusterProfilesApi) UpdateClusterProfileById(extId *string, body *imp
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClusterProfilesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateClusterProfileById(context.Background(), &import3.UpdateClusterProfileByIdRequest{
+	return api.ServiceClient.UpdateClusterProfileById(context.Background(), &import6.UpdateClusterProfileByIdRequest{
 		ExtId:   extId,
 		Body:    body,
 		Dryrun_: dryrun_,
@@ -459,13 +495,13 @@ func (api *ClusterProfilesApi) UpdateClusterProfileById(extId *string, body *imp
 }
 
 // Updates a cluster profile. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
-func (api *ClusterProfilesServiceApi) UpdateClusterProfileById(ctx context.Context, request *import3.UpdateClusterProfileByIdRequest, args ...map[string]interface{}) (*import1.UpdateClusterProfileApiResponse, error) {
+func (api *ClusterProfilesServiceApi) UpdateClusterProfileById(ctx context.Context, request *import6.UpdateClusterProfileByIdRequest, args ...map[string]interface{}) (*import1.UpdateClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -510,8 +546,14 @@ func (api *ClusterProfilesServiceApi) UpdateClusterProfileById(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateClusterProfileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

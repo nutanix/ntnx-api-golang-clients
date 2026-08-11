@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import9 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/disks"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import12 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/disks"
+	import8 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -68,20 +68,20 @@ func (api *DisksApi) AddDisk(extId *string, body *import1.DiskAdditionSpec, args
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDisksServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.AddDisk(context.Background(), &import9.AddDiskRequest{
+	return api.ServiceClient.AddDisk(context.Background(), &import12.AddDiskRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Repartitions and adds the Disk to a cluster, or adds an old Disk again to a cluster that is marked for removal.
-func (api *DisksServiceApi) AddDisk(ctx context.Context, request *import9.AddDiskRequest, args ...map[string]interface{}) (*import1.AddDiskApiResponse, error) {
+func (api *DisksServiceApi) AddDisk(ctx context.Context, request *import12.AddDiskRequest, args ...map[string]interface{}) (*import1.AddDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}/$actions/add-disk"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{extId}/$actions/add-disk"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -122,9 +122,15 @@ func (api *DisksServiceApi) AddDisk(ctx context.Context, request *import9.AddDis
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AddDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -133,19 +139,19 @@ func (api *DisksApi) DeleteDiskById(extId *string, args ...map[string]interface{
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDisksServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteDiskById(context.Background(), &import9.DeleteDiskByIdRequest{
+	return api.ServiceClient.DeleteDiskById(context.Background(), &import12.DeleteDiskByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Marks Disk identified by external identifier for removal.
-func (api *DisksServiceApi) DeleteDiskById(ctx context.Context, request *import9.DeleteDiskByIdRequest, args ...map[string]interface{}) (*import1.DeleteDiskApiResponse, error) {
+func (api *DisksServiceApi) DeleteDiskById(ctx context.Context, request *import12.DeleteDiskByIdRequest, args ...map[string]interface{}) (*import1.DeleteDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -182,9 +188,15 @@ func (api *DisksServiceApi) DeleteDiskById(ctx context.Context, request *import9
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -193,19 +205,19 @@ func (api *DisksApi) GetDiskById(extId *string, args ...map[string]interface{}) 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDisksServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetDiskById(context.Background(), &import9.GetDiskByIdRequest{
+	return api.ServiceClient.GetDiskById(context.Background(), &import12.GetDiskByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Fetch the details of the Disk identified by external identifier.
-func (api *DisksServiceApi) GetDiskById(ctx context.Context, request *import9.GetDiskByIdRequest, args ...map[string]interface{}) (*import1.GetDiskApiResponse, error) {
+func (api *DisksServiceApi) GetDiskById(ctx context.Context, request *import12.GetDiskByIdRequest, args ...map[string]interface{}) (*import1.GetDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -242,18 +254,24 @@ func (api *DisksServiceApi) GetDiskById(ctx context.Context, request *import9.Ge
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Fetch the stats information of the Disk identified by external identifier.
-func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import6.DownSamplingOperator, args ...map[string]interface{}) (*import5.GetDiskStatsApiResponse, error) {
+func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import9.DownSamplingOperator, args ...map[string]interface{}) (*import8.GetDiskStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDisksServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetDiskStats(context.Background(), &import9.GetDiskStatsRequest{
+	return api.ServiceClient.GetDiskStats(context.Background(), &import12.GetDiskStatsRequest{
 		ExtId:             extId,
 		StartTime_:        startTime_,
 		EndTime_:          endTime_,
@@ -263,13 +281,13 @@ func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_
 }
 
 // Fetch the stats information of the Disk identified by external identifier.
-func (api *DisksServiceApi) GetDiskStats(ctx context.Context, request *import9.GetDiskStatsRequest, args ...map[string]interface{}) (*import5.GetDiskStatsApiResponse, error) {
+func (api *DisksServiceApi) GetDiskStats(ctx context.Context, request *import12.GetDiskStatsRequest, args ...map[string]interface{}) (*import8.GetDiskStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/stats/disks/{extId}"
+	uri := "/api/clustermgmt/v4.3/stats/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -324,9 +342,15 @@ func (api *DisksServiceApi) GetDiskStats(ctx context.Context, request *import9.G
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import5.GetDiskStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import8.GetDiskStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -335,7 +359,7 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDisksServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListDisks(context.Background(), &import9.ListDisksRequest{
+	return api.ServiceClient.ListDisks(context.Background(), &import12.ListDisksRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -346,13 +370,13 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 }
 
 // Fetches Disk details from all clusters registered with Prism Central.
-func (api *DisksServiceApi) ListDisks(ctx context.Context, request *import9.ListDisksRequest, args ...map[string]interface{}) (*import1.ListDisksApiResponse, error) {
+func (api *DisksServiceApi) ListDisks(ctx context.Context, request *import12.ListDisksRequest, args ...map[string]interface{}) (*import1.ListDisksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/disks"
+	uri := "/api/clustermgmt/v4.3/config/disks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -401,9 +425,15 @@ func (api *DisksServiceApi) ListDisks(ctx context.Context, request *import9.List
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListDisksApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -412,20 +442,20 @@ func (api *DisksApi) UpdateDiskLEDState(extId *string, body *import1.LEDStateUpd
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewDisksServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateDiskLEDState(context.Background(), &import9.UpdateDiskLEDStateRequest{
+	return api.ServiceClient.UpdateDiskLEDState(context.Background(), &import12.UpdateDiskLEDStateRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Updates the LED state of a Disk to on or off.
-func (api *DisksServiceApi) UpdateDiskLEDState(ctx context.Context, request *import9.UpdateDiskLEDStateRequest, args ...map[string]interface{}) (*import1.UpdateDiskLEDStateTaskResponse, error) {
+func (api *DisksServiceApi) UpdateDiskLEDState(ctx context.Context, request *import12.UpdateDiskLEDStateRequest, args ...map[string]interface{}) (*import1.UpdateDiskLEDStateTaskResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/disks/{extId}/$actions/update-led-state"
+	uri := "/api/clustermgmt/v4.3/config/disks/{extId}/$actions/update-led-state"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -466,8 +496,14 @@ func (api *DisksServiceApi) UpdateDiskLEDState(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateDiskLEDStateTaskResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

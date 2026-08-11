@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import14 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/storagecontainers"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import22 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/storagecontainers"
+	import8 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -68,20 +68,20 @@ func (api *StorageContainersApi) ClearThickProvisionedSpace(extId *string, xClus
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ClearThickProvisionedSpace(context.Background(), &import14.ClearThickProvisionedSpaceRequest{
+	return api.ServiceClient.ClearThickProvisionedSpace(context.Background(), &import22.ClearThickProvisionedSpaceRequest{
 		ExtId:      extId,
 		XClusterId: xClusterId,
 	}, args...)
 }
 
 // Clears the thick provisioned space of the provided Storage Container. The location header received in the API response contains the URL of the task object, which can be further used to track the status of the request.
-func (api *StorageContainersServiceApi) ClearThickProvisionedSpace(ctx context.Context, request *import14.ClearThickProvisionedSpaceRequest, args ...map[string]interface{}) (*import1.ClearThickProvisionedSpaceApiResponse, error) {
+func (api *StorageContainersServiceApi) ClearThickProvisionedSpace(ctx context.Context, request *import22.ClearThickProvisionedSpaceRequest, args ...map[string]interface{}) (*import1.ClearThickProvisionedSpaceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -121,9 +121,15 @@ func (api *StorageContainersServiceApi) ClearThickProvisionedSpace(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ClearThickProvisionedSpaceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -132,20 +138,20 @@ func (api *StorageContainersApi) CreateStorageContainer(body *import1.StorageCon
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateStorageContainer(context.Background(), &import14.CreateStorageContainerRequest{
+	return api.ServiceClient.CreateStorageContainer(context.Background(), &import22.CreateStorageContainerRequest{
 		Body:       body,
 		XClusterId: xClusterId,
 	}, args...)
 }
 
 // Creates a new Storage Container with the specified configuration on the cluster identified by cluster’s external identifier. The location header received in the API response contains the URL of the task object, which can be used to further track the status of the request.
-func (api *StorageContainersServiceApi) CreateStorageContainer(ctx context.Context, request *import14.CreateStorageContainerRequest, args ...map[string]interface{}) (*import1.CreateStorageContainerApiResponse, error) {
+func (api *StorageContainersServiceApi) CreateStorageContainer(ctx context.Context, request *import22.CreateStorageContainerRequest, args ...map[string]interface{}) (*import1.CreateStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -185,9 +191,15 @@ func (api *StorageContainersServiceApi) CreateStorageContainer(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateStorageContainerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -196,20 +208,20 @@ func (api *StorageContainersApi) DeleteStorageContainerById(extId *string, ignor
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteStorageContainerById(context.Background(), &import14.DeleteStorageContainerByIdRequest{
+	return api.ServiceClient.DeleteStorageContainerById(context.Background(), &import22.DeleteStorageContainerByIdRequest{
 		ExtId:            extId,
 		IgnoreSmallFiles: ignoreSmallFiles,
 	}, args...)
 }
 
 // Deletes an existing Storage Container identified by external identifier. The location header received in the API response contains the URL of the task object, which can be used to further track the status of the request.
-func (api *StorageContainersServiceApi) DeleteStorageContainerById(ctx context.Context, request *import14.DeleteStorageContainerByIdRequest, args ...map[string]interface{}) (*import1.DeleteStorageContainerApiResponse, error) {
+func (api *StorageContainersServiceApi) DeleteStorageContainerById(ctx context.Context, request *import22.DeleteStorageContainerByIdRequest, args ...map[string]interface{}) (*import1.DeleteStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -250,9 +262,15 @@ func (api *StorageContainersServiceApi) DeleteStorageContainerById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteStorageContainerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -261,19 +279,19 @@ func (api *StorageContainersApi) GetStorageContainerById(extId *string, args ...
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetStorageContainerById(context.Background(), &import14.GetStorageContainerByIdRequest{
+	return api.ServiceClient.GetStorageContainerById(context.Background(), &import22.GetStorageContainerByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Fetches the configuration details of an existing storage container identified by the external identifier. Note: The Storage Containers of PEs with versions prior to AOS 6.5 might have missing attribute data, and the PEs under the self-owned RBAC category might not be visible to non-admin users.
-func (api *StorageContainersServiceApi) GetStorageContainerById(ctx context.Context, request *import14.GetStorageContainerByIdRequest, args ...map[string]interface{}) (*import1.GetStorageContainerApiResponse, error) {
+func (api *StorageContainersServiceApi) GetStorageContainerById(ctx context.Context, request *import22.GetStorageContainerByIdRequest, args ...map[string]interface{}) (*import1.GetStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -310,34 +328,41 @@ func (api *StorageContainersServiceApi) GetStorageContainerById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetStorageContainerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Fetches the statistical information for the Storage Container identified by external identifier..
-func (api *StorageContainersApi) GetStorageContainerStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import6.DownSamplingOperator, args ...map[string]interface{}) (*import5.GetStorageContainerStatsApiResponse, error) {
+func (api *StorageContainersApi) GetStorageContainerStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import9.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import8.GetStorageContainerStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetStorageContainerStats(context.Background(), &import14.GetStorageContainerStatsRequest{
+	return api.ServiceClient.GetStorageContainerStats(context.Background(), &import22.GetStorageContainerStatsRequest{
 		ExtId:             extId,
 		StartTime_:        startTime_,
 		EndTime_:          endTime_,
 		SamplingInterval_: samplingInterval_,
 		StatType_:         statType_,
+		Select_:           select_,
 	}, args...)
 }
 
 // Fetches the statistical information for the Storage Container identified by external identifier..
-func (api *StorageContainersServiceApi) GetStorageContainerStats(ctx context.Context, request *import14.GetStorageContainerStatsRequest, args ...map[string]interface{}) (*import5.GetStorageContainerStatsApiResponse, error) {
+func (api *StorageContainersServiceApi) GetStorageContainerStats(ctx context.Context, request *import22.GetStorageContainerStatsRequest, args ...map[string]interface{}) (*import8.GetStorageContainerStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/stats/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.3/stats/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -374,6 +399,9 @@ func (api *StorageContainersServiceApi) GetStorageContainerStats(ctx context.Con
 		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -392,9 +420,15 @@ func (api *StorageContainersServiceApi) GetStorageContainerStats(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import5.GetStorageContainerStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import8.GetStorageContainerStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -403,7 +437,7 @@ func (api *StorageContainersApi) ListDataStoresByClusterId(clusterExtId *string,
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListDataStoresByClusterId(context.Background(), &import14.ListDataStoresByClusterIdRequest{
+	return api.ServiceClient.ListDataStoresByClusterId(context.Background(), &import22.ListDataStoresByClusterIdRequest{
 		ClusterExtId: clusterExtId,
 		Page_:        page_,
 		Limit_:       limit_,
@@ -412,13 +446,13 @@ func (api *StorageContainersApi) ListDataStoresByClusterId(clusterExtId *string,
 }
 
 // Lists all the datastores associated with Storage Containers from a cluster.
-func (api *StorageContainersServiceApi) ListDataStoresByClusterId(ctx context.Context, request *import14.ListDataStoresByClusterIdRequest, args ...map[string]interface{}) (*import1.ListDataStoresByClusterIdApiResponse, error) {
+func (api *StorageContainersServiceApi) ListDataStoresByClusterId(ctx context.Context, request *import22.ListDataStoresByClusterIdRequest, args ...map[string]interface{}) (*import1.ListDataStoresByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/storage-containers/datastores"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/storage-containers/datastores"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -465,34 +499,41 @@ func (api *StorageContainersServiceApi) ListDataStoresByClusterId(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListDataStoresByClusterIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Lists the Storage Containers available in the cluster. Note: The Storage Containers of PEs with versions prior to AOS 6.5 might have missing attribute data, and the PEs under the self-owned RBAC category might not be visible to non-admin users.
-func (api *StorageContainersApi) ListStorageContainers(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListStorageContainersApiResponse, error) {
+func (api *StorageContainersApi) ListStorageContainers(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListStorageContainersApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListStorageContainers(context.Background(), &import14.ListStorageContainersRequest{
+	return api.ServiceClient.ListStorageContainers(context.Background(), &import22.ListStorageContainersRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
 		Orderby_: orderby_,
+		Expand_:  expand_,
 		Select_:  select_,
 	}, args...)
 }
 
 // Lists the Storage Containers available in the cluster. Note: The Storage Containers of PEs with versions prior to AOS 6.5 might have missing attribute data, and the PEs under the self-owned RBAC category might not be visible to non-admin users.
-func (api *StorageContainersServiceApi) ListStorageContainers(ctx context.Context, request *import14.ListStorageContainersRequest, args ...map[string]interface{}) (*import1.ListStorageContainersApiResponse, error) {
+func (api *StorageContainersServiceApi) ListStorageContainers(ctx context.Context, request *import22.ListStorageContainersRequest, args ...map[string]interface{}) (*import1.ListStorageContainersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -517,6 +558,9 @@ func (api *StorageContainersServiceApi) ListStorageContainers(ctx context.Contex
 	if request.Orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
+	}
 	if request.Select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
@@ -538,9 +582,15 @@ func (api *StorageContainersServiceApi) ListStorageContainers(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListStorageContainersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -549,20 +599,20 @@ func (api *StorageContainersApi) MountStorageContainer(extId *string, body *impo
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.MountStorageContainer(context.Background(), &import14.MountStorageContainerRequest{
+	return api.ServiceClient.MountStorageContainer(context.Background(), &import22.MountStorageContainerRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Mounts the Storage Container identified by external identifier on an ESX datastore. The location header received in the API response contains the URL of the task object, which can be used to further track the status of the request.
-func (api *StorageContainersServiceApi) MountStorageContainer(ctx context.Context, request *import14.MountStorageContainerRequest, args ...map[string]interface{}) (*import1.MountStorageContainerApiResponse, error) {
+func (api *StorageContainersServiceApi) MountStorageContainer(ctx context.Context, request *import22.MountStorageContainerRequest, args ...map[string]interface{}) (*import1.MountStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}/$actions/mount"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers/{extId}/$actions/mount"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -603,9 +653,15 @@ func (api *StorageContainersServiceApi) MountStorageContainer(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.MountStorageContainerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -614,20 +670,20 @@ func (api *StorageContainersApi) UnmountStorageContainer(extId *string, body *im
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UnmountStorageContainer(context.Background(), &import14.UnmountStorageContainerRequest{
+	return api.ServiceClient.UnmountStorageContainer(context.Background(), &import22.UnmountStorageContainerRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Unmounts the Storage Container identified by external identifier from the ESX datastore. The location header received in the API response contains the URL of the task object, which can be used to further track the status of the request.
-func (api *StorageContainersServiceApi) UnmountStorageContainer(ctx context.Context, request *import14.UnmountStorageContainerRequest, args ...map[string]interface{}) (*import1.UnmountStorageContainerApiResponse, error) {
+func (api *StorageContainersServiceApi) UnmountStorageContainer(ctx context.Context, request *import22.UnmountStorageContainerRequest, args ...map[string]interface{}) (*import1.UnmountStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}/$actions/unmount"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers/{extId}/$actions/unmount"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -668,9 +724,15 @@ func (api *StorageContainersServiceApi) UnmountStorageContainer(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UnmountStorageContainerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -679,20 +741,20 @@ func (api *StorageContainersApi) UpdateStorageContainerById(extId *string, body 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewStorageContainersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateStorageContainerById(context.Background(), &import14.UpdateStorageContainerByIdRequest{
+	return api.ServiceClient.UpdateStorageContainerById(context.Background(), &import22.UpdateStorageContainerByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Updates the configuration of an existing Storage Container identified by external identifier. The location header received in the API response contains the URL of the task object, which can be used to further track the status of the request.
-func (api *StorageContainersServiceApi) UpdateStorageContainerById(ctx context.Context, request *import14.UpdateStorageContainerByIdRequest, args ...map[string]interface{}) (*import1.UpdateStorageContainerApiResponse, error) {
+func (api *StorageContainersServiceApi) UpdateStorageContainerById(ctx context.Context, request *import22.UpdateStorageContainerByIdRequest, args ...map[string]interface{}) (*import1.UpdateStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -733,8 +795,14 @@ func (api *StorageContainersServiceApi) UpdateStorageContainerById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateStorageContainerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

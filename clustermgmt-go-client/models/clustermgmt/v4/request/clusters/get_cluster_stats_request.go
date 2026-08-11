@@ -1,7 +1,7 @@
 package clusters
 
 import (
-	import6 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"time"
 )
 
@@ -26,12 +26,13 @@ type GetClusterStatsRequest struct {
 	SamplingInterval_ *int
 
 	// The operator to use while performing down-sampling on stats data. Allowed values are SUM, MIN, MAX, AVG, COUNT and LAST.
-	StatType_ *import6.DownSamplingOperator
+	StatType_ *import9.DownSamplingOperator
 
 	// A URL query parameter that allows clients to request a specific set of properties for each entity or complex type.
 	// Expression specified with the $select must conform to the [OData
 	// V4.01](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html) URL conventions. If a $select
 	// expression consists of a single select item that is an asterisk (i.e., *), then all properties on the matching resource
-	// will be returned.
+	// will be returned. If both $select and $apply query parameters are present, $select will be applied on entities within
+	// the groups.
 	Select_ *string
 }

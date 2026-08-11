@@ -78,7 +78,7 @@ func (api *BmcServiceApi) GetBmcInfo(ctx context.Context, request *import2.GetBm
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -120,9 +120,15 @@ func (api *BmcServiceApi) GetBmcInfo(ctx context.Context, request *import2.GetBm
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetBmcInfoResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -145,7 +151,7 @@ func (api *BmcServiceApi) UpdateBmcInfo(ctx context.Context, request *import2.Up
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -191,8 +197,14 @@ func (api *BmcServiceApi) UpdateBmcInfo(ctx context.Context, request *import2.Up
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateBmcInfoResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

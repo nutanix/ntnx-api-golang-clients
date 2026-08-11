@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/aws/config/config_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Cluster Management APIs
  *

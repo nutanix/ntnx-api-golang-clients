@@ -1,7 +1,7 @@
 package disks
 
 import (
-	import6 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"time"
 )
 
@@ -26,5 +26,5 @@ type GetDiskStatsRequest struct {
 	SamplingInterval_ *int
 
 	// The operator to use while performing down-sampling on stats data. Allowed values are SUM, MIN, MAX, AVG, COUNT and LAST.
-	StatType_ *import6.DownSamplingOperator
+	StatType_ *import9.DownSamplingOperator
 }

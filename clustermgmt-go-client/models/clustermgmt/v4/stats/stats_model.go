@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/stats/stats_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -45,6 +45,10 @@ type ClusterStats struct {
 	  Upper Buf value of Aggregate Hypervisor Memory Usage(ppm).
 	*/
 	AggregateHypervisorMemoryUsagePpmUpperBuf []TimeValuePair `json:"aggregateHypervisorMemoryUsagePpmUpperBuf,omitempty"`
+	/*
+	  CPU allocation/Configured CPU aggregated value.
+	*/
+	AggregateVmConfiguredVcpus []TimeValuePair `json:"aggregateVmConfiguredVcpus,omitempty"`
 	/*
 	  Controller Average IO Latency(usecs).
 	*/
@@ -146,21 +150,57 @@ type ClusterStats struct {
 	*/
 	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
 	/*
+	  Represents the ratio of configured virtual CPUs (vCPUs) to available physical CPUs (pCPUs) on the cluster, expressed in parts per million (PPM)
+	*/
+	CpuOvercommitRatioPpm []TimeValuePair `json:"cpuOvercommitRatioPpm,omitempty"`
+	/*
 	  CPU usage (Hz)
 	*/
 	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
+	/*
+	  Amount of storage space in bytes saved by compression. This is the total amount of storage space saved by compression.
+	*/
+	DataReductionCompressionSavedBytes []TimeValuePair `json:"dataReductionCompressionSavedBytes,omitempty"`
+	/*
+	  Amount of storage space in bytes saved by data reduction. This is the total amount of storage space saved by data reduction.
+	*/
+	DataReductionSavedBytes []TimeValuePair `json:"dataReductionSavedBytes,omitempty"`
+	/*
+	  Data reduction savings ratio expressed in parts per million after applying deduplication, compression and erasure coding.
+	*/
+	DataReductionSavingRatioPpm []TimeValuePair `json:"dataReductionSavingRatioPpm,omitempty"`
+	/*
+	  Amount of storage space in bytes after thin provisioning data reduction is applied. This is the total logical size of the actual data written in VDisks.
+	*/
+	DataReductionThinProvisionPostReductionBytes []TimeValuePair `json:"dataReductionThinProvisionPostReductionBytes,omitempty"`
+	/*
+	  Amount of storage space in bytes before thin provisioning data reduction is applied. This is the total logical size of all the VDisks with Thin Provisioning.
+	*/
+	DataReductionThinProvisionPreReductionBytes []TimeValuePair `json:"dataReductionThinProvisionPreReductionBytes,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Total free physical memory available in the cluster. This value does include High Availability (HA) memory reservations.
+	*/
+	FreeMemoryBytes []TimeValuePair `json:"freeMemoryBytes,omitempty"`
+	/*
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
 	/*
+	  Memory reserved currently for HA in the Cluster
+	*/
+	HaMemoryReservedBytes []TimeValuePair `json:"haMemoryReservedBytes,omitempty"`
+	/*
 	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
 	*/
 	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
+	/*
+	  Sum of Host Memory Overheads.
+	*/
+	HostMemoryOverheadBytes []TimeValuePair `json:"hostMemoryOverheadBytes,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -198,9 +238,25 @@ type ClusterStats struct {
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
 	/*
+	  Represents the ratio of total configured memory of overcommitted VMs to the aggregated pool size across all hosts, expressed in parts per million (PPM)
+	*/
+	MemoryOvercommitRatioPpm []TimeValuePair `json:"memoryOvercommitRatioPpm,omitempty"`
+	/*
+	  Aggregated memory reclaimed from all Overcommitted VMs by the cluster
+	*/
+	MemoryReclaimedByBalloonBytes []TimeValuePair `json:"memoryReclaimedByBalloonBytes,omitempty"`
+	/*
+	  Memory consumption/usage without ballooned memory
+	*/
+	MemoryUsageWithoutBalloonedMemory []TimeValuePair `json:"memoryUsageWithoutBalloonedMemory,omitempty"`
+	/*
 	  Overall memory usage(bytes).
 	*/
 	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
+	/*
+	  Overall memory usage(ppm).
+	*/
+	OverallMemoryUsagePpm []TimeValuePair `json:"overallMemoryUsagePpm,omitempty"`
 	/*
 	  Overall savings (bytes)
 	*/
@@ -210,9 +266,13 @@ type ClusterStats struct {
 	*/
 	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
 	/*
-	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs.
 	*/
 	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
+	/*
+	  Percentage of total storage capacity currently in use.
+	*/
+	PercentageUsedStorage []TimeValuePair `json:"percentageUsedStorage,omitempty"`
 	/*
 	  Power instant consumption (watt)
 	*/
@@ -222,6 +282,10 @@ type ClusterStats struct {
 	*/
 	RecycleBinUsageBytes []TimeValuePair `json:"recycleBinUsageBytes,omitempty"`
 	/*
+	  Total Memory used reported by guest in the cluster
+	*/
+	ReportedMemoryUsageBytes []TimeValuePair `json:"reportedMemoryUsageBytes,omitempty"`
+	/*
 	  Snapshot capacity (bytes)
 	*/
 	SnapshotCapacityBytes []TimeValuePair `json:"snapshotCapacityBytes,omitempty"`
@@ -230,6 +294,30 @@ type ClusterStats struct {
 	*/
 	StorageCapacityBytes []TimeValuePair `json:"storageCapacityBytes,omitempty"`
 	/*
+	  Raw storage capacity in absolute total physical capacity of a cluster measured in bytes.
+	*/
+	StorageRawCapacityBytes []TimeValuePair `json:"storageRawCapacityBytes,omitempty"`
+	/*
+	  Amount of reserved free storage space in bytes. This is the space left after subtracting the reserved usage bytes from reserved capacity bytes.
+	*/
+	StorageReservedFreeBytes []TimeValuePair `json:"storageReservedFreeBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the cloud storage tier.
+	*/
+	StorageTierCloudUsageBytes []TimeValuePair `json:"storageTierCloudUsageBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the DAS SATA storage tier.
+	*/
+	StorageTierDasSataUsageBytes []TimeValuePair `json:"storageTierDasSataUsageBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the SSD/Memory/NVMe storage tier.
+	*/
+	StorageTierSsdMemNvmeUsageBytes []TimeValuePair `json:"storageTierSsdMemNvmeUsageBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the SSD storage tier.
+	*/
+	StorageTierSsdUsageBytes []TimeValuePair `json:"storageTierSsdUsageBytes,omitempty"`
+	/*
 	  Storage usage(bytes).
 	*/
 	StorageUsageBytes []TimeValuePair `json:"storageUsageBytes,omitempty"`
@@ -237,6 +325,18 @@ type ClusterStats struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Total configured memory of VMs on the cluster
+	*/
+	TotalConfiguredVmMemoryBytes []TimeValuePair `json:"totalConfiguredVmMemoryBytes,omitempty"`
+	/*
+	  Total memory allocated to all the VMs in Cluster.
+	*/
+	TotalMemoryAllottedToVmBytes []TimeValuePair `json:"totalMemoryAllottedToVmBytes,omitempty"`
+	/*
+	  Aggregate of VM Memory Overheads on the cluster.
+	*/
+	VmMemoryOverheadBytes []TimeValuePair `json:"vmMemoryOverheadBytes,omitempty"`
 }
 
 func (p *ClusterStats) MarshalJSON() ([]byte, error) {
@@ -299,6 +399,9 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	}
 	if known.AggregateHypervisorMemoryUsagePpmUpperBuf != nil {
 		p.AggregateHypervisorMemoryUsagePpmUpperBuf = known.AggregateHypervisorMemoryUsagePpmUpperBuf
+	}
+	if known.AggregateVmConfiguredVcpus != nil {
+		p.AggregateVmConfiguredVcpus = known.AggregateVmConfiguredVcpus
 	}
 	if known.ControllerAvgIoLatencyUsecs != nil {
 		p.ControllerAvgIoLatencyUsecs = known.ControllerAvgIoLatencyUsecs
@@ -375,17 +478,44 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	if known.CpuCapacityHz != nil {
 		p.CpuCapacityHz = known.CpuCapacityHz
 	}
+	if known.CpuOvercommitRatioPpm != nil {
+		p.CpuOvercommitRatioPpm = known.CpuOvercommitRatioPpm
+	}
 	if known.CpuUsageHz != nil {
 		p.CpuUsageHz = known.CpuUsageHz
+	}
+	if known.DataReductionCompressionSavedBytes != nil {
+		p.DataReductionCompressionSavedBytes = known.DataReductionCompressionSavedBytes
+	}
+	if known.DataReductionSavedBytes != nil {
+		p.DataReductionSavedBytes = known.DataReductionSavedBytes
+	}
+	if known.DataReductionSavingRatioPpm != nil {
+		p.DataReductionSavingRatioPpm = known.DataReductionSavingRatioPpm
+	}
+	if known.DataReductionThinProvisionPostReductionBytes != nil {
+		p.DataReductionThinProvisionPostReductionBytes = known.DataReductionThinProvisionPostReductionBytes
+	}
+	if known.DataReductionThinProvisionPreReductionBytes != nil {
+		p.DataReductionThinProvisionPreReductionBytes = known.DataReductionThinProvisionPreReductionBytes
 	}
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.FreeMemoryBytes != nil {
+		p.FreeMemoryBytes = known.FreeMemoryBytes
+	}
 	if known.FreePhysicalStorageBytes != nil {
 		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
 	}
+	if known.HaMemoryReservedBytes != nil {
+		p.HaMemoryReservedBytes = known.HaMemoryReservedBytes
+	}
 	if known.HealthCheckScore != nil {
 		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HostMemoryOverheadBytes != nil {
+		p.HostMemoryOverheadBytes = known.HostMemoryOverheadBytes
 	}
 	if known.HypervisorCpuUsagePpm != nil {
 		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
@@ -414,8 +544,20 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	if known.MemoryCapacityBytes != nil {
 		p.MemoryCapacityBytes = known.MemoryCapacityBytes
 	}
+	if known.MemoryOvercommitRatioPpm != nil {
+		p.MemoryOvercommitRatioPpm = known.MemoryOvercommitRatioPpm
+	}
+	if known.MemoryReclaimedByBalloonBytes != nil {
+		p.MemoryReclaimedByBalloonBytes = known.MemoryReclaimedByBalloonBytes
+	}
+	if known.MemoryUsageWithoutBalloonedMemory != nil {
+		p.MemoryUsageWithoutBalloonedMemory = known.MemoryUsageWithoutBalloonedMemory
+	}
 	if known.OverallMemoryUsageBytes != nil {
 		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
+	}
+	if known.OverallMemoryUsagePpm != nil {
+		p.OverallMemoryUsagePpm = known.OverallMemoryUsagePpm
 	}
 	if known.OverallSavingsBytes != nil {
 		p.OverallSavingsBytes = known.OverallSavingsBytes
@@ -426,11 +568,17 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	if known.OvercommittedVmsReclaimableMemoryBytes != nil {
 		p.OvercommittedVmsReclaimableMemoryBytes = known.OvercommittedVmsReclaimableMemoryBytes
 	}
+	if known.PercentageUsedStorage != nil {
+		p.PercentageUsedStorage = known.PercentageUsedStorage
+	}
 	if known.PowerConsumptionInstantWatt != nil {
 		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
 	}
 	if known.RecycleBinUsageBytes != nil {
 		p.RecycleBinUsageBytes = known.RecycleBinUsageBytes
+	}
+	if known.ReportedMemoryUsageBytes != nil {
+		p.ReportedMemoryUsageBytes = known.ReportedMemoryUsageBytes
 	}
 	if known.SnapshotCapacityBytes != nil {
 		p.SnapshotCapacityBytes = known.SnapshotCapacityBytes
@@ -438,11 +586,38 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	if known.StorageCapacityBytes != nil {
 		p.StorageCapacityBytes = known.StorageCapacityBytes
 	}
+	if known.StorageRawCapacityBytes != nil {
+		p.StorageRawCapacityBytes = known.StorageRawCapacityBytes
+	}
+	if known.StorageReservedFreeBytes != nil {
+		p.StorageReservedFreeBytes = known.StorageReservedFreeBytes
+	}
+	if known.StorageTierCloudUsageBytes != nil {
+		p.StorageTierCloudUsageBytes = known.StorageTierCloudUsageBytes
+	}
+	if known.StorageTierDasSataUsageBytes != nil {
+		p.StorageTierDasSataUsageBytes = known.StorageTierDasSataUsageBytes
+	}
+	if known.StorageTierSsdMemNvmeUsageBytes != nil {
+		p.StorageTierSsdMemNvmeUsageBytes = known.StorageTierSsdMemNvmeUsageBytes
+	}
+	if known.StorageTierSsdUsageBytes != nil {
+		p.StorageTierSsdUsageBytes = known.StorageTierSsdUsageBytes
+	}
 	if known.StorageUsageBytes != nil {
 		p.StorageUsageBytes = known.StorageUsageBytes
 	}
 	if known.TenantId != nil {
 		p.TenantId = known.TenantId
+	}
+	if known.TotalConfiguredVmMemoryBytes != nil {
+		p.TotalConfiguredVmMemoryBytes = known.TotalConfiguredVmMemoryBytes
+	}
+	if known.TotalMemoryAllottedToVmBytes != nil {
+		p.TotalMemoryAllottedToVmBytes = known.TotalMemoryAllottedToVmBytes
+	}
+	if known.VmMemoryOverheadBytes != nil {
+		p.VmMemoryOverheadBytes = known.VmMemoryOverheadBytes
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
@@ -452,6 +627,7 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "aggregateHypervisorMemoryUsagePpm")
 	delete(allFields, "aggregateHypervisorMemoryUsagePpmLowerBuf")
 	delete(allFields, "aggregateHypervisorMemoryUsagePpmUpperBuf")
+	delete(allFields, "aggregateVmConfiguredVcpus")
 	delete(allFields, "controllerAvgIoLatencyUsecs")
 	delete(allFields, "controllerAvgIoLatencyUsecsLowerBuf")
 	delete(allFields, "controllerAvgIoLatencyUsecsUpperBuf")
@@ -477,10 +653,19 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
 	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
 	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuOvercommitRatioPpm")
 	delete(allFields, "cpuUsageHz")
+	delete(allFields, "dataReductionCompressionSavedBytes")
+	delete(allFields, "dataReductionSavedBytes")
+	delete(allFields, "dataReductionSavingRatioPpm")
+	delete(allFields, "dataReductionThinProvisionPostReductionBytes")
+	delete(allFields, "dataReductionThinProvisionPreReductionBytes")
 	delete(allFields, "extId")
+	delete(allFields, "freeMemoryBytes")
 	delete(allFields, "freePhysicalStorageBytes")
+	delete(allFields, "haMemoryReservedBytes")
 	delete(allFields, "healthCheckScore")
+	delete(allFields, "hostMemoryOverheadBytes")
 	delete(allFields, "hypervisorCpuUsagePpm")
 	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
 	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
@@ -490,16 +675,31 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "logicalStorageUsageBytes")
 	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "memoryOvercommitRatioPpm")
+	delete(allFields, "memoryReclaimedByBalloonBytes")
+	delete(allFields, "memoryUsageWithoutBalloonedMemory")
 	delete(allFields, "overallMemoryUsageBytes")
+	delete(allFields, "overallMemoryUsagePpm")
 	delete(allFields, "overallSavingsBytes")
 	delete(allFields, "overallSavingsRatio")
 	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
+	delete(allFields, "percentageUsedStorage")
 	delete(allFields, "powerConsumptionInstantWatt")
 	delete(allFields, "recycleBinUsageBytes")
+	delete(allFields, "reportedMemoryUsageBytes")
 	delete(allFields, "snapshotCapacityBytes")
 	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageRawCapacityBytes")
+	delete(allFields, "storageReservedFreeBytes")
+	delete(allFields, "storageTierCloudUsageBytes")
+	delete(allFields, "storageTierDasSataUsageBytes")
+	delete(allFields, "storageTierSsdMemNvmeUsageBytes")
+	delete(allFields, "storageTierSsdUsageBytes")
 	delete(allFields, "storageUsageBytes")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalConfiguredVmMemoryBytes")
+	delete(allFields, "totalMemoryAllottedToVmBytes")
+	delete(allFields, "vmMemoryOverheadBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -513,14 +713,14 @@ func NewClusterStats() *ClusterStats {
 	p := new(ClusterStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.2/stats/clusters/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.3/stats/clusters/{extId} Get operation
 */
 type ClusterStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -620,7 +820,7 @@ func NewClusterStatsApiResponse() *ClusterStatsApiResponse {
 	p := new(ClusterStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -665,6 +865,10 @@ type ClusterStatsProjection struct {
 	  Upper Buf value of Aggregate Hypervisor Memory Usage(ppm).
 	*/
 	AggregateHypervisorMemoryUsagePpmUpperBuf []TimeValuePair `json:"aggregateHypervisorMemoryUsagePpmUpperBuf,omitempty"`
+	/*
+	  CPU allocation/Configured CPU aggregated value.
+	*/
+	AggregateVmConfiguredVcpus []TimeValuePair `json:"aggregateVmConfiguredVcpus,omitempty"`
 	/*
 	  Controller Average IO Latency(usecs).
 	*/
@@ -766,21 +970,57 @@ type ClusterStatsProjection struct {
 	*/
 	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
 	/*
+	  Represents the ratio of configured virtual CPUs (vCPUs) to available physical CPUs (pCPUs) on the cluster, expressed in parts per million (PPM)
+	*/
+	CpuOvercommitRatioPpm []TimeValuePair `json:"cpuOvercommitRatioPpm,omitempty"`
+	/*
 	  CPU usage (Hz)
 	*/
 	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
+	/*
+	  Amount of storage space in bytes saved by compression. This is the total amount of storage space saved by compression.
+	*/
+	DataReductionCompressionSavedBytes []TimeValuePair `json:"dataReductionCompressionSavedBytes,omitempty"`
+	/*
+	  Amount of storage space in bytes saved by data reduction. This is the total amount of storage space saved by data reduction.
+	*/
+	DataReductionSavedBytes []TimeValuePair `json:"dataReductionSavedBytes,omitempty"`
+	/*
+	  Data reduction savings ratio expressed in parts per million after applying deduplication, compression and erasure coding.
+	*/
+	DataReductionSavingRatioPpm []TimeValuePair `json:"dataReductionSavingRatioPpm,omitempty"`
+	/*
+	  Amount of storage space in bytes after thin provisioning data reduction is applied. This is the total logical size of the actual data written in VDisks.
+	*/
+	DataReductionThinProvisionPostReductionBytes []TimeValuePair `json:"dataReductionThinProvisionPostReductionBytes,omitempty"`
+	/*
+	  Amount of storage space in bytes before thin provisioning data reduction is applied. This is the total logical size of all the VDisks with Thin Provisioning.
+	*/
+	DataReductionThinProvisionPreReductionBytes []TimeValuePair `json:"dataReductionThinProvisionPreReductionBytes,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Total free physical memory available in the cluster. This value does include High Availability (HA) memory reservations.
+	*/
+	FreeMemoryBytes []TimeValuePair `json:"freeMemoryBytes,omitempty"`
+	/*
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
 	/*
+	  Memory reserved currently for HA in the Cluster
+	*/
+	HaMemoryReservedBytes []TimeValuePair `json:"haMemoryReservedBytes,omitempty"`
+	/*
 	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
 	*/
 	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
+	/*
+	  Sum of Host Memory Overheads.
+	*/
+	HostMemoryOverheadBytes []TimeValuePair `json:"hostMemoryOverheadBytes,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -818,9 +1058,25 @@ type ClusterStatsProjection struct {
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
 	/*
+	  Represents the ratio of total configured memory of overcommitted VMs to the aggregated pool size across all hosts, expressed in parts per million (PPM)
+	*/
+	MemoryOvercommitRatioPpm []TimeValuePair `json:"memoryOvercommitRatioPpm,omitempty"`
+	/*
+	  Aggregated memory reclaimed from all Overcommitted VMs by the cluster
+	*/
+	MemoryReclaimedByBalloonBytes []TimeValuePair `json:"memoryReclaimedByBalloonBytes,omitempty"`
+	/*
+	  Memory consumption/usage without ballooned memory
+	*/
+	MemoryUsageWithoutBalloonedMemory []TimeValuePair `json:"memoryUsageWithoutBalloonedMemory,omitempty"`
+	/*
 	  Overall memory usage(bytes).
 	*/
 	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
+	/*
+	  Overall memory usage(ppm).
+	*/
+	OverallMemoryUsagePpm []TimeValuePair `json:"overallMemoryUsagePpm,omitempty"`
 	/*
 	  Overall savings (bytes)
 	*/
@@ -830,9 +1086,13 @@ type ClusterStatsProjection struct {
 	*/
 	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
 	/*
-	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs.
 	*/
 	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
+	/*
+	  Percentage of total storage capacity currently in use.
+	*/
+	PercentageUsedStorage []TimeValuePair `json:"percentageUsedStorage,omitempty"`
 	/*
 	  Power instant consumption (watt)
 	*/
@@ -842,6 +1102,10 @@ type ClusterStatsProjection struct {
 	*/
 	RecycleBinUsageBytes []TimeValuePair `json:"recycleBinUsageBytes,omitempty"`
 	/*
+	  Total Memory used reported by guest in the cluster
+	*/
+	ReportedMemoryUsageBytes []TimeValuePair `json:"reportedMemoryUsageBytes,omitempty"`
+	/*
 	  Snapshot capacity (bytes)
 	*/
 	SnapshotCapacityBytes []TimeValuePair `json:"snapshotCapacityBytes,omitempty"`
@@ -850,6 +1114,30 @@ type ClusterStatsProjection struct {
 	*/
 	StorageCapacityBytes []TimeValuePair `json:"storageCapacityBytes,omitempty"`
 	/*
+	  Raw storage capacity in absolute total physical capacity of a cluster measured in bytes.
+	*/
+	StorageRawCapacityBytes []TimeValuePair `json:"storageRawCapacityBytes,omitempty"`
+	/*
+	  Amount of reserved free storage space in bytes. This is the space left after subtracting the reserved usage bytes from reserved capacity bytes.
+	*/
+	StorageReservedFreeBytes []TimeValuePair `json:"storageReservedFreeBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the cloud storage tier.
+	*/
+	StorageTierCloudUsageBytes []TimeValuePair `json:"storageTierCloudUsageBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the DAS SATA storage tier.
+	*/
+	StorageTierDasSataUsageBytes []TimeValuePair `json:"storageTierDasSataUsageBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the SSD/Memory/NVMe storage tier.
+	*/
+	StorageTierSsdMemNvmeUsageBytes []TimeValuePair `json:"storageTierSsdMemNvmeUsageBytes,omitempty"`
+	/*
+	  Storage usage in bytes for the SSD storage tier.
+	*/
+	StorageTierSsdUsageBytes []TimeValuePair `json:"storageTierSsdUsageBytes,omitempty"`
+	/*
 	  Storage usage(bytes).
 	*/
 	StorageUsageBytes []TimeValuePair `json:"storageUsageBytes,omitempty"`
@@ -857,6 +1145,18 @@ type ClusterStatsProjection struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Total configured memory of VMs on the cluster
+	*/
+	TotalConfiguredVmMemoryBytes []TimeValuePair `json:"totalConfiguredVmMemoryBytes,omitempty"`
+	/*
+	  Total memory allocated to all the VMs in Cluster.
+	*/
+	TotalMemoryAllottedToVmBytes []TimeValuePair `json:"totalMemoryAllottedToVmBytes,omitempty"`
+	/*
+	  Aggregate of VM Memory Overheads on the cluster.
+	*/
+	VmMemoryOverheadBytes []TimeValuePair `json:"vmMemoryOverheadBytes,omitempty"`
 }
 
 func (p *ClusterStatsProjection) MarshalJSON() ([]byte, error) {
@@ -919,6 +1219,9 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 	if known.AggregateHypervisorMemoryUsagePpmUpperBuf != nil {
 		p.AggregateHypervisorMemoryUsagePpmUpperBuf = known.AggregateHypervisorMemoryUsagePpmUpperBuf
+	}
+	if known.AggregateVmConfiguredVcpus != nil {
+		p.AggregateVmConfiguredVcpus = known.AggregateVmConfiguredVcpus
 	}
 	if known.ControllerAvgIoLatencyUsecs != nil {
 		p.ControllerAvgIoLatencyUsecs = known.ControllerAvgIoLatencyUsecs
@@ -995,17 +1298,44 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.CpuCapacityHz != nil {
 		p.CpuCapacityHz = known.CpuCapacityHz
 	}
+	if known.CpuOvercommitRatioPpm != nil {
+		p.CpuOvercommitRatioPpm = known.CpuOvercommitRatioPpm
+	}
 	if known.CpuUsageHz != nil {
 		p.CpuUsageHz = known.CpuUsageHz
+	}
+	if known.DataReductionCompressionSavedBytes != nil {
+		p.DataReductionCompressionSavedBytes = known.DataReductionCompressionSavedBytes
+	}
+	if known.DataReductionSavedBytes != nil {
+		p.DataReductionSavedBytes = known.DataReductionSavedBytes
+	}
+	if known.DataReductionSavingRatioPpm != nil {
+		p.DataReductionSavingRatioPpm = known.DataReductionSavingRatioPpm
+	}
+	if known.DataReductionThinProvisionPostReductionBytes != nil {
+		p.DataReductionThinProvisionPostReductionBytes = known.DataReductionThinProvisionPostReductionBytes
+	}
+	if known.DataReductionThinProvisionPreReductionBytes != nil {
+		p.DataReductionThinProvisionPreReductionBytes = known.DataReductionThinProvisionPreReductionBytes
 	}
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.FreeMemoryBytes != nil {
+		p.FreeMemoryBytes = known.FreeMemoryBytes
+	}
 	if known.FreePhysicalStorageBytes != nil {
 		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
 	}
+	if known.HaMemoryReservedBytes != nil {
+		p.HaMemoryReservedBytes = known.HaMemoryReservedBytes
+	}
 	if known.HealthCheckScore != nil {
 		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HostMemoryOverheadBytes != nil {
+		p.HostMemoryOverheadBytes = known.HostMemoryOverheadBytes
 	}
 	if known.HypervisorCpuUsagePpm != nil {
 		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
@@ -1034,8 +1364,20 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.MemoryCapacityBytes != nil {
 		p.MemoryCapacityBytes = known.MemoryCapacityBytes
 	}
+	if known.MemoryOvercommitRatioPpm != nil {
+		p.MemoryOvercommitRatioPpm = known.MemoryOvercommitRatioPpm
+	}
+	if known.MemoryReclaimedByBalloonBytes != nil {
+		p.MemoryReclaimedByBalloonBytes = known.MemoryReclaimedByBalloonBytes
+	}
+	if known.MemoryUsageWithoutBalloonedMemory != nil {
+		p.MemoryUsageWithoutBalloonedMemory = known.MemoryUsageWithoutBalloonedMemory
+	}
 	if known.OverallMemoryUsageBytes != nil {
 		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
+	}
+	if known.OverallMemoryUsagePpm != nil {
+		p.OverallMemoryUsagePpm = known.OverallMemoryUsagePpm
 	}
 	if known.OverallSavingsBytes != nil {
 		p.OverallSavingsBytes = known.OverallSavingsBytes
@@ -1046,11 +1388,17 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.OvercommittedVmsReclaimableMemoryBytes != nil {
 		p.OvercommittedVmsReclaimableMemoryBytes = known.OvercommittedVmsReclaimableMemoryBytes
 	}
+	if known.PercentageUsedStorage != nil {
+		p.PercentageUsedStorage = known.PercentageUsedStorage
+	}
 	if known.PowerConsumptionInstantWatt != nil {
 		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
 	}
 	if known.RecycleBinUsageBytes != nil {
 		p.RecycleBinUsageBytes = known.RecycleBinUsageBytes
+	}
+	if known.ReportedMemoryUsageBytes != nil {
+		p.ReportedMemoryUsageBytes = known.ReportedMemoryUsageBytes
 	}
 	if known.SnapshotCapacityBytes != nil {
 		p.SnapshotCapacityBytes = known.SnapshotCapacityBytes
@@ -1058,11 +1406,38 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.StorageCapacityBytes != nil {
 		p.StorageCapacityBytes = known.StorageCapacityBytes
 	}
+	if known.StorageRawCapacityBytes != nil {
+		p.StorageRawCapacityBytes = known.StorageRawCapacityBytes
+	}
+	if known.StorageReservedFreeBytes != nil {
+		p.StorageReservedFreeBytes = known.StorageReservedFreeBytes
+	}
+	if known.StorageTierCloudUsageBytes != nil {
+		p.StorageTierCloudUsageBytes = known.StorageTierCloudUsageBytes
+	}
+	if known.StorageTierDasSataUsageBytes != nil {
+		p.StorageTierDasSataUsageBytes = known.StorageTierDasSataUsageBytes
+	}
+	if known.StorageTierSsdMemNvmeUsageBytes != nil {
+		p.StorageTierSsdMemNvmeUsageBytes = known.StorageTierSsdMemNvmeUsageBytes
+	}
+	if known.StorageTierSsdUsageBytes != nil {
+		p.StorageTierSsdUsageBytes = known.StorageTierSsdUsageBytes
+	}
 	if known.StorageUsageBytes != nil {
 		p.StorageUsageBytes = known.StorageUsageBytes
 	}
 	if known.TenantId != nil {
 		p.TenantId = known.TenantId
+	}
+	if known.TotalConfiguredVmMemoryBytes != nil {
+		p.TotalConfiguredVmMemoryBytes = known.TotalConfiguredVmMemoryBytes
+	}
+	if known.TotalMemoryAllottedToVmBytes != nil {
+		p.TotalMemoryAllottedToVmBytes = known.TotalMemoryAllottedToVmBytes
+	}
+	if known.VmMemoryOverheadBytes != nil {
+		p.VmMemoryOverheadBytes = known.VmMemoryOverheadBytes
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
@@ -1072,6 +1447,7 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "aggregateHypervisorMemoryUsagePpm")
 	delete(allFields, "aggregateHypervisorMemoryUsagePpmLowerBuf")
 	delete(allFields, "aggregateHypervisorMemoryUsagePpmUpperBuf")
+	delete(allFields, "aggregateVmConfiguredVcpus")
 	delete(allFields, "controllerAvgIoLatencyUsecs")
 	delete(allFields, "controllerAvgIoLatencyUsecsLowerBuf")
 	delete(allFields, "controllerAvgIoLatencyUsecsUpperBuf")
@@ -1097,10 +1473,19 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
 	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
 	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuOvercommitRatioPpm")
 	delete(allFields, "cpuUsageHz")
+	delete(allFields, "dataReductionCompressionSavedBytes")
+	delete(allFields, "dataReductionSavedBytes")
+	delete(allFields, "dataReductionSavingRatioPpm")
+	delete(allFields, "dataReductionThinProvisionPostReductionBytes")
+	delete(allFields, "dataReductionThinProvisionPreReductionBytes")
 	delete(allFields, "extId")
+	delete(allFields, "freeMemoryBytes")
 	delete(allFields, "freePhysicalStorageBytes")
+	delete(allFields, "haMemoryReservedBytes")
 	delete(allFields, "healthCheckScore")
+	delete(allFields, "hostMemoryOverheadBytes")
 	delete(allFields, "hypervisorCpuUsagePpm")
 	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
 	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
@@ -1110,16 +1495,31 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "logicalStorageUsageBytes")
 	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "memoryOvercommitRatioPpm")
+	delete(allFields, "memoryReclaimedByBalloonBytes")
+	delete(allFields, "memoryUsageWithoutBalloonedMemory")
 	delete(allFields, "overallMemoryUsageBytes")
+	delete(allFields, "overallMemoryUsagePpm")
 	delete(allFields, "overallSavingsBytes")
 	delete(allFields, "overallSavingsRatio")
 	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
+	delete(allFields, "percentageUsedStorage")
 	delete(allFields, "powerConsumptionInstantWatt")
 	delete(allFields, "recycleBinUsageBytes")
+	delete(allFields, "reportedMemoryUsageBytes")
 	delete(allFields, "snapshotCapacityBytes")
 	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageRawCapacityBytes")
+	delete(allFields, "storageReservedFreeBytes")
+	delete(allFields, "storageTierCloudUsageBytes")
+	delete(allFields, "storageTierDasSataUsageBytes")
+	delete(allFields, "storageTierSsdMemNvmeUsageBytes")
+	delete(allFields, "storageTierSsdUsageBytes")
 	delete(allFields, "storageUsageBytes")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalConfiguredVmMemoryBytes")
+	delete(allFields, "totalMemoryAllottedToVmBytes")
+	delete(allFields, "vmMemoryOverheadBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -1133,7 +1533,7 @@ func NewClusterStatsProjection() *ClusterStatsProjection {
 	p := new(ClusterStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1505,14 +1905,14 @@ func NewDiskStats() *DiskStats {
 	p := new(DiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.DiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.2/stats/disks/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.3/stats/disks/{extId} Get operation
 */
 type GetDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1612,7 +2012,7 @@ func NewGetDiskStatsApiResponse() *GetDiskStatsApiResponse {
 	p := new(GetDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1640,7 +2040,7 @@ func (p *GetDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.2/stats/storage-containers/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.3/stats/storage-containers/{extId} Get operation
 */
 type GetStorageContainerStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1740,7 +2140,7 @@ func NewGetStorageContainerStatsApiResponse() *GetStorageContainerStatsApiRespon
 	p := new(GetStorageContainerStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetStorageContainerStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1889,6 +2289,10 @@ type HostStats struct {
 	*/
 	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
 	/*
+	  Represents the ratio of configured virtual CPUs (vCPUs) to available physical CPUs (pCPUs) on the host, expressed in parts per million (PPM).
+	*/
+	CpuOvercommitRatioPpm []TimeValuePair `json:"cpuOvercommitRatioPpm,omitempty"`
+	/*
 	  CPU usage (Hz)
 	*/
 	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
@@ -1897,6 +2301,10 @@ type HostStats struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Free memory available on the Host.
+	*/
+	FreeMemoryBytes []TimeValuePair `json:"freeMemoryBytes,omitempty"`
+	/*
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
@@ -1904,6 +2312,34 @@ type HostStats struct {
 	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
 	*/
 	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
+	/*
+	  Memory Usage for VMs.
+	*/
+	HostMemoryConsumptionPpm []TimeValuePair `json:"hostMemoryConsumptionPpm,omitempty"`
+	/*
+	  Memory Overheads on AHV host (Includes VM overheads).
+	*/
+	HostMemoryOverheadBytes []TimeValuePair `json:"hostMemoryOverheadBytes,omitempty"`
+	/*
+	  Rate at which memory is swapped from disk into active memory during the interval in kilobyte per second.
+	*/
+	HostMemorySwapInRateKbps []TimeValuePair `json:"hostMemorySwapInRateKbps,omitempty"`
+	/*
+	  Rate at which memory is being swapped from active memory to disk during the current interval in bytes per second.
+	*/
+	HostMemorySwapOutRateKbps []TimeValuePair `json:"hostMemorySwapOutRateKbps,omitempty"`
+	/*
+	  Total swap memory of the Host i.e. combined VM memory swapped on the Host in bytes.
+	*/
+	HostMemorySwappedBytes []TimeValuePair `json:"hostMemorySwappedBytes,omitempty"`
+	/*
+	  Total swap memory of the Host i.e. combined VM memory swapped on the Host in ppm.
+	*/
+	HostMemorySwappedPpm []TimeValuePair `json:"hostMemorySwappedPpm,omitempty"`
+	/*
+	  Total swap usage on the host.
+	*/
+	HostSwapUsedBytes []TimeValuePair `json:"hostSwapUsedBytes,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -1941,9 +2377,13 @@ type HostStats struct {
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
 	/*
-	  Physical memory available to Overcommit enabled VMs in the Host
+	  Physical memory available to Overcommit enabled VMs in the Host.
 	*/
 	MemoryOvercommitPoolSizePpm []TimeValuePair `json:"memoryOvercommitPoolSizePpm,omitempty"`
+	/*
+	  Aggregated memory Reclaimed from all Overcommitted VMs by the host.
+	*/
+	MemoryReclaimedByBalloonBytes []TimeValuePair `json:"memoryReclaimedByBalloonBytes,omitempty"`
 	/*
 	  Overall memory usage(bytes).
 	*/
@@ -1961,13 +2401,21 @@ type HostStats struct {
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
 	/*
-	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs.
 	*/
 	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
 	/*
 	  Power instant consumption (watt)
 	*/
 	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
+	/*
+	  Total Memory used reported by guest in host.
+	*/
+	ReportedMemoryUsageBytes []TimeValuePair `json:"reportedMemoryUsageBytes,omitempty"`
+	/*
+	  Total Memory used reported in PPM by guest in host.
+	*/
+	ReportedMemoryUsagePpm []TimeValuePair `json:"reportedMemoryUsagePpm,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
@@ -1980,6 +2428,22 @@ type HostStats struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Total configured memory of VMs on the host.
+	*/
+	TotalConfiguredVmMemoryBytes []TimeValuePair `json:"totalConfiguredVmMemoryBytes,omitempty"`
+	/*
+	  Total memory allocated to all the VMs in Host.
+	*/
+	TotalMemoryAllottedToVmBytes []TimeValuePair `json:"totalMemoryAllottedToVmBytes,omitempty"`
+	/*
+	  Total number of vCPUs configured across all virtual machines (VMs) on the host.
+	*/
+	TotalVmConfiguredVcpus []TimeValuePair `json:"totalVmConfiguredVcpus,omitempty"`
+	/*
+	  Aggregate of VM Overheads on the host.
+	*/
+	VmOverheadBytes []TimeValuePair `json:"vmOverheadBytes,omitempty"`
 }
 
 func (p *HostStats) MarshalJSON() ([]byte, error) {
@@ -2118,17 +2582,44 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	if known.CpuCapacityHz != nil {
 		p.CpuCapacityHz = known.CpuCapacityHz
 	}
+	if known.CpuOvercommitRatioPpm != nil {
+		p.CpuOvercommitRatioPpm = known.CpuOvercommitRatioPpm
+	}
 	if known.CpuUsageHz != nil {
 		p.CpuUsageHz = known.CpuUsageHz
 	}
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.FreeMemoryBytes != nil {
+		p.FreeMemoryBytes = known.FreeMemoryBytes
+	}
 	if known.FreePhysicalStorageBytes != nil {
 		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
 	}
 	if known.HealthCheckScore != nil {
 		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HostMemoryConsumptionPpm != nil {
+		p.HostMemoryConsumptionPpm = known.HostMemoryConsumptionPpm
+	}
+	if known.HostMemoryOverheadBytes != nil {
+		p.HostMemoryOverheadBytes = known.HostMemoryOverheadBytes
+	}
+	if known.HostMemorySwapInRateKbps != nil {
+		p.HostMemorySwapInRateKbps = known.HostMemorySwapInRateKbps
+	}
+	if known.HostMemorySwapOutRateKbps != nil {
+		p.HostMemorySwapOutRateKbps = known.HostMemorySwapOutRateKbps
+	}
+	if known.HostMemorySwappedBytes != nil {
+		p.HostMemorySwappedBytes = known.HostMemorySwappedBytes
+	}
+	if known.HostMemorySwappedPpm != nil {
+		p.HostMemorySwappedPpm = known.HostMemorySwappedPpm
+	}
+	if known.HostSwapUsedBytes != nil {
+		p.HostSwapUsedBytes = known.HostSwapUsedBytes
 	}
 	if known.HypervisorCpuUsagePpm != nil {
 		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
@@ -2160,6 +2651,9 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	if known.MemoryOvercommitPoolSizePpm != nil {
 		p.MemoryOvercommitPoolSizePpm = known.MemoryOvercommitPoolSizePpm
 	}
+	if known.MemoryReclaimedByBalloonBytes != nil {
+		p.MemoryReclaimedByBalloonBytes = known.MemoryReclaimedByBalloonBytes
+	}
 	if known.OverallMemoryUsageBytes != nil {
 		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
 	}
@@ -2178,6 +2672,12 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	if known.PowerConsumptionInstantWatt != nil {
 		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
 	}
+	if known.ReportedMemoryUsageBytes != nil {
+		p.ReportedMemoryUsageBytes = known.ReportedMemoryUsageBytes
+	}
+	if known.ReportedMemoryUsagePpm != nil {
+		p.ReportedMemoryUsagePpm = known.ReportedMemoryUsagePpm
+	}
 	if known.StorageCapacityBytes != nil {
 		p.StorageCapacityBytes = known.StorageCapacityBytes
 	}
@@ -2186,6 +2686,18 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	}
 	if known.TenantId != nil {
 		p.TenantId = known.TenantId
+	}
+	if known.TotalConfiguredVmMemoryBytes != nil {
+		p.TotalConfiguredVmMemoryBytes = known.TotalConfiguredVmMemoryBytes
+	}
+	if known.TotalMemoryAllottedToVmBytes != nil {
+		p.TotalMemoryAllottedToVmBytes = known.TotalMemoryAllottedToVmBytes
+	}
+	if known.TotalVmConfiguredVcpus != nil {
+		p.TotalVmConfiguredVcpus = known.TotalVmConfiguredVcpus
+	}
+	if known.VmOverheadBytes != nil {
+		p.VmOverheadBytes = known.VmOverheadBytes
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
@@ -2220,10 +2732,19 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
 	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
 	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuOvercommitRatioPpm")
 	delete(allFields, "cpuUsageHz")
 	delete(allFields, "extId")
+	delete(allFields, "freeMemoryBytes")
 	delete(allFields, "freePhysicalStorageBytes")
 	delete(allFields, "healthCheckScore")
+	delete(allFields, "hostMemoryConsumptionPpm")
+	delete(allFields, "hostMemoryOverheadBytes")
+	delete(allFields, "hostMemorySwapInRateKbps")
+	delete(allFields, "hostMemorySwapOutRateKbps")
+	delete(allFields, "hostMemorySwappedBytes")
+	delete(allFields, "hostMemorySwappedPpm")
+	delete(allFields, "hostSwapUsedBytes")
 	delete(allFields, "hypervisorCpuUsagePpm")
 	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
 	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
@@ -2234,15 +2755,22 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "logicalStorageUsageBytes")
 	delete(allFields, "memoryCapacityBytes")
 	delete(allFields, "memoryOvercommitPoolSizePpm")
+	delete(allFields, "memoryReclaimedByBalloonBytes")
 	delete(allFields, "overallMemoryUsageBytes")
 	delete(allFields, "overallMemoryUsagePpm")
 	delete(allFields, "overallMemoryUsagePpmLowerBuf")
 	delete(allFields, "overallMemoryUsagePpmUpperBuf")
 	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
 	delete(allFields, "powerConsumptionInstantWatt")
+	delete(allFields, "reportedMemoryUsageBytes")
+	delete(allFields, "reportedMemoryUsagePpm")
 	delete(allFields, "storageCapacityBytes")
 	delete(allFields, "storageUsageBytes")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalConfiguredVmMemoryBytes")
+	delete(allFields, "totalMemoryAllottedToVmBytes")
+	delete(allFields, "totalVmConfiguredVcpus")
+	delete(allFields, "vmOverheadBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -2256,14 +2784,14 @@ func NewHostStats() *HostStats {
 	p := new(HostStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.2/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.3/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
 */
 type HostStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2363,7 +2891,7 @@ func NewHostStatsApiResponse() *HostStatsApiResponse {
 	p := new(HostStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2509,6 +3037,10 @@ type HostStatsProjection struct {
 	*/
 	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
 	/*
+	  Represents the ratio of configured virtual CPUs (vCPUs) to available physical CPUs (pCPUs) on the host, expressed in parts per million (PPM).
+	*/
+	CpuOvercommitRatioPpm []TimeValuePair `json:"cpuOvercommitRatioPpm,omitempty"`
+	/*
 	  CPU usage (Hz)
 	*/
 	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
@@ -2517,6 +3049,10 @@ type HostStatsProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Free memory available on the Host.
+	*/
+	FreeMemoryBytes []TimeValuePair `json:"freeMemoryBytes,omitempty"`
+	/*
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
@@ -2524,6 +3060,34 @@ type HostStatsProjection struct {
 	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
 	*/
 	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
+	/*
+	  Memory Usage for VMs.
+	*/
+	HostMemoryConsumptionPpm []TimeValuePair `json:"hostMemoryConsumptionPpm,omitempty"`
+	/*
+	  Memory Overheads on AHV host (Includes VM overheads).
+	*/
+	HostMemoryOverheadBytes []TimeValuePair `json:"hostMemoryOverheadBytes,omitempty"`
+	/*
+	  Rate at which memory is swapped from disk into active memory during the interval in kilobyte per second.
+	*/
+	HostMemorySwapInRateKbps []TimeValuePair `json:"hostMemorySwapInRateKbps,omitempty"`
+	/*
+	  Rate at which memory is being swapped from active memory to disk during the current interval in bytes per second.
+	*/
+	HostMemorySwapOutRateKbps []TimeValuePair `json:"hostMemorySwapOutRateKbps,omitempty"`
+	/*
+	  Total swap memory of the Host i.e. combined VM memory swapped on the Host in bytes.
+	*/
+	HostMemorySwappedBytes []TimeValuePair `json:"hostMemorySwappedBytes,omitempty"`
+	/*
+	  Total swap memory of the Host i.e. combined VM memory swapped on the Host in ppm.
+	*/
+	HostMemorySwappedPpm []TimeValuePair `json:"hostMemorySwappedPpm,omitempty"`
+	/*
+	  Total swap usage on the host.
+	*/
+	HostSwapUsedBytes []TimeValuePair `json:"hostSwapUsedBytes,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -2561,9 +3125,13 @@ type HostStatsProjection struct {
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
 	/*
-	  Physical memory available to Overcommit enabled VMs in the Host
+	  Physical memory available to Overcommit enabled VMs in the Host.
 	*/
 	MemoryOvercommitPoolSizePpm []TimeValuePair `json:"memoryOvercommitPoolSizePpm,omitempty"`
+	/*
+	  Aggregated memory Reclaimed from all Overcommitted VMs by the host.
+	*/
+	MemoryReclaimedByBalloonBytes []TimeValuePair `json:"memoryReclaimedByBalloonBytes,omitempty"`
 	/*
 	  Overall memory usage(bytes).
 	*/
@@ -2581,13 +3149,21 @@ type HostStatsProjection struct {
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
 	/*
-	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs.
 	*/
 	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
 	/*
 	  Power instant consumption (watt)
 	*/
 	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
+	/*
+	  Total Memory used reported by guest in host.
+	*/
+	ReportedMemoryUsageBytes []TimeValuePair `json:"reportedMemoryUsageBytes,omitempty"`
+	/*
+	  Total Memory used reported in PPM by guest in host.
+	*/
+	ReportedMemoryUsagePpm []TimeValuePair `json:"reportedMemoryUsagePpm,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
@@ -2600,6 +3176,22 @@ type HostStatsProjection struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Total configured memory of VMs on the host.
+	*/
+	TotalConfiguredVmMemoryBytes []TimeValuePair `json:"totalConfiguredVmMemoryBytes,omitempty"`
+	/*
+	  Total memory allocated to all the VMs in Host.
+	*/
+	TotalMemoryAllottedToVmBytes []TimeValuePair `json:"totalMemoryAllottedToVmBytes,omitempty"`
+	/*
+	  Total number of vCPUs configured across all virtual machines (VMs) on the host.
+	*/
+	TotalVmConfiguredVcpus []TimeValuePair `json:"totalVmConfiguredVcpus,omitempty"`
+	/*
+	  Aggregate of VM Overheads on the host.
+	*/
+	VmOverheadBytes []TimeValuePair `json:"vmOverheadBytes,omitempty"`
 }
 
 func (p *HostStatsProjection) MarshalJSON() ([]byte, error) {
@@ -2738,17 +3330,44 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.CpuCapacityHz != nil {
 		p.CpuCapacityHz = known.CpuCapacityHz
 	}
+	if known.CpuOvercommitRatioPpm != nil {
+		p.CpuOvercommitRatioPpm = known.CpuOvercommitRatioPpm
+	}
 	if known.CpuUsageHz != nil {
 		p.CpuUsageHz = known.CpuUsageHz
 	}
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.FreeMemoryBytes != nil {
+		p.FreeMemoryBytes = known.FreeMemoryBytes
+	}
 	if known.FreePhysicalStorageBytes != nil {
 		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
 	}
 	if known.HealthCheckScore != nil {
 		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HostMemoryConsumptionPpm != nil {
+		p.HostMemoryConsumptionPpm = known.HostMemoryConsumptionPpm
+	}
+	if known.HostMemoryOverheadBytes != nil {
+		p.HostMemoryOverheadBytes = known.HostMemoryOverheadBytes
+	}
+	if known.HostMemorySwapInRateKbps != nil {
+		p.HostMemorySwapInRateKbps = known.HostMemorySwapInRateKbps
+	}
+	if known.HostMemorySwapOutRateKbps != nil {
+		p.HostMemorySwapOutRateKbps = known.HostMemorySwapOutRateKbps
+	}
+	if known.HostMemorySwappedBytes != nil {
+		p.HostMemorySwappedBytes = known.HostMemorySwappedBytes
+	}
+	if known.HostMemorySwappedPpm != nil {
+		p.HostMemorySwappedPpm = known.HostMemorySwappedPpm
+	}
+	if known.HostSwapUsedBytes != nil {
+		p.HostSwapUsedBytes = known.HostSwapUsedBytes
 	}
 	if known.HypervisorCpuUsagePpm != nil {
 		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
@@ -2780,6 +3399,9 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.MemoryOvercommitPoolSizePpm != nil {
 		p.MemoryOvercommitPoolSizePpm = known.MemoryOvercommitPoolSizePpm
 	}
+	if known.MemoryReclaimedByBalloonBytes != nil {
+		p.MemoryReclaimedByBalloonBytes = known.MemoryReclaimedByBalloonBytes
+	}
 	if known.OverallMemoryUsageBytes != nil {
 		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
 	}
@@ -2798,6 +3420,12 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.PowerConsumptionInstantWatt != nil {
 		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
 	}
+	if known.ReportedMemoryUsageBytes != nil {
+		p.ReportedMemoryUsageBytes = known.ReportedMemoryUsageBytes
+	}
+	if known.ReportedMemoryUsagePpm != nil {
+		p.ReportedMemoryUsagePpm = known.ReportedMemoryUsagePpm
+	}
 	if known.StorageCapacityBytes != nil {
 		p.StorageCapacityBytes = known.StorageCapacityBytes
 	}
@@ -2806,6 +3434,18 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 	if known.TenantId != nil {
 		p.TenantId = known.TenantId
+	}
+	if known.TotalConfiguredVmMemoryBytes != nil {
+		p.TotalConfiguredVmMemoryBytes = known.TotalConfiguredVmMemoryBytes
+	}
+	if known.TotalMemoryAllottedToVmBytes != nil {
+		p.TotalMemoryAllottedToVmBytes = known.TotalMemoryAllottedToVmBytes
+	}
+	if known.TotalVmConfiguredVcpus != nil {
+		p.TotalVmConfiguredVcpus = known.TotalVmConfiguredVcpus
+	}
+	if known.VmOverheadBytes != nil {
+		p.VmOverheadBytes = known.VmOverheadBytes
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
@@ -2840,10 +3480,19 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
 	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
 	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuOvercommitRatioPpm")
 	delete(allFields, "cpuUsageHz")
 	delete(allFields, "extId")
+	delete(allFields, "freeMemoryBytes")
 	delete(allFields, "freePhysicalStorageBytes")
 	delete(allFields, "healthCheckScore")
+	delete(allFields, "hostMemoryConsumptionPpm")
+	delete(allFields, "hostMemoryOverheadBytes")
+	delete(allFields, "hostMemorySwapInRateKbps")
+	delete(allFields, "hostMemorySwapOutRateKbps")
+	delete(allFields, "hostMemorySwappedBytes")
+	delete(allFields, "hostMemorySwappedPpm")
+	delete(allFields, "hostSwapUsedBytes")
 	delete(allFields, "hypervisorCpuUsagePpm")
 	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
 	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
@@ -2854,15 +3503,22 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "logicalStorageUsageBytes")
 	delete(allFields, "memoryCapacityBytes")
 	delete(allFields, "memoryOvercommitPoolSizePpm")
+	delete(allFields, "memoryReclaimedByBalloonBytes")
 	delete(allFields, "overallMemoryUsageBytes")
 	delete(allFields, "overallMemoryUsagePpm")
 	delete(allFields, "overallMemoryUsagePpmLowerBuf")
 	delete(allFields, "overallMemoryUsagePpmUpperBuf")
 	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
 	delete(allFields, "powerConsumptionInstantWatt")
+	delete(allFields, "reportedMemoryUsageBytes")
+	delete(allFields, "reportedMemoryUsagePpm")
 	delete(allFields, "storageCapacityBytes")
 	delete(allFields, "storageUsageBytes")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalConfiguredVmMemoryBytes")
+	delete(allFields, "totalMemoryAllottedToVmBytes")
+	delete(allFields, "totalVmConfiguredVcpus")
+	delete(allFields, "vmOverheadBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -2876,7 +3532,7 @@ func NewHostStatsProjection() *HostStatsProjection {
 	p := new(HostStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3352,7 +4008,7 @@ func NewStorageContainerStats() *StorageContainerStats {
 	p := new(StorageContainerStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3828,7 +4484,7 @@ func NewStorageContainerStatsProjection() *StorageContainerStatsProjection {
 	p := new(StorageContainerStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3931,7 +4587,7 @@ func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3942,6 +4598,9 @@ type OneOfHostStatsApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2001 *HostStats             `json:"-"`
+	oneOfType401  *HostStatsProjection   `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfHostStatsApiResponseData() *OneOfHostStatsApiResponseData {
@@ -3982,6 +4641,19 @@ func (p *OneOfHostStatsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case HostStatsProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(HostStatsProjection)
+		}
+		*p.oneOfType401 = v.(HostStatsProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -3989,19 +4661,126 @@ func (p *OneOfHostStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfHostStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
 	return nil
 }
 
 func (p *OneOfHostStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import2.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import2.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(HostStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.HostStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(HostStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(HostStatsProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "clustermgmt.v4.stats.HostStatsProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(HostStatsProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import2.ErrorResponse)
 			}
@@ -4019,7 +4798,7 @@ func (p *OneOfHostStatsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2001 := new(HostStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "clustermgmt.v4.stats.HostStats" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.HostStats" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(HostStats)
 			}
@@ -4035,135 +4814,69 @@ func (p *OneOfHostStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType401 := new(HostStatsProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "clustermgmt.v4.stats.HostStatsProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(HostStatsProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfHostStatsApiResponseData"))
 }
 
 func (p *OneOfHostStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
 	}
 	return nil, errors.New("No value to marshal for OneOfHostStatsApiResponseData")
 }
 
-type OneOfClusterStatsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *ClusterStats          `json:"-"`
-}
-
-func NewOneOfClusterStatsApiResponseData() *OneOfClusterStatsApiResponseData {
-	p := new(OneOfClusterStatsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterStatsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterStatsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ClusterStats:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(ClusterStats)
-		}
-		*p.oneOfType2001 = v.(ClusterStats)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfClusterStatsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfClusterStatsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(ClusterStats)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "clustermgmt.v4.stats.ClusterStats" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(ClusterStats)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterStatsApiResponseData"))
-}
-
-func (p *OneOfClusterStatsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfClusterStatsApiResponseData")
-}
-
 type OneOfGetStorageContainerStatsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *StorageContainerStats `json:"-"`
+	Discriminator *string                          `json:"-"`
+	ObjectType_   *string                          `json:"-"`
+	oneOfType400  *import2.ErrorResponse           `json:"-"`
+	oneOfType401  *StorageContainerStatsProjection `json:"-"`
+	oneOfType2001 *StorageContainerStats           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetStorageContainerStatsApiResponseData() *OneOfGetStorageContainerStatsApiResponseData {
@@ -4191,6 +4904,19 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) SetValue(v interface{}) e
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case StorageContainerStatsProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(StorageContainerStatsProjection)
+		}
+		*p.oneOfType401 = v.(StorageContainerStatsProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
 	case StorageContainerStats:
 		if nil == p.oneOfType2001 {
 			p.oneOfType2001 = new(StorageContainerStats)
@@ -4211,8 +4937,14 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) SetValue(v interface{}) e
 }
 
 func (p *OneOfGetStorageContainerStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
@@ -4221,9 +4953,110 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetStorageContainerStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import2.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import2.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(StorageContainerStatsProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "clustermgmt.v4.stats.StorageContainerStatsProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(StorageContainerStatsProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(StorageContainerStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.StorageContainerStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(StorageContainerStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import2.ErrorResponse)
 			}
@@ -4239,9 +5072,27 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
+	vOneOfType401 := new(StorageContainerStatsProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "clustermgmt.v4.stats.StorageContainerStatsProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(StorageContainerStatsProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType2001 := new(StorageContainerStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "clustermgmt.v4.stats.StorageContainerStats" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.StorageContainerStats" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(StorageContainerStats)
 			}
@@ -4257,12 +5108,36 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetStorageContainerStatsApiResponseData"))
 }
 
 func (p *OneOfGetStorageContainerStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
@@ -4270,11 +5145,289 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) MarshalJSON() ([]byte, er
 	return nil, errors.New("No value to marshal for OneOfGetStorageContainerStatsApiResponseData")
 }
 
+type OneOfClusterStatsApiResponseData struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType400  *import2.ErrorResponse  `json:"-"`
+	oneOfType401  *ClusterStatsProjection `json:"-"`
+	oneOfType2001 *ClusterStats           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfClusterStatsApiResponseData() *OneOfClusterStatsApiResponseData {
+	p := new(OneOfClusterStatsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfClusterStatsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfClusterStatsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case ClusterStatsProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(ClusterStatsProjection)
+		}
+		*p.oneOfType401 = v.(ClusterStatsProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
+	case ClusterStats:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(ClusterStats)
+		}
+		*p.oneOfType2001 = v.(ClusterStats)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfClusterStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfClusterStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import2.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import2.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(ClusterStatsProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "clustermgmt.v4.stats.ClusterStatsProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(ClusterStatsProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(ClusterStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.ClusterStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(ClusterStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new(ClusterStatsProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "clustermgmt.v4.stats.ClusterStatsProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(ClusterStatsProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(ClusterStats)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.ClusterStats" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(ClusterStats)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterStatsApiResponseData"))
+}
+
+func (p *OneOfClusterStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfClusterStatsApiResponseData")
+}
+
 type OneOfGetDiskStatsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2001 *DiskStats             `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetDiskStatsApiResponseData() *OneOfGetDiskStatsApiResponseData {
@@ -4322,6 +5475,9 @@ func (p *OneOfGetDiskStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetDiskStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -4332,9 +5488,79 @@ func (p *OneOfGetDiskStatsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import2.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import2.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(DiskStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.DiskStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(DiskStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import2.ErrorResponse)
 			}
@@ -4352,7 +5578,7 @@ func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2001 := new(DiskStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "clustermgmt.v4.stats.DiskStats" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "clustermgmt.v4.stats.DiskStats" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(DiskStats)
 			}
@@ -4368,10 +5594,31 @@ func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskStatsApiResponseData"))
 }
 
 func (p *OneOfGetDiskStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}

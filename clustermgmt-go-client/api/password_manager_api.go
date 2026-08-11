@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import10 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/passwordmanager"
+	import18 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/passwordmanager"
 	"net/http"
 	"net/url"
 	"strings"
@@ -60,25 +60,25 @@ func NewPasswordManagerServiceApi(apiClient *client.ApiClient) *PasswordManagerS
 	return a
 }
 
-// Initiate change password request for a system user on a supported product.
+// This API allows you to start a password change for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV. For AOS and PC, the password change affects the cluster-wide system accounts nutanix and admin. For AHV, it operates at the node level for the root and admin accounts (admin only if a password exists; by default, admin is locked). Use this API to securely update credentials in alignment with your cluster or node configuration.
 func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body *import1.ChangePasswordSpec, args ...map[string]interface{}) (*import1.ChangeSystemUserPasswordApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewPasswordManagerServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ChangeSystemUserPasswordById(context.Background(), &import10.ChangeSystemUserPasswordByIdRequest{
+	return api.ServiceClient.ChangeSystemUserPasswordById(context.Background(), &import18.ChangeSystemUserPasswordByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
-// Initiate change password request for a system user on a supported product.
-func (api *PasswordManagerServiceApi) ChangeSystemUserPasswordById(ctx context.Context, request *import10.ChangeSystemUserPasswordByIdRequest, args ...map[string]interface{}) (*import1.ChangeSystemUserPasswordApiResponse, error) {
+// This API allows you to start a password change for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV. For AOS and PC, the password change affects the cluster-wide system accounts nutanix and admin. For AHV, it operates at the node level for the root and admin accounts (admin only if a password exists; by default, admin is locked). Use this API to securely update credentials in alignment with your cluster or node configuration.
+func (api *PasswordManagerServiceApi) ChangeSystemUserPasswordById(ctx context.Context, request *import18.ChangeSystemUserPasswordByIdRequest, args ...map[string]interface{}) (*import1.ChangeSystemUserPasswordApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/system-user-passwords/{extId}/$actions/change-password"
+	uri := "/api/clustermgmt/v4.3/config/system-user-passwords/{extId}/$actions/change-password"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,18 +119,24 @@ func (api *PasswordManagerServiceApi) ChangeSystemUserPasswordById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ChangeSystemUserPasswordApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Lists password status of system user accounts on supported products.
+// This API allows you to view password status for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV.
 func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListSystemUserPasswordsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewPasswordManagerServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListSystemUserPasswords(context.Background(), &import10.ListSystemUserPasswordsRequest{
+	return api.ServiceClient.ListSystemUserPasswords(context.Background(), &import18.ListSystemUserPasswordsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -140,14 +146,14 @@ func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, 
 	}, args...)
 }
 
-// Lists password status of system user accounts on supported products.
-func (api *PasswordManagerServiceApi) ListSystemUserPasswords(ctx context.Context, request *import10.ListSystemUserPasswordsRequest, args ...map[string]interface{}) (*import1.ListSystemUserPasswordsApiResponse, error) {
+// This API allows you to view password status for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV.
+func (api *PasswordManagerServiceApi) ListSystemUserPasswords(ctx context.Context, request *import18.ListSystemUserPasswordsRequest, args ...map[string]interface{}) (*import1.ListSystemUserPasswordsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/system-user-passwords"
+	uri := "/api/clustermgmt/v4.3/config/system-user-passwords"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -196,8 +202,14 @@ func (api *PasswordManagerServiceApi) ListSystemUserPasswords(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListSystemUserPasswordsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

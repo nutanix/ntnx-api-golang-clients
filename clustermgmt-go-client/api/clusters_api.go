@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/operations"
-	import7 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/clusters"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/operations"
+	import10 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/clusters"
+	import8 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -69,20 +69,20 @@ func (api *ClustersApi) AddSnmpTransport(clusterExtId *string, body *import1.Snm
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.AddSnmpTransport(context.Background(), &import7.AddSnmpTransportRequest{
+	return api.ServiceClient.AddSnmpTransport(context.Background(), &import10.AddSnmpTransportRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Adds transport ports and protocol details to the SNMP configuration associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) AddSnmpTransport(ctx context.Context, request *import7.AddSnmpTransportRequest, args ...map[string]interface{}) (*import1.AddSnmpTransportsApiResponse, error) {
+func (api *ClustersServiceApi) AddSnmpTransport(ctx context.Context, request *import10.AddSnmpTransportRequest, args ...map[string]interface{}) (*import1.AddSnmpTransportsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -123,9 +123,15 @@ func (api *ClustersServiceApi) AddSnmpTransport(ctx context.Context, request *im
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AddSnmpTransportsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -134,20 +140,20 @@ func (api *ClustersApi) AssociateCategoriesToCluster(clusterExtId *string, body 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.AssociateCategoriesToCluster(context.Background(), &import7.AssociateCategoriesToClusterRequest{
+	return api.ServiceClient.AssociateCategoriesToCluster(context.Background(), &import10.AssociateCategoriesToClusterRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Attach categories to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) AssociateCategoriesToCluster(ctx context.Context, request *import7.AssociateCategoriesToClusterRequest, args ...map[string]interface{}) (*import1.AssociateCategoriesToClusterApiResponse, error) {
+func (api *ClustersServiceApi) AssociateCategoriesToCluster(ctx context.Context, request *import10.AssociateCategoriesToClusterRequest, args ...map[string]interface{}) (*import1.AssociateCategoriesToClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/associate-categories"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/associate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -188,9 +194,15 @@ func (api *ClustersServiceApi) AssociateCategoriesToCluster(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AssociateCategoriesToClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -199,20 +211,20 @@ func (api *ClustersApi) CheckHypervisorRequirements(clusterExtId *string, body *
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CheckHypervisorRequirements(context.Background(), &import7.CheckHypervisorRequirementsRequest{
+	return api.ServiceClient.CheckHypervisorRequirements(context.Background(), &import10.CheckHypervisorRequirementsRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Provides information on whether hypervisor ISO upload is required or not. This API is not supported for XEN hypervisor type.
-func (api *ClustersServiceApi) CheckHypervisorRequirements(ctx context.Context, request *import7.CheckHypervisorRequirementsRequest, args ...map[string]interface{}) (*import1.CheckHypervisorRequirementsApiResponse, error) {
+func (api *ClustersServiceApi) CheckHypervisorRequirements(ctx context.Context, request *import10.CheckHypervisorRequirementsRequest, args ...map[string]interface{}) (*import1.CheckHypervisorRequirementsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -253,9 +265,86 @@ func (api *ClustersServiceApi) CheckHypervisorRequirements(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CheckHypervisorRequirementsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Compute non-migratable VMs for the host identified by {extId} belonging to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ComputeNonMigratableVms(clusterExtId *string, body *import1.ComputeNonMigratableVmsSpec, args ...map[string]interface{}) (*import1.ComputeNonMigratableVmsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ComputeNonMigratableVms(context.Background(), &import10.ComputeNonMigratableVmsRequest{
+		ClusterExtId: clusterExtId,
+		Body:         body,
+	}, args...)
+}
+
+// Compute non-migratable VMs for the host identified by {extId} belonging to the cluster identified by {clusterExtId}.
+func (api *ClustersServiceApi) ComputeNonMigratableVms(ctx context.Context, request *import10.ComputeNonMigratableVmsRequest, args ...map[string]interface{}) (*import1.ComputeNonMigratableVmsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/compute-non-migratable-vms"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == request.ClusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*request.ClusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import1.ComputeNonMigratableVmsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -264,20 +353,20 @@ func (api *ClustersApi) CreateCluster(body *import1.Cluster, dryrun_ *bool, args
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateCluster(context.Background(), &import7.CreateClusterRequest{
+	return api.ServiceClient.CreateCluster(context.Background(), &import10.CreateClusterRequest{
 		Body:    body,
 		Dryrun_: dryrun_,
 	}, args...)
 }
 
 // Cluster create operation.
-func (api *ClustersServiceApi) CreateCluster(ctx context.Context, request *import7.CreateClusterRequest, args ...map[string]interface{}) (*import1.CreateClusterApiResponse, error) {
+func (api *ClustersServiceApi) CreateCluster(ctx context.Context, request *import10.CreateClusterRequest, args ...map[string]interface{}) (*import1.CreateClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters"
+	uri := "/api/clustermgmt/v4.3/config/clusters"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -316,9 +405,15 @@ func (api *ClustersServiceApi) CreateCluster(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -327,20 +422,20 @@ func (api *ClustersApi) CreateRsyslogServer(clusterExtId *string, body *import1.
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateRsyslogServer(context.Background(), &import7.CreateRsyslogServerRequest{
+	return api.ServiceClient.CreateRsyslogServer(context.Background(), &import10.CreateRsyslogServerRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Adds RSYSLOG server configuration to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) CreateRsyslogServer(ctx context.Context, request *import7.CreateRsyslogServerRequest, args ...map[string]interface{}) (*import1.CreateRsyslogServerApiResponse, error) {
+func (api *ClustersServiceApi) CreateRsyslogServer(ctx context.Context, request *import10.CreateRsyslogServerRequest, args ...map[string]interface{}) (*import1.CreateRsyslogServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rsyslog-servers"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -381,9 +476,15 @@ func (api *ClustersServiceApi) CreateRsyslogServer(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateRsyslogServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -392,20 +493,20 @@ func (api *ClustersApi) CreateSnmpTrap(clusterExtId *string, body *import1.SnmpT
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateSnmpTrap(context.Background(), &import7.CreateSnmpTrapRequest{
+	return api.ServiceClient.CreateSnmpTrap(context.Background(), &import10.CreateSnmpTrapRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Add SNMP trap configuration associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) CreateSnmpTrap(ctx context.Context, request *import7.CreateSnmpTrapRequest, args ...map[string]interface{}) (*import1.CreateSnmpTrapApiResponse, error) {
+func (api *ClustersServiceApi) CreateSnmpTrap(ctx context.Context, request *import10.CreateSnmpTrapRequest, args ...map[string]interface{}) (*import1.CreateSnmpTrapApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/traps"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -446,9 +547,15 @@ func (api *ClustersServiceApi) CreateSnmpTrap(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateSnmpTrapApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -457,20 +564,20 @@ func (api *ClustersApi) CreateSnmpUser(clusterExtId *string, body *import1.SnmpU
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateSnmpUser(context.Background(), &import7.CreateSnmpUserRequest{
+	return api.ServiceClient.CreateSnmpUser(context.Background(), &import10.CreateSnmpUserRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Adds SNMP user configuration to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) CreateSnmpUser(ctx context.Context, request *import7.CreateSnmpUserRequest, args ...map[string]interface{}) (*import1.CreateSnmpUserApiResponse, error) {
+func (api *ClustersServiceApi) CreateSnmpUser(ctx context.Context, request *import10.CreateSnmpUserRequest, args ...map[string]interface{}) (*import1.CreateSnmpUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/users"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -511,31 +618,37 @@ func (api *ClustersServiceApi) CreateSnmpUser(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateSnmpUserApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Deletes the cluster identified by {extId}.
+// Deletes the cluster identified by {extId}. External storage clusters are not supported for this operation.
 func (api *ClustersApi) DeleteClusterById(extId *string, dryrun_ *bool, args ...map[string]interface{}) (*import1.DeleteClusterApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteClusterById(context.Background(), &import7.DeleteClusterByIdRequest{
+	return api.ServiceClient.DeleteClusterById(context.Background(), &import10.DeleteClusterByIdRequest{
 		ExtId:   extId,
 		Dryrun_: dryrun_,
 	}, args...)
 }
 
-// Deletes the cluster identified by {extId}.
-func (api *ClustersServiceApi) DeleteClusterById(ctx context.Context, request *import7.DeleteClusterByIdRequest, args ...map[string]interface{}) (*import1.DeleteClusterApiResponse, error) {
+// Deletes the cluster identified by {extId}. External storage clusters are not supported for this operation.
+func (api *ClustersServiceApi) DeleteClusterById(ctx context.Context, request *import10.DeleteClusterByIdRequest, args ...map[string]interface{}) (*import1.DeleteClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -576,9 +689,15 @@ func (api *ClustersServiceApi) DeleteClusterById(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -587,20 +706,20 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteRsyslogServerById(context.Background(), &import7.DeleteRsyslogServerByIdRequest{
+	return api.ServiceClient.DeleteRsyslogServerById(context.Background(), &import10.DeleteRsyslogServerByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Deletes RSYSLOG server configuration identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) DeleteRsyslogServerById(ctx context.Context, request *import7.DeleteRsyslogServerByIdRequest, args ...map[string]interface{}) (*import1.DeleteRsyslogServerApiResponse, error) {
+func (api *ClustersServiceApi) DeleteRsyslogServerById(ctx context.Context, request *import10.DeleteRsyslogServerByIdRequest, args ...map[string]interface{}) (*import1.DeleteRsyslogServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -642,9 +761,15 @@ func (api *ClustersServiceApi) DeleteRsyslogServerById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteRsyslogServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -653,20 +778,20 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteSnmpTrapById(context.Background(), &import7.DeleteSnmpTrapByIdRequest{
+	return api.ServiceClient.DeleteSnmpTrapById(context.Background(), &import10.DeleteSnmpTrapByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Deletes SNMP trap configuration identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) DeleteSnmpTrapById(ctx context.Context, request *import7.DeleteSnmpTrapByIdRequest, args ...map[string]interface{}) (*import1.DeleteSnmpTrapApiResponse, error) {
+func (api *ClustersServiceApi) DeleteSnmpTrapById(ctx context.Context, request *import10.DeleteSnmpTrapByIdRequest, args ...map[string]interface{}) (*import1.DeleteSnmpTrapApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -708,9 +833,15 @@ func (api *ClustersServiceApi) DeleteSnmpTrapById(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteSnmpTrapApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -719,20 +850,20 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteSnmpUserById(context.Background(), &import7.DeleteSnmpUserByIdRequest{
+	return api.ServiceClient.DeleteSnmpUserById(context.Background(), &import10.DeleteSnmpUserByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Deletes SNMP user configuration identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) DeleteSnmpUserById(ctx context.Context, request *import7.DeleteSnmpUserByIdRequest, args ...map[string]interface{}) (*import1.DeleteSnmpUserApiResponse, error) {
+func (api *ClustersServiceApi) DeleteSnmpUserById(ctx context.Context, request *import10.DeleteSnmpUserByIdRequest, args ...map[string]interface{}) (*import1.DeleteSnmpUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -774,9 +905,15 @@ func (api *ClustersServiceApi) DeleteSnmpUserById(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteSnmpUserApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -785,20 +922,20 @@ func (api *ClustersApi) DisassociateCategoriesFromCluster(clusterExtId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DisassociateCategoriesFromCluster(context.Background(), &import7.DisassociateCategoriesFromClusterRequest{
+	return api.ServiceClient.DisassociateCategoriesFromCluster(context.Background(), &import10.DisassociateCategoriesFromClusterRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Detach categories from the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) DisassociateCategoriesFromCluster(ctx context.Context, request *import7.DisassociateCategoriesFromClusterRequest, args ...map[string]interface{}) (*import1.DisassociateCategoriesFromClusterApiResponse, error) {
+func (api *ClustersServiceApi) DisassociateCategoriesFromCluster(ctx context.Context, request *import10.DisassociateCategoriesFromClusterRequest, args ...map[string]interface{}) (*import1.DisassociateCategoriesFromClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/disassociate-categories"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -839,9 +976,15 @@ func (api *ClustersServiceApi) DisassociateCategoriesFromCluster(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DisassociateCategoriesFromClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -850,20 +993,20 @@ func (api *ClustersApi) DiscoverUnconfiguredNodes(clusterExtId *string, body *im
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DiscoverUnconfiguredNodes(context.Background(), &import7.DiscoverUnconfiguredNodesRequest{
+	return api.ServiceClient.DiscoverUnconfiguredNodes(context.Background(), &import10.DiscoverUnconfiguredNodesRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Get the unconfigured node details such as node UUID, node position, node IP, foundation version and more.
-func (api *ClustersServiceApi) DiscoverUnconfiguredNodes(ctx context.Context, request *import7.DiscoverUnconfiguredNodesRequest, args ...map[string]interface{}) (*import1.DiscoverUnconfiguredNodesApiResponse, error) {
+func (api *ClustersServiceApi) DiscoverUnconfiguredNodes(ctx context.Context, request *import10.DiscoverUnconfiguredNodesRequest, args ...map[string]interface{}) (*import1.DiscoverUnconfiguredNodesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -904,18 +1047,24 @@ func (api *ClustersServiceApi) DiscoverUnconfiguredNodes(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DiscoverUnconfiguredNodesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Enter host identified by {extId} into maintenance mode belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string, body *import4.EnterHostMaintenanceSpec, args ...map[string]interface{}) (*import4.EnterHostMaintenanceApiResponse, error) {
+func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string, body *import7.EnterHostMaintenanceSpec, args ...map[string]interface{}) (*import7.EnterHostMaintenanceApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.EnterHostMaintenance(context.Background(), &import7.EnterHostMaintenanceRequest{
+	return api.ServiceClient.EnterHostMaintenance(context.Background(), &import10.EnterHostMaintenanceRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 		Body:         body,
@@ -923,13 +1072,13 @@ func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string
 }
 
 // Enter host identified by {extId} into maintenance mode belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) EnterHostMaintenance(ctx context.Context, request *import7.EnterHostMaintenanceRequest, args ...map[string]interface{}) (*import4.EnterHostMaintenanceApiResponse, error) {
+func (api *ClustersServiceApi) EnterHostMaintenance(ctx context.Context, request *import10.EnterHostMaintenanceRequest, args ...map[string]interface{}) (*import7.EnterHostMaintenanceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
+	uri := "/api/clustermgmt/v4.3/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -975,18 +1124,24 @@ func (api *ClustersServiceApi) EnterHostMaintenance(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import4.EnterHostMaintenanceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import7.EnterHostMaintenanceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Exit host identified by {extId} from maintenance mode belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string, body *import4.HostMaintenanceCommonSpec, args ...map[string]interface{}) (*import4.ExitHostMaintenanceApiResponse, error) {
+func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string, body *import7.HostMaintenanceCommonSpec, args ...map[string]interface{}) (*import7.ExitHostMaintenanceApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ExitHostMaintenance(context.Background(), &import7.ExitHostMaintenanceRequest{
+	return api.ServiceClient.ExitHostMaintenance(context.Background(), &import10.ExitHostMaintenanceRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 		Body:         body,
@@ -994,13 +1149,13 @@ func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string,
 }
 
 // Exit host identified by {extId} from maintenance mode belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) ExitHostMaintenance(ctx context.Context, request *import7.ExitHostMaintenanceRequest, args ...map[string]interface{}) (*import4.ExitHostMaintenanceApiResponse, error) {
+func (api *ClustersServiceApi) ExitHostMaintenance(ctx context.Context, request *import10.ExitHostMaintenanceRequest, args ...map[string]interface{}) (*import7.ExitHostMaintenanceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
+	uri := "/api/clustermgmt/v4.3/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1046,9 +1201,15 @@ func (api *ClustersServiceApi) ExitHostMaintenance(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import4.ExitHostMaintenanceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import7.ExitHostMaintenanceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1057,20 +1218,20 @@ func (api *ClustersApi) ExpandCluster(clusterExtId *string, body *import1.Expand
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ExpandCluster(context.Background(), &import7.ExpandClusterRequest{
+	return api.ServiceClient.ExpandCluster(context.Background(), &import10.ExpandClusterRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Add node on a cluster. This API is not supported for XEN hypervisor type.
-func (api *ClustersServiceApi) ExpandCluster(ctx context.Context, request *import7.ExpandClusterRequest, args ...map[string]interface{}) (*import1.ExpandClusterApiResponse, error) {
+func (api *ClustersServiceApi) ExpandCluster(ctx context.Context, request *import10.ExpandClusterRequest, args ...map[string]interface{}) (*import1.ExpandClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/expand-cluster"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/expand-cluster"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1111,9 +1272,15 @@ func (api *ClustersServiceApi) ExpandCluster(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ExpandClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1122,20 +1289,20 @@ func (api *ClustersApi) FetchNodeNetworkingDetails(clusterExtId *string, body *i
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.FetchNodeNetworkingDetails(context.Background(), &import7.FetchNodeNetworkingDetailsRequest{
+	return api.ServiceClient.FetchNodeNetworkingDetails(context.Background(), &import10.FetchNodeNetworkingDetailsRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Get a dictionary of cluster networks and available uplinks on the given nodes. This API is not supported for XEN hypervisor type.
-func (api *ClustersServiceApi) FetchNodeNetworkingDetails(ctx context.Context, request *import7.FetchNodeNetworkingDetailsRequest, args ...map[string]interface{}) (*import1.FetchNodeNetworkingDetailsApiResponse, error) {
+func (api *ClustersServiceApi) FetchNodeNetworkingDetails(ctx context.Context, request *import10.FetchNodeNetworkingDetailsRequest, args ...map[string]interface{}) (*import1.FetchNodeNetworkingDetailsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1176,9 +1343,15 @@ func (api *ClustersServiceApi) FetchNodeNetworkingDetails(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.FetchNodeNetworkingDetailsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1187,20 +1360,20 @@ func (api *ClustersApi) FetchTaskResponse(extId *string, taskResponseType *impor
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.FetchTaskResponse(context.Background(), &import7.FetchTaskResponseRequest{
+	return api.ServiceClient.FetchTaskResponse(context.Background(), &import10.FetchTaskResponseRequest{
 		ExtId:            extId,
 		TaskResponseType: taskResponseType,
 	}, args...)
 }
 
 // Get task response based on the type of request.
-func (api *ClustersServiceApi) FetchTaskResponse(ctx context.Context, request *import7.FetchTaskResponseRequest, args ...map[string]interface{}) (*import1.FetchTaskApiResponse, error) {
+func (api *ClustersServiceApi) FetchTaskResponse(ctx context.Context, request *import10.FetchTaskResponseRequest, args ...map[string]interface{}) (*import1.FetchTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/task-response/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/task-response/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1244,9 +1417,15 @@ func (api *ClustersServiceApi) FetchTaskResponse(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.FetchTaskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1255,20 +1434,20 @@ func (api *ClustersApi) GetClusterById(extId *string, expand_ *string, args ...m
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetClusterById(context.Background(), &import7.GetClusterByIdRequest{
+	return api.ServiceClient.GetClusterById(context.Background(), &import10.GetClusterByIdRequest{
 		ExtId:   extId,
 		Expand_: expand_,
 	}, args...)
 }
 
 // Fetches the cluster entity details identified by {extId}.
-func (api *ClustersServiceApi) GetClusterById(ctx context.Context, request *import7.GetClusterByIdRequest, args ...map[string]interface{}) (*import1.GetClusterApiResponse, error) {
+func (api *ClustersServiceApi) GetClusterById(ctx context.Context, request *import10.GetClusterByIdRequest, args ...map[string]interface{}) (*import1.GetClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1309,18 +1488,24 @@ func (api *ClustersServiceApi) GetClusterById(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Get the statistics data of the cluster identified by {clusterExtId}.
-func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import6.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import5.ClusterStatsApiResponse, error) {
+func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import9.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import8.ClusterStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetClusterStats(context.Background(), &import7.GetClusterStatsRequest{
+	return api.ServiceClient.GetClusterStats(context.Background(), &import10.GetClusterStatsRequest{
 		ExtId:             extId,
 		StartTime_:        startTime_,
 		EndTime_:          endTime_,
@@ -1331,13 +1516,13 @@ func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, en
 }
 
 // Get the statistics data of the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetClusterStats(ctx context.Context, request *import7.GetClusterStatsRequest, args ...map[string]interface{}) (*import5.ClusterStatsApiResponse, error) {
+func (api *ClustersServiceApi) GetClusterStats(ctx context.Context, request *import10.GetClusterStatsRequest, args ...map[string]interface{}) (*import8.ClusterStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/stats/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.3/stats/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1395,9 +1580,15 @@ func (api *ClustersServiceApi) GetClusterStats(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import5.ClusterStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import8.ClusterStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1406,20 +1597,20 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetHostById(context.Background(), &import7.GetHostByIdRequest{
+	return api.ServiceClient.GetHostById(context.Background(), &import10.GetHostByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Fetches the details of the host identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetHostById(ctx context.Context, request *import7.GetHostByIdRequest, args ...map[string]interface{}) (*import1.GetHostApiResponse, error) {
+func (api *ClustersServiceApi) GetHostById(ctx context.Context, request *import10.GetHostByIdRequest, args ...map[string]interface{}) (*import1.GetHostApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1461,9 +1652,15 @@ func (api *ClustersServiceApi) GetHostById(ctx context.Context, request *import7
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetHostApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1472,7 +1669,7 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetHostNicById(context.Background(), &import7.GetHostNicByIdRequest{
+	return api.ServiceClient.GetHostNicById(context.Background(), &import10.GetHostNicByIdRequest{
 		ClusterExtId: clusterExtId,
 		HostExtId:    hostExtId,
 		ExtId:        extId,
@@ -1480,13 +1677,13 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 }
 
 // Get the host NIC entity of the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetHostNicById(ctx context.Context, request *import7.GetHostNicByIdRequest, args ...map[string]interface{}) (*import1.GetHostNicApiResponse, error) {
+func (api *ClustersServiceApi) GetHostNicById(ctx context.Context, request *import10.GetHostNicByIdRequest, args ...map[string]interface{}) (*import1.GetHostNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1533,18 +1730,24 @@ func (api *ClustersServiceApi) GetHostNicById(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetHostNicApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Get the statistics data of the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import6.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import5.HostStatsApiResponse, error) {
+func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import9.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import8.HostStatsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetHostStats(context.Background(), &import7.GetHostStatsRequest{
+	return api.ServiceClient.GetHostStats(context.Background(), &import10.GetHostStatsRequest{
 		ClusterExtId:      clusterExtId,
 		ExtId:             extId,
 		StartTime_:        startTime_,
@@ -1556,13 +1759,13 @@ func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startT
 }
 
 // Get the statistics data of the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetHostStats(ctx context.Context, request *import7.GetHostStatsRequest, args ...map[string]interface{}) (*import5.HostStatsApiResponse, error) {
+func (api *ClustersServiceApi) GetHostStats(ctx context.Context, request *import10.GetHostStatsRequest, args ...map[string]interface{}) (*import8.HostStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/stats/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.3/stats/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1625,9 +1828,87 @@ func (api *ClustersServiceApi) GetHostStats(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import5.HostStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import8.HostStatsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Get the details of non-migratable VMs stored in IDF location identified by {extId}.
+func (api *ClustersApi) GetNonMigratableVmsResultById(clusterExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetNonMigratableVmsResultApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetNonMigratableVmsResultById(context.Background(), &import10.GetNonMigratableVmsResultByIdRequest{
+		ClusterExtId: clusterExtId,
+		ExtId:        extId,
+	}, args...)
+}
+
+// Get the details of non-migratable VMs stored in IDF location identified by {extId}.
+func (api *ClustersServiceApi) GetNonMigratableVmsResultById(ctx context.Context, request *import10.GetNonMigratableVmsResultByIdRequest, args ...map[string]interface{}) (*import1.GetNonMigratableVmsResultApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/non-migratable-vms-result/{extId}"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == request.ClusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*request.ClusterExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import1.GetNonMigratableVmsResultApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1636,20 +1917,20 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetRackableUnitById(context.Background(), &import7.GetRackableUnitByIdRequest{
+	return api.ServiceClient.GetRackableUnitById(context.Background(), &import10.GetRackableUnitByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Fetches the rackable unit entity details identified by {extId}  of the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetRackableUnitById(ctx context.Context, request *import7.GetRackableUnitByIdRequest, args ...map[string]interface{}) (*import1.GetRackableUnitApiResponse, error) {
+func (api *ClustersServiceApi) GetRackableUnitById(ctx context.Context, request *import10.GetRackableUnitByIdRequest, args ...map[string]interface{}) (*import1.GetRackableUnitApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rackable-units/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rackable-units/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1691,9 +1972,15 @@ func (api *ClustersServiceApi) GetRackableUnitById(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRackableUnitApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1702,20 +1989,20 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetRsyslogServerById(context.Background(), &import7.GetRsyslogServerByIdRequest{
+	return api.ServiceClient.GetRsyslogServerById(context.Background(), &import10.GetRsyslogServerByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Fetches the RSYSLOG server configuration identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetRsyslogServerById(ctx context.Context, request *import7.GetRsyslogServerByIdRequest, args ...map[string]interface{}) (*import1.GetRsyslogServerApiResponse, error) {
+func (api *ClustersServiceApi) GetRsyslogServerById(ctx context.Context, request *import10.GetRsyslogServerByIdRequest, args ...map[string]interface{}) (*import1.GetRsyslogServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1757,9 +2044,15 @@ func (api *ClustersServiceApi) GetRsyslogServerById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRsyslogServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1768,19 +2061,19 @@ func (api *ClustersApi) GetSnmpConfigByClusterId(clusterExtId *string, args ...m
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetSnmpConfigByClusterId(context.Background(), &import7.GetSnmpConfigByClusterIdRequest{
+	return api.ServiceClient.GetSnmpConfigByClusterId(context.Background(), &import10.GetSnmpConfigByClusterIdRequest{
 		ClusterExtId: clusterExtId,
 	}, args...)
 }
 
 // Fetches SNMP config details of the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetSnmpConfigByClusterId(ctx context.Context, request *import7.GetSnmpConfigByClusterIdRequest, args ...map[string]interface{}) (*import1.GetSnmpConfigByClusterIdApiResponse, error) {
+func (api *ClustersServiceApi) GetSnmpConfigByClusterId(ctx context.Context, request *import10.GetSnmpConfigByClusterIdRequest, args ...map[string]interface{}) (*import1.GetSnmpConfigByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1817,9 +2110,15 @@ func (api *ClustersServiceApi) GetSnmpConfigByClusterId(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetSnmpConfigByClusterIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1828,20 +2127,20 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetSnmpTrapById(context.Background(), &import7.GetSnmpTrapByIdRequest{
+	return api.ServiceClient.GetSnmpTrapById(context.Background(), &import10.GetSnmpTrapByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 //  Fetches SNMP trap configuration details identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetSnmpTrapById(ctx context.Context, request *import7.GetSnmpTrapByIdRequest, args ...map[string]interface{}) (*import1.GetSnmpTrapApiResponse, error) {
+func (api *ClustersServiceApi) GetSnmpTrapById(ctx context.Context, request *import10.GetSnmpTrapByIdRequest, args ...map[string]interface{}) (*import1.GetSnmpTrapApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1883,9 +2182,15 @@ func (api *ClustersServiceApi) GetSnmpTrapById(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetSnmpTrapApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1894,20 +2199,20 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetSnmpUserById(context.Background(), &import7.GetSnmpUserByIdRequest{
+	return api.ServiceClient.GetSnmpUserById(context.Background(), &import10.GetSnmpUserByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 	}, args...)
 }
 
 // Fetches SNMP user configuration details identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetSnmpUserById(ctx context.Context, request *import7.GetSnmpUserByIdRequest, args ...map[string]interface{}) (*import1.GetSnmpUserApiResponse, error) {
+func (api *ClustersServiceApi) GetSnmpUserById(ctx context.Context, request *import10.GetSnmpUserByIdRequest, args ...map[string]interface{}) (*import1.GetSnmpUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -1949,9 +2254,15 @@ func (api *ClustersServiceApi) GetSnmpUserById(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetSnmpUserApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1960,7 +2271,7 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetVirtualNicById(context.Background(), &import7.GetVirtualNicByIdRequest{
+	return api.ServiceClient.GetVirtualNicById(context.Background(), &import10.GetVirtualNicByIdRequest{
 		ClusterExtId: clusterExtId,
 		HostExtId:    hostExtId,
 		ExtId:        extId,
@@ -1968,13 +2279,13 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 }
 
 // Get the virtual NIC entity of the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) GetVirtualNicById(ctx context.Context, request *import7.GetVirtualNicByIdRequest, args ...map[string]interface{}) (*import1.GetVirtualNicApiResponse, error) {
+func (api *ClustersServiceApi) GetVirtualNicById(ctx context.Context, request *import10.GetVirtualNicByIdRequest, args ...map[string]interface{}) (*import1.GetVirtualNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2021,9 +2332,15 @@ func (api *ClustersServiceApi) GetVirtualNicById(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetVirtualNicApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2032,7 +2349,7 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListClusters(context.Background(), &import7.ListClustersRequest{
+	return api.ServiceClient.ListClusters(context.Background(), &import10.ListClustersRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -2044,13 +2361,13 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 }
 
 // Lists all cluster entities registered to Prism Central.
-func (api *ClustersServiceApi) ListClusters(ctx context.Context, request *import7.ListClustersRequest, args ...map[string]interface{}) (*import1.ListClustersApiResponse, error) {
+func (api *ClustersServiceApi) ListClusters(ctx context.Context, request *import10.ListClustersRequest, args ...map[string]interface{}) (*import1.ListClustersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters"
+	uri := "/api/clustermgmt/v4.3/config/clusters"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2102,9 +2419,15 @@ func (api *ClustersServiceApi) ListClusters(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListClustersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2113,7 +2436,7 @@ func (api *ClustersApi) ListHostNics(page_ *int, limit_ *int, filter_ *string, o
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListHostNics(context.Background(), &import7.ListHostNicsRequest{
+	return api.ServiceClient.ListHostNics(context.Background(), &import10.ListHostNicsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -2123,13 +2446,13 @@ func (api *ClustersApi) ListHostNics(page_ *int, limit_ *int, filter_ *string, o
 }
 
 // Fetches a list of all host NICs for all the clusters attached to the PC.
-func (api *ClustersServiceApi) ListHostNics(ctx context.Context, request *import7.ListHostNicsRequest, args ...map[string]interface{}) (*import1.ListHostNicsApiResponse, error) {
+func (api *ClustersServiceApi) ListHostNics(ctx context.Context, request *import10.ListHostNicsRequest, args ...map[string]interface{}) (*import1.ListHostNicsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/host-nics"
+	uri := "/api/clustermgmt/v4.3/config/host-nics"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2175,9 +2498,15 @@ func (api *ClustersServiceApi) ListHostNics(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListHostNicsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2186,7 +2515,7 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *st
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListHostNicsByHostId(context.Background(), &import7.ListHostNicsByHostIdRequest{
+	return api.ServiceClient.ListHostNicsByHostId(context.Background(), &import10.ListHostNicsByHostIdRequest{
 		ClusterExtId: clusterExtId,
 		HostExtId:    hostExtId,
 		Page_:        page_,
@@ -2198,13 +2527,13 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *st
 }
 
 // Lists all host NICs for the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) ListHostNicsByHostId(ctx context.Context, request *import7.ListHostNicsByHostIdRequest, args ...map[string]interface{}) (*import1.ListHostNicsByHostIdApiResponse, error) {
+func (api *ClustersServiceApi) ListHostNicsByHostId(ctx context.Context, request *import10.ListHostNicsByHostIdRequest, args ...map[string]interface{}) (*import1.ListHostNicsByHostIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2262,9 +2591,15 @@ func (api *ClustersServiceApi) ListHostNicsByHostId(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListHostNicsByHostIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2273,7 +2608,7 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListHosts(context.Background(), &import7.ListHostsRequest{
+	return api.ServiceClient.ListHosts(context.Background(), &import10.ListHostsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -2284,13 +2619,13 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 }
 
 // Lists all host entities across clusters registered to Prism Central.
-func (api *ClustersServiceApi) ListHosts(ctx context.Context, request *import7.ListHostsRequest, args ...map[string]interface{}) (*import1.ListHostsApiResponse, error) {
+func (api *ClustersServiceApi) ListHosts(ctx context.Context, request *import10.ListHostsRequest, args ...map[string]interface{}) (*import1.ListHostsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/hosts"
+	uri := "/api/clustermgmt/v4.3/config/hosts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2339,9 +2674,15 @@ func (api *ClustersServiceApi) ListHosts(ctx context.Context, request *import7.L
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListHostsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2350,7 +2691,7 @@ func (api *ClustersApi) ListHostsByClusterId(clusterExtId *string, page_ *int, l
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListHostsByClusterId(context.Background(), &import7.ListHostsByClusterIdRequest{
+	return api.ServiceClient.ListHostsByClusterId(context.Background(), &import10.ListHostsByClusterIdRequest{
 		ClusterExtId: clusterExtId,
 		Page_:        page_,
 		Limit_:       limit_,
@@ -2362,13 +2703,13 @@ func (api *ClustersApi) ListHostsByClusterId(clusterExtId *string, page_ *int, l
 }
 
 // Lists all the hosts associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) ListHostsByClusterId(ctx context.Context, request *import7.ListHostsByClusterIdRequest, args ...map[string]interface{}) (*import1.ListHostsByClusterIdApiResponse, error) {
+func (api *ClustersServiceApi) ListHostsByClusterId(ctx context.Context, request *import10.ListHostsByClusterIdRequest, args ...map[string]interface{}) (*import1.ListHostsByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2424,18 +2765,26 @@ func (api *ClustersServiceApi) ListHostsByClusterId(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListHostsByClusterIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // List Physical GPU profiles.
+//
+// Deprecated: This API has been deprecated.
 func (api *ClustersApi) ListPhysicalGpuProfiles(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListPhysicalGpuProfilesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListPhysicalGpuProfiles(context.Background(), &import7.ListPhysicalGpuProfilesRequest{
+	return api.ServiceClient.ListPhysicalGpuProfiles(context.Background(), &import10.ListPhysicalGpuProfilesRequest{
 		ClusterExtId: clusterExtId,
 		Page_:        page_,
 		Limit_:       limit_,
@@ -2445,13 +2794,15 @@ func (api *ClustersApi) ListPhysicalGpuProfiles(clusterExtId *string, page_ *int
 }
 
 // List Physical GPU profiles.
-func (api *ClustersServiceApi) ListPhysicalGpuProfiles(ctx context.Context, request *import7.ListPhysicalGpuProfilesRequest, args ...map[string]interface{}) (*import1.ListPhysicalGpuProfilesApiResponse, error) {
+//
+// Deprecated: This API has been deprecated.
+func (api *ClustersServiceApi) ListPhysicalGpuProfiles(ctx context.Context, request *import10.ListPhysicalGpuProfilesRequest, args ...map[string]interface{}) (*import1.ListPhysicalGpuProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/physical-gpu-profiles"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/physical-gpu-profiles"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2501,9 +2852,15 @@ func (api *ClustersServiceApi) ListPhysicalGpuProfiles(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListPhysicalGpuProfilesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2512,19 +2869,19 @@ func (api *ClustersApi) ListRackableUnitsByClusterId(clusterExtId *string, args 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListRackableUnitsByClusterId(context.Background(), &import7.ListRackableUnitsByClusterIdRequest{
+	return api.ServiceClient.ListRackableUnitsByClusterId(context.Background(), &import10.ListRackableUnitsByClusterIdRequest{
 		ClusterExtId: clusterExtId,
 	}, args...)
 }
 
 // Lists the rackable units of the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) ListRackableUnitsByClusterId(ctx context.Context, request *import7.ListRackableUnitsByClusterIdRequest, args ...map[string]interface{}) (*import1.ListRackableUnitsByClusterIdApiResponse, error) {
+func (api *ClustersServiceApi) ListRackableUnitsByClusterId(ctx context.Context, request *import10.ListRackableUnitsByClusterIdRequest, args ...map[string]interface{}) (*import1.ListRackableUnitsByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rackable-units"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rackable-units"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2561,9 +2918,15 @@ func (api *ClustersServiceApi) ListRackableUnitsByClusterId(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRackableUnitsByClusterIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2572,19 +2935,19 @@ func (api *ClustersApi) ListRsyslogServersByClusterId(clusterExtId *string, args
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListRsyslogServersByClusterId(context.Background(), &import7.ListRsyslogServersByClusterIdRequest{
+	return api.ServiceClient.ListRsyslogServersByClusterId(context.Background(), &import10.ListRsyslogServersByClusterIdRequest{
 		ClusterExtId: clusterExtId,
 	}, args...)
 }
 
 // Lists the RSYSLOG server configurations associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) ListRsyslogServersByClusterId(ctx context.Context, request *import7.ListRsyslogServersByClusterIdRequest, args ...map[string]interface{}) (*import1.ListRsyslogServersByClusterIdApiResponse, error) {
+func (api *ClustersServiceApi) ListRsyslogServersByClusterId(ctx context.Context, request *import10.ListRsyslogServersByClusterIdRequest, args ...map[string]interface{}) (*import1.ListRsyslogServersByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rsyslog-servers"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2621,18 +2984,26 @@ func (api *ClustersServiceApi) ListRsyslogServersByClusterId(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRsyslogServersByClusterIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // List Virtual GPU profiles.
+//
+// Deprecated: This API has been deprecated.
 func (api *ClustersApi) ListVirtualGpuProfiles(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListVirtualGpuProfilesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVirtualGpuProfiles(context.Background(), &import7.ListVirtualGpuProfilesRequest{
+	return api.ServiceClient.ListVirtualGpuProfiles(context.Background(), &import10.ListVirtualGpuProfilesRequest{
 		ClusterExtId: clusterExtId,
 		Page_:        page_,
 		Limit_:       limit_,
@@ -2642,13 +3013,15 @@ func (api *ClustersApi) ListVirtualGpuProfiles(clusterExtId *string, page_ *int,
 }
 
 // List Virtual GPU profiles.
-func (api *ClustersServiceApi) ListVirtualGpuProfiles(ctx context.Context, request *import7.ListVirtualGpuProfilesRequest, args ...map[string]interface{}) (*import1.ListVirtualGpuProfilesApiResponse, error) {
+//
+// Deprecated: This API has been deprecated.
+func (api *ClustersServiceApi) ListVirtualGpuProfiles(ctx context.Context, request *import10.ListVirtualGpuProfilesRequest, args ...map[string]interface{}) (*import1.ListVirtualGpuProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/virtual-gpu-profiles"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/virtual-gpu-profiles"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2698,9 +3071,15 @@ func (api *ClustersServiceApi) ListVirtualGpuProfiles(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListVirtualGpuProfilesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2709,7 +3088,7 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, hostExtId 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVirtualNicsByHostId(context.Background(), &import7.ListVirtualNicsByHostIdRequest{
+	return api.ServiceClient.ListVirtualNicsByHostId(context.Background(), &import10.ListVirtualNicsByHostIdRequest{
 		ClusterExtId: clusterExtId,
 		HostExtId:    hostExtId,
 		Page_:        page_,
@@ -2721,13 +3100,13 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, hostExtId 
 }
 
 // Lists all virtual NICs for the host identified by {extId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) ListVirtualNicsByHostId(ctx context.Context, request *import7.ListVirtualNicsByHostIdRequest, args ...map[string]interface{}) (*import1.ListVirtualNicsByHostIdApiResponse, error) {
+func (api *ClustersServiceApi) ListVirtualNicsByHostId(ctx context.Context, request *import10.ListVirtualNicsByHostIdRequest, args ...map[string]interface{}) (*import1.ListVirtualNicsByHostIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2785,9 +3164,15 @@ func (api *ClustersServiceApi) ListVirtualNicsByHostId(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListVirtualNicsByHostIdApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2796,20 +3181,20 @@ func (api *ClustersApi) RemoveNode(clusterExtId *string, body *import1.NodeRemov
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.RemoveNode(context.Background(), &import7.RemoveNodeRequest{
+	return api.ServiceClient.RemoveNode(context.Background(), &import10.RemoveNodeRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Removes nodes from cluster identified by {extId}.
-func (api *ClustersServiceApi) RemoveNode(ctx context.Context, request *import7.RemoveNodeRequest, args ...map[string]interface{}) (*import1.RemoveNodeApiResponse, error) {
+func (api *ClustersServiceApi) RemoveNode(ctx context.Context, request *import10.RemoveNodeRequest, args ...map[string]interface{}) (*import1.RemoveNodeApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/remove-node"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/remove-node"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2850,9 +3235,15 @@ func (api *ClustersServiceApi) RemoveNode(ctx context.Context, request *import7.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.RemoveNodeApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2861,20 +3252,20 @@ func (api *ClustersApi) RemoveSnmpTransport(clusterExtId *string, body *import1.
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.RemoveSnmpTransport(context.Background(), &import7.RemoveSnmpTransportRequest{
+	return api.ServiceClient.RemoveSnmpTransport(context.Background(), &import10.RemoveSnmpTransportRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Removes transport ports and protocol detail from the SNMP configuration associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) RemoveSnmpTransport(ctx context.Context, request *import7.RemoveSnmpTransportRequest, args ...map[string]interface{}) (*import1.RemoveSnmpTransportsApiResponse, error) {
+func (api *ClustersServiceApi) RemoveSnmpTransport(ctx context.Context, request *import10.RemoveSnmpTransportRequest, args ...map[string]interface{}) (*import1.RemoveSnmpTransportsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -2915,9 +3306,15 @@ func (api *ClustersServiceApi) RemoveSnmpTransport(ctx context.Context, request 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.RemoveSnmpTransportsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2926,20 +3323,20 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateClusterById(context.Background(), &import7.UpdateClusterByIdRequest{
+	return api.ServiceClient.UpdateClusterById(context.Background(), &import10.UpdateClusterByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Update cluster operation.
-func (api *ClustersServiceApi) UpdateClusterById(ctx context.Context, request *import7.UpdateClusterByIdRequest, args ...map[string]interface{}) (*import1.UpdateClusterApiResponse, error) {
+func (api *ClustersServiceApi) UpdateClusterById(ctx context.Context, request *import10.UpdateClusterByIdRequest, args ...map[string]interface{}) (*import1.UpdateClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -2980,9 +3377,15 @@ func (api *ClustersServiceApi) UpdateClusterById(ctx context.Context, request *i
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateClusterApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -2991,7 +3394,7 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateRsyslogServerById(context.Background(), &import7.UpdateRsyslogServerByIdRequest{
+	return api.ServiceClient.UpdateRsyslogServerById(context.Background(), &import10.UpdateRsyslogServerByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 		Body:         body,
@@ -2999,13 +3402,13 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 }
 
 // Update RSYSLOG server configuration except RSYSLOG server name as it is a primary key of the entity.
-func (api *ClustersServiceApi) UpdateRsyslogServerById(ctx context.Context, request *import7.UpdateRsyslogServerByIdRequest, args ...map[string]interface{}) (*import1.UpdateRsyslogServerApiResponse, error) {
+func (api *ClustersServiceApi) UpdateRsyslogServerById(ctx context.Context, request *import10.UpdateRsyslogServerByIdRequest, args ...map[string]interface{}) (*import1.UpdateRsyslogServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -3051,9 +3454,15 @@ func (api *ClustersServiceApi) UpdateRsyslogServerById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateRsyslogServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -3062,20 +3471,20 @@ func (api *ClustersApi) UpdateSnmpStatus(clusterExtId *string, body *import1.Snm
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateSnmpStatus(context.Background(), &import7.UpdateSnmpStatusRequest{
+	return api.ServiceClient.UpdateSnmpStatus(context.Background(), &import10.UpdateSnmpStatusRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Updates the status of SNMP configuration associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) UpdateSnmpStatus(ctx context.Context, request *import7.UpdateSnmpStatusRequest, args ...map[string]interface{}) (*import1.UpdateSnmpStatusApiResponse, error) {
+func (api *ClustersServiceApi) UpdateSnmpStatus(ctx context.Context, request *import10.UpdateSnmpStatusRequest, args ...map[string]interface{}) (*import1.UpdateSnmpStatusApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/update-status"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/$actions/update-status"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -3116,9 +3525,15 @@ func (api *ClustersServiceApi) UpdateSnmpStatus(ctx context.Context, request *im
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateSnmpStatusApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -3127,7 +3542,7 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateSnmpTrapById(context.Background(), &import7.UpdateSnmpTrapByIdRequest{
+	return api.ServiceClient.UpdateSnmpTrapById(context.Background(), &import10.UpdateSnmpTrapByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 		Body:         body,
@@ -3135,13 +3550,13 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 }
 
 // Update SNMP trap configuration identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) UpdateSnmpTrapById(ctx context.Context, request *import7.UpdateSnmpTrapByIdRequest, args ...map[string]interface{}) (*import1.UpdateSnmpTrapApiResponse, error) {
+func (api *ClustersServiceApi) UpdateSnmpTrapById(ctx context.Context, request *import10.UpdateSnmpTrapByIdRequest, args ...map[string]interface{}) (*import1.UpdateSnmpTrapApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -3187,9 +3602,15 @@ func (api *ClustersServiceApi) UpdateSnmpTrapById(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateSnmpTrapApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -3198,7 +3619,7 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateSnmpUserById(context.Background(), &import7.UpdateSnmpUserByIdRequest{
+	return api.ServiceClient.UpdateSnmpUserById(context.Background(), &import10.UpdateSnmpUserByIdRequest{
 		ClusterExtId: clusterExtId,
 		ExtId:        extId,
 		Body:         body,
@@ -3206,13 +3627,13 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 }
 
 // Updates SNMP user configuration identified by {extId} associated with the cluster identified by {clusterExtId}.
-func (api *ClustersServiceApi) UpdateSnmpUserById(ctx context.Context, request *import7.UpdateSnmpUserByIdRequest, args ...map[string]interface{}) (*import1.UpdateSnmpUserApiResponse, error) {
+func (api *ClustersServiceApi) UpdateSnmpUserById(ctx context.Context, request *import10.UpdateSnmpUserByIdRequest, args ...map[string]interface{}) (*import1.UpdateSnmpUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -3258,9 +3679,15 @@ func (api *ClustersServiceApi) UpdateSnmpUserById(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateSnmpUserApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -3269,20 +3696,20 @@ func (api *ClustersApi) ValidateNode(clusterExtId *string, body *import1.Validat
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewClustersServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ValidateNode(context.Background(), &import7.ValidateNodeRequest{
+	return api.ServiceClient.ValidateNode(context.Background(), &import10.ValidateNodeRequest{
 		ClusterExtId: clusterExtId,
 		Body:         body,
 	}, args...)
 }
 
 // Validates hypervisor bundle and node uplinks of the node. This API is not supported for XEN hypervisor type.
-func (api *ClustersServiceApi) ValidateNode(ctx context.Context, request *import7.ValidateNodeRequest, args ...map[string]interface{}) (*import1.ValidateNodeApiResponse, error) {
+func (api *ClustersServiceApi) ValidateNode(ctx context.Context, request *import10.ValidateNodeRequest, args ...map[string]interface{}) (*import1.ValidateNodeApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/validate-node"
+	uri := "/api/clustermgmt/v4.3/config/clusters/{clusterExtId}/$actions/validate-node"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -3323,8 +3750,14 @@ func (api *ClustersServiceApi) ValidateNode(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ValidateNodeApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

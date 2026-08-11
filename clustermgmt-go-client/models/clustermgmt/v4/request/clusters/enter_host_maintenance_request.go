@@ -1,7 +1,7 @@
 package clusters
 
 import (
-	import4 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/operations"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/operations"
 )
 
 // This file holds the request struct for the EnterHostMaintenance operation.
@@ -14,5 +14,5 @@ type EnterHostMaintenanceRequest struct {
 	ExtId *string
 
 	// (required) Property of the host to be put into maintenance mode.
-	Body *import4.EnterHostMaintenanceSpec
+	Body *import7.EnterHostMaintenanceSpec
 }

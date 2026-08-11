@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import15 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/vcenterextensions"
+	import23 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/vcenterextensions"
 	"net/http"
 	"net/url"
 	"strings"
@@ -65,19 +65,19 @@ func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVcenterExtensionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetVcenterExtensionById(context.Background(), &import15.GetVcenterExtensionByIdRequest{
+	return api.ServiceClient.GetVcenterExtensionById(context.Background(), &import23.GetVcenterExtensionByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Fetches vCenter server extension information for the given VcenterExtensionExtId.
-func (api *VcenterExtensionsServiceApi) GetVcenterExtensionById(ctx context.Context, request *import15.GetVcenterExtensionByIdRequest, args ...map[string]interface{}) (*import1.GetVcenterExtensionApiResponse, error) {
+func (api *VcenterExtensionsServiceApi) GetVcenterExtensionById(ctx context.Context, request *import23.GetVcenterExtensionByIdRequest, args ...map[string]interface{}) (*import1.GetVcenterExtensionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions/{extId}"
+	uri := "/api/clustermgmt/v4.3/config/vcenter-extensions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *VcenterExtensionsServiceApi) GetVcenterExtensionById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetVcenterExtensionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -125,7 +131,7 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVcenterExtensionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVcenterExtensions(context.Background(), &import15.ListVcenterExtensionsRequest{
+	return api.ServiceClient.ListVcenterExtensions(context.Background(), &import23.ListVcenterExtensionsRequest{
 		Page_:   page_,
 		Limit_:  limit_,
 		Filter_: filter_,
@@ -134,13 +140,13 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 }
 
 // List of vCenter server extensions for the clusters registered under a Prism Central server.
-func (api *VcenterExtensionsServiceApi) ListVcenterExtensions(ctx context.Context, request *import15.ListVcenterExtensionsRequest, args ...map[string]interface{}) (*import1.ListVcenterExtensionsApiResponse, error) {
+func (api *VcenterExtensionsServiceApi) ListVcenterExtensions(ctx context.Context, request *import23.ListVcenterExtensionsRequest, args ...map[string]interface{}) (*import1.ListVcenterExtensionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions"
+	uri := "/api/clustermgmt/v4.3/config/vcenter-extensions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -183,9 +189,15 @@ func (api *VcenterExtensionsServiceApi) ListVcenterExtensions(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListVcenterExtensionsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -194,20 +206,20 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVcenterExtensionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.RegisterVcenterExtension(context.Background(), &import15.RegisterVcenterExtensionRequest{
+	return api.ServiceClient.RegisterVcenterExtension(context.Background(), &import23.RegisterVcenterExtensionRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Registers Nutanix cluster as a vCenter server extension.
-func (api *VcenterExtensionsServiceApi) RegisterVcenterExtension(ctx context.Context, request *import15.RegisterVcenterExtensionRequest, args ...map[string]interface{}) (*import1.RegisterVcenterExtensionApiResponse, error) {
+func (api *VcenterExtensionsServiceApi) RegisterVcenterExtension(ctx context.Context, request *import23.RegisterVcenterExtensionRequest, args ...map[string]interface{}) (*import1.RegisterVcenterExtensionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions/{extId}/$actions/register"
+	uri := "/api/clustermgmt/v4.3/config/vcenter-extensions/{extId}/$actions/register"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -248,9 +260,15 @@ func (api *VcenterExtensionsServiceApi) RegisterVcenterExtension(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.RegisterVcenterExtensionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,20 +277,20 @@ func (api *VcenterExtensionsApi) UnregisterVcenterExtension(extId *string, body 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVcenterExtensionsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UnregisterVcenterExtension(context.Background(), &import15.UnregisterVcenterExtensionRequest{
+	return api.ServiceClient.UnregisterVcenterExtension(context.Background(), &import23.UnregisterVcenterExtensionRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Unregisters Nutanix cluster as a vCenter server extension.
-func (api *VcenterExtensionsServiceApi) UnregisterVcenterExtension(ctx context.Context, request *import15.UnregisterVcenterExtensionRequest, args ...map[string]interface{}) (*import1.UnregisterVcenterExtensionApiResponse, error) {
+func (api *VcenterExtensionsServiceApi) UnregisterVcenterExtension(ctx context.Context, request *import23.UnregisterVcenterExtensionRequest, args ...map[string]interface{}) (*import1.UnregisterVcenterExtensionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions/{extId}/$actions/unregister"
+	uri := "/api/clustermgmt/v4.3/config/vcenter-extensions/{extId}/$actions/unregister"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -313,8 +331,14 @@ func (api *VcenterExtensionsServiceApi) UnregisterVcenterExtension(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UnregisterVcenterExtensionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
