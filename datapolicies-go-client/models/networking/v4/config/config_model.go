@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/config/config_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Data Policies APIs
  *
@@ -121,7 +121,7 @@ func NewIPv4Pool() *IPv4Pool {
 	p := new(IPv4Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Pool"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

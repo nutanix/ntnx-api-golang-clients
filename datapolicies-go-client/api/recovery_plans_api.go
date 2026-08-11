@@ -78,7 +78,7 @@ func (api *RecoveryPlansServiceApi) CreateDataServicesIpMapping(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -119,9 +119,15 @@ func (api *RecoveryPlansServiceApi) CreateDataServicesIpMapping(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateDataServicesIpMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -143,7 +149,7 @@ func (api *RecoveryPlansServiceApi) CreateNetworkMapping(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/network-mappings"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/network-mappings"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -184,9 +190,15 @@ func (api *RecoveryPlansServiceApi) CreateNetworkMapping(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateNetworkMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -207,7 +219,7 @@ func (api *RecoveryPlansServiceApi) CreateRecoveryPlan(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -242,9 +254,15 @@ func (api *RecoveryPlansServiceApi) CreateRecoveryPlan(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -266,7 +284,7 @@ func (api *RecoveryPlansServiceApi) CreateRecoverySetting(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/recovery-settings"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/recovery-settings"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -307,9 +325,15 @@ func (api *RecoveryPlansServiceApi) CreateRecoverySetting(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateRecoverySettingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -331,7 +355,7 @@ func (api *RecoveryPlansServiceApi) CreateRecoveryStage(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/stages"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/stages"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -372,9 +396,15 @@ func (api *RecoveryPlansServiceApi) CreateRecoveryStage(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateRecoveryStageApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -396,7 +426,7 @@ func (api *RecoveryPlansServiceApi) DeleteDataServicesIpMappingById(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -438,9 +468,15 @@ func (api *RecoveryPlansServiceApi) DeleteDataServicesIpMappingById(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteDataServicesIpMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -462,7 +498,7 @@ func (api *RecoveryPlansServiceApi) DeleteNetworkMappingById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/network-mappings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/network-mappings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -504,9 +540,15 @@ func (api *RecoveryPlansServiceApi) DeleteNetworkMappingById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteNetworkMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -527,7 +569,7 @@ func (api *RecoveryPlansServiceApi) DeleteRecoveryPlanById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -564,9 +606,15 @@ func (api *RecoveryPlansServiceApi) DeleteRecoveryPlanById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -588,7 +636,7 @@ func (api *RecoveryPlansServiceApi) DeleteRecoverySettingById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/recovery-settings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/recovery-settings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -630,9 +678,15 @@ func (api *RecoveryPlansServiceApi) DeleteRecoverySettingById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteRecoverySettingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -654,7 +708,7 @@ func (api *RecoveryPlansServiceApi) DeleteRecoveryStageById(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/stages/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/stages/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -696,9 +750,15 @@ func (api *RecoveryPlansServiceApi) DeleteRecoveryStageById(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteRecoveryStageApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -720,7 +780,7 @@ func (api *RecoveryPlansServiceApi) GetDataServicesIpMappingById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -762,9 +822,15 @@ func (api *RecoveryPlansServiceApi) GetDataServicesIpMappingById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetDataServicesIpMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -786,7 +852,7 @@ func (api *RecoveryPlansServiceApi) GetNetworkMappingById(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/network-mappings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/network-mappings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -828,9 +894,15 @@ func (api *RecoveryPlansServiceApi) GetNetworkMappingById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetNetworkMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -851,7 +923,7 @@ func (api *RecoveryPlansServiceApi) GetRecoveryPlanById(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -888,9 +960,15 @@ func (api *RecoveryPlansServiceApi) GetRecoveryPlanById(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -912,7 +990,7 @@ func (api *RecoveryPlansServiceApi) GetRecoverySettingById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/recovery-settings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/recovery-settings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -954,9 +1032,15 @@ func (api *RecoveryPlansServiceApi) GetRecoverySettingById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRecoverySettingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -978,7 +1062,7 @@ func (api *RecoveryPlansServiceApi) GetRecoveryStageById(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/stages/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/stages/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1020,9 +1104,15 @@ func (api *RecoveryPlansServiceApi) GetRecoveryStageById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetRecoveryStageApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1048,7 +1138,7 @@ func (api *RecoveryPlansServiceApi) ListDataServicesIpMappings(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1101,9 +1191,15 @@ func (api *RecoveryPlansServiceApi) ListDataServicesIpMappings(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListDataServicesIpMappingsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1129,7 +1225,7 @@ func (api *RecoveryPlansServiceApi) ListNetworkMappings(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/network-mappings"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/network-mappings"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1182,9 +1278,15 @@ func (api *RecoveryPlansServiceApi) ListNetworkMappings(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListNetworkMappingsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1209,7 +1311,7 @@ func (api *RecoveryPlansServiceApi) ListRecoveryPlans(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1255,9 +1357,15 @@ func (api *RecoveryPlansServiceApi) ListRecoveryPlans(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRecoveryPlansApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1283,7 +1391,7 @@ func (api *RecoveryPlansServiceApi) ListRecoverySettings(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/recovery-settings"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/recovery-settings"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1336,9 +1444,15 @@ func (api *RecoveryPlansServiceApi) ListRecoverySettings(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRecoverySettingsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1364,7 +1478,7 @@ func (api *RecoveryPlansServiceApi) ListRecoveryStages(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/stages"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/stages"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1417,9 +1531,15 @@ func (api *RecoveryPlansServiceApi) ListRecoveryStages(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListRecoveryStagesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1442,7 +1562,7 @@ func (api *RecoveryPlansServiceApi) UpdateDataServicesIpMappingById(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/data-services-ip-mappings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1488,9 +1608,15 @@ func (api *RecoveryPlansServiceApi) UpdateDataServicesIpMappingById(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateDataServicesIpMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1513,7 +1639,7 @@ func (api *RecoveryPlansServiceApi) UpdateNetworkMappingById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/network-mappings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/network-mappings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1559,9 +1685,15 @@ func (api *RecoveryPlansServiceApi) UpdateNetworkMappingById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateNetworkMappingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1583,7 +1715,7 @@ func (api *RecoveryPlansServiceApi) UpdateRecoveryPlanById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1624,9 +1756,15 @@ func (api *RecoveryPlansServiceApi) UpdateRecoveryPlanById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateRecoveryPlanApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1649,7 +1787,7 @@ func (api *RecoveryPlansServiceApi) UpdateRecoverySettingById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/recovery-settings/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/recovery-settings/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1695,9 +1833,15 @@ func (api *RecoveryPlansServiceApi) UpdateRecoverySettingById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateRecoverySettingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1720,7 +1864,7 @@ func (api *RecoveryPlansServiceApi) UpdateRecoveryStageById(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/recovery-plans/{recoveryPlanExtId}/stages/{extId}"
+	uri := "/api/datapolicies/v4.3/config/recovery-plans/{recoveryPlanExtId}/stages/{extId}"
 
 	// verify the required parameter 'recoveryPlanExtId' is set
 	if nil == request.RecoveryPlanExtId {
@@ -1766,8 +1910,14 @@ func (api *RecoveryPlansServiceApi) UpdateRecoveryStageById(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateRecoveryStageApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

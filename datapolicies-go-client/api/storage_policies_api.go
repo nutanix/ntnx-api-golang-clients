@@ -77,7 +77,7 @@ func (api *StoragePoliciesServiceApi) CreateStoragePolicy(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/storage-policies"
+	uri := "/api/datapolicies/v4.3/config/storage-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *StoragePoliciesServiceApi) CreateStoragePolicy(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateStoragePolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *StoragePoliciesServiceApi) DeleteStoragePolicyById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/storage-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/storage-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *StoragePoliciesServiceApi) DeleteStoragePolicyById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteStoragePolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *StoragePoliciesServiceApi) GetStoragePolicyById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/storage-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/storage-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *StoragePoliciesServiceApi) GetStoragePolicyById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetStoragePolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -259,7 +277,7 @@ func (api *StoragePoliciesServiceApi) ListStoragePolicies(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/storage-policies"
+	uri := "/api/datapolicies/v4.3/config/storage-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,15 @@ func (api *StoragePoliciesServiceApi) ListStoragePolicies(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListStoragePoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -329,7 +353,7 @@ func (api *StoragePoliciesServiceApi) UpdateStoragePolicyById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/storage-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/storage-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *StoragePoliciesServiceApi) UpdateStoragePolicyById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateStoragePolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

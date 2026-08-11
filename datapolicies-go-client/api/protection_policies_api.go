@@ -78,7 +78,7 @@ func (api *ProtectionPoliciesServiceApi) CreateConsistencyRule(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == request.ProtectionPolicyExtId {
@@ -119,9 +119,15 @@ func (api *ProtectionPoliciesServiceApi) CreateConsistencyRule(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateConsistencyRuleApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -142,7 +148,7 @@ func (api *ProtectionPoliciesServiceApi) CreateProtectionPolicy(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies"
+	uri := "/api/datapolicies/v4.3/config/protection-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -177,9 +183,15 @@ func (api *ProtectionPoliciesServiceApi) CreateProtectionPolicy(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateProtectionPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -201,7 +213,7 @@ func (api *ProtectionPoliciesServiceApi) DeleteConsistencyRuleById(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == request.ProtectionPolicyExtId {
@@ -243,9 +255,15 @@ func (api *ProtectionPoliciesServiceApi) DeleteConsistencyRuleById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteConsistencyRuleApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -266,7 +284,7 @@ func (api *ProtectionPoliciesServiceApi) DeleteProtectionPolicyById(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -303,9 +321,15 @@ func (api *ProtectionPoliciesServiceApi) DeleteProtectionPolicyById(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteProtectionPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -327,7 +351,7 @@ func (api *ProtectionPoliciesServiceApi) GetConsistencyRuleById(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == request.ProtectionPolicyExtId {
@@ -369,9 +393,15 @@ func (api *ProtectionPoliciesServiceApi) GetConsistencyRuleById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetConsistencyRuleApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -392,7 +422,7 @@ func (api *ProtectionPoliciesServiceApi) GetProtectionPolicyById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -429,9 +459,15 @@ func (api *ProtectionPoliciesServiceApi) GetProtectionPolicyById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetProtectionPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -457,7 +493,7 @@ func (api *ProtectionPoliciesServiceApi) ListConsistencyRulesByProtectionPolicyI
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == request.ProtectionPolicyExtId {
@@ -510,9 +546,15 @@ func (api *ProtectionPoliciesServiceApi) ListConsistencyRulesByProtectionPolicyI
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListConsistencyRulesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -537,7 +579,7 @@ func (api *ProtectionPoliciesServiceApi) ListProtectionPolicies(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies"
+	uri := "/api/datapolicies/v4.3/config/protection-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -583,9 +625,15 @@ func (api *ProtectionPoliciesServiceApi) ListProtectionPolicies(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListProtectionPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -608,7 +656,7 @@ func (api *ProtectionPoliciesServiceApi) UpdateConsistencyRuleById(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == request.ProtectionPolicyExtId {
@@ -654,9 +702,15 @@ func (api *ProtectionPoliciesServiceApi) UpdateConsistencyRuleById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateConsistencyRuleApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -678,7 +732,7 @@ func (api *ProtectionPoliciesServiceApi) UpdateProtectionPolicyById(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/protection-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/protection-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -719,8 +773,14 @@ func (api *ProtectionPoliciesServiceApi) UpdateProtectionPolicyById(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateProtectionPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -77,7 +77,7 @@ func (api *EntitySyncPoliciesServiceApi) GetEntitySyncPolicyById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/entity-sync-policies/{extId}"
+	uri := "/api/datapolicies/v4.3/config/entity-sync-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,14 +114,20 @@ func (api *EntitySyncPoliciesServiceApi) GetEntitySyncPolicyById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetEntitySyncPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Lists entity sync policies.
-func (api *EntitySyncPoliciesApi) ListEntitySyncPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListEntitySyncPoliciesApiResponse, error) {
+func (api *EntitySyncPoliciesApi) ListEntitySyncPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListEntitySyncPoliciesApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewEntitySyncPoliciesServiceApi(api.ApiClient)
 	}
@@ -130,6 +136,7 @@ func (api *EntitySyncPoliciesApi) ListEntitySyncPolicies(page_ *int, limit_ *int
 		Limit_:   limit_,
 		Filter_:  filter_,
 		Orderby_: orderby_,
+		Apply_:   apply_,
 		Select_:  select_,
 	}, args...)
 }
@@ -141,7 +148,7 @@ func (api *EntitySyncPoliciesServiceApi) ListEntitySyncPolicies(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/entity-sync-policies"
+	uri := "/api/datapolicies/v4.3/config/entity-sync-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -166,6 +173,9 @@ func (api *EntitySyncPoliciesServiceApi) ListEntitySyncPolicies(ctx context.Cont
 	if request.Orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
+	if request.Apply_ != nil {
+		queryParams.Add("$apply", client.ParameterToString(*request.Apply_, ""))
+	}
 	if request.Select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
@@ -187,9 +197,15 @@ func (api *EntitySyncPoliciesServiceApi) ListEntitySyncPolicies(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListEntitySyncPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -210,7 +226,7 @@ func (api *EntitySyncPoliciesServiceApi) SyncEntitySyncPolicyById(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.2/config/entity-sync-policies/{extId}/$actions/sync-entity"
+	uri := "/api/datapolicies/v4.3/config/entity-sync-policies/{extId}/$actions/sync-entity"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -247,8 +263,14 @@ func (api *EntitySyncPoliciesServiceApi) SyncEntitySyncPolicyById(ctx context.Co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.SyncEntitySyncPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
