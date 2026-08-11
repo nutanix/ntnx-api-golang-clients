@@ -1,8 +1,8 @@
-package samlidentityproviders
+package rolemembership
 
-// This file holds the request struct for the ListSamlIdentityProviders operation.
+// This file holds the request struct for the ListRoleMemberships operation.
 
-type ListSamlIdentityProvidersRequest struct {
+type ListRoleMembershipsRequest struct {
 	// A URL query parameter that specifies the page number of the result set. It must be a positive integer between 0 and the
 	// maximum number of pages that are available for that resource. Any number out of this range might lead to no results. If
 	// both $page and $apply query parameters are present, $page will be applied on entities within the groups.
@@ -29,6 +29,13 @@ type ListSamlIdentityProvidersRequest struct {
 	// by templateName in descending order. If both $orderby and $apply query parameters are present, $orderby will be applied
 	// on entities within the groups.
 	Orderby_ *string
+
+	// A URL query parameter that allows clients to request related resources when a resource that satisfies a particular
+	// request is retrieved. Each expanded item is evaluated relative to the entity containing the property being expanded.
+	// Other query options can be applied to an expanded property by appending a semicolon-separated list of query options,
+	// enclosed in parentheses, to the property name. Permissible system query options are $filter, $select and $orderby. If
+	// both $expand and $apply query parameters are present, $expand will be applied on entities within the groups.
+	Expand_ *string
 
 	// A URL query parameter that allows clients to request a specific set of properties for each entity or complex type.
 	// Expression specified with the $select must conform to the [OData

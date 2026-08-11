@@ -78,7 +78,7 @@ func (api *DirectoryServicesServiceApi) ConnectionStatusDirectoryService(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}/$actions/verify-connection-status"
+	uri := "/api/iam/v4.1.b3/authn/directory-services/{extId}/$actions/verify-connection-status"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,9 +119,15 @@ func (api *DirectoryServicesServiceApi) ConnectionStatusDirectoryService(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ConnectionDirectoryServiceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -142,7 +148,7 @@ func (api *DirectoryServicesServiceApi) CreateDirectoryService(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services"
+	uri := "/api/iam/v4.1.b3/authn/directory-services"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -177,9 +183,15 @@ func (api *DirectoryServicesServiceApi) CreateDirectoryService(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.CreateDirectoryServiceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -200,7 +212,7 @@ func (api *DirectoryServicesServiceApi) DeleteDirectoryServiceById(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b3/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -237,9 +249,15 @@ func (api *DirectoryServicesServiceApi) DeleteDirectoryServiceById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.DeleteDirectoryServiceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -260,7 +278,7 @@ func (api *DirectoryServicesServiceApi) GetDirectoryServiceById(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b3/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -297,9 +315,15 @@ func (api *DirectoryServicesServiceApi) GetDirectoryServiceById(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetDirectoryServiceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -324,7 +348,7 @@ func (api *DirectoryServicesServiceApi) ListDirectoryServices(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services"
+	uri := "/api/iam/v4.1.b3/authn/directory-services"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -370,9 +394,15 @@ func (api *DirectoryServicesServiceApi) ListDirectoryServices(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListDirectoryServicesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -394,7 +424,7 @@ func (api *DirectoryServicesServiceApi) SearchDirectoryService(ctx context.Conte
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}/$actions/search"
+	uri := "/api/iam/v4.1.b3/authn/directory-services/{extId}/$actions/search"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -435,9 +465,289 @@ func (api *DirectoryServicesServiceApi) SearchDirectoryService(ctx context.Conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.SearchDirectoryServiceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Shares a directory service with all projects.
+func (api *DirectoryServicesApi) ShareAllDirectoryService(extId *string, args ...map[string]interface{}) (*import4.ShareAllDirectoryServiceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDirectoryServicesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ShareAllDirectoryService(context.Background(), &import7.ShareAllDirectoryServiceRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Shares a directory service with all projects.
+func (api *DirectoryServicesServiceApi) ShareAllDirectoryService(ctx context.Context, request *import7.ShareAllDirectoryServiceRequest, args ...map[string]interface{}) (*import4.ShareAllDirectoryServiceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.1.b3/authn/config/directory-service/{extId}/$actions/share-all"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.ShareAllDirectoryServiceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Shares a directory service with specified project.
+func (api *DirectoryServicesApi) ShareDirectoryService(extId *string, body *import4.DirectoryServiceShareRequest, args ...map[string]interface{}) (*import4.ShareDirectoryServiceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDirectoryServicesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ShareDirectoryService(context.Background(), &import7.ShareDirectoryServiceRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Shares a directory service with specified project.
+func (api *DirectoryServicesServiceApi) ShareDirectoryService(ctx context.Context, request *import7.ShareDirectoryServiceRequest, args ...map[string]interface{}) (*import4.ShareDirectoryServiceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.1.b3/authn/config/directory-service/{extId}/$actions/share"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.ShareDirectoryServiceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Unshare directory service from all projects, making it unavailable for authentication across all projects.
+func (api *DirectoryServicesApi) UnshareAllDirectoryService(extId *string, args ...map[string]interface{}) (*import4.UnshareAllDirectoryServiceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDirectoryServicesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UnshareAllDirectoryService(context.Background(), &import7.UnshareAllDirectoryServiceRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Unshare directory service from all projects, making it unavailable for authentication across all projects.
+func (api *DirectoryServicesServiceApi) UnshareAllDirectoryService(ctx context.Context, request *import7.UnshareAllDirectoryServiceRequest, args ...map[string]interface{}) (*import4.UnshareAllDirectoryServiceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.1.b3/authn/config/directory-service/{extId}/$actions/unshare-all"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.UnshareAllDirectoryServiceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Unshares a directory service from a specific project.
+func (api *DirectoryServicesApi) UnshareDirectoryService(extId *string, body *import4.DirectoryServiceUnshareRequest, args ...map[string]interface{}) (*import4.UnshareDirectoryServiceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDirectoryServicesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UnshareDirectoryService(context.Background(), &import7.UnshareDirectoryServiceRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Unshares a directory service from a specific project.
+func (api *DirectoryServicesServiceApi) UnshareDirectoryService(ctx context.Context, request *import7.UnshareDirectoryServiceRequest, args ...map[string]interface{}) (*import4.UnshareDirectoryServiceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.1.b3/authn/config/directory-service/{extId}/$actions/unshare"
+
+	// verify the required parameter 'extId' is set
+	if nil == request.ExtId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == request.Body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import4.UnshareDirectoryServiceApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -459,7 +769,7 @@ func (api *DirectoryServicesServiceApi) UpdateDirectoryServiceById(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b3/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -500,8 +810,14 @@ func (api *DirectoryServicesServiceApi) UpdateDirectoryServiceById(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UpdateDirectoryServiceApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

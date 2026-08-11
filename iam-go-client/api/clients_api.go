@@ -77,7 +77,7 @@ func (api *ClientsServiceApi) GetRegisteredClientById(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/clients/{extId}"
+	uri := "/api/iam/v4.1.b3/authz/clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,8 +114,14 @@ func (api *ClientsServiceApi) GetRegisteredClientById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetClientApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

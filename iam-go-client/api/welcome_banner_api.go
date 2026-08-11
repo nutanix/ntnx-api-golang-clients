@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/client"
 	import4 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
-	import16 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/request/welcomebanner"
+	import17 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/request/welcomebanner"
 	"net/http"
 	"net/url"
 	"strings"
@@ -65,17 +65,17 @@ func (api *WelcomeBannerApi) GetWelcomeBanner(args ...map[string]interface{}) (*
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewWelcomeBannerServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetWelcomeBanner(context.Background(), &import16.GetWelcomeBannerRequest{}, args...)
+	return api.ServiceClient.GetWelcomeBanner(context.Background(), &import17.GetWelcomeBannerRequest{}, args...)
 }
 
 // Fetches the configured welcome banner.
-func (api *WelcomeBannerServiceApi) GetWelcomeBanner(ctx context.Context, request *import16.GetWelcomeBannerRequest, args ...map[string]interface{}) (*import4.GetWelcomeBannerApiResponse, error) {
+func (api *WelcomeBannerServiceApi) GetWelcomeBanner(ctx context.Context, request *import17.GetWelcomeBannerRequest, args ...map[string]interface{}) (*import4.GetWelcomeBannerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/welcome-banner"
+	uri := "/api/iam/v4.1.b3/authn/welcome-banner"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -105,9 +105,15 @@ func (api *WelcomeBannerServiceApi) GetWelcomeBanner(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetWelcomeBannerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -116,19 +122,19 @@ func (api *WelcomeBannerApi) UpdateWelcomeBanner(body *import4.WelcomeBanner, ar
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewWelcomeBannerServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateWelcomeBanner(context.Background(), &import16.UpdateWelcomeBannerRequest{
+	return api.ServiceClient.UpdateWelcomeBanner(context.Background(), &import17.UpdateWelcomeBannerRequest{
 		Body: body,
 	}, args...)
 }
 
 // Updates the welcome banner.
-func (api *WelcomeBannerServiceApi) UpdateWelcomeBanner(ctx context.Context, request *import16.UpdateWelcomeBannerRequest, args ...map[string]interface{}) (*import4.UpdateWelcomeBannerApiResponse, error) {
+func (api *WelcomeBannerServiceApi) UpdateWelcomeBanner(ctx context.Context, request *import17.UpdateWelcomeBannerRequest, args ...map[string]interface{}) (*import4.UpdateWelcomeBannerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/welcome-banner"
+	uri := "/api/iam/v4.1.b3/authn/welcome-banner"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -163,8 +169,14 @@ func (api *WelcomeBannerServiceApi) UpdateWelcomeBanner(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UpdateWelcomeBannerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

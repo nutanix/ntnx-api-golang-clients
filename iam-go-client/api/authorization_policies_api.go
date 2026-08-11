@@ -77,7 +77,7 @@ func (api *AuthorizationPoliciesServiceApi) CreateAuthorizationPolicy(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/authorization-policies"
+	uri := "/api/iam/v4.1.b3/authz/authorization-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *AuthorizationPoliciesServiceApi) CreateAuthorizationPolicy(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateAuthorizationPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *AuthorizationPoliciesServiceApi) DeleteAuthorizationPolicyById(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/authorization-policies/{extId}"
+	uri := "/api/iam/v4.1.b3/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *AuthorizationPoliciesServiceApi) DeleteAuthorizationPolicyById(ctx co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteAuthorizationPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *AuthorizationPoliciesServiceApi) GetAuthorizationPolicyById(ctx conte
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/authorization-policies/{extId}"
+	uri := "/api/iam/v4.1.b3/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *AuthorizationPoliciesServiceApi) GetAuthorizationPolicyById(ctx conte
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetAuthorizationPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -260,7 +278,7 @@ func (api *AuthorizationPoliciesServiceApi) ListAuthorizationPolicies(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/authorization-policies"
+	uri := "/api/iam/v4.1.b3/authz/authorization-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -309,9 +327,15 @@ func (api *AuthorizationPoliciesServiceApi) ListAuthorizationPolicies(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListAuthorizationPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -333,7 +357,7 @@ func (api *AuthorizationPoliciesServiceApi) UpdateAuthorizationPolicyById(ctx co
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/authorization-policies/{extId}"
+	uri := "/api/iam/v4.1.b3/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -374,8 +398,14 @@ func (api *AuthorizationPoliciesServiceApi) UpdateAuthorizationPolicyById(ctx co
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateAuthorizationPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

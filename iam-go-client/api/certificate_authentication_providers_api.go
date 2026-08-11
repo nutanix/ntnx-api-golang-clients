@@ -63,24 +63,26 @@ func NewCertificateAuthenticationProvidersServiceApi(apiClient *client.ApiClient
 }
 
 // Creates a certificate-based authentication provider.
-func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import4.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import4.CreateCertAuthProviderApiResponse, error) {
+func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import4.CertRevocationInfo, createdBy *string, projectExtId *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId *string, isSharedWithAllProjects *bool, args ...map[string]interface{}) (*import4.CreateCertAuthProviderApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewCertificateAuthenticationProvidersServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.CreateCertAuthProvider(context.Background(), &import5.CreateCertAuthProviderRequest{
-		ClientCaChain:      clientCaChain,
-		CaCertFileName:     caCertFileName,
-		IsCertAuthEnabled:  isCertAuthEnabled,
-		Name:               name,
-		IsCacEnabled:       isCacEnabled,
-		DirSvcExtID:        dirSvcExtID,
-		CertRevocationInfo: certRevocationInfo,
-		CreatedBy:          createdBy,
-		TenantId:           tenantId,
-		CreatedTime:        createdTime,
-		Links:              links,
-		LastUpdatedTime:    lastUpdatedTime,
-		ExtId:              extId,
+		ClientCaChain:           clientCaChain,
+		CaCertFileName:          caCertFileName,
+		IsCertAuthEnabled:       isCertAuthEnabled,
+		Name:                    name,
+		IsCacEnabled:            isCacEnabled,
+		DirSvcExtID:             dirSvcExtID,
+		CertRevocationInfo:      certRevocationInfo,
+		CreatedBy:               createdBy,
+		ProjectExtId:            projectExtId,
+		TenantId:                tenantId,
+		CreatedTime:             createdTime,
+		Links:                   links,
+		LastUpdatedTime:         lastUpdatedTime,
+		ExtId:                   extId,
+		IsSharedWithAllProjects: isSharedWithAllProjects,
 	}, args...)
 }
 
@@ -91,7 +93,7 @@ func (api *CertificateAuthenticationProvidersServiceApi) CreateCertAuthProvider(
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers"
+	uri := "/api/iam/v4.1.b3/authn/cert-auth-providers"
 
 	// verify the required parameter 'clientCaChain' is set
 	if nil == request.ClientCaChain {
@@ -149,6 +151,9 @@ func (api *CertificateAuthenticationProvidersServiceApi) CreateCertAuthProvider(
 	if request.CreatedBy != nil {
 		formParams.Add("createdBy", client.ParameterToString(*request.CreatedBy, ""))
 	}
+	if request.ProjectExtId != nil {
+		formParams.Add("projectExtId", client.ParameterToString(*request.ProjectExtId, ""))
+	}
 	if request.TenantId != nil {
 		formParams.Add("tenantId", client.ParameterToString(*request.TenantId, ""))
 	}
@@ -166,6 +171,9 @@ func (api *CertificateAuthenticationProvidersServiceApi) CreateCertAuthProvider(
 	if request.ExtId != nil {
 		formParams.Add("extId", client.ParameterToString(*request.ExtId, ""))
 	}
+	if request.IsSharedWithAllProjects != nil {
+		formParams.Add("isSharedWithAllProjects", client.ParameterToString(*request.IsSharedWithAllProjects, ""))
+	}
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
@@ -173,9 +181,15 @@ func (api *CertificateAuthenticationProvidersServiceApi) CreateCertAuthProvider(
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.CreateCertAuthProviderApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -196,7 +210,7 @@ func (api *CertificateAuthenticationProvidersServiceApi) DeleteCertAuthProviderB
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b3/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -233,9 +247,15 @@ func (api *CertificateAuthenticationProvidersServiceApi) DeleteCertAuthProviderB
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.DeleteCertAuthProviderApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -256,7 +276,7 @@ func (api *CertificateAuthenticationProvidersServiceApi) GetCertAuthProviderById
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b3/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -293,9 +313,15 @@ func (api *CertificateAuthenticationProvidersServiceApi) GetCertAuthProviderById
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.GetCertAuthProviderApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -317,7 +343,7 @@ func (api *CertificateAuthenticationProvidersServiceApi) ListCertAuthProviders(c
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers"
+	uri := "/api/iam/v4.1.b3/authn/cert-auth-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -354,32 +380,40 @@ func (api *CertificateAuthenticationProvidersServiceApi) ListCertAuthProviders(c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListCertAuthProvidersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Updates a certificate-based authentication provider configuration.
-func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import4.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import4.UpdateCertAuthProviderApiResponse, error) {
+func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import4.CertRevocationInfo, createdBy *string, projectExtId *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId2 *string, isSharedWithAllProjects *bool, args ...map[string]interface{}) (*import4.UpdateCertAuthProviderApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewCertificateAuthenticationProvidersServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.UpdateCertAuthProviderById(context.Background(), &import5.UpdateCertAuthProviderByIdRequest{
-		ExtId:              extId,
-		ClientCaChain:      clientCaChain,
-		CaCertFileName:     caCertFileName,
-		IsCertAuthEnabled:  isCertAuthEnabled,
-		Name:               name,
-		IsCacEnabled:       isCacEnabled,
-		DirSvcExtID:        dirSvcExtID,
-		CertRevocationInfo: certRevocationInfo,
-		CreatedBy:          createdBy,
-		TenantId:           tenantId,
-		CreatedTime:        createdTime,
-		Links:              links,
-		LastUpdatedTime:    lastUpdatedTime,
-		ExtId2:             extId2,
+		ExtId:                   extId,
+		ClientCaChain:           clientCaChain,
+		CaCertFileName:          caCertFileName,
+		IsCertAuthEnabled:       isCertAuthEnabled,
+		Name:                    name,
+		IsCacEnabled:            isCacEnabled,
+		DirSvcExtID:             dirSvcExtID,
+		CertRevocationInfo:      certRevocationInfo,
+		CreatedBy:               createdBy,
+		ProjectExtId:            projectExtId,
+		TenantId:                tenantId,
+		CreatedTime:             createdTime,
+		Links:                   links,
+		LastUpdatedTime:         lastUpdatedTime,
+		ExtId2:                  extId2,
+		IsSharedWithAllProjects: isSharedWithAllProjects,
 	}, args...)
 }
 
@@ -390,7 +424,7 @@ func (api *CertificateAuthenticationProvidersServiceApi) UpdateCertAuthProviderB
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b3/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -454,6 +488,9 @@ func (api *CertificateAuthenticationProvidersServiceApi) UpdateCertAuthProviderB
 	if request.CreatedBy != nil {
 		formParams.Add("createdBy", client.ParameterToString(*request.CreatedBy, ""))
 	}
+	if request.ProjectExtId != nil {
+		formParams.Add("projectExtId", client.ParameterToString(*request.ProjectExtId, ""))
+	}
 	if request.TenantId != nil {
 		formParams.Add("tenantId", client.ParameterToString(*request.TenantId, ""))
 	}
@@ -471,6 +508,9 @@ func (api *CertificateAuthenticationProvidersServiceApi) UpdateCertAuthProviderB
 	if request.ExtId2 != nil {
 		formParams.Add("extId", client.ParameterToString(*request.ExtId2, ""))
 	}
+	if request.IsSharedWithAllProjects != nil {
+		formParams.Add("isSharedWithAllProjects", client.ParameterToString(*request.IsSharedWithAllProjects, ""))
+	}
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
@@ -478,8 +518,14 @@ func (api *CertificateAuthenticationProvidersServiceApi) UpdateCertAuthProviderB
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.UpdateCertAuthProviderApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

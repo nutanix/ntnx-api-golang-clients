@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.1.2-beta-2
+ * Product version: 4.1.2-beta-3
  *
  * Part of the Nutanix Identity and Access Management APIs
  *

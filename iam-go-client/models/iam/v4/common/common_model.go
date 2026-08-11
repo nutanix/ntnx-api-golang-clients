@@ -1,7 +1,7 @@
 /*
  * Generated file models/iam/v4/common/common_model.go.
  *
- * Product version: 4.1.2-beta-2
+ * Product version: 4.1.2-beta-3
  *
  * Part of the Nutanix Identity and Access Management APIs
  *
@@ -119,7 +119,7 @@ func NewActionBaseResponse() *ActionBaseResponse {
 	p := new(ActionBaseResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.common.ActionBaseResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -212,7 +212,7 @@ func NewSchemaValidationError() *SchemaValidationError {
 	p := new(SchemaValidationError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.common.SchemaValidationError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -353,7 +353,7 @@ func NewSchemaValidationErrorMessage() *SchemaValidationErrorMessage {
 	p := new(SchemaValidationErrorMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.common.SchemaValidationErrorMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -470,7 +470,7 @@ func NewSchemaValidationErrorResponse() *SchemaValidationErrorResponse {
 	p := new(SchemaValidationErrorResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.common.SchemaValidationErrorResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -644,7 +644,7 @@ func NewValidationErrorMessage() *ValidationErrorMessage {
 	p := new(ValidationErrorMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.common.ValidationErrorMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

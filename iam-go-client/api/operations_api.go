@@ -77,7 +77,7 @@ func (api *OperationsServiceApi) GetOperationById(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/operations/{extId}"
+	uri := "/api/iam/v4.1.b3/authz/operations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *OperationsServiceApi) GetOperationById(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetOperationApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -141,7 +147,7 @@ func (api *OperationsServiceApi) ListOperations(ctx context.Context, request *im
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/operations"
+	uri := "/api/iam/v4.1.b3/authz/operations"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -187,8 +193,14 @@ func (api *OperationsServiceApi) ListOperations(ctx context.Context, request *im
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListOperationsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

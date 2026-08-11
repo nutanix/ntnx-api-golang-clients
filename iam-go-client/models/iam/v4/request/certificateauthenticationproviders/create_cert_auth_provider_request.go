@@ -34,6 +34,9 @@ type CreateCertAuthProviderRequest struct {
 	CreatedBy *string
 
 	//
+	ProjectExtId *string
+
+	//
 	TenantId *string
 
 	//
@@ -47,4 +50,7 @@ type CreateCertAuthProviderRequest struct {
 
 	//
 	ExtId *string
+
+	//
+	IsSharedWithAllProjects *bool
 }

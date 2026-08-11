@@ -81,7 +81,7 @@ func (api *LoginProvidersServiceApi) ListLoginProviders(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authn/login-providers"
+	uri := "/api/iam/v4.1.b3/authn/login-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -127,8 +127,14 @@ func (api *LoginProvidersServiceApi) ListLoginProviders(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import4.ListLoginProvidersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

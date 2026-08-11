@@ -77,7 +77,7 @@ func (api *EntitiesServiceApi) GetEntityById(ctx context.Context, request *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/entities/{extId}"
+	uri := "/api/iam/v4.1.b3/authz/entities/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *EntitiesServiceApi) GetEntityById(ctx context.Context, request *impor
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetEntityApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -141,7 +147,7 @@ func (api *EntitiesServiceApi) ListEntities(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b2/authz/entities"
+	uri := "/api/iam/v4.1.b3/authz/entities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -187,8 +193,14 @@ func (api *EntitiesServiceApi) ListEntities(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListEntitiesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

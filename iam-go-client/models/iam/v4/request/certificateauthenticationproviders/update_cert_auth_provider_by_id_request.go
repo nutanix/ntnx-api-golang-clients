@@ -37,6 +37,9 @@ type UpdateCertAuthProviderByIdRequest struct {
 	CreatedBy *string
 
 	//
+	ProjectExtId *string
+
+	//
 	TenantId *string
 
 	//
@@ -50,4 +53,7 @@ type UpdateCertAuthProviderByIdRequest struct {
 
 	// UUID V5 created for the certificate-based authentication provider.
 	ExtId2 *string
+
+	//
+	IsSharedWithAllProjects *bool
 }

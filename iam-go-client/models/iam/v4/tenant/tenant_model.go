@@ -1,7 +1,7 @@
 /*
  * Generated file models/iam/v4/tenant/tenant_model.go.
  *
- * Product version: 4.1.2-beta-2
+ * Product version: 4.1.2-beta-3
  *
  * Part of the Nutanix Identity and Access Management APIs
  *
@@ -140,7 +140,7 @@ func NewTenant() *Tenant {
 	p := new(Tenant)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.tenant.Tenant"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
