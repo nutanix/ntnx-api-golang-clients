@@ -10,7 +10,7 @@ The Go client for Nutanix Volumes APIs is designed for Go client application dev
 
 ## Version
 - API version: v4.3
-- Package version: v4.3.1
+- Package version: v4.3.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/...@v4.3.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/...@v4.3.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4 v4.3.1
+	github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4 v4.3.2
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 IscsiClientsApiInstance = api.NewIscsiClientsApi(ApiClientInstance)
-extId := "7Cc91dea-eCf3-bE97-AAeB-C4fded9A6a88"
+extId := "CF3913f0-A1D3-0080-0fcD-2D3ef9aC41a6"
 
 // 
 getResponse, err := IscsiClientsApiInstance.GetIscsiClientById(&extId)
@@ -310,7 +310,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 IscsiClientsApiInstance = api.NewIscsiClientsApi(ApiClientInstance)
-extId := "7Cc91dea-eCf3-bE97-AAeB-C4fded9A6a88"
+extId := "CF3913f0-A1D3-0080-0fcD-2D3ef9aC41a6"
 
 // 
 getResponse, err := IscsiClientsApiInstance.GetIscsiClientById(&extId)
