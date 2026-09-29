@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/ahv/config/config_model.go.
  *
- * Product version: 4.4.1-beta-1
+ * Product version: 4.4.2-beta-1
  *
  * Part of the Nutanix Multidomain Versioned APIs
  *
