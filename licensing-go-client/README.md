@@ -10,7 +10,7 @@ The Go client for Nutanix Licensing APIs is designed for Go client application d
 
 ## Version
 - API version: v4.4
-- Package version: v4.4.1
+- Package version: v4.4.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/...@v4.4.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/...@v4.4.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4 v4.4.1
+	github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4 v4.4.2
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 LicensesApiInstance = api.NewLicensesApi(ApiClientInstance)
-extId := "aD37DB1B-18Ec-8EBe-febA-CEeCfd2fEFea"
+extId := "07ddd811-cD5e-dFE1-e7aB-1EC4d7F59AF8"
 
 // 
 getResponse, err := LicensesApiInstance.GetSettingById(&extId)

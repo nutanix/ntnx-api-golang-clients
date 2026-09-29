@@ -1,7 +1,7 @@
 /*
  * Generated file models/licensing/v4/agreements/agreements_model.go.
  *
- * Product version: 4.4.1
+ * Product version: 4.4.2
  *
  * Part of the Nutanix Licensing APIs
  *
