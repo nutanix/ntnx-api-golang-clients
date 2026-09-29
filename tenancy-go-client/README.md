@@ -10,7 +10,7 @@ The Go client for SP Central Tenant Management is designed for Go client applica
 
 ## Version
 - API version: v4.0.a1
-- Package version: v4.0.1-alpha.1
+- Package version: v4.0.2-alpha.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/tenancy-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/tenancy-go-client/v4/...@v4.0.1-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/tenancy-go-client/v4/...@v4.0.2-alpha.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/tenancy-go-client/v4 v4.0.1-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/tenancy-go-client/v4 v4.0.2-alpha.1
 )
 ```
 
@@ -262,8 +262,8 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 TenantsApiInstance = api.NewTenantsApi(ApiClientInstance)
-tenantExtId := "eebdFCB9-5B99-fFe5-21ee-80Fec7CaAEF7"
-extId := "bc5fF4CB-EE4d-BA6B-3E6d-9bAbBD9f02Ea"
+tenantExtId := "fB7b1e29-D8bE-EcC4-4caE-D3718D88eF73"
+extId := "1C94D37E-99Dd-FCFe-E2B4-eC934fc0efd6"
 
 // 
 getResponse, err := TenantsApiInstance.GetTenantDomainAllocationById(&tenantExtId, &extId)
@@ -311,8 +311,8 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 TenantsApiInstance = api.NewTenantsApi(ApiClientInstance)
-tenantExtId := "eebdFCB9-5B99-fFe5-21ee-80Fec7CaAEF7"
-extId := "bc5fF4CB-EE4d-BA6B-3E6d-9bAbBD9f02Ea"
+tenantExtId := "fB7b1e29-D8bE-EcC4-4caE-D3718D88eF73"
+extId := "1C94D37E-99Dd-FCFe-E2B4-eC934fc0efd6"
 
 // 
 getResponse, err := TenantsApiInstance.GetTenantDomainAllocationById(&tenantExtId, &extId)
