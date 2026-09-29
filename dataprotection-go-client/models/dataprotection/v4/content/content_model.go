@@ -1,7 +1,7 @@
 /*
  * Generated file models/dataprotection/v4/content/content_model.go.
  *
- * Product version: 4.4.1
+ * Product version: 4.4.2
  *
  * Part of the Nutanix Data Protection APIs
  *
