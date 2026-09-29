@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/resourceManager/resourceManager_model.go.
  *
- * Product version: 4.4.1
+ * Product version: 4.4.2
  *
  * Part of the Nutanix Prism APIs
  *

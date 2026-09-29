@@ -10,7 +10,7 @@ The Go client for Nutanix Prism APIs is designed for Go client application devel
 
 ## Version
 - API version: v4.4
-- Package version: v4.4.1
+- Package version: v4.4.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...@v4.4.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...@v4.4.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4 v4.4.1
+	github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4 v4.4.2
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CategoriesApiInstance = api.NewCategoriesApi(ApiClientInstance)
-extId := "bBEfE6ff-a3ab-0BdA-FeE0-CE00aE1bEEE4"
+extId := "FbfCbACd-3ce7-cCA0-D5c2-dcEcDE2A3e27"
 expand_ := "string_sample_data"
 
 // 
@@ -311,7 +311,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CategoriesApiInstance = api.NewCategoriesApi(ApiClientInstance)
-extId := "bBEfE6ff-a3ab-0BdA-FeE0-CE00aE1bEEE4"
+extId := "FbfCbACd-3ce7-cCA0-D5c2-dcEcDE2A3e27"
 expand_ := "string_sample_data"
 
 // 

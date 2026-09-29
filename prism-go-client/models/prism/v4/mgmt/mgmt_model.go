@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/mgmt/mgmt_model.go.
  *
- * Product version: 4.4.1
+ * Product version: 4.4.2
  *
  * Part of the Nutanix Prism APIs
  *
