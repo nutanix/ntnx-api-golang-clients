@@ -1,7 +1,7 @@
 /*
  * Generated file models/lifecycle/v4/mgmt/mgmt_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.3.2
  *
  * Part of the Nutanix Lifecycle Management APIs
  *

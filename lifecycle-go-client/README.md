@@ -10,7 +10,7 @@ The Go client for Nutanix Lifecycle Management APIs is designed for Go client ap
 
 ## Version
 - API version: v4.3
-- Package version: v4.3.1
+- Package version: v4.3.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/...@v4.3.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/...@v4.3.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4 v4.3.1
+	github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4 v4.3.2
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClaimTokensApiInstance = api.NewClaimTokensApi(ApiClientInstance)
-extId := "C8ebff56-29F2-C2Fa-aaAd-1CaC3e8B7aB3"
+extId := "D0dBD4DA-F7cA-F4fe-A7cd-1dfB1c7ceBF4"
 
 // 
 getResponse, err := ClaimTokensApiInstance.GetClaimTokenById(&extId)
@@ -310,7 +310,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClaimTokensApiInstance = api.NewClaimTokensApi(ApiClientInstance)
-extId := "C8ebff56-29F2-C2Fa-aaAd-1CaC3e8B7aB3"
+extId := "D0dBD4DA-F7cA-F4fe-A7cd-1dfB1c7ceBF4"
 
 // 
 getResponse, err := ClaimTokensApiInstance.GetClaimTokenById(&extId)
