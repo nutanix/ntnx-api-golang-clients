@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/stats/stats_model.go.
  *
- * Product version: 4.4.1
+ * Product version: 4.4.2
  *
  * Part of the Nutanix Networking APIs
  *
