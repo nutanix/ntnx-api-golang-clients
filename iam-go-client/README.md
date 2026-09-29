@@ -10,7 +10,7 @@ The Go client for Nutanix Identity and Access Management APIs is designed for Go
 
 ## Version
 - API version: v4.1.b3
-- Package version: v4.1.2-beta.3
+- Package version: v4.1.3-beta.3
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/...@v4.1.2-beta.3
+$ go get github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/...@v4.1.3-beta.3
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4 v4.1.2-beta.3
+	github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4 v4.1.3-beta.3
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CertificateAuthenticationProvidersApiInstance = api.NewCertificateAuthenticationProvidersApi(ApiClientInstance)
-extId := "16eFc6E1-fdbC-9dCd-A8c1-fa3ffaa33AC8"
+extId := "FFFEeEe0-FdFE-Ec78-2f8A-f0AcF1ED5F3B"
 
 // 
 getResponse, err := CertificateAuthenticationProvidersApiInstance.GetCertAuthProviderById(&extId)
@@ -310,7 +310,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CertificateAuthenticationProvidersApiInstance = api.NewCertificateAuthenticationProvidersApi(ApiClientInstance)
-extId := "16eFc6E1-fdbC-9dCd-A8c1-fa3ffaa33AC8"
+extId := "FFFEeEe0-FdFE-Ec78-2f8A-f0AcF1ED5F3B"
 
 // 
 getResponse, err := CertificateAuthenticationProvidersApiInstance.GetCertAuthProviderById(&extId)

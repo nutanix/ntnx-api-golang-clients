@@ -1,7 +1,7 @@
 /*
  * Generated file models/iam/v4/common/common_model.go.
  *
- * Product version: 4.1.2-beta-3
+ * Product version: 4.1.3-beta-3
  *
  * Part of the Nutanix Identity and Access Management APIs
  *
