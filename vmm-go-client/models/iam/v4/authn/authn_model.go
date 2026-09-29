@@ -1,7 +1,7 @@
 /*
  * Generated file models/iam/v4/authn/authn_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.3.2
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *

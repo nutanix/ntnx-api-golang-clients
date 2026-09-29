@@ -10,7 +10,7 @@ The Go client for Nutanix Virtual Machine Management APIs is designed for Go cli
 
 ## Version
 - API version: v4.3
-- Package version: v4.3.1
+- Package version: v4.3.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...@v4.3.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...@v4.3.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4 v4.3.1
+	github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4 v4.3.2
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ImagesApiInstance = api.NewImagesApi(ApiClientInstance)
-extId := "4bDee0CD-43a8-7Cb8-Cf27-4dfCbEcF4B3f"
+extId := "2FDBcCa2-cF54-b6C7-cb44-3aBaFb32ACc0"
 
 // 
 getResponse, err := ImagesApiInstance.GetImageById(&extId)
@@ -310,7 +310,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ImagesApiInstance = api.NewImagesApi(ApiClientInstance)
-extId := "4bDee0CD-43a8-7Cb8-Cf27-4dfCbEcF4B3f"
+extId := "2FDBcCa2-cF54-b6C7-cb44-3aBaFb32ACc0"
 
 // 
 getResponse, err := ImagesApiInstance.GetImageById(&extId)

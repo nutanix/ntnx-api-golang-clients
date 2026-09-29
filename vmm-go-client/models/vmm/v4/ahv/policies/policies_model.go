@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/ahv/policies/policies_model.go.
  *
- * Product version: 4.3.1
+ * Product version: 4.3.2
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
