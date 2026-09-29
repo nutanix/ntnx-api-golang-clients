@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
 	import6 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/report"
-	import9 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/request/vulnerabilities"
+	import11 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/request/vulnerabilities"
 	"net/http"
 	"net/url"
 	"strings"
@@ -65,7 +65,7 @@ func (api *VulnerabilitiesApi) ListVulnerabilities(page_ *int, limit_ *int, filt
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVulnerabilitiesServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListVulnerabilities(context.Background(), &import9.ListVulnerabilitiesRequest{
+	return api.ServiceClient.ListVulnerabilities(context.Background(), &import11.ListVulnerabilitiesRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -75,13 +75,13 @@ func (api *VulnerabilitiesApi) ListVulnerabilities(page_ *int, limit_ *int, filt
 }
 
 // Gets the vulnerabilities from the Nutanix Vulnerabilities Database (NXVD).
-func (api *VulnerabilitiesServiceApi) ListVulnerabilities(ctx context.Context, request *import9.ListVulnerabilitiesRequest, args ...map[string]interface{}) (*import6.ListVulnerabilitiesApiResponse, error) {
+func (api *VulnerabilitiesServiceApi) ListVulnerabilities(ctx context.Context, request *import11.ListVulnerabilitiesRequest, args ...map[string]interface{}) (*import6.ListVulnerabilitiesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/report/vulnerabilities"
+	uri := "/api/security/v4.2/report/vulnerabilities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -127,8 +127,14 @@ func (api *VulnerabilitiesServiceApi) ListVulnerabilities(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import6.ListVulnerabilitiesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

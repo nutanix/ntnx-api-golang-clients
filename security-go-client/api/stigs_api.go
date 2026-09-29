@@ -86,7 +86,7 @@ func (api *STIGsServiceApi) ListStigSummaries(ctx context.Context, request *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/report/stig-summaries"
+	uri := "/api/security/v4.2/report/stig-summaries"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -135,9 +135,15 @@ func (api *STIGsServiceApi) ListStigSummaries(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import6.ListStigSummariesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -162,7 +168,7 @@ func (api *STIGsServiceApi) ListStigs(ctx context.Context, request *import7.List
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/report/stigs"
+	uri := "/api/security/v4.2/report/stigs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -208,8 +214,14 @@ func (api *STIGsServiceApi) ListStigs(ctx context.Context, request *import7.List
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import6.ListStigsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

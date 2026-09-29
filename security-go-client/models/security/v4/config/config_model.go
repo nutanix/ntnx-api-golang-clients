@@ -1,7 +1,7 @@
 /*
  * Generated file models/security/v4/config/config_model.go.
  *
- * Product version: 4.1.2
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Security APIs
  *
@@ -22,10 +22,129 @@ import (
 	import1 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/common/v1/config"
 	import4 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/common/v1/response"
 	import2 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/prism/v4/config"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/common"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/common"
 	import3 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/error"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/report"
 	"time"
 )
+
+/*
+Contains advanced configurations for a cluster, such as Core Dump Configs, Consent Banner etc.
+*/
+type AdvancedConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Contains the consent banner text for a cluster. If empty, the default DOD banner text will be used.
+	*/
+	ConsentBannerText *string `json:"consentBannerText,omitempty"`
+	/*
+	  Indicates whether the consent banner is enabled on a cluster.
+	*/
+	IsConsentBannerEnabled *bool `json:"isConsentBannerEnabled,omitempty"`
+
+	KernelSpaceCoreDumpLevel *CoreDumpLevel `json:"kernelSpaceCoreDumpLevel,omitempty"`
+
+	UserSpaceCoreDumpLevel *CoreDumpLevel `json:"userSpaceCoreDumpLevel,omitempty"`
+}
+
+func (p *AdvancedConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AdvancedConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AdvancedConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AdvancedConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAdvancedConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConsentBannerText != nil {
+		p.ConsentBannerText = known.ConsentBannerText
+	}
+	if known.IsConsentBannerEnabled != nil {
+		p.IsConsentBannerEnabled = known.IsConsentBannerEnabled
+	}
+	if known.KernelSpaceCoreDumpLevel != nil {
+		p.KernelSpaceCoreDumpLevel = known.KernelSpaceCoreDumpLevel
+	}
+	if known.UserSpaceCoreDumpLevel != nil {
+		p.UserSpaceCoreDumpLevel = known.UserSpaceCoreDumpLevel
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "consentBannerText")
+	delete(allFields, "isConsentBannerEnabled")
+	delete(allFields, "kernelSpaceCoreDumpLevel")
+	delete(allFields, "userSpaceCoreDumpLevel")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAdvancedConfig() *AdvancedConfig {
+	p := new(AdvancedConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.AdvancedConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsConsentBannerEnabled = new(bool)
+	*p.IsConsentBannerEnabled = false
+
+	return p
+}
 
 /*
 Access information for the Azure Key Vault.
@@ -225,7 +344,7 @@ func NewAzureAccessInformation() *AzureAccessInformation {
 	p := new(AzureAccessInformation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.AzureAccessInformation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -322,7 +441,7 @@ func NewBasicAuthCredential() *BasicAuthCredential {
 	p := new(BasicAuthCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.BasicAuthCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -427,14 +546,97 @@ func NewBmcCredential() *BmcCredential {
 	p := new(BmcCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.BmcCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/credentials Post operation
+Possible levels for userspace and kernelspace core dump config. LOG is only supported for AHV, it will be translated to ON for AOS userSpace Core.
+*/
+type CoreDumpLevel int
+
+const (
+	COREDUMPLEVEL_UNKNOWN  CoreDumpLevel = 0
+	COREDUMPLEVEL_REDACTED CoreDumpLevel = 1
+	COREDUMPLEVEL_ON       CoreDumpLevel = 2
+	COREDUMPLEVEL_OFF      CoreDumpLevel = 3
+	COREDUMPLEVEL_LOG      CoreDumpLevel = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *CoreDumpLevel) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ON",
+		"OFF",
+		"LOG",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e CoreDumpLevel) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ON",
+		"OFF",
+		"LOG",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *CoreDumpLevel) index(name string) CoreDumpLevel {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ON",
+		"OFF",
+		"LOG",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return CoreDumpLevel(idx)
+		}
+	}
+	return COREDUMPLEVEL_UNKNOWN
+}
+
+func (e *CoreDumpLevel) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for CoreDumpLevel:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *CoreDumpLevel) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e CoreDumpLevel) Ref() *CoreDumpLevel {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/credentials Post operation
 */
 type CreateCredentialApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -534,7 +736,7 @@ func NewCreateCredentialApiResponse() *CreateCredentialApiResponse {
 	p := new(CreateCredentialApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.CreateCredentialApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -562,7 +764,7 @@ func (p *CreateCredentialApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/key-management-servers Post operation
+REST response for all response codes in API path /security/v4.2/config/key-management-servers Post operation
 */
 type CreateKeyManagementServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -662,7 +864,7 @@ func NewCreateKeyManagementServerApiResponse() *CreateKeyManagementServerApiResp
 	p := new(CreateKeyManagementServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.CreateKeyManagementServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -830,7 +1032,7 @@ func NewCredential() *Credential {
 	p := new(Credential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.Credential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -858,7 +1060,7 @@ func (p *Credential) SetCredentialDetails(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/credentials/{extId} Delete operation
+REST response for all response codes in API path /security/v4.2/config/credentials/{extId} Delete operation
 */
 type DeleteCredentialApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -958,7 +1160,7 @@ func NewDeleteCredentialApiResponse() *DeleteCredentialApiResponse {
 	p := new(DeleteCredentialApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.DeleteCredentialApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -986,7 +1188,7 @@ func (p *DeleteCredentialApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/key-management-servers/{extId} Delete operation
+REST response for all response codes in API path /security/v4.2/config/key-management-servers/{extId} Delete operation
 */
 type DeleteKeyManagementServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1086,7 +1288,7 @@ func NewDeleteKeyManagementServerApiResponse() *DeleteKeyManagementServerApiResp
 	p := new(DeleteKeyManagementServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.DeleteKeyManagementServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1214,7 +1416,7 @@ func NewEndpointInfo() *EndpointInfo {
 	p := new(EndpointInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.EndpointInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1234,17 +1436,13 @@ type ExternalSshAccessConfig struct {
 	*/
 	IsSshEnabled *bool `json:"isSshEnabled,omitempty"`
 	/*
-	  Duration in Hours for which Ssh should be enabled. Default is 1 hour.
-	*/
-	SshEnableDurationHours *int64 `json:"sshEnableDurationHours,omitempty"`
-	/*
 	  Time when the Ssh will be disabled if Ssh is already enabled.
 	*/
 	SshExpiryTime *time.Time `json:"sshExpiryTime,omitempty"`
 	/*
 	  Timestamp when Ssh was last enabled.
 	*/
-	SshlastEnabledTime *time.Time `json:"sshlastEnabledTime,omitempty"`
+	SshLastEnabledTime *time.Time `json:"sshLastEnabledTime,omitempty"`
 }
 
 func (p *ExternalSshAccessConfig) MarshalJSON() ([]byte, error) {
@@ -1302,14 +1500,11 @@ func (p *ExternalSshAccessConfig) UnmarshalJSON(b []byte) error {
 	if known.IsSshEnabled != nil {
 		p.IsSshEnabled = known.IsSshEnabled
 	}
-	if known.SshEnableDurationHours != nil {
-		p.SshEnableDurationHours = known.SshEnableDurationHours
-	}
 	if known.SshExpiryTime != nil {
 		p.SshExpiryTime = known.SshExpiryTime
 	}
-	if known.SshlastEnabledTime != nil {
-		p.SshlastEnabledTime = known.SshlastEnabledTime
+	if known.SshLastEnabledTime != nil {
+		p.SshLastEnabledTime = known.SshLastEnabledTime
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
@@ -1317,9 +1512,8 @@ func (p *ExternalSshAccessConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "isSshEnabled")
-	delete(allFields, "sshEnableDurationHours")
 	delete(allFields, "sshExpiryTime")
-	delete(allFields, "sshlastEnabledTime")
+	delete(allFields, "sshLastEnabledTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -1333,11 +1527,8 @@ func NewExternalSshAccessConfig() *ExternalSshAccessConfig {
 	p := new(ExternalSshAccessConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.ExternalSshAccessConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
-
-	p.SshEnableDurationHours = new(int64)
-	*p.SshEnableDurationHours = 1
 
 	return p
 }
@@ -1353,17 +1544,13 @@ type ExternalSshAccessConfigProjection struct {
 	*/
 	IsSshEnabled *bool `json:"isSshEnabled,omitempty"`
 	/*
-	  Duration in Hours for which Ssh should be enabled. Default is 1 hour.
-	*/
-	SshEnableDurationHours *int64 `json:"sshEnableDurationHours,omitempty"`
-	/*
 	  Time when the Ssh will be disabled if Ssh is already enabled.
 	*/
 	SshExpiryTime *time.Time `json:"sshExpiryTime,omitempty"`
 	/*
 	  Timestamp when Ssh was last enabled.
 	*/
-	SshlastEnabledTime *time.Time `json:"sshlastEnabledTime,omitempty"`
+	SshLastEnabledTime *time.Time `json:"sshLastEnabledTime,omitempty"`
 }
 
 func (p *ExternalSshAccessConfigProjection) MarshalJSON() ([]byte, error) {
@@ -1421,14 +1608,11 @@ func (p *ExternalSshAccessConfigProjection) UnmarshalJSON(b []byte) error {
 	if known.IsSshEnabled != nil {
 		p.IsSshEnabled = known.IsSshEnabled
 	}
-	if known.SshEnableDurationHours != nil {
-		p.SshEnableDurationHours = known.SshEnableDurationHours
-	}
 	if known.SshExpiryTime != nil {
 		p.SshExpiryTime = known.SshExpiryTime
 	}
-	if known.SshlastEnabledTime != nil {
-		p.SshlastEnabledTime = known.SshlastEnabledTime
+	if known.SshLastEnabledTime != nil {
+		p.SshLastEnabledTime = known.SshLastEnabledTime
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
@@ -1436,9 +1620,8 @@ func (p *ExternalSshAccessConfigProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "isSshEnabled")
-	delete(allFields, "sshEnableDurationHours")
 	delete(allFields, "sshExpiryTime")
-	delete(allFields, "sshlastEnabledTime")
+	delete(allFields, "sshLastEnabledTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -1452,17 +1635,251 @@ func NewExternalSshAccessConfigProjection() *ExternalSshAccessConfigProjection {
 	p := new(ExternalSshAccessConfigProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.ExternalSshAccessConfigProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
-
-	p.SshEnableDurationHours = new(int64)
-	*p.SshEnableDurationHours = 1
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/credentials/{extId} Get operation
+Failure detail for the security profile update operation for a specific system type.
+*/
+type FailureDetail struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Error message indicating the reason for the failure of the security profile update on the node.
+	*/
+	ErrorMsg *string `json:"errorMsg,omitempty"`
+	/*
+	  IP address of the node where the security profile update failed. Maps to SVM IP for AOS/PC and Host IP for AHV.
+	*/
+	NodeIp *string `json:"nodeIp,omitempty"`
+
+	SoftwareType *import5.SoftwareType `json:"softwareType,omitempty"`
+}
+
+func (p *FailureDetail) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FailureDetail
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FailureDetail) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FailureDetail
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewFailureDetail()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ErrorMsg != nil {
+		p.ErrorMsg = known.ErrorMsg
+	}
+	if known.NodeIp != nil {
+		p.NodeIp = known.NodeIp
+	}
+	if known.SoftwareType != nil {
+		p.SoftwareType = known.SoftwareType
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "errorMsg")
+	delete(allFields, "nodeIp")
+	delete(allFields, "softwareType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewFailureDetail() *FailureDetail {
+	p := new(FailureDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.FailureDetail"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/security-profiles/{securityProfileExtId}/advanced-config Get operation
+*/
+type GetAdvancedConfigApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetAdvancedConfigApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetAdvancedConfigApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetAdvancedConfigApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetAdvancedConfigApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetAdvancedConfigApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetAdvancedConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetAdvancedConfigApiResponse() *GetAdvancedConfigApiResponse {
+	p := new(GetAdvancedConfigApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.GetAdvancedConfigApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetAdvancedConfigApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetAdvancedConfigApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetAdvancedConfigApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/credentials/{extId} Get operation
 */
 type GetCredentialApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1562,7 +1979,7 @@ func NewGetCredentialApiResponse() *GetCredentialApiResponse {
 	p := new(GetCredentialApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.GetCredentialApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1590,7 +2007,7 @@ func (p *GetCredentialApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/key-management-servers/{extId} Get operation
+REST response for all response codes in API path /security/v4.2/config/key-management-servers/{extId} Get operation
 */
 type GetKeyManagementServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1690,7 +2107,7 @@ func NewGetKeyManagementServerApiResponse() *GetKeyManagementServerApiResponse {
 	p := new(GetKeyManagementServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.GetKeyManagementServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1706,6 +2123,262 @@ func (p *GetKeyManagementServerApiResponse) GetData() interface{} {
 func (p *GetKeyManagementServerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfGetKeyManagementServerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/security-configs-visibility-setting Get operation
+*/
+type GetSecurityConfigsVisibilitySettingApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetSecurityConfigsVisibilitySettingApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetSecurityConfigsVisibilitySettingApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetSecurityConfigsVisibilitySettingApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetSecurityConfigsVisibilitySettingApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetSecurityConfigsVisibilitySettingApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetSecurityConfigsVisibilitySettingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetSecurityConfigsVisibilitySettingApiResponse() *GetSecurityConfigsVisibilitySettingApiResponse {
+	p := new(GetSecurityConfigsVisibilitySettingApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.GetSecurityConfigsVisibilitySettingApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetSecurityConfigsVisibilitySettingApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetSecurityConfigsVisibilitySettingApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetSecurityConfigsVisibilitySettingApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/security-profiles/{extId} Get operation
+*/
+type GetSecurityProfileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetSecurityProfileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetSecurityProfileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetSecurityProfileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetSecurityProfileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetSecurityProfileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetSecurityProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetSecurityProfileApiResponse() *GetSecurityProfileApiResponse {
+	p := new(GetSecurityProfileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.GetSecurityProfileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetSecurityProfileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetSecurityProfileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetSecurityProfileApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1913,7 +2586,7 @@ func NewIntersightCredential() *IntersightCredential {
 	p := new(IntersightCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.IntersightCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2025,7 +2698,7 @@ func NewKeyBasedAuth() *KeyBasedAuth {
 	p := new(KeyBasedAuth)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.KeyBasedAuth"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2122,7 +2795,7 @@ func NewKeyBasedAuthCredential() *KeyBasedAuthCredential {
 	p := new(KeyBasedAuthCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.KeyBasedAuthCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2316,7 +2989,7 @@ func NewKeyManagementServer() *KeyManagementServer {
 	p := new(KeyManagementServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.KeyManagementServer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2479,14 +3152,14 @@ func NewKmipAccessInformation() *KmipAccessInformation {
 	p := new(KmipAccessInformation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.KmipAccessInformation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/credentials Get operation
+REST response for all response codes in API path /security/v4.2/config/credentials Get operation
 */
 type ListCredentialsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2586,7 +3259,7 @@ func NewListCredentialsApiResponse() *ListCredentialsApiResponse {
 	p := new(ListCredentialsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.ListCredentialsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2614,7 +3287,7 @@ func (p *ListCredentialsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/key-management-servers Get operation
+REST response for all response codes in API path /security/v4.2/config/key-management-servers Get operation
 */
 type ListKeyManagementServersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2714,7 +3387,7 @@ func NewListKeyManagementServersApiResponse() *ListKeyManagementServersApiRespon
 	p := new(ListKeyManagementServersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.ListKeyManagementServersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2742,467 +3415,131 @@ func (p *ListKeyManagementServersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Contains possible values for scheduling a task.
+REST response for all response codes in API path /security/v4.2/config/security-profiles Get operation
 */
-type ScheduleType int
+type ListSecurityProfilesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
 
-const (
-	SCHEDULETYPE_UNKNOWN  ScheduleType = 0
-	SCHEDULETYPE_REDACTED ScheduleType = 1
-	SCHEDULETYPE_HOURLY   ScheduleType = 2
-	SCHEDULETYPE_DAILY    ScheduleType = 3
-	SCHEDULETYPE_WEEKLY   ScheduleType = 4
-	SCHEDULETYPE_MONTHLY  ScheduleType = 5
-)
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *ScheduleType) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"HOURLY",
-		"DAILY",
-		"WEEKLY",
-		"MONTHLY",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListSecurityProfilesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-// Returns the name of the enum
-func (e ScheduleType) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"HOURLY",
-		"DAILY",
-		"WEEKLY",
-		"MONTHLY",
+func (p *ListSecurityProfilesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListSecurityProfilesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
 	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
 	}
-	return names[index]
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
-// Returns the enum type given a string value
-func (e *ScheduleType) index(name string) ScheduleType {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"HOURLY",
-		"DAILY",
-		"WEEKLY",
-		"MONTHLY",
+func (p *ListSecurityProfilesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
 	}
-	for idx := range names {
-		if names[idx] == name {
-			return ScheduleType(idx)
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListSecurityProfilesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListSecurityProfilesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListSecurityProfilesApiResponse() *ListSecurityProfilesApiResponse {
+	p := new(ListSecurityProfilesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.ListSecurityProfilesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListSecurityProfilesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListSecurityProfilesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListSecurityProfilesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
 		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
-	return SCHEDULETYPE_UNKNOWN
-}
-
-func (e *ScheduleType) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ScheduleType:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *ScheduleType) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e ScheduleType) Ref() *ScheduleType {
-	return &e
-}
-
-/*
-Contains the status of all the security configurations settings for a cluster.
-*/
-type SecurityConfig struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	AhvScmaSchedule *ScheduleType `json:"ahvScmaSchedule,omitempty"`
-	/*
-	  UUID of the cluster.
-	*/
-	ClusterExtId *string `json:"clusterExtId,omitempty"`
-
-	ClusterScmaSchedule *ScheduleType `json:"clusterScmaSchedule,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  Indicates whether the AHV defence knowledge consent banner is enabled on the hypervisor.
-	*/
-	IsAhvDefenseConsentBannerEnabled *bool `json:"isAhvDefenseConsentBannerEnabled,omitempty"`
-	/*
-	  Indicates whether the aide service is enabled on a cluster.
-	*/
-	IsAideEnabled *bool `json:"isAideEnabled,omitempty"`
-	/*
-	  Indicates whether the Nutanix CVM defence knowledge consent banner is enabled.
-	*/
-	IsClusterDefenseConsentBannerEnabled *bool `json:"isClusterDefenseConsentBannerEnabled,omitempty"`
-	/*
-	  Indicates whether the cluster lockdown mode is enabled on a cluster.
-	*/
-	IsClusterLockdownEnabled *bool `json:"isClusterLockdownEnabled,omitempty"`
-	/*
-	  Indicates whether the high strength password is enabled on a cluster.
-	*/
-	IsHighStrengthPasswordEnabled *bool `json:"isHighStrengthPasswordEnabled,omitempty"`
-	/*
-	  Indicates whether the log forwarding is enabled on a cluster.
-	*/
-	IsLogForwardingEnabled *bool `json:"isLogForwardingEnabled,omitempty"`
-	/*
-	  Indicates whether the host secure start is enabled on a cluster.
-	*/
-	IsSecureBootEnabled *bool `json:"isSecureBootEnabled,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import4.ApiLink `json:"links,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *SecurityConfig) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias SecurityConfig
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *SecurityConfig) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias SecurityConfig
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = *NewSecurityConfig()
-
-	if known.ObjectType_ != nil {
-		p.ObjectType_ = known.ObjectType_
-	}
-	if known.Reserved_ != nil {
-		p.Reserved_ = known.Reserved_
-	}
-	if known.UnknownFields_ != nil {
-		p.UnknownFields_ = known.UnknownFields_
-	}
-	if known.AhvScmaSchedule != nil {
-		p.AhvScmaSchedule = known.AhvScmaSchedule
-	}
-	if known.ClusterExtId != nil {
-		p.ClusterExtId = known.ClusterExtId
-	}
-	if known.ClusterScmaSchedule != nil {
-		p.ClusterScmaSchedule = known.ClusterScmaSchedule
-	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
-	}
-	if known.IsAhvDefenseConsentBannerEnabled != nil {
-		p.IsAhvDefenseConsentBannerEnabled = known.IsAhvDefenseConsentBannerEnabled
-	}
-	if known.IsAideEnabled != nil {
-		p.IsAideEnabled = known.IsAideEnabled
-	}
-	if known.IsClusterDefenseConsentBannerEnabled != nil {
-		p.IsClusterDefenseConsentBannerEnabled = known.IsClusterDefenseConsentBannerEnabled
-	}
-	if known.IsClusterLockdownEnabled != nil {
-		p.IsClusterLockdownEnabled = known.IsClusterLockdownEnabled
-	}
-	if known.IsHighStrengthPasswordEnabled != nil {
-		p.IsHighStrengthPasswordEnabled = known.IsHighStrengthPasswordEnabled
-	}
-	if known.IsLogForwardingEnabled != nil {
-		p.IsLogForwardingEnabled = known.IsLogForwardingEnabled
-	}
-	if known.IsSecureBootEnabled != nil {
-		p.IsSecureBootEnabled = known.IsSecureBootEnabled
-	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-	if known.TenantId != nil {
-		p.TenantId = known.TenantId
-	}
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "ahvScmaSchedule")
-	delete(allFields, "clusterExtId")
-	delete(allFields, "clusterScmaSchedule")
-	delete(allFields, "extId")
-	delete(allFields, "isAhvDefenseConsentBannerEnabled")
-	delete(allFields, "isAideEnabled")
-	delete(allFields, "isClusterDefenseConsentBannerEnabled")
-	delete(allFields, "isClusterLockdownEnabled")
-	delete(allFields, "isHighStrengthPasswordEnabled")
-	delete(allFields, "isLogForwardingEnabled")
-	delete(allFields, "isSecureBootEnabled")
-	delete(allFields, "links")
-	delete(allFields, "tenantId")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	for key, value := range allFields {
-		p.UnknownFields_[key] = value
-	}
-
-	return nil
-}
-
-func NewSecurityConfig() *SecurityConfig {
-	p := new(SecurityConfig)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "security.v4.config.SecurityConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type SecurityConfigProjection struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	AhvScmaSchedule *ScheduleType `json:"ahvScmaSchedule,omitempty"`
-	/*
-	  UUID of the cluster.
-	*/
-	ClusterExtId *string `json:"clusterExtId,omitempty"`
-
-	ClusterProjection *import5.ClusterProjection `json:"clusterProjection,omitempty"`
-
-	ClusterScmaSchedule *ScheduleType `json:"clusterScmaSchedule,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  Indicates whether the AHV defence knowledge consent banner is enabled on the hypervisor.
-	*/
-	IsAhvDefenseConsentBannerEnabled *bool `json:"isAhvDefenseConsentBannerEnabled,omitempty"`
-	/*
-	  Indicates whether the aide service is enabled on a cluster.
-	*/
-	IsAideEnabled *bool `json:"isAideEnabled,omitempty"`
-	/*
-	  Indicates whether the Nutanix CVM defence knowledge consent banner is enabled.
-	*/
-	IsClusterDefenseConsentBannerEnabled *bool `json:"isClusterDefenseConsentBannerEnabled,omitempty"`
-	/*
-	  Indicates whether the cluster lockdown mode is enabled on a cluster.
-	*/
-	IsClusterLockdownEnabled *bool `json:"isClusterLockdownEnabled,omitempty"`
-	/*
-	  Indicates whether the high strength password is enabled on a cluster.
-	*/
-	IsHighStrengthPasswordEnabled *bool `json:"isHighStrengthPasswordEnabled,omitempty"`
-	/*
-	  Indicates whether the log forwarding is enabled on a cluster.
-	*/
-	IsLogForwardingEnabled *bool `json:"isLogForwardingEnabled,omitempty"`
-	/*
-	  Indicates whether the host secure start is enabled on a cluster.
-	*/
-	IsSecureBootEnabled *bool `json:"isSecureBootEnabled,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import4.ApiLink `json:"links,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *SecurityConfigProjection) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias SecurityConfigProjection
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *SecurityConfigProjection) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias SecurityConfigProjection
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = *NewSecurityConfigProjection()
-
-	if known.ObjectType_ != nil {
-		p.ObjectType_ = known.ObjectType_
-	}
-	if known.Reserved_ != nil {
-		p.Reserved_ = known.Reserved_
-	}
-	if known.UnknownFields_ != nil {
-		p.UnknownFields_ = known.UnknownFields_
-	}
-	if known.AhvScmaSchedule != nil {
-		p.AhvScmaSchedule = known.AhvScmaSchedule
-	}
-	if known.ClusterExtId != nil {
-		p.ClusterExtId = known.ClusterExtId
-	}
-	if known.ClusterProjection != nil {
-		p.ClusterProjection = known.ClusterProjection
-	}
-	if known.ClusterScmaSchedule != nil {
-		p.ClusterScmaSchedule = known.ClusterScmaSchedule
-	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
-	}
-	if known.IsAhvDefenseConsentBannerEnabled != nil {
-		p.IsAhvDefenseConsentBannerEnabled = known.IsAhvDefenseConsentBannerEnabled
-	}
-	if known.IsAideEnabled != nil {
-		p.IsAideEnabled = known.IsAideEnabled
-	}
-	if known.IsClusterDefenseConsentBannerEnabled != nil {
-		p.IsClusterDefenseConsentBannerEnabled = known.IsClusterDefenseConsentBannerEnabled
-	}
-	if known.IsClusterLockdownEnabled != nil {
-		p.IsClusterLockdownEnabled = known.IsClusterLockdownEnabled
-	}
-	if known.IsHighStrengthPasswordEnabled != nil {
-		p.IsHighStrengthPasswordEnabled = known.IsHighStrengthPasswordEnabled
-	}
-	if known.IsLogForwardingEnabled != nil {
-		p.IsLogForwardingEnabled = known.IsLogForwardingEnabled
-	}
-	if known.IsSecureBootEnabled != nil {
-		p.IsSecureBootEnabled = known.IsSecureBootEnabled
-	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-	if known.TenantId != nil {
-		p.TenantId = known.TenantId
-	}
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "ahvScmaSchedule")
-	delete(allFields, "clusterExtId")
-	delete(allFields, "clusterProjection")
-	delete(allFields, "clusterScmaSchedule")
-	delete(allFields, "extId")
-	delete(allFields, "isAhvDefenseConsentBannerEnabled")
-	delete(allFields, "isAideEnabled")
-	delete(allFields, "isClusterDefenseConsentBannerEnabled")
-	delete(allFields, "isClusterLockdownEnabled")
-	delete(allFields, "isHighStrengthPasswordEnabled")
-	delete(allFields, "isLogForwardingEnabled")
-	delete(allFields, "isSecureBootEnabled")
-	delete(allFields, "links")
-	delete(allFields, "tenantId")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	for key, value := range allFields {
-		p.UnknownFields_[key] = value
-	}
-
-	return nil
-}
-
-func NewSecurityConfigProjection() *SecurityConfigProjection {
-	p := new(SecurityConfigProjection)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "security.v4.config.SecurityConfigProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
+	return e
 }
 
 /*
@@ -3215,25 +3552,13 @@ type SecurityConfigVisibilitySetting struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  Represents the visibility of aide service state.
-	*/
-	IsAideVisible *bool `json:"isAideVisible,omitempty"`
-	/*
 	  Represents the visibility of cluster lockdown state.
 	*/
 	IsClusterLockdownVisible *bool `json:"isClusterLockdownVisible,omitempty"`
 	/*
 	  Represents the visibility of banner state.
 	*/
-	IsDefenseConsentBannerVisible *bool `json:"isDefenseConsentBannerVisible,omitempty"`
-	/*
-	  Represents the visibility of high strength password state.
-	*/
-	IsHighStrengthPasswordVisible *bool `json:"isHighStrengthPasswordVisible,omitempty"`
+	IsConsentBannerVisible *bool `json:"isConsentBannerVisible,omitempty"`
 	/*
 	  Represents the visibility of log forwarding state.
 	*/
@@ -3243,21 +3568,13 @@ type SecurityConfigVisibilitySetting struct {
 	*/
 	IsNetworkSegmentationVisible *bool `json:"isNetworkSegmentationVisible,omitempty"`
 	/*
-	  Represents the visibility of security configuration management automation state.
-	*/
-	IsScmaVisible *bool `json:"isScmaVisible,omitempty"`
-	/*
 	  Represents the visibility of host secure boot state.
 	*/
 	IsSecureBootVisible *bool `json:"isSecureBootVisible,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	  Represents the visibility of security profile state.
 	*/
-	Links []import4.ApiLink `json:"links,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
+	IsSecurityProfileVisible *bool `json:"isSecurityProfileVisible,omitempty"`
 }
 
 func (p *SecurityConfigVisibilitySetting) MarshalJSON() ([]byte, error) {
@@ -3312,20 +3629,11 @@ func (p *SecurityConfigVisibilitySetting) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
-	}
-	if known.IsAideVisible != nil {
-		p.IsAideVisible = known.IsAideVisible
-	}
 	if known.IsClusterLockdownVisible != nil {
 		p.IsClusterLockdownVisible = known.IsClusterLockdownVisible
 	}
-	if known.IsDefenseConsentBannerVisible != nil {
-		p.IsDefenseConsentBannerVisible = known.IsDefenseConsentBannerVisible
-	}
-	if known.IsHighStrengthPasswordVisible != nil {
-		p.IsHighStrengthPasswordVisible = known.IsHighStrengthPasswordVisible
+	if known.IsConsentBannerVisible != nil {
+		p.IsConsentBannerVisible = known.IsConsentBannerVisible
 	}
 	if known.IsLogForwardingVisible != nil {
 		p.IsLogForwardingVisible = known.IsLogForwardingVisible
@@ -3333,34 +3641,23 @@ func (p *SecurityConfigVisibilitySetting) UnmarshalJSON(b []byte) error {
 	if known.IsNetworkSegmentationVisible != nil {
 		p.IsNetworkSegmentationVisible = known.IsNetworkSegmentationVisible
 	}
-	if known.IsScmaVisible != nil {
-		p.IsScmaVisible = known.IsScmaVisible
-	}
 	if known.IsSecureBootVisible != nil {
 		p.IsSecureBootVisible = known.IsSecureBootVisible
 	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-	if known.TenantId != nil {
-		p.TenantId = known.TenantId
+	if known.IsSecurityProfileVisible != nil {
+		p.IsSecurityProfileVisible = known.IsSecurityProfileVisible
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
-	delete(allFields, "isAideVisible")
 	delete(allFields, "isClusterLockdownVisible")
-	delete(allFields, "isDefenseConsentBannerVisible")
-	delete(allFields, "isHighStrengthPasswordVisible")
+	delete(allFields, "isConsentBannerVisible")
 	delete(allFields, "isLogForwardingVisible")
 	delete(allFields, "isNetworkSegmentationVisible")
-	delete(allFields, "isScmaVisible")
 	delete(allFields, "isSecureBootVisible")
-	delete(allFields, "links")
-	delete(allFields, "tenantId")
+	delete(allFields, "isSecurityProfileVisible")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -3374,54 +3671,33 @@ func NewSecurityConfigVisibilitySetting() *SecurityConfigVisibilitySetting {
 	p := new(SecurityConfigVisibilitySetting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.SecurityConfigVisibilitySetting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type SecurityConfigVisibilitySettingProjection struct {
+/*
+Security Profiles configure security settings on AOS and AHV. Based on the selected profile, corresponding security configurations are applied to the cluster. Available profiles are Standard, Elevated, and Strict.
+*/
+type SecurityProfile struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
+	  UUID of the cluster.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Represents the visibility of aide service state.
+	  Contains node level failure details for the security profile update operation.
 	*/
-	IsAideVisible *bool `json:"isAideVisible,omitempty"`
-	/*
-	  Represents the visibility of cluster lockdown state.
-	*/
-	IsClusterLockdownVisible *bool `json:"isClusterLockdownVisible,omitempty"`
-	/*
-	  Represents the visibility of banner state.
-	*/
-	IsDefenseConsentBannerVisible *bool `json:"isDefenseConsentBannerVisible,omitempty"`
-	/*
-	  Represents the visibility of high strength password state.
-	*/
-	IsHighStrengthPasswordVisible *bool `json:"isHighStrengthPasswordVisible,omitempty"`
-	/*
-	  Represents the visibility of log forwarding state.
-	*/
-	IsLogForwardingVisible *bool `json:"isLogForwardingVisible,omitempty"`
-	/*
-	  Represents the visibility of network segmentation state.
-	*/
-	IsNetworkSegmentationVisible *bool `json:"isNetworkSegmentationVisible,omitempty"`
-	/*
-	  Represents the visibility of security configuration management automation state.
-	*/
-	IsScmaVisible *bool `json:"isScmaVisible,omitempty"`
-	/*
-	  Represents the visibility of host secure boot state.
-	*/
-	IsSecureBootVisible *bool `json:"isSecureBootVisible,omitempty"`
+	FailureDetails []FailureDetail `json:"failureDetails,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -3430,11 +3706,373 @@ type SecurityConfigVisibilitySettingProjection struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *SecurityProfileType `json:"type"`
 }
 
-func (p *SecurityConfigVisibilitySettingProjection) MarshalJSON() ([]byte, error) {
+func (p *SecurityProfile) MarshalJSON() ([]byte, error) {
+	type SecurityProfileProxy SecurityProfile
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*SecurityProfileProxy
+		Type *SecurityProfileType `json:"type,omitempty"`
+	}{
+		SecurityProfileProxy: (*SecurityProfileProxy)(p),
+		Type:                 p.Type,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SecurityProfile) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SecurityProfile
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSecurityProfile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FailureDetails != nil {
+		p.FailureDetails = known.FailureDetails
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "failureDetails")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSecurityProfile() *SecurityProfile {
+	p := new(SecurityProfile)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.SecurityProfile"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type SecurityProfileProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  UUID of the cluster.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+
+	ClusterProjection *import6.ClusterProjection `json:"clusterProjection,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Contains node level failure details for the security profile update operation.
+	*/
+	FailureDetails []FailureDetail `json:"failureDetails,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import4.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *SecurityProfileType `json:"type"`
+}
+
+func (p *SecurityProfileProjection) MarshalJSON() ([]byte, error) {
+	type SecurityProfileProjectionProxy SecurityProfileProjection
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*SecurityProfileProjectionProxy
+		Type *SecurityProfileType `json:"type,omitempty"`
+	}{
+		SecurityProfileProjectionProxy: (*SecurityProfileProjectionProxy)(p),
+		Type:                           p.Type,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SecurityProfileProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SecurityProfileProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSecurityProfileProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterProjection != nil {
+		p.ClusterProjection = known.ClusterProjection
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FailureDetails != nil {
+		p.FailureDetails = known.FailureDetails
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterProjection")
+	delete(allFields, "extId")
+	delete(allFields, "failureDetails")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSecurityProfileProjection() *SecurityProfileProjection {
+	p := new(SecurityProfileProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.SecurityProfileProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Possible values for security profile types.
+*/
+type SecurityProfileType int
+
+const (
+	SECURITYPROFILETYPE_UNKNOWN       SecurityProfileType = 0
+	SECURITYPROFILETYPE_REDACTED      SecurityProfileType = 1
+	SECURITYPROFILETYPE_NOT_SET       SecurityProfileType = 2
+	SECURITYPROFILETYPE_STANDARD      SecurityProfileType = 3
+	SECURITYPROFILETYPE_ELEVATED      SecurityProfileType = 4
+	SECURITYPROFILETYPE_STRICT        SecurityProfileType = 5
+	SECURITYPROFILETYPE_NOT_SUPPORTED SecurityProfileType = 6
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *SecurityProfileType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NOT_SET",
+		"STANDARD",
+		"ELEVATED",
+		"STRICT",
+		"NOT_SUPPORTED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e SecurityProfileType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NOT_SET",
+		"STANDARD",
+		"ELEVATED",
+		"STRICT",
+		"NOT_SUPPORTED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *SecurityProfileType) index(name string) SecurityProfileType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NOT_SET",
+		"STANDARD",
+		"ELEVATED",
+		"STRICT",
+		"NOT_SUPPORTED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return SecurityProfileType(idx)
+		}
+	}
+	return SECURITYPROFILETYPE_UNKNOWN
+}
+
+func (e *SecurityProfileType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for SecurityProfileType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *SecurityProfileType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e SecurityProfileType) Ref() *SecurityProfileType {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/security-profiles/{securityProfileExtId}/advanced-config Put operation
+*/
+type UpdateAdvancedConfigApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateAdvancedConfigApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *UpdateAdvancedConfigApiResponse) MarshalJSON() ([]byte, error) {
 	// Create Alias to avoid infinite recursion
-	type Alias SecurityConfigVisibilitySettingProjection
+	type Alias UpdateAdvancedConfigApiResponse
 
 	// Step 1: Marshal the known fields
 	known, err := json.Marshal(Alias(*p))
@@ -3458,7 +4096,7 @@ func (p *SecurityConfigVisibilitySettingProjection) MarshalJSON() ([]byte, error
 	return json.Marshal(knownMap)
 }
 
-func (p *SecurityConfigVisibilitySettingProjection) UnmarshalJSON(b []byte) error {
+func (p *UpdateAdvancedConfigApiResponse) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -3466,14 +4104,14 @@ func (p *SecurityConfigVisibilitySettingProjection) UnmarshalJSON(b []byte) erro
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias SecurityConfigVisibilitySettingProjection
+	type Alias UpdateAdvancedConfigApiResponse
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewSecurityConfigVisibilitySettingProjection()
+	*p = *NewUpdateAdvancedConfigApiResponse()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -3484,55 +4122,23 @@ func (p *SecurityConfigVisibilitySettingProjection) UnmarshalJSON(b []byte) erro
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
 	}
-	if known.IsAideVisible != nil {
-		p.IsAideVisible = known.IsAideVisible
+	if known.Data != nil {
+		p.Data = known.Data
 	}
-	if known.IsClusterLockdownVisible != nil {
-		p.IsClusterLockdownVisible = known.IsClusterLockdownVisible
-	}
-	if known.IsDefenseConsentBannerVisible != nil {
-		p.IsDefenseConsentBannerVisible = known.IsDefenseConsentBannerVisible
-	}
-	if known.IsHighStrengthPasswordVisible != nil {
-		p.IsHighStrengthPasswordVisible = known.IsHighStrengthPasswordVisible
-	}
-	if known.IsLogForwardingVisible != nil {
-		p.IsLogForwardingVisible = known.IsLogForwardingVisible
-	}
-	if known.IsNetworkSegmentationVisible != nil {
-		p.IsNetworkSegmentationVisible = known.IsNetworkSegmentationVisible
-	}
-	if known.IsScmaVisible != nil {
-		p.IsScmaVisible = known.IsScmaVisible
-	}
-	if known.IsSecureBootVisible != nil {
-		p.IsSecureBootVisible = known.IsSecureBootVisible
-	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-	if known.TenantId != nil {
-		p.TenantId = known.TenantId
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
-	delete(allFields, "isAideVisible")
-	delete(allFields, "isClusterLockdownVisible")
-	delete(allFields, "isDefenseConsentBannerVisible")
-	delete(allFields, "isHighStrengthPasswordVisible")
-	delete(allFields, "isLogForwardingVisible")
-	delete(allFields, "isNetworkSegmentationVisible")
-	delete(allFields, "isScmaVisible")
-	delete(allFields, "isSecureBootVisible")
-	delete(allFields, "links")
-	delete(allFields, "tenantId")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -3542,18 +4148,39 @@ func (p *SecurityConfigVisibilitySettingProjection) UnmarshalJSON(b []byte) erro
 	return nil
 }
 
-func NewSecurityConfigVisibilitySettingProjection() *SecurityConfigVisibilitySettingProjection {
-	p := new(SecurityConfigVisibilitySettingProjection)
+func NewUpdateAdvancedConfigApiResponse() *UpdateAdvancedConfigApiResponse {
+	p := new(UpdateAdvancedConfigApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "security.v4.config.SecurityConfigVisibilitySettingProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	*p.ObjectType_ = "security.v4.config.UpdateAdvancedConfigApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+func (p *UpdateAdvancedConfigApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateAdvancedConfigApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateAdvancedConfigApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
 /*
-REST response for all response codes in API path /security/v4.1/config/credentials/{extId} Put operation
+REST response for all response codes in API path /security/v4.2/config/credentials/{extId} Put operation
 */
 type UpdateCredentialApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3653,7 +4280,7 @@ func NewUpdateCredentialApiResponse() *UpdateCredentialApiResponse {
 	p := new(UpdateCredentialApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.UpdateCredentialApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3681,7 +4308,7 @@ func (p *UpdateCredentialApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/config/key-management-servers/{extId} Put operation
+REST response for all response codes in API path /security/v4.2/config/key-management-servers/{extId} Put operation
 */
 type UpdateKeyManagementServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3781,7 +4408,7 @@ func NewUpdateKeyManagementServerApiResponse() *UpdateKeyManagementServerApiResp
 	p := new(UpdateKeyManagementServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.UpdateKeyManagementServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3797,6 +4424,262 @@ func (p *UpdateKeyManagementServerApiResponse) GetData() interface{} {
 func (p *UpdateKeyManagementServerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfUpdateKeyManagementServerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/security-configs-visibility-setting Put operation
+*/
+type UpdateSecurityConfigsVisibilitySettingApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *UpdateSecurityConfigsVisibilitySettingApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateSecurityConfigsVisibilitySettingApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateSecurityConfigsVisibilitySettingApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateSecurityConfigsVisibilitySettingApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpdateSecurityConfigsVisibilitySettingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUpdateSecurityConfigsVisibilitySettingApiResponse() *UpdateSecurityConfigsVisibilitySettingApiResponse {
+	p := new(UpdateSecurityConfigsVisibilitySettingApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.UpdateSecurityConfigsVisibilitySettingApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpdateSecurityConfigsVisibilitySettingApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateSecurityConfigsVisibilitySettingApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateSecurityConfigsVisibilitySettingApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /security/v4.2/config/security-profiles/{extId} Put operation
+*/
+type UpdateSecurityProfileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateSecurityProfileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import4.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *UpdateSecurityProfileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateSecurityProfileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateSecurityProfileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateSecurityProfileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpdateSecurityProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUpdateSecurityProfileApiResponse() *UpdateSecurityProfileApiResponse {
+	p := new(UpdateSecurityProfileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.config.UpdateSecurityProfileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpdateSecurityProfileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateSecurityProfileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateSecurityProfileApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -3915,7 +4798,7 @@ func NewVcenterCredential() *VcenterCredential {
 	p := new(VcenterCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.VcenterCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3926,6 +4809,8 @@ type OneOfDeleteCredentialApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType1010 *interface{}           `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfDeleteCredentialApiResponseData() *OneOfDeleteCredentialApiResponseData {
@@ -3975,6 +4860,9 @@ func (p *OneOfDeleteCredentialApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfDeleteCredentialApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "EMPTY" == *p.Discriminator {
 		return *p.oneOfType1010
 	}
@@ -4003,9 +4891,48 @@ func (p *OneOfDeleteCredentialApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4021,10 +4948,31 @@ func (p *OneOfDeleteCredentialApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteCredentialApiResponseData"))
 }
 
 func (p *OneOfDeleteCredentialApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "EMPTY" == *p.Discriminator {
 		return json.Marshal(p.oneOfType1010)
 	}
@@ -4034,122 +4982,13 @@ func (p *OneOfDeleteCredentialApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteCredentialApiResponseData")
 }
 
-type OneOfDeleteKeyManagementServerApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteKeyManagementServerApiResponseData() *OneOfDeleteKeyManagementServerApiResponseData {
-	p := new(OneOfDeleteKeyManagementServerApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteKeyManagementServerApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteKeyManagementServerApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import2.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import2.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteKeyManagementServerApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import2.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import2.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteKeyManagementServerApiResponseData"))
-}
-
-func (p *OneOfDeleteKeyManagementServerApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteKeyManagementServerApiResponseData")
-}
-
 type OneOfListCredentialsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType3001 []Credential           `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListCredentialsApiResponseData() *OneOfListCredentialsApiResponseData {
@@ -4194,6 +5033,9 @@ func (p *OneOfListCredentialsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListCredentialsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<security.v4.config.Credential>" == *p.Discriminator {
 		return p.oneOfType3001
 	}
@@ -4204,9 +5046,76 @@ func (p *OneOfListCredentialsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListCredentialsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.config.Credential>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType3001 := new([]Credential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType3001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType3001 == nil || len(*vOneOfType3001) == 0 || ((*vOneOfType3001)[0].ObjectType_ != nil && "security.v4.config.Credential" == *((*vOneOfType3001)[0].ObjectType_)) {
+							p.oneOfType3001 = *vOneOfType3001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.config.Credential>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.config.Credential>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType3001 := new([]Credential)
 	if err := json.Unmarshal(b, vOneOfType3001); err == nil {
-		if len(*vOneOfType3001) == 0 || "security.v4.config.Credential" == *((*vOneOfType3001)[0].ObjectType_) {
+		if len(*vOneOfType3001) == 0 || (vOneOfType3001 != nil && (*vOneOfType3001)[0].ObjectType_ != nil && "security.v4.config.Credential" == *((*vOneOfType3001)[0].ObjectType_)) {
 			p.oneOfType3001 = *vOneOfType3001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -4221,7 +5130,7 @@ func (p *OneOfListCredentialsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4237,10 +5146,31 @@ func (p *OneOfListCredentialsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCredentialsApiResponseData"))
 }
 
 func (p *OneOfListCredentialsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<security.v4.config.Credential>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType3001)
 	}
@@ -4250,25 +5180,40 @@ func (p *OneOfListCredentialsApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListCredentialsApiResponseData")
 }
 
-type OneOfListKeyManagementServersApiResponseData struct {
+type OneOfUpdateSecurityProfileApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import2.TaskReference `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType2001 []KeyManagementServer  `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListKeyManagementServersApiResponseData() *OneOfListKeyManagementServersApiResponseData {
-	p := new(OneOfListKeyManagementServersApiResponseData)
+func NewOneOfUpdateSecurityProfileApiResponseData() *OneOfUpdateSecurityProfileApiResponseData {
+	p := new(OneOfUpdateSecurityProfileApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListKeyManagementServersApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateSecurityProfileApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListKeyManagementServersApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateSecurityProfileApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case import2.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import2.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import2.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	case import3.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import3.ErrorResponse)
@@ -4282,36 +5227,357 @@ func (p *OneOfListKeyManagementServersApiResponseData) SetValue(v interface{}) e
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []KeyManagementServer:
-		p.oneOfType2001 = v.([]KeyManagementServer)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<security.v4.config.KeyManagementServer>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<security.v4.config.KeyManagementServer>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListKeyManagementServersApiResponseData) GetValue() interface{} {
+func (p *OneOfUpdateSecurityProfileApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<security.v4.config.KeyManagementServer>" == *p.Discriminator {
+	return nil
+}
+
+func (p *OneOfUpdateSecurityProfileApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import2.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2001 := new(import2.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import2.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSecurityProfileApiResponseData"))
+}
+
+func (p *OneOfUpdateSecurityProfileApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSecurityProfileApiResponseData")
+}
+
+type OneOfListSecurityProfilesApiResponseData struct {
+	Discriminator *string                     `json:"-"`
+	ObjectType_   *string                     `json:"-"`
+	oneOfType401  []SecurityProfileProjection `json:"-"`
+	oneOfType400  *import3.ErrorResponse      `json:"-"`
+	oneOfType2001 []SecurityProfile           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListSecurityProfilesApiResponseData() *OneOfListSecurityProfilesApiResponseData {
+	p := new(OneOfListSecurityProfilesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListSecurityProfilesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListSecurityProfilesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []SecurityProfileProjection:
+		p.oneOfType401 = v.([]SecurityProfileProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.config.SecurityProfileProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.config.SecurityProfileProjection>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []SecurityProfile:
+		p.oneOfType2001 = v.([]SecurityProfile)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.config.SecurityProfile>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.config.SecurityProfile>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListSecurityProfilesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<security.v4.config.SecurityProfileProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<security.v4.config.SecurityProfile>" == *p.Discriminator {
 		return p.oneOfType2001
 	}
 	return nil
 }
 
-func (p *OneOfListKeyManagementServersApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListSecurityProfilesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.config.SecurityProfileProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]SecurityProfileProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "security.v4.config.SecurityProfileProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.config.SecurityProfileProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.config.SecurityProfileProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.config.SecurityProfile>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]SecurityProfile)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.config.SecurityProfile" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.config.SecurityProfile>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.config.SecurityProfile>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType401 := new([]SecurityProfileProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "security.v4.config.SecurityProfileProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.config.SecurityProfileProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.config.SecurityProfileProjection>"
+			return nil
+		}
+	}
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4327,143 +5593,56 @@ func (p *OneOfListKeyManagementServersApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
-	vOneOfType2001 := new([]KeyManagementServer)
+	vOneOfType2001 := new([]SecurityProfile)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "security.v4.config.KeyManagementServer" == *((*vOneOfType2001)[0].ObjectType_) {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.config.SecurityProfile" == *((*vOneOfType2001)[0].ObjectType_)) {
 			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<security.v4.config.KeyManagementServer>"
+			*p.Discriminator = "List<security.v4.config.SecurityProfile>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<security.v4.config.KeyManagementServer>"
+			*p.ObjectType_ = "List<security.v4.config.SecurityProfile>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListKeyManagementServersApiResponseData"))
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSecurityProfilesApiResponseData"))
 }
 
-func (p *OneOfListKeyManagementServersApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListSecurityProfilesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<security.v4.config.SecurityProfileProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<security.v4.config.KeyManagementServer>" == *p.Discriminator {
+	if "List<security.v4.config.SecurityProfile>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfListKeyManagementServersApiResponseData")
-}
-
-type OneOfUpdateCredentialApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1010 *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateCredentialApiResponseData() *OneOfUpdateCredentialApiResponseData {
-	p := new(OneOfUpdateCredentialApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateCredentialApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.TaskReference:
-		if nil == p.oneOfType1010 {
-			p.oneOfType1010 = new(import2.TaskReference)
-		}
-		*p.oneOfType1010 = v.(import2.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1010.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1010.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) GetValue() interface{} {
-	if p.oneOfType1010 != nil && *p.oneOfType1010.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1010
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1010 := new(import2.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType1010); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType1010.ObjectType_ {
-			if nil == p.oneOfType1010 {
-				p.oneOfType1010 = new(import2.TaskReference)
-			}
-			*p.oneOfType1010 = *vOneOfType1010
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1010.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1010.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCredentialApiResponseData"))
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1010 != nil && *p.oneOfType1010.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1010)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateCredentialApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListSecurityProfilesApiResponseData")
 }
 
 type OneOfGetKeyManagementServerApiResponseData struct {
@@ -4471,6 +5650,8 @@ type OneOfGetKeyManagementServerApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *KeyManagementServer   `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetKeyManagementServerApiResponseData() *OneOfGetKeyManagementServerApiResponseData {
@@ -4518,6 +5699,9 @@ func (p *OneOfGetKeyManagementServerApiResponseData) SetValue(v interface{}) err
 }
 
 func (p *OneOfGetKeyManagementServerApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -4528,9 +5712,79 @@ func (p *OneOfGetKeyManagementServerApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(KeyManagementServer)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "security.v4.config.KeyManagementServer" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(KeyManagementServer)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(KeyManagementServer)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "security.v4.config.KeyManagementServer" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "security.v4.config.KeyManagementServer" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(KeyManagementServer)
 			}
@@ -4548,7 +5802,7 @@ func (p *OneOfGetKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) err
 	}
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4564,10 +5818,31 @@ func (p *OneOfGetKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetKeyManagementServerApiResponseData"))
 }
 
 func (p *OneOfGetKeyManagementServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
@@ -4582,6 +5857,8 @@ type OneOfCreateCredentialApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType1010 *import2.TaskReference `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfCreateCredentialApiResponseData() *OneOfCreateCredentialApiResponseData {
@@ -4629,6 +5906,9 @@ func (p *OneOfCreateCredentialApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCreateCredentialApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1010 != nil && *p.oneOfType1010.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1010
 	}
@@ -4639,9 +5919,79 @@ func (p *OneOfCreateCredentialApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfCreateCredentialApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1010 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1010)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1010.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType1010.ObjectType_ {
+							if nil == p.oneOfType1010 {
+								p.oneOfType1010 = new(import2.TaskReference)
+							}
+							*p.oneOfType1010 = *vOneOfType1010
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1010.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1010.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1010 := new(import2.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType1010); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType1010.ObjectType_ {
+		if vOneOfType1010.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType1010.ObjectType_ {
 			if nil == p.oneOfType1010 {
 				p.oneOfType1010 = new(import2.TaskReference)
 			}
@@ -4659,7 +6009,7 @@ func (p *OneOfCreateCredentialApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4675,10 +6025,31 @@ func (p *OneOfCreateCredentialApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCredentialApiResponseData"))
 }
 
 func (p *OneOfCreateCredentialApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1010 != nil && *p.oneOfType1010.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1010)
 	}
@@ -4693,6 +6064,8 @@ type OneOfGetCredentialApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
 	oneOfType1010 *Credential            `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetCredentialApiResponseData() *OneOfGetCredentialApiResponseData {
@@ -4740,6 +6113,9 @@ func (p *OneOfGetCredentialApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetCredentialApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -4750,9 +6126,79 @@ func (p *OneOfGetCredentialApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGetCredentialApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1010 := new(Credential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1010)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1010.ObjectType_ != nil && "security.v4.config.Credential" == *vOneOfType1010.ObjectType_ {
+							if nil == p.oneOfType1010 {
+								p.oneOfType1010 = new(Credential)
+							}
+							*p.oneOfType1010 = *vOneOfType1010
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1010.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1010.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4770,7 +6216,7 @@ func (p *OneOfGetCredentialApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1010 := new(Credential)
 	if err := json.Unmarshal(b, vOneOfType1010); err == nil {
-		if "security.v4.config.Credential" == *vOneOfType1010.ObjectType_ {
+		if vOneOfType1010.ObjectType_ != nil && "security.v4.config.Credential" == *vOneOfType1010.ObjectType_ {
 			if nil == p.oneOfType1010 {
 				p.oneOfType1010 = new(Credential)
 			}
@@ -4786,10 +6232,31 @@ func (p *OneOfGetCredentialApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCredentialApiResponseData"))
 }
 
 func (p *OneOfGetCredentialApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -4799,38 +6266,37 @@ func (p *OneOfGetCredentialApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetCredentialApiResponseData")
 }
 
-type OneOfCreateKeyManagementServerApiResponseData struct {
+type OneOfListKeyManagementServersApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import2.TaskReference `json:"-"`
+	oneOfType2001 []KeyManagementServer  `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfCreateKeyManagementServerApiResponseData() *OneOfCreateKeyManagementServerApiResponseData {
-	p := new(OneOfCreateKeyManagementServerApiResponseData)
+func NewOneOfListKeyManagementServersApiResponseData() *OneOfListKeyManagementServersApiResponseData {
+	p := new(OneOfListKeyManagementServersApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateKeyManagementServerApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListKeyManagementServersApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateKeyManagementServerApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListKeyManagementServersApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import2.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import2.TaskReference)
+	case []KeyManagementServer:
+		p.oneOfType2001 = v.([]KeyManagementServer)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		*p.Discriminator = "List<security.v4.config.KeyManagementServer>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+		*p.ObjectType_ = "List<security.v4.config.KeyManagementServer>"
 	case import3.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import3.ErrorResponse)
@@ -4850,9 +6316,12 @@ func (p *OneOfCreateKeyManagementServerApiResponseData) SetValue(v interface{}) 
 	return nil
 }
 
-func (p *OneOfCreateKeyManagementServerApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
+func (p *OneOfListKeyManagementServersApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<security.v4.config.KeyManagementServer>" == *p.Discriminator {
+		return p.oneOfType2001
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -4860,28 +6329,92 @@ func (p *OneOfCreateKeyManagementServerApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfCreateKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import2.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import2.TaskReference)
+func (p *OneOfListKeyManagementServersApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.config.KeyManagementServer>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]KeyManagementServer)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.config.KeyManagementServer" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.config.KeyManagementServer>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.config.KeyManagementServer>"
+							return nil
+						}
+					}
+				}
 			}
-			*p.oneOfType2001 = *vOneOfType2001
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2001 := new([]KeyManagementServer)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.config.KeyManagementServer" == *((*vOneOfType2001)[0].ObjectType_)) {
+			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			*p.Discriminator = "List<security.v4.config.KeyManagementServer>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			*p.ObjectType_ = "List<security.v4.config.KeyManagementServer>"
 			return nil
 		}
 	}
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -4897,128 +6430,38 @@ func (p *OneOfCreateKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) 
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateKeyManagementServerApiResponseData"))
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListKeyManagementServersApiResponseData"))
 }
 
-func (p *OneOfCreateKeyManagementServerApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+func (p *OneOfListKeyManagementServersApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<security.v4.config.KeyManagementServer>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfCreateKeyManagementServerApiResponseData")
-}
-
-type OneOfKeyManagementServerAccessInformation struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType1003 *AzureAccessInformation `json:"-"`
-	oneOfType1106 *KmipAccessInformation  `json:"-"`
-}
-
-func NewOneOfKeyManagementServerAccessInformation() *OneOfKeyManagementServerAccessInformation {
-	p := new(OneOfKeyManagementServerAccessInformation)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfKeyManagementServerAccessInformation) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfKeyManagementServerAccessInformation is nil"))
-	}
-	switch v.(type) {
-	case AzureAccessInformation:
-		if nil == p.oneOfType1003 {
-			p.oneOfType1003 = new(AzureAccessInformation)
-		}
-		*p.oneOfType1003 = v.(AzureAccessInformation)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1003.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1003.ObjectType_
-	case KmipAccessInformation:
-		if nil == p.oneOfType1106 {
-			p.oneOfType1106 = new(KmipAccessInformation)
-		}
-		*p.oneOfType1106 = v.(KmipAccessInformation)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1106.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1106.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfKeyManagementServerAccessInformation) GetValue() interface{} {
-	if p.oneOfType1003 != nil && *p.oneOfType1003.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1003
-	}
-	if p.oneOfType1106 != nil && *p.oneOfType1106.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1106
-	}
-	return nil
-}
-
-func (p *OneOfKeyManagementServerAccessInformation) UnmarshalJSON(b []byte) error {
-	vOneOfType1003 := new(AzureAccessInformation)
-	if err := json.Unmarshal(b, vOneOfType1003); err == nil {
-		if "security.v4.config.AzureAccessInformation" == *vOneOfType1003.ObjectType_ {
-			if nil == p.oneOfType1003 {
-				p.oneOfType1003 = new(AzureAccessInformation)
-			}
-			*p.oneOfType1003 = *vOneOfType1003
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1003.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1003.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1106 := new(KmipAccessInformation)
-	if err := json.Unmarshal(b, vOneOfType1106); err == nil {
-		if "security.v4.config.KmipAccessInformation" == *vOneOfType1106.ObjectType_ {
-			if nil == p.oneOfType1106 {
-				p.oneOfType1106 = new(KmipAccessInformation)
-			}
-			*p.oneOfType1106 = *vOneOfType1106
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1106.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1106.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfKeyManagementServerAccessInformation"))
-}
-
-func (p *OneOfKeyManagementServerAccessInformation) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1003 != nil && *p.oneOfType1003.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1003)
-	}
-	if p.oneOfType1106 != nil && *p.oneOfType1106.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1106)
-	}
-	return nil, errors.New("No value to marshal for OneOfKeyManagementServerAccessInformation")
+	return nil, errors.New("No value to marshal for OneOfListKeyManagementServersApiResponseData")
 }
 
 type OneOfCredentialCredentialDetails struct {
@@ -5027,6 +6470,8 @@ type OneOfCredentialCredentialDetails struct {
 	oneOfType1003 *IntersightCredential `json:"-"`
 	oneOfType1002 *VcenterCredential    `json:"-"`
 	oneOfType1001 *BmcCredential        `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfCredentialCredentialDetails() *OneOfCredentialCredentialDetails {
@@ -5087,6 +6532,9 @@ func (p *OneOfCredentialCredentialDetails) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCredentialCredentialDetails) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1003 != nil && *p.oneOfType1003.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1003
 	}
@@ -5100,9 +6548,110 @@ func (p *OneOfCredentialCredentialDetails) GetValue() interface{} {
 }
 
 func (p *OneOfCredentialCredentialDetails) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1003 := new(IntersightCredential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1003)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1003.ObjectType_ != nil && "security.v4.config.IntersightCredential" == *vOneOfType1003.ObjectType_ {
+							if nil == p.oneOfType1003 {
+								p.oneOfType1003 = new(IntersightCredential)
+							}
+							*p.oneOfType1003 = *vOneOfType1003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1003.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1003.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1002 := new(VcenterCredential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1002)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1002.ObjectType_ != nil && "security.v4.config.VcenterCredential" == *vOneOfType1002.ObjectType_ {
+							if nil == p.oneOfType1002 {
+								p.oneOfType1002 = new(VcenterCredential)
+							}
+							*p.oneOfType1002 = *vOneOfType1002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1002.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1002.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1001 := new(BmcCredential)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1001.ObjectType_ != nil && "security.v4.config.BmcCredential" == *vOneOfType1001.ObjectType_ {
+							if nil == p.oneOfType1001 {
+								p.oneOfType1001 = new(BmcCredential)
+							}
+							*p.oneOfType1001 = *vOneOfType1001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1003 := new(IntersightCredential)
 	if err := json.Unmarshal(b, vOneOfType1003); err == nil {
-		if "security.v4.config.IntersightCredential" == *vOneOfType1003.ObjectType_ {
+		if vOneOfType1003.ObjectType_ != nil && "security.v4.config.IntersightCredential" == *vOneOfType1003.ObjectType_ {
 			if nil == p.oneOfType1003 {
 				p.oneOfType1003 = new(IntersightCredential)
 			}
@@ -5120,7 +6669,7 @@ func (p *OneOfCredentialCredentialDetails) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1002 := new(VcenterCredential)
 	if err := json.Unmarshal(b, vOneOfType1002); err == nil {
-		if "security.v4.config.VcenterCredential" == *vOneOfType1002.ObjectType_ {
+		if vOneOfType1002.ObjectType_ != nil && "security.v4.config.VcenterCredential" == *vOneOfType1002.ObjectType_ {
 			if nil == p.oneOfType1002 {
 				p.oneOfType1002 = new(VcenterCredential)
 			}
@@ -5138,7 +6687,7 @@ func (p *OneOfCredentialCredentialDetails) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1001 := new(BmcCredential)
 	if err := json.Unmarshal(b, vOneOfType1001); err == nil {
-		if "security.v4.config.BmcCredential" == *vOneOfType1001.ObjectType_ {
+		if vOneOfType1001.ObjectType_ != nil && "security.v4.config.BmcCredential" == *vOneOfType1001.ObjectType_ {
 			if nil == p.oneOfType1001 {
 				p.oneOfType1001 = new(BmcCredential)
 			}
@@ -5154,10 +6703,31 @@ func (p *OneOfCredentialCredentialDetails) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCredentialCredentialDetails"))
 }
 
 func (p *OneOfCredentialCredentialDetails) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1003 != nil && *p.oneOfType1003.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1003)
 	}
@@ -5170,11 +6740,1936 @@ func (p *OneOfCredentialCredentialDetails) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfCredentialCredentialDetails")
 }
 
+type OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType2001 []import3.AppMessage   `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfUpdateSecurityConfigsVisibilitySettingApiResponseData() *OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData {
+	p := new(OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []import3.AppMessage:
+		p.oneOfType2001 = v.([]import3.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.error.AppMessage>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<security.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.error.AppMessage>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]import3.AppMessage)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.error.AppMessage" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.error.AppMessage>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.error.AppMessage>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]import3.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.error.AppMessage" == *((*vOneOfType2001)[0].ObjectType_)) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData"))
+}
+
+func (p *OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<security.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSecurityConfigsVisibilitySettingApiResponseData")
+}
+
+type OneOfDeleteKeyManagementServerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import2.TaskReference `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfDeleteKeyManagementServerApiResponseData() *OneOfDeleteKeyManagementServerApiResponseData {
+	p := new(OneOfDeleteKeyManagementServerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteKeyManagementServerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteKeyManagementServerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import2.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import2.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteKeyManagementServerApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import2.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2001 := new(import2.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import2.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteKeyManagementServerApiResponseData"))
+}
+
+func (p *OneOfDeleteKeyManagementServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteKeyManagementServerApiResponseData")
+}
+
+type OneOfGetSecurityProfileApiResponseData struct {
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType401  *SecurityProfileProjection `json:"-"`
+	oneOfType2001 *SecurityProfile           `json:"-"`
+	oneOfType400  *import3.ErrorResponse     `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfGetSecurityProfileApiResponseData() *OneOfGetSecurityProfileApiResponseData {
+	p := new(OneOfGetSecurityProfileApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSecurityProfileApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSecurityProfileApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case SecurityProfileProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(SecurityProfileProjection)
+		}
+		*p.oneOfType401 = v.(SecurityProfileProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
+	case SecurityProfile:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(SecurityProfile)
+		}
+		*p.oneOfType2001 = v.(SecurityProfile)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSecurityProfileApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetSecurityProfileApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(SecurityProfileProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "security.v4.config.SecurityProfileProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(SecurityProfileProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(SecurityProfile)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "security.v4.config.SecurityProfile" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(SecurityProfile)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType401 := new(SecurityProfileProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "security.v4.config.SecurityProfileProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(SecurityProfileProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(SecurityProfile)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "security.v4.config.SecurityProfile" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(SecurityProfile)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSecurityProfileApiResponseData"))
+}
+
+func (p *OneOfGetSecurityProfileApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSecurityProfileApiResponseData")
+}
+
+type OneOfGetAdvancedConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType2001 *AdvancedConfig        `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfGetAdvancedConfigApiResponseData() *OneOfGetAdvancedConfigApiResponseData {
+	p := new(OneOfGetAdvancedConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetAdvancedConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetAdvancedConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case AdvancedConfig:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(AdvancedConfig)
+		}
+		*p.oneOfType2001 = v.(AdvancedConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetAdvancedConfigApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetAdvancedConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(AdvancedConfig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "security.v4.config.AdvancedConfig" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(AdvancedConfig)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(AdvancedConfig)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "security.v4.config.AdvancedConfig" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(AdvancedConfig)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetAdvancedConfigApiResponseData"))
+}
+
+func (p *OneOfGetAdvancedConfigApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetAdvancedConfigApiResponseData")
+}
+
+type OneOfUpdateCredentialApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1010 *import2.TaskReference `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfUpdateCredentialApiResponseData() *OneOfUpdateCredentialApiResponseData {
+	p := new(OneOfUpdateCredentialApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateCredentialApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateCredentialApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.TaskReference:
+		if nil == p.oneOfType1010 {
+			p.oneOfType1010 = new(import2.TaskReference)
+		}
+		*p.oneOfType1010 = v.(import2.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1010.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1010.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateCredentialApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType1010 != nil && *p.oneOfType1010.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1010
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateCredentialApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1010 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1010)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1010.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType1010.ObjectType_ {
+							if nil == p.oneOfType1010 {
+								p.oneOfType1010 = new(import2.TaskReference)
+							}
+							*p.oneOfType1010 = *vOneOfType1010
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1010.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1010.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType1010 := new(import2.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType1010); err == nil {
+		if vOneOfType1010.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType1010.ObjectType_ {
+			if nil == p.oneOfType1010 {
+				p.oneOfType1010 = new(import2.TaskReference)
+			}
+			*p.oneOfType1010 = *vOneOfType1010
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1010.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1010.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCredentialApiResponseData"))
+}
+
+func (p *OneOfUpdateCredentialApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType1010 != nil && *p.oneOfType1010.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1010)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateCredentialApiResponseData")
+}
+
+type OneOfGetSecurityConfigsVisibilitySettingApiResponseData struct {
+	Discriminator *string                          `json:"-"`
+	ObjectType_   *string                          `json:"-"`
+	oneOfType400  *import3.ErrorResponse           `json:"-"`
+	oneOfType2001 *SecurityConfigVisibilitySetting `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfGetSecurityConfigsVisibilitySettingApiResponseData() *OneOfGetSecurityConfigsVisibilitySettingApiResponseData {
+	p := new(OneOfGetSecurityConfigsVisibilitySettingApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSecurityConfigsVisibilitySettingApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSecurityConfigsVisibilitySettingApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case SecurityConfigVisibilitySetting:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(SecurityConfigVisibilitySetting)
+		}
+		*p.oneOfType2001 = v.(SecurityConfigVisibilitySetting)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSecurityConfigsVisibilitySettingApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetSecurityConfigsVisibilitySettingApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(SecurityConfigVisibilitySetting)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "security.v4.config.SecurityConfigVisibilitySetting" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(SecurityConfigVisibilitySetting)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(SecurityConfigVisibilitySetting)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "security.v4.config.SecurityConfigVisibilitySetting" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(SecurityConfigVisibilitySetting)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSecurityConfigsVisibilitySettingApiResponseData"))
+}
+
+func (p *OneOfGetSecurityConfigsVisibilitySettingApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSecurityConfigsVisibilitySettingApiResponseData")
+}
+
+type OneOfCreateKeyManagementServerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import2.TaskReference `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfCreateKeyManagementServerApiResponseData() *OneOfCreateKeyManagementServerApiResponseData {
+	p := new(OneOfCreateKeyManagementServerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateKeyManagementServerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateKeyManagementServerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import2.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import2.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateKeyManagementServerApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import2.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2001 := new(import2.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import2.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateKeyManagementServerApiResponseData"))
+}
+
+func (p *OneOfCreateKeyManagementServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateKeyManagementServerApiResponseData")
+}
+
+type OneOfKeyManagementServerAccessInformation struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType1003 *AzureAccessInformation `json:"-"`
+	oneOfType1106 *KmipAccessInformation  `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfKeyManagementServerAccessInformation() *OneOfKeyManagementServerAccessInformation {
+	p := new(OneOfKeyManagementServerAccessInformation)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfKeyManagementServerAccessInformation) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfKeyManagementServerAccessInformation is nil"))
+	}
+	switch v.(type) {
+	case AzureAccessInformation:
+		if nil == p.oneOfType1003 {
+			p.oneOfType1003 = new(AzureAccessInformation)
+		}
+		*p.oneOfType1003 = v.(AzureAccessInformation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1003.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1003.ObjectType_
+	case KmipAccessInformation:
+		if nil == p.oneOfType1106 {
+			p.oneOfType1106 = new(KmipAccessInformation)
+		}
+		*p.oneOfType1106 = v.(KmipAccessInformation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1106.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1106.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfKeyManagementServerAccessInformation) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType1003 != nil && *p.oneOfType1003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1003
+	}
+	if p.oneOfType1106 != nil && *p.oneOfType1106.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1106
+	}
+	return nil
+}
+
+func (p *OneOfKeyManagementServerAccessInformation) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1003 := new(AzureAccessInformation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1003)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1003.ObjectType_ != nil && "security.v4.config.AzureAccessInformation" == *vOneOfType1003.ObjectType_ {
+							if nil == p.oneOfType1003 {
+								p.oneOfType1003 = new(AzureAccessInformation)
+							}
+							*p.oneOfType1003 = *vOneOfType1003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1003.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1003.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1106 := new(KmipAccessInformation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1106)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1106.ObjectType_ != nil && "security.v4.config.KmipAccessInformation" == *vOneOfType1106.ObjectType_ {
+							if nil == p.oneOfType1106 {
+								p.oneOfType1106 = new(KmipAccessInformation)
+							}
+							*p.oneOfType1106 = *vOneOfType1106
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1106.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1106.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType1003 := new(AzureAccessInformation)
+	if err := json.Unmarshal(b, vOneOfType1003); err == nil {
+		if vOneOfType1003.ObjectType_ != nil && "security.v4.config.AzureAccessInformation" == *vOneOfType1003.ObjectType_ {
+			if nil == p.oneOfType1003 {
+				p.oneOfType1003 = new(AzureAccessInformation)
+			}
+			*p.oneOfType1003 = *vOneOfType1003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1003.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1003.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType1106 := new(KmipAccessInformation)
+	if err := json.Unmarshal(b, vOneOfType1106); err == nil {
+		if vOneOfType1106.ObjectType_ != nil && "security.v4.config.KmipAccessInformation" == *vOneOfType1106.ObjectType_ {
+			if nil == p.oneOfType1106 {
+				p.oneOfType1106 = new(KmipAccessInformation)
+			}
+			*p.oneOfType1106 = *vOneOfType1106
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1106.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1106.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfKeyManagementServerAccessInformation"))
+}
+
+func (p *OneOfKeyManagementServerAccessInformation) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType1003 != nil && *p.oneOfType1003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1003)
+	}
+	if p.oneOfType1106 != nil && *p.oneOfType1106.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1106)
+	}
+	return nil, errors.New("No value to marshal for OneOfKeyManagementServerAccessInformation")
+}
+
+type OneOfUpdateAdvancedConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import2.TaskReference `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfUpdateAdvancedConfigApiResponseData() *OneOfUpdateAdvancedConfigApiResponseData {
+	p := new(OneOfUpdateAdvancedConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateAdvancedConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateAdvancedConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import2.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import2.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateAdvancedConfigApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateAdvancedConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import2.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2001 := new(import2.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import2.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateAdvancedConfigApiResponseData"))
+}
+
+func (p *OneOfUpdateAdvancedConfigApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateAdvancedConfigApiResponseData")
+}
+
 type OneOfUpdateKeyManagementServerApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import2.TaskReference `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfUpdateKeyManagementServerApiResponseData() *OneOfUpdateKeyManagementServerApiResponseData {
@@ -5222,6 +8717,9 @@ func (p *OneOfUpdateKeyManagementServerApiResponseData) SetValue(v interface{}) 
 }
 
 func (p *OneOfUpdateKeyManagementServerApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -5232,9 +8730,79 @@ func (p *OneOfUpdateKeyManagementServerApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfUpdateKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import2.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import2.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import3.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import3.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType2001 := new(import2.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(import2.TaskReference)
 			}
@@ -5252,7 +8820,7 @@ func (p *OneOfUpdateKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) 
 	}
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import3.ErrorResponse)
 			}
@@ -5268,10 +8836,31 @@ func (p *OneOfUpdateKeyManagementServerApiResponseData) UnmarshalJSON(b []byte) 
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateKeyManagementServerApiResponseData"))
 }
 
 func (p *OneOfUpdateKeyManagementServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}

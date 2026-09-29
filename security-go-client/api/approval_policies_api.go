@@ -78,7 +78,7 @@ func (api *ApprovalPoliciesServiceApi) AssociatePolicies(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/management/approval-policies/{extId}/$actions/associate-policies"
+	uri := "/api/security/v4.2/management/approval-policies/{extId}/$actions/associate-policies"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,9 +119,15 @@ func (api *ApprovalPoliciesServiceApi) AssociatePolicies(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AssociatePoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -142,7 +148,7 @@ func (api *ApprovalPoliciesServiceApi) CreateApprovalPolicy(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/management/approval-policies"
+	uri := "/api/security/v4.2/management/approval-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -177,9 +183,15 @@ func (api *ApprovalPoliciesServiceApi) CreateApprovalPolicy(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateApprovalPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -201,7 +213,7 @@ func (api *ApprovalPoliciesServiceApi) GetApprovalPolicyByExtId(ctx context.Cont
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/management/approval-policies/{extId}"
+	uri := "/api/security/v4.2/management/approval-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -242,9 +254,15 @@ func (api *ApprovalPoliciesServiceApi) GetApprovalPolicyByExtId(ctx context.Cont
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetApprovalPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -267,7 +285,7 @@ func (api *ApprovalPoliciesServiceApi) ListApprovalPolicies(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/management/approval-policies"
+	uri := "/api/security/v4.2/management/approval-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -307,9 +325,15 @@ func (api *ApprovalPoliciesServiceApi) ListApprovalPolicies(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListApprovalPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -331,7 +355,7 @@ func (api *ApprovalPoliciesServiceApi) UpdateApprovalPolicyByExtId(ctx context.C
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/management/approval-policies/{extId}"
+	uri := "/api/security/v4.2/management/approval-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -372,8 +396,14 @@ func (api *ApprovalPoliciesServiceApi) UpdateApprovalPolicyByExtId(ctx context.C
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateApprovalPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

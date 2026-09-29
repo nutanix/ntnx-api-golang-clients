@@ -1,10 +1,8 @@
-package stigs
+package securityprofiles
 
-// This file holds the request struct for the ListStigSummaries operation.
+// This file holds the request struct for the ListSecurityProfiles operation.
 
-//
-// Deprecated: The API corresponding to this struct has been deprecated.
-type ListStigSummariesRequest struct {
+type ListSecurityProfilesRequest struct {
 	// A URL query parameter that specifies the page number of the result set. It must be a positive integer between 0 and the
 	// maximum number of pages that are available for that resource. Any number out of this range might lead to no results. If
 	// both $page and $apply query parameters are present, $page will be applied on entities within the groups.

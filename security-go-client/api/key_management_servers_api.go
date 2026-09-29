@@ -77,7 +77,7 @@ func (api *KeyManagementServersServiceApi) CreateKeyManagementServer(ctx context
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/config/key-management-servers"
+	uri := "/api/security/v4.2/config/key-management-servers"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *KeyManagementServersServiceApi) CreateKeyManagementServer(ctx context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.CreateKeyManagementServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *KeyManagementServersServiceApi) DeleteKeyManagementServerById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/config/key-management-servers/{extId}"
+	uri := "/api/security/v4.2/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *KeyManagementServersServiceApi) DeleteKeyManagementServerById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.DeleteKeyManagementServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *KeyManagementServersServiceApi) GetKeyManagementServerById(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/config/key-management-servers/{extId}"
+	uri := "/api/security/v4.2/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *KeyManagementServersServiceApi) GetKeyManagementServerById(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.GetKeyManagementServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -253,7 +271,7 @@ func (api *KeyManagementServersServiceApi) ListKeyManagementServers(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/config/key-management-servers"
+	uri := "/api/security/v4.2/config/key-management-servers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -283,9 +301,15 @@ func (api *KeyManagementServersServiceApi) ListKeyManagementServers(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListKeyManagementServersApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -307,7 +331,7 @@ func (api *KeyManagementServersServiceApi) UpdateKeyManagementServerById(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/config/key-management-servers/{extId}"
+	uri := "/api/security/v4.2/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -348,8 +372,14 @@ func (api *KeyManagementServersServiceApi) UpdateKeyManagementServerById(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.UpdateKeyManagementServerApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

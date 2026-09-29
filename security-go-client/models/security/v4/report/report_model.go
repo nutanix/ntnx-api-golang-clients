@@ -1,7 +1,7 @@
 /*
  * Generated file models/security/v4/report/report_model.go.
  *
- * Product version: 4.1.2
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Security APIs
  *
@@ -123,14 +123,14 @@ func NewIssueSummary() *IssueSummary {
 	p := new(IssueSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.IssueSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/report/security-summaries Get operation
+REST response for all response codes in API path /security/v4.2/report/security-summaries Get operation
 */
 type ListSecuritySummariesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -230,7 +230,7 @@ func NewListSecuritySummariesApiResponse() *ListSecuritySummariesApiResponse {
 	p := new(ListSecuritySummariesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.ListSecuritySummariesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -258,7 +258,7 @@ func (p *ListSecuritySummariesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/report/stig-summaries Get operation
+REST response for all response codes in API path /security/v4.2/report/stig-summaries Get operation
 */
 type ListStigSummariesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -358,7 +358,7 @@ func NewListStigSummariesApiResponse() *ListStigSummariesApiResponse {
 	p := new(ListStigSummariesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.ListStigSummariesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -386,7 +386,7 @@ func (p *ListStigSummariesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/report/stigs Get operation
+REST response for all response codes in API path /security/v4.2/report/stigs Get operation
 */
 type ListStigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -486,7 +486,7 @@ func NewListStigsApiResponse() *ListStigsApiResponse {
 	p := new(ListStigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.ListStigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -514,7 +514,7 @@ func (p *ListStigsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/report/vulnerabilities Get operation
+REST response for all response codes in API path /security/v4.2/report/vulnerabilities Get operation
 */
 type ListVulnerabilitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -614,7 +614,7 @@ func NewListVulnerabilitiesApiResponse() *ListVulnerabilitiesApiResponse {
 	p := new(ListVulnerabilitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.ListVulnerabilitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -642,7 +642,7 @@ func (p *ListVulnerabilitiesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.1/report/security-summaries/$actions/refresh Post operation
+REST response for all response codes in API path /security/v4.2/report/security-summaries/$actions/refresh Post operation
 */
 type RefreshSecuritySummariesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -742,7 +742,7 @@ func NewRefreshSecuritySummariesApiResponse() *RefreshSecuritySummariesApiRespon
 	p := new(RefreshSecuritySummariesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.RefreshSecuritySummariesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -898,7 +898,7 @@ func NewSecurityConfigSummary() *SecurityConfigSummary {
 	p := new(SecurityConfigSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.SecurityConfigSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1055,7 +1055,7 @@ func NewSecuritySummary() *SecuritySummary {
 	p := new(SecuritySummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.SecuritySummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1215,7 +1215,7 @@ func NewSecuritySummaryProjection() *SecuritySummaryProjection {
 	p := new(SecuritySummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.SecuritySummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1572,7 +1572,7 @@ func NewStig() *Stig {
 	p := new(Stig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.Stig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1756,7 +1756,7 @@ func NewStigProjection() *StigProjection {
 	p := new(StigProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1883,7 +1883,7 @@ func NewStigSecuritySummary() *StigSecuritySummary {
 	p := new(StigSecuritySummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigSecuritySummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2109,7 +2109,7 @@ func NewStigSummary() *StigSummary {
 	p := new(StigSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2255,7 +2255,7 @@ func NewStigSummaryProjection() *StigSummaryProjection {
 	p := new(StigSummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigSummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2358,7 +2358,7 @@ func NewTrendValue() *TrendValue {
 	p := new(TrendValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.TrendValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2523,7 +2523,7 @@ func NewVulnerability() *Vulnerability {
 	p := new(Vulnerability)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.Vulnerability"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2632,7 +2632,7 @@ func NewVulnerabilityDetail() *VulnerabilityDetail {
 	p := new(VulnerabilityDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.VulnerabilityDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2794,7 +2794,7 @@ func NewVulnerabilityProjection() *VulnerabilityProjection {
 	p := new(VulnerabilityProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.VulnerabilityProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2905,147 +2905,10 @@ func NewVulnerabilitySummary() *VulnerabilitySummary {
 	p := new(VulnerabilitySummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.VulnerabilitySummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-type OneOfListStigSummariesApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import1.ErrorResponse  `json:"-"`
-	oneOfType2006 []StigSummary           `json:"-"`
-	oneOfType401  []StigSummaryProjection `json:"-"`
-}
-
-func NewOneOfListStigSummariesApiResponseData() *OneOfListStigSummariesApiResponseData {
-	p := new(OneOfListStigSummariesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListStigSummariesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListStigSummariesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []StigSummary:
-		p.oneOfType2006 = v.([]StigSummary)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<security.v4.report.StigSummary>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<security.v4.report.StigSummary>"
-	case []StigSummaryProjection:
-		p.oneOfType401 = v.([]StigSummaryProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<security.v4.report.StigSummaryProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<security.v4.report.StigSummaryProjection>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListStigSummariesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<security.v4.report.StigSummary>" == *p.Discriminator {
-		return p.oneOfType2006
-	}
-	if "List<security.v4.report.StigSummaryProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	return nil
-}
-
-func (p *OneOfListStigSummariesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2006 := new([]StigSummary)
-	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
-		if len(*vOneOfType2006) == 0 || "security.v4.report.StigSummary" == *((*vOneOfType2006)[0].ObjectType_) {
-			p.oneOfType2006 = *vOneOfType2006
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<security.v4.report.StigSummary>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<security.v4.report.StigSummary>"
-			return nil
-		}
-	}
-	vOneOfType401 := new([]StigSummaryProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "security.v4.report.StigSummaryProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<security.v4.report.StigSummaryProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<security.v4.report.StigSummaryProjection>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListStigSummariesApiResponseData"))
-}
-
-func (p *OneOfListStigSummariesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<security.v4.report.StigSummary>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2006)
-	}
-	if "List<security.v4.report.StigSummaryProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	return nil, errors.New("No value to marshal for OneOfListStigSummariesApiResponseData")
 }
 
 type OneOfListStigsApiResponseData struct {
@@ -3054,6 +2917,8 @@ type OneOfListStigsApiResponseData struct {
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 	oneOfType2006 []Stig                 `json:"-"`
 	oneOfType401  []StigProjection       `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListStigsApiResponseData() *OneOfListStigsApiResponseData {
@@ -3108,6 +2973,9 @@ func (p *OneOfListStigsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListStigsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -3121,9 +2989,104 @@ func (p *OneOfListStigsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListStigsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.Stig>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2006 := new([]Stig)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2006)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2006 == nil || len(*vOneOfType2006) == 0 || ((*vOneOfType2006)[0].ObjectType_ != nil && "security.v4.report.Stig" == *((*vOneOfType2006)[0].ObjectType_)) {
+							p.oneOfType2006 = *vOneOfType2006
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.Stig>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.Stig>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.StigProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]StigProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.StigProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.StigProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.StigProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3141,7 +3104,7 @@ func (p *OneOfListStigsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2006 := new([]Stig)
 	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
-		if len(*vOneOfType2006) == 0 || "security.v4.report.Stig" == *((*vOneOfType2006)[0].ObjectType_) {
+		if len(*vOneOfType2006) == 0 || (vOneOfType2006 != nil && (*vOneOfType2006)[0].ObjectType_ != nil && "security.v4.report.Stig" == *((*vOneOfType2006)[0].ObjectType_)) {
 			p.oneOfType2006 = *vOneOfType2006
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -3156,7 +3119,7 @@ func (p *OneOfListStigsApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType401 := new([]StigProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "security.v4.report.StigProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.StigProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -3169,10 +3132,31 @@ func (p *OneOfListStigsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListStigsApiResponseData"))
 }
 
 func (p *OneOfListStigsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -3185,24 +3169,26 @@ func (p *OneOfListStigsApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListStigsApiResponseData")
 }
 
-type OneOfListVulnerabilitiesApiResponseData struct {
-	Discriminator *string                   `json:"-"`
-	ObjectType_   *string                   `json:"-"`
-	oneOfType400  *import1.ErrorResponse    `json:"-"`
-	oneOfType2002 []Vulnerability           `json:"-"`
-	oneOfType401  []VulnerabilityProjection `json:"-"`
+type OneOfListStigSummariesApiResponseData struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType400  *import1.ErrorResponse  `json:"-"`
+	oneOfType401  []StigSummaryProjection `json:"-"`
+	oneOfType2006 []StigSummary           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListVulnerabilitiesApiResponseData() *OneOfListVulnerabilitiesApiResponseData {
-	p := new(OneOfListVulnerabilitiesApiResponseData)
+func NewOneOfListStigSummariesApiResponseData() *OneOfListStigSummariesApiResponseData {
+	p := new(OneOfListStigSummariesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListVulnerabilitiesApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListStigSummariesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListVulnerabilitiesApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListStigSummariesApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.ErrorResponse:
@@ -3218,49 +3204,147 @@ func (p *OneOfListVulnerabilitiesApiResponseData) SetValue(v interface{}) error 
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Vulnerability:
-		p.oneOfType2002 = v.([]Vulnerability)
+	case []StigSummaryProjection:
+		p.oneOfType401 = v.([]StigSummaryProjection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<security.v4.report.Vulnerability>"
+		*p.Discriminator = "List<security.v4.report.StigSummaryProjection>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<security.v4.report.Vulnerability>"
-	case []VulnerabilityProjection:
-		p.oneOfType401 = v.([]VulnerabilityProjection)
+		*p.ObjectType_ = "List<security.v4.report.StigSummaryProjection>"
+	case []StigSummary:
+		p.oneOfType2006 = v.([]StigSummary)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<security.v4.report.VulnerabilityProjection>"
+		*p.Discriminator = "List<security.v4.report.StigSummary>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<security.v4.report.VulnerabilityProjection>"
+		*p.ObjectType_ = "List<security.v4.report.StigSummary>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListVulnerabilitiesApiResponseData) GetValue() interface{} {
+func (p *OneOfListStigSummariesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<security.v4.report.Vulnerability>" == *p.Discriminator {
-		return p.oneOfType2002
-	}
-	if "List<security.v4.report.VulnerabilityProjection>" == *p.Discriminator {
+	if "List<security.v4.report.StigSummaryProjection>" == *p.Discriminator {
 		return p.oneOfType401
+	}
+	if "List<security.v4.report.StigSummary>" == *p.Discriminator {
+		return p.oneOfType2006
 	}
 	return nil
 }
 
-func (p *OneOfListVulnerabilitiesApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListStigSummariesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.StigSummaryProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]StigSummaryProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.StigSummaryProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.StigSummaryProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.StigSummaryProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.StigSummary>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2006 := new([]StigSummary)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2006)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2006 == nil || len(*vOneOfType2006) == 0 || ((*vOneOfType2006)[0].ObjectType_ != nil && "security.v4.report.StigSummary" == *((*vOneOfType2006)[0].ObjectType_)) {
+							p.oneOfType2006 = *vOneOfType2006
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.StigSummary>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.StigSummary>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3276,50 +3360,71 @@ func (p *OneOfListVulnerabilitiesApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
-	vOneOfType2002 := new([]Vulnerability)
-	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if len(*vOneOfType2002) == 0 || "security.v4.report.Vulnerability" == *((*vOneOfType2002)[0].ObjectType_) {
-			p.oneOfType2002 = *vOneOfType2002
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<security.v4.report.Vulnerability>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<security.v4.report.Vulnerability>"
-			return nil
-		}
-	}
-	vOneOfType401 := new([]VulnerabilityProjection)
+	vOneOfType401 := new([]StigSummaryProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "security.v4.report.VulnerabilityProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.StigSummaryProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<security.v4.report.VulnerabilityProjection>"
+			*p.Discriminator = "List<security.v4.report.StigSummaryProjection>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<security.v4.report.VulnerabilityProjection>"
+			*p.ObjectType_ = "List<security.v4.report.StigSummaryProjection>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVulnerabilitiesApiResponseData"))
+	vOneOfType2006 := new([]StigSummary)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if len(*vOneOfType2006) == 0 || (vOneOfType2006 != nil && (*vOneOfType2006)[0].ObjectType_ != nil && "security.v4.report.StigSummary" == *((*vOneOfType2006)[0].ObjectType_)) {
+			p.oneOfType2006 = *vOneOfType2006
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.report.StigSummary>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.report.StigSummary>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListStigSummariesApiResponseData"))
 }
 
-func (p *OneOfListVulnerabilitiesApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListStigSummariesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<security.v4.report.Vulnerability>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2002)
-	}
-	if "List<security.v4.report.VulnerabilityProjection>" == *p.Discriminator {
+	if "List<security.v4.report.StigSummaryProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
 	}
-	return nil, errors.New("No value to marshal for OneOfListVulnerabilitiesApiResponseData")
+	if "List<security.v4.report.StigSummary>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
+	}
+	return nil, errors.New("No value to marshal for OneOfListStigSummariesApiResponseData")
 }
 
 type OneOfListSecuritySummariesApiResponseData struct {
@@ -3328,6 +3433,8 @@ type OneOfListSecuritySummariesApiResponseData struct {
 	oneOfType400  *import1.ErrorResponse      `json:"-"`
 	oneOfType401  []SecuritySummaryProjection `json:"-"`
 	oneOfType2001 []SecuritySummary           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListSecuritySummariesApiResponseData() *OneOfListSecuritySummariesApiResponseData {
@@ -3382,6 +3489,9 @@ func (p *OneOfListSecuritySummariesApiResponseData) SetValue(v interface{}) erro
 }
 
 func (p *OneOfListSecuritySummariesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -3395,9 +3505,104 @@ func (p *OneOfListSecuritySummariesApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.SecuritySummaryProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]SecuritySummaryProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.SecuritySummaryProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.SecuritySummaryProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.SecuritySummaryProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.SecuritySummary>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new([]SecuritySummary)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2001 == nil || len(*vOneOfType2001) == 0 || ((*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.report.SecuritySummary" == *((*vOneOfType2001)[0].ObjectType_)) {
+							p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.SecuritySummary>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.SecuritySummary>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3415,7 +3620,7 @@ func (p *OneOfListSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) erro
 	}
 	vOneOfType401 := new([]SecuritySummaryProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "security.v4.report.SecuritySummaryProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.SecuritySummaryProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -3430,7 +3635,7 @@ func (p *OneOfListSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) erro
 	}
 	vOneOfType2001 := new([]SecuritySummary)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "security.v4.report.SecuritySummary" == *((*vOneOfType2001)[0].ObjectType_) {
+		if len(*vOneOfType2001) == 0 || (vOneOfType2001 != nil && (*vOneOfType2001)[0].ObjectType_ != nil && "security.v4.report.SecuritySummary" == *((*vOneOfType2001)[0].ObjectType_)) {
 			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -3443,10 +3648,31 @@ func (p *OneOfListSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSecuritySummariesApiResponseData"))
 }
 
 func (p *OneOfListSecuritySummariesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -3459,11 +3685,271 @@ func (p *OneOfListSecuritySummariesApiResponseData) MarshalJSON() ([]byte, error
 	return nil, errors.New("No value to marshal for OneOfListSecuritySummariesApiResponseData")
 }
 
+type OneOfListVulnerabilitiesApiResponseData struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType400  *import1.ErrorResponse    `json:"-"`
+	oneOfType2002 []Vulnerability           `json:"-"`
+	oneOfType401  []VulnerabilityProjection `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListVulnerabilitiesApiResponseData() *OneOfListVulnerabilitiesApiResponseData {
+	p := new(OneOfListVulnerabilitiesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVulnerabilitiesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVulnerabilitiesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Vulnerability:
+		p.oneOfType2002 = v.([]Vulnerability)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.report.Vulnerability>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.report.Vulnerability>"
+	case []VulnerabilityProjection:
+		p.oneOfType401 = v.([]VulnerabilityProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.report.VulnerabilityProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.report.VulnerabilityProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVulnerabilitiesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<security.v4.report.Vulnerability>" == *p.Discriminator {
+		return p.oneOfType2002
+	}
+	if "List<security.v4.report.VulnerabilityProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListVulnerabilitiesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.Vulnerability>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2002 := new([]Vulnerability)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2002)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType2002 == nil || len(*vOneOfType2002) == 0 || ((*vOneOfType2002)[0].ObjectType_ != nil && "security.v4.report.Vulnerability" == *((*vOneOfType2002)[0].ObjectType_)) {
+							p.oneOfType2002 = *vOneOfType2002
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.Vulnerability>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.Vulnerability>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<security.v4.report.VulnerabilityProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]VulnerabilityProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.VulnerabilityProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<security.v4.report.VulnerabilityProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<security.v4.report.VulnerabilityProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new([]Vulnerability)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if len(*vOneOfType2002) == 0 || (vOneOfType2002 != nil && (*vOneOfType2002)[0].ObjectType_ != nil && "security.v4.report.Vulnerability" == *((*vOneOfType2002)[0].ObjectType_)) {
+			p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.report.Vulnerability>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.report.Vulnerability>"
+			return nil
+		}
+	}
+	vOneOfType401 := new([]VulnerabilityProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "security.v4.report.VulnerabilityProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.report.VulnerabilityProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.report.VulnerabilityProjection>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVulnerabilitiesApiResponseData"))
+}
+
+func (p *OneOfListVulnerabilitiesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<security.v4.report.Vulnerability>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	if "List<security.v4.report.VulnerabilityProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVulnerabilitiesApiResponseData")
+}
+
 type OneOfRefreshSecuritySummariesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 	oneOfType2001 *import3.TaskReference `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfRefreshSecuritySummariesApiResponseData() *OneOfRefreshSecuritySummariesApiResponseData {
@@ -3511,6 +3997,9 @@ func (p *OneOfRefreshSecuritySummariesApiResponseData) SetValue(v interface{}) e
 }
 
 func (p *OneOfRefreshSecuritySummariesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -3521,9 +4010,79 @@ func (p *OneOfRefreshSecuritySummariesApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfRefreshSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(import3.TaskReference)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -3541,7 +4100,7 @@ func (p *OneOfRefreshSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) e
 	}
 	vOneOfType2001 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if vOneOfType2001.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
 				p.oneOfType2001 = new(import3.TaskReference)
 			}
@@ -3557,10 +4116,31 @@ func (p *OneOfRefreshSecuritySummariesApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRefreshSecuritySummariesApiResponseData"))
 }
 
 func (p *OneOfRefreshSecuritySummariesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
