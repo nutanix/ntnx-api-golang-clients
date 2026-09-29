@@ -1,7 +1,7 @@
 /*
  * Generated file models/opsmgmt/v4/content/content_model.go.
  *
- * Product version: 4.1.1-beta-1
+ * Product version: 4.1.2-beta-1
  *
  * Part of the Nutanix Cloud Management Platform APIs
  *

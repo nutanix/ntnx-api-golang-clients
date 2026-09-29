@@ -10,7 +10,7 @@ The Go client for Nutanix Cloud Management Platform APIs is designed for Go clie
 
 ## Version
 - API version: v4.1.b1
-- Package version: v4.1.1-beta.1
+- Package version: v4.1.2-beta.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.1.1-beta.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.1.2-beta.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.1.1-beta.1
+	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.1.2-beta.1
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 DashboardApiInstance = api.NewDashboardApi(ApiClientInstance)
-extId := "1C775c20-eff8-cB8c-1Dee-f175A752BE3B"
+extId := "ccB90dbE-F1D8-6eFa-FfFb-1cAbdf7a7768"
 
 // 
 getResponse, err := DashboardApiInstance.GetDashboardById(&extId)
@@ -310,7 +310,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 DashboardApiInstance = api.NewDashboardApi(ApiClientInstance)
-extId := "1C775c20-eff8-cB8c-1Dee-f175A752BE3B"
+extId := "ccB90dbE-F1D8-6eFa-FfFb-1cAbdf7a7768"
 
 // 
 getResponse, err := DashboardApiInstance.GetDashboardById(&extId)
