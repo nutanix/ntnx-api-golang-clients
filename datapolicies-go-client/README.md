@@ -10,7 +10,7 @@ The Go client for Nutanix Data Policies APIs is designed for Go client applicati
 
 ## Version
 - API version: v4.3
-- Package version: v4.3.1
+- Package version: v4.3.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/..
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/...@v4.3.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/...@v4.3.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4 v4.3.1
+	github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4 v4.3.2
 )
 ```
 
@@ -262,8 +262,8 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 RecoveryPlansApiInstance = api.NewRecoveryPlansApi(ApiClientInstance)
-recoveryPlanExtId := "Eefe2CBF-3fbd-57E8-DAaA-e09A1dDEfBE2"
-extId := "DDebDCED-d71C-dfE6-Aa7e-9154aFd9EcBd"
+recoveryPlanExtId := "8cF3FCaa-Deac-fC4F-Ee6F-dBFAAAaE70FF"
+extId := "a6bcBb72-7Deb-ea1f-63AA-8cf0CEFEE39f"
 
 // 
 getResponse, err := RecoveryPlansApiInstance.GetDataServicesIpMappingById(&recoveryPlanExtId, &extId)
@@ -311,8 +311,8 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 RecoveryPlansApiInstance = api.NewRecoveryPlansApi(ApiClientInstance)
-recoveryPlanExtId := "Eefe2CBF-3fbd-57E8-DAaA-e09A1dDEfBE2"
-extId := "DDebDCED-d71C-dfE6-Aa7e-9154aFd9EcBd"
+recoveryPlanExtId := "8cF3FCaa-Deac-fC4F-Ee6F-dBFAAAaE70FF"
+extId := "a6bcBb72-7Deb-ea1f-63AA-8cf0CEFEE39f"
 
 // 
 getResponse, err := RecoveryPlansApiInstance.GetDataServicesIpMappingById(&recoveryPlanExtId, &extId)
@@ -366,7 +366,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 RecoveryPlansApiInstance = api.NewRecoveryPlansApi(ApiClientInstance)
-recoveryPlanExtId := "8F3A065b-FaFC-82E2-Ace0-8dB5a5aC9e93"
+recoveryPlanExtId := "8CF3CE5a-badC-3a4B-fCaa-4E9F0dDB2aEf"
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"

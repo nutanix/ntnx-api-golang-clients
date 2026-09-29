@@ -41,7 +41,7 @@ var (
 	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
 	retryStatusList         = []int{408, 429, 503, 504}
-	userAgent               = "Nutanix-datapolicies/v4.3.1"
+	userAgent               = "Nutanix-datapolicies/v4.3.2"
 )
 
 /*
@@ -1140,6 +1140,9 @@ func (a *ApiClient) GetEtag(object interface{}) string {
 // Read ETag and add it to response
 func addEtagReferenceToResponse(headers http.Header, body []byte) []byte {
 	etag := headers.Get(eTag)
+	if etag == "" {
+		etag = headers.Get("X-Ntnx-Etag")
+	}
 	if etag != "" {
 		responseMap := map[string]interface{}{}
 		json.Unmarshal(body, &responseMap)
