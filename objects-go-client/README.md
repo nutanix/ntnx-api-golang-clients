@@ -10,7 +10,7 @@ The Go client for Nutanix Objects Storage Management APIs is designed for Go cli
 
 ## Version
 - API version: v4.1
-- Package version: v4.1.1
+- Package version: v4.1.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.1.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.1.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.1.1
+	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.1.2
 )
 ```
 
@@ -262,7 +262,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "aC70B5aC-FBBf-cfb0-DDBe-EeF5a403F5dF"
+extId := "0DbFBF07-A36d-d0bB-7Ab1-5B0053AcDC7E"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
@@ -310,7 +310,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "aC70B5aC-FBBf-cfb0-DDBe-EeF5a403F5dF"
+extId := "0DbFBF07-A36d-d0bB-7Ab1-5B0053AcDC7E"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
@@ -364,7 +364,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 BucketsApiInstance = api.NewBucketsApi(ApiClientInstance)
-objectStoreExtId := "c01285C4-fDdF-6dc6-cBff-2dcCca43eBFC"
+objectStoreExtId := "AE2aca7d-fECb-D6EF-0Cbc-bbfdf1995F95"
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"

@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.1.2
  *
  * Part of the Nutanix Objects Storage Management APIs
  *

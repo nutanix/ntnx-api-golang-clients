@@ -1,7 +1,7 @@
 /*
  * Generated file models/objects/v4/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.1.2
  *
  * Part of the Nutanix Objects Storage Management APIs
  *
