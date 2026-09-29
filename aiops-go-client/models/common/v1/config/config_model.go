@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 4.2.3-beta-1
+ * Product version: 4.2.4-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
